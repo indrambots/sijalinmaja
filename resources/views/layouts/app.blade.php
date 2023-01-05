@@ -11,7 +11,6 @@
   <link rel        = "shortcut icon" href="{{ asset('images/logo/logo-sby.png') }}">
   <link rel="canonical" href="https://keenthemes.com/metronic" />
         <!--begin::Fonts-->
-        @livewireStyles
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -118,15 +117,6 @@ tr.details td.details-control {
                                     <!--begin::My Cart-->
                                     <div class="dropdown">
                                         <!--begin::Toggle-->
-                                        @if(Request::url() !== $urls)
-                                        <div class="topbar-item ml-2">
-                                            <a class="btn btn-icon btn-outline-info w-auto d-flex align-items-center px-2" href="{{ url('/')  }}">
-                                                <span class="symbol symbol-35">
-                                                    <span class="symbol-label bg-white-o-30">  <i class=" mb-10 mt-10 fa fa-home" aria-hidden="true"></i></span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                         @endif
                                         <div class="topbar-item ml-2" data-toggle="dropdown" data-offset="10px,0px">
                                             <div class="btn btn-icon btn-outline-info btn-sm mr-2">
                                                 <span class="svg-icon svg-icon-xl"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo2\dist/../src/media/svg/icons\Communication\Address-card.svg-->
@@ -314,7 +304,6 @@ tr.details td.details-control {
         <script src="{{ asset('plugins/devex/js/dx.all.js')}}"></script>
         <script src = "{{ asset('js/jquery.countdown.min.js') }}"></script>
         <script src = "{{ asset('js/livewireGlobalVariable.js') }}"></script>
-        @livewireScripts
         <script>
             $.ajaxSetup({headers: {'X-CSRF-TOKEN':  document.querySelector('meta[name="csrf-token"]').content }});
         </script>
