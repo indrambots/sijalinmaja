@@ -13,10 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::prefix('kegiatan')->group(function () {
+
+    Route::get('/', 'KegiatanController@index');
+    Route::get('create/{id}','KegiatanController@create');
+    Route::post('save','KegiatanController@save');
+    Route::post('delete','KegiatanController@delete');
+    Route::post('filter-bidang','KegiatanController@filter_bidang');
+    Route::post('filter-kegiatan','KegiatanController@filter_kegiatan');
+});            
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
