@@ -9,6 +9,7 @@ use App\KegiatanPersonel;
 use App\User;
 use App\Kota;
 use App\Pegawai;
+use Yajra\Datatables\Datatables;
 use DB;
 use Auth;
 
@@ -29,12 +30,25 @@ class KegiatanController extends Controller
         $keg = Kegiatan::find($id);
         $kota = Kota::orderBy('nama','asc')->get();
         $bidang = DB::SELECT("SELECT DISTINCT(bidang) FROM master_kegiatan ORDER BY bidang ASC");
-        $pegawai = Pegawai::where('tingkat','<',11)->where('jenis_pegawai','PNS')->orderBy('tingkat','desc')->get();
+        $pegawai = Pegawai::where('tingkat','<',11)->where('jenis_pegawai','PNS')->orderBy('nama','asc')->get();
         return view('pages.kegiatan.create',compact('kota','keg','id','bidang','pegawai'));
     }
 
     public function datatable(){
-
+        $kegiatan = Kegiatan::all();
+        return Datatables::of($kegiatan)
+        ->addColumn('aksi',function($i){
+            return '<button type="button" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" >
+                <i class="flaticon-edit-1"></i>
+            </button>';
+        })->addColumn('link',function($i){
+            return '<button type="button" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" >
+                <i class="flaticon-edit-1"></i>
+            </button>';
+        })->addColumn('waktu_kegiatan',function($i){
+            return $i->tanggal_mulai." ".$i->tanggal_selesai;
+        })->rawColumns(['aksi','link','waktu_kegiatan'])
+        ->make(true);
     }
 
     public function save(Request $request){

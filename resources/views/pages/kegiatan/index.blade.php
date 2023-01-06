@@ -20,11 +20,14 @@
             <thead>
               <tr>
                 <th>id</th>
+                <th>SPT</th>
                 <th>Jenis Kegiatan</th>
-                <th>Nama Kegiatan</th>
-                <th>Tanggal</th>
+                <th>Bentuk Kegiatan</th>
+                <th>Waktu Kegiatan</th>
                 <th>Penanggung Jawab</th>
                 <th>Kota</th>
+                <th>Lokasi</th>
+                <th>Link</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -36,4 +39,34 @@
     </div>
   </div>
 </div>
+@endsection
+@section('script')
+<script type="text/javascript">
+    var datatable = $('#datatable').DataTable({
+        processing: true,
+        serverSide: false,
+        paging:true,
+        ajax:'{{ url('kegiatan/datatable') }}',
+         columns: [
+        {data: 'id', name:'id'},
+        {data: 'spt', name:'spt'},
+        {data: 'jenis_kegiatan', name:'jenis_kegiatan'},
+        {data: 'bentuk_kegiatan', name:'bentuk_kegiatan'},
+        {data: 'waktu_kegiatan', name:'waktu_kegiatan'},
+        {data: 'penanggung_jawab', name:'penanggung_jawab'},
+        {data: 'kota', name:'kota'},
+        {data: 'lokasi', name:'lokasi'},
+        {data: 'link', name:'link'},
+        {data: 'aksi', name:'aksi'},
+        ],
+        "order": [[ 0, "desc" ]],
+        "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+            },
+          ],
+      })
+</script>
 @endsection

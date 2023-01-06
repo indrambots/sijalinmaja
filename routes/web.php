@@ -21,6 +21,7 @@ Route::prefix('kegiatan')->group(function () {
     Route::get('create/{id}','KegiatanController@create');
     Route::post('save','KegiatanController@save');
     Route::post('delete','KegiatanController@delete');
+    Route::get('datatable','KegiatanController@datatable');
     Route::post('filter-bidang','KegiatanController@filter_bidang');
     Route::post('filter-kegiatan','KegiatanController@filter_kegiatan');
 });            

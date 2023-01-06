@@ -31,7 +31,7 @@
     <section class="fxt-template-animation fxt-template-layout29">
         <div class="container-fluid">
             <div class="row">
-                <div class="vegas-container col-md-6 col-12 fxt-bg-img" id="vegas-slide" data-vegas-options='{"delay":5000, "timer":false,"animation":"kenburns", "transition":"swirlLeft", "slides":[{"src": "{{ asset('assets/GSA/img/1.jpg') }}"},{"src": "{{ asset('assets/GSA/img/2.jpg') }}"}   ]}'>
+                <div class="vegas-container col-md-6 col-12 fxt-bg-img" id="vegas-slide" data-vegas-options='{"delay":5000, "timer":false,"animation":"kenburns", "transition":"swirlLeft", "slides":[{"src": "{{ asset('media/bg/1.jpeg') }}"},{"src": "{{ asset('media/bg/2.jpeg') }}"},{"src": "{{ asset('media/bg/3.jpeg') }}"}   ]}'>
                     <div class="fxt-page-switcher">
                         <a href="login-29.html" class="switcher-text1 active">Login</a>
                     </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="fxt-form">
                             <div class="fxt-transformY-50 fxt-transition-delay-1">
-                                <h2>Administrator </h2>
+                                <h2> </h2>
                             </div>
                             <form method="POST" action="{{ url('login') }}" >
                                     {{ csrf_field() }}

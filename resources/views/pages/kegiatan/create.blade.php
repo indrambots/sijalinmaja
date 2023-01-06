@@ -10,43 +10,52 @@
 </div>
  <div class="card-body">
 	  <div class="form-group row mb-5">
-	   <div class="col-lg-6">
-	    <label>Bidang:</label>
-	    <select class="form-control select2" name="bidang" id="bidang">
-	    	<option value="">--Pilih Bidang--</option>
-	    	@foreach($bidang as $b)
-	    		@if($b->bidang == $keg->bidang)
-	    		<option value="{{$b->bidang}}" selected>{{$b->bidang}}</option>
-	    		@else
-	    		<option value="{{$b->bidang}}">{{$b->bidang}}</option>
-	    		@endif
-	    	@endforeach
-	    </select>
-	   </div>
-	   <div class="col-lg-6">
-	    <label>Jenis Kegiatan:</label>
-	    <select class="form-control select2" name="jenis_kegiatan" id="jenis_kegiatan">
-	    	<option value="">--Pilih Jenis Kegiatan--</option>
-	    </select>
-	   </div>
+		   <div class="col-lg-4">
+		    <label>Bidang:</label>
+		    <select class="form-control select2" name="bidang" id="bidang">
+		    	<option value="">--Pilih Bidang--</option>
+		    	@foreach($bidang as $b)
+		    		@if($b->bidang == $keg->bidang)
+		    		<option value="{{$b->bidang}}" selected>{{$b->bidang}}</option>
+		    		@else
+		    		<option value="{{$b->bidang}}">{{$b->bidang}}</option>
+		    		@endif
+		    	@endforeach
+		    </select>
+		   </div>
+		   <div class="col-lg-4">
+		    <label>Jenis Kegiatan:</label>
+		    <select class="form-control select2" name="jenis_kegiatan" id="jenis_kegiatan">
+		    	<option value="">--Pilih Jenis Kegiatan--</option>
+		    </select>
+		   </div>
+		   <div class="col-lg-4">
+		    <label>Bentuk Kegiatan:</label>
+		    <select class="form-control select2" name="bentuk_kegiatan" id="bentuk_kegiatan">
+		    	<option value="">--Pilih Bentuk Kegiatan--</option>
+		    </select>
+		   </div>
 	   </div>
 	  <div class="form-group row mt-2">
-	   <div class="col-lg-6">
-	    <label>Bentuk Kegiatan:</label>
-	    <select class="form-control" name="bentuk_kegiatan" id="bentuk_kegiatan">
-	    	<option value="">--Pilih Bentuk Kegiatan--</option>
-	    </select>
-	   </div>
 	   <div class="col-lg-6">
 	    <label>Nama Kegiatan:</label>
 	    <input class="form-control" type="text" name="nama_kegiatan" id="nama_kegiatan" value="{{$keg->nama_kegiatan}}" required placeholder="Misal(Gubernur Jawa Timur Dalam Rangka Menerima Brigjen TNI)">
 	    <span class="form-text text-danger">Tidak perlu dituliskan lagi seperti ini(Melaksanakan Pengawalan/Pengamanan).</span>
 	   </div>
+	   <div class="col-lg-6">
+	    <label>Seragam :</label>
+	    <select class="form-control select2" name="seragam" id="seragam">
+	    	<option value="">--Pilih Seragam--</option>
+	    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
+	    	<option value="PDL + BARET">PDL + BARET</option>
+	    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
+	    </select>
+	   </div>
 	   </div>
 	 <div class="form-group row">
 	   <div class="col-lg-6">
 	    <label>Penanggung Jawab (KATIM):</label>
-	    <select class="select2 form-control" name="penanggung_jawab" id="penanggung_jawab">
+	    <select class="form-control select2" name="penanggung_jawab" id="penanggung_jawab">
 	    	<option value="">--Pilih Penanggung Jawab(KATIM)--</option>
 	    	@foreach($pegawai as $p)
 	    		@if($keg->penanggung == $p->nama)
@@ -64,15 +73,15 @@
 	  </div>
 	  <div class="form-group row mt-2">
 	  	<div class="col-lg-4">
-		    <label>Tanggal Mulai:</label>
-		    <input type="text" name="tanggal_mulai" id="tanggal_mulai" class="datepicker form-control" placeholder="Tanggal Mulai. . ."/>
+		    <label>Tanggal Mulai :</label>
+		    <input type="text" name="tanggal_mulai" id="tanggal_mulai" class="form-control datepicker" placeholder="Tanggal Mulai. . ."/>
 	  	</div>
 	  	<div class="col-lg-4">
-		    <label>Waktu APP:</label>
+		    <label>Waktu APP :</label>
 		    <input type="text" name="jam_mulai" id="jam_mulai" class="form-control" placeholder="Waktu APP. . ."/>
 	  	</div>
 	  	<div class="col-lg-4">
-		    <label>Tanggal Selesai:</label>
+		    <label>Tanggal Selesai :</label>
 		    <input type="text" name="tanggal_selesai" id="tanggal_selesai" class="datepicker form-control" placeholder="Tanggal Selesai. . ."/>
 	  	</div>
 	  	</div>
@@ -96,29 +105,33 @@
 		    <input type="text" name="lokasi" id="lokasi" class="form-control" placeholder="Isikan lokasi kegiatan. . ."/>
 	  	</div>
 	  </div>
-	  <div class="form-group row mt-2">
-	  	<div class="col-lg-6">
-		    <label>Latitude:</label>
-		    <input type="text" name="lat" class="form-control" placeholder="Koordinat Latitude. . ."/>
-	  	</div>
-	  	<div class="col-lg-6">
-		    <label>Longitude:</label>
-		    <input type="text" name="long" class="form-control" placeholder="Koordinat Longitude. . ."/>
-	  	</div>
-	  </div>
-	  <div class="form-group row">
-	  	<div class="col-lg-12">
-	    <label>Ringkasan/Deskripsi Kasus:</label>
-	    <textarea rows="6" name="permasalahan" placeholder="isikan ringkasan aduan disini. . ." class="form-control"></textarea>
-	  	</div>
-	  </div>
-	  <div class="form-group row">
-	  	<div class="col-lg-12">
-	    <label>File Pendukung:</label>
-	    <input type="file" name="file_pendukung" class="form-control">
-	    <span class="form-text text-muted">File Bentuk PDF dijadikan 1 File Jika ada.</span>
-	  	</div>
-	  </div>
+	  <div class="card-body">
+ <h6 class="panel-title txt-dark" style="border-bottom:1px solid #EBEDF3;"><i class="fas fa-mail-bulk"> </i> Penugasan Personel</h6>
+	  	<div id="frmpersonel1" class="form-horizontal attributs">
+		<div class="form-group row ">
+			<div class="col-lg-6">
+				<label>Pilih Personel :</label>
+				<select class="form-control select2" name="personel[1][nama]" id="personel_nama1">
+					@foreach($pegawai as $p)
+						<option value="{{$p->nama}}">{{$p->nama}} </option>
+					@endforeach
+				</select>
+			</div>
+
+			<div class="col-lg-6">
+				<label>Jenis Penugasan : </label>
+				<select class="form-control select2" name="personel[1][jenis]" id="personel_jenis1">
+					<option value="ANGGOTA">ANGGOTA</option>
+					<option value="DOKUMENTASI">DOKUMENTASI</option>
+					<option value="PELAPORAN">PELAPORAN</option>
+					<option value="PTI">PTI</option>
+					<option value="DRIVER">DRIVER</option>
+				</select>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
  </div>
  <div class="card-footer">
   <div class="row">
@@ -133,34 +146,5 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-	$('#surat').hide();
-	$('#media').hide();
-	$('#sosmed').hide();
-	$('#sumber_informasi').on('change',function(){
-		if($(this).val() == 'sosmed'){
-			$('#surat').hide();
-			$('#media').hide();
-			$('#sosmed').show();
-		}
-		elseif($(this).val() == 'surat'){
-
-			$('#surat').show();
-			$('#media').hide();
-			$('#sosmed').hide();
-		}
-		else {
-
-			$('#surat').hide();
-			$('#media').show();
-			$('#sosmed').hide();
-		}
-	})
-
-	$('#kota').on('change',function(){
-
-	})
-	$('#kecamatan').on('change',function(){
-		
-	})
 </script>
 @endsection
