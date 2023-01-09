@@ -383,8 +383,15 @@ var loadPanel = $(".loadpanel").dxLoadPanel({
                rtl: KTUtil.isRTL(),
                todayHighlight: true,
                orientation: "bottom left",
-               autoclose: true
+               autoclose: true,
               });
+      $('.timepickers').timepicker({
+   minuteStep: 1,
+   defaultTime: '',
+   showSeconds: false,
+   showMeridian: false,
+   snapToStep: true
+  });
     $('.datepicker_readonly').datepicker({
                rtl: KTUtil.isRTL(),
                todayHighlight: true,

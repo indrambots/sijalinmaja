@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<form class="form" id="frm_create_kasus" enctype="multipart/form-data" method="POST" action="{{ url('kasus/save') }}">
+<form class="form" id="frm_create_kasus" enctype="multipart/form-data" method="POST" action="{{ url('kegiatan/save') }}">
+	{{csrf_field()}}
 <input type="hidden" name="id" value="{{ $id }}">
 <div class="card card-custom gutter-b example example-compact">
 <div class="card-header">
@@ -78,7 +79,7 @@
 	  	</div>
 	  	<div class="col-lg-4">
 		    <label>Waktu APP :</label>
-		    <input type="text" name="jam_mulai" id="jam_mulai" class="form-control" placeholder="Waktu APP. . ."/>
+		    <input type="text" name="jam_mulai" id="jam_mulai" class="timepickers form-control" placeholder="Waktu APP. . ."/>
 	  	</div>
 	  	<div class="col-lg-4">
 		    <label>Tanggal Selesai :</label>
@@ -111,16 +112,16 @@
 		<div class="form-group row ">
 			<div class="col-lg-6">
 				<label>Pilih Personel :</label>
-				<select class="form-control select2" name="personel[1][nama]" id="personel_nama1">
+				<select class="form-control pegawais" name="personel[1][nama]" id="personel_nama1">
 					@foreach($pegawai as $p)
-						<option value="{{$p->nama}}">{{$p->nama}} </option>
+						<option value="{{$p->nip}}">{{$p->nama}} </option>
 					@endforeach
 				</select>
 			</div>
 
-			<div class="col-lg-6">
+			<div class="col-lg-4">
 				<label>Jenis Penugasan : </label>
-				<select class="form-control select2" name="personel[1][jenis]" id="personel_jenis1">
+				<select class="form-control pegawais" name="personel[1][jenis]" id="personel_jenis1">
 					<option value="ANGGOTA">ANGGOTA</option>
 					<option value="DOKUMENTASI">DOKUMENTASI</option>
 					<option value="PELAPORAN">PELAPORAN</option>
@@ -128,23 +129,84 @@
 					<option value="DRIVER">DRIVER</option>
 				</select>
 			</div>
+				<button type="button" class="btn btn-sm btn-danger" class="delete_attributs" id="delete_attribut1"><i class="far fa-trash-alt"></i></button>
 			</div>
 		</div>
+		<button class="btn btn-success" type="button" id="tambah-personel">Tambah Personel </button>
 	</div>
-</div>
- </div>
  <div class="card-footer">
   <div class="row">
    <div class="col-lg-6">
-    <button type="reset" class="btn btn-primary mr-2">Save</button>
+    <button type="submit" class="btn btn-primary mr-2">Save</button>
     <button type="reset" class="btn btn-secondary">Cancel</button>
    </div>
   </div>
  </div>
  </div>	
+</div>
 </form>
 @endsection
 @section('script')
 <script type="text/javascript">
+$('.pegawais').select2({ //apply select2 to my element
+    placeholder: "Search your Tool",
+    allowClear: true
+});
+	$('#bidang').on('change',function(){
+		$.ajax({
+	      method:'POST',
+	      url:'{{ url("kegiatan/filter-bidang") }}',
+	      data:{
+	        bidang: $(this).val(),
+	        '_token': $('input[name=_token]').val()
+	      },
+	      success:function(data){
+	        console.log(data);
+	        $('#agen_tujuan').html(data.view);
+	        $('#jenis_kegiatan').html(data.view_kegiatan);        
+	        $('#bentuk_kegiatan').html(data.view_bentuk_kegiatan);
+	      }
+	    })
+	})
+	$('#jenis_kegiatan').on('change',function(){
+		$.ajax({
+	      method:'POST',
+	      url:'{{ url("kegiatan/filter-kegiatan") }}',
+	      data:{
+	        kegiatan: $(this).val(),
+	        bidang:$('#bidang').val(),
+	        '_token': $('input[name=_token]').val()
+	      },
+	      success:function(data){
+	        console.log(data);
+	        $('#bentuk_kegiatan').html(data.view_bentuk_kegiatan);
+	      }
+	    })
+	})
+
+	if ($('.attributs').length <= 1) {
+            $('.delete_attributs').hide();
+            $('#delete_attribut1').hide();
+      }
+  	$('#tambah-personel').click(function(){
+        var numb = $('.attributs').length;
+        $('.pegawais').select2("destroy");
+        var newNumb = numb + 1;
+        var newElemb = $('#frmpersonel' + numb).clone().attr('id', 'frmpersonel' + newNumb);
+        newElemb.find('#personel_nama' + numb).attr('id', 'personel_nama' + newNumb).attr('name', 'personel[' + newNumb + '][nama]').val('');
+        newElemb.find('#personel_jenis' + numb).attr('id', 'personel_jenis' + newNumb).attr('name', 'personel[' + newNumb + '][jenis]').val('');
+
+        newElemb.find('#delete_attribut' + numb).attr('id', 'delete_attribut' + newNumb).attr('onclick', 'removeAttribut("#frmpersonel' + newNumb + '")').show();
+
+        $('#frmpersonel' + numb).after(newElemb);
+$('.pegawais').select2({ //apply select2 to my element
+    placeholder: "Tambahan Personel. . .",
+    allowClear: true
+});
+      });
+    function removeAttribut(val,id){
+        $(val).remove();
+        $('input[name="delete_attribut[' + id + ']"]').val(id);
+    }
 </script>
 @endsection

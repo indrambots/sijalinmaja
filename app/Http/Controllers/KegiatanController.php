@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kegiatan;
 use App\MasterKegiatan;
+use App\MasterBentukKegiatan;
 use App\KegiatanPersonel;
 use App\User;
 use App\Kota;
@@ -52,7 +53,12 @@ class KegiatanController extends Controller
     }
 
     public function save(Request $request){
-
+        if($request->id == 0):
+            $kegiatan = new Kegiatan();
+        else:
+            $kegiatan = Kegiatan::find($request->id);
+        endif;
+            $kegiatan->save();
     }
 
     public function delete(Request $request){
@@ -60,10 +66,18 @@ class KegiatanController extends Controller
     }
 
     public function filter_bidang(Request $request){
-
+        $kegiatan = MasterKegiatan::where('bidang',$request->bidang)->get();
+        $bentuk_kegiatan = MasterBentukKegiatan::where('kegiatan_id',$kegiatan[0]->id)->get();
+        $view_kegiatan         = (string) view('pages.kegiatan.ajax.jenis_kegiatan', compact('kegiatan'));
+        $view_bentuk_kegiatan         = (string) view('pages.kegiatan.ajax.bentuk_kegiatan', compact('bentuk_kegiatan'));
+        return response()->json(array('view_kegiatan' => $view_kegiatan,'view_bentuk_kegiatan' => $view_bentuk_kegiatan));
     }
 
     public function filter_kegiatan(Request $request){
 
+        $kegiatan = MasterKegiatan::where('nama_kegiatan',$request->kegiatan)->where('bidang',$request->bidang)->first();
+        $bentuk_kegiatan = MasterBentukKegiatan::where('kegiatan_id',$kegiatan->id)->get();
+        $view_bentuk_kegiatan         = (string) view('pages.kegiatan.ajax.bentuk_kegiatan', compact('bentuk_kegiatan'));
+        return response()->json(array('view_bentuk_kegiatan' => $view_bentuk_kegiatan));
     }
 }
