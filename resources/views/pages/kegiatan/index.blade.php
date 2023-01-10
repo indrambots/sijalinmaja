@@ -56,7 +56,7 @@
         {data: 'penanggung_jawab', name:'penanggung_jawab'},
         {data: 'kota', name:'kota'},
         {data: 'lokasi', name:'lokasi'},
-        {data: 'link', name:'link'},
+        {data: 'personel', name:'personel'},
         {data: 'aksi', name:'aksi'},
         ],
         "order": [[ 0, "desc" ]],
@@ -68,5 +68,37 @@
             },
           ],
       })
+    function personel(id){
+
+    }
+    function deleteKeg(id,nospt){
+        Swal.fire({   
+                      title: "Anda Yakin?",   
+                      text: "Data Kegiatan bernomor "+nospt+" akan terhapus",   
+                      icon: "warning",   
+                      showCancelButton: true,   
+                      confirmButtonColor: "#e6b034",   
+                      confirmButtonText: "Ya, Hapus Kegiatan" 
+                       
+                  }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                            method:'POST',
+                            url:'{{ url("kegiatan/delete") }}',
+                            data:{
+                              id:id,
+                              '_token': $('input[name=_token]').val()
+                            },
+                            success:function(data){
+                                Swal.fire({title:"Terhapus!", text:"Kegiatan nomor "+nospt+" berhasil terhapus dari sistem", icon:"success"}
+                                ).then((result) => {
+                                    location.reload()
+                                })
+                              
+                            }
+                          }) 
+            } 
+         });
+    }
 </script>
 @endsection

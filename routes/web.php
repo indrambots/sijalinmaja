@@ -19,6 +19,7 @@ Route::prefix('kegiatan')->group(function () {
 
     Route::get('/', 'KegiatanController@index');
     Route::get('create/{id}','KegiatanController@create');
+    Route::get('print/{id}','KegiatanController@print');
     Route::post('save','KegiatanController@save');
     Route::post('delete','KegiatanController@delete');
     Route::get('datatable','KegiatanController@datatable');

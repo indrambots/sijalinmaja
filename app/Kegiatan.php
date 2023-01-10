@@ -13,5 +13,8 @@ class Kegiatan extends Model
     protected $guarded = ['id'];
     protected $table = 'kegiatan';
 
-
+    public function personel()
+    {
+        return $this->hasMany('App\KegiatanPersonel','kegiatan_id','id');
+    }
 }

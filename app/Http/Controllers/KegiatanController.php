@@ -26,6 +26,11 @@ class KegiatanController extends Controller
         return view('pages.kegiatan.index');
     }
 
+    public function print($id){
+        $keg = Kegiatan::find($id);
+        return view('pages.kegiatan.spt_new',compact('keg'));
+    }
+
     public function create($id)
     {
         $keg = Kegiatan::find($id);
@@ -39,30 +44,61 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::all();
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
-            return '<button type="button" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" >
+            return '  <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" >
                 <i class="flaticon-edit-1"></i>
-            </button>';
-        })->addColumn('link',function($i){
-            return '<button type="button" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" >
-                <i class="flaticon-edit-1"></i>
+            </a>
+        <a href="'.url('kegiatan/print/'.$i->id).'" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>
+        <button onclick="deleteKeg('.$i->id.',\''.$i->spt.'\')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>
+    </div>';
+        })->addColumn('personel',function($i){
+            return '<button type="button" onclick="personel('.$i->id.')" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" >
+                <i class="fas fa-user-friends"></i>
             </button>';
         })->addColumn('waktu_kegiatan',function($i){
-            return $i->tanggal_mulai." ".$i->tanggal_selesai;
-        })->rawColumns(['aksi','link','waktu_kegiatan'])
+            return date("d F Y", strtotime($i->tanggal_mulai))." - ".date("d F Y", strtotime($i->tanggal_selesai));
+        })->rawColumns(['aksi','personel','waktu_kegiatan'])
         ->make(true);
     }
 
     public function save(Request $request){
+        $bidang = MasterKegiatan::where('bidang',$request->bidang)->first();
+        $spt = "094/".$request->spt."/".$bidang->nomor_bidang."/2023";
         if($request->id == 0):
             $kegiatan = new Kegiatan();
         else:
             $kegiatan = Kegiatan::find($request->id);
+            KegiatanPersonel::where('kegiatan_id',$request->id)->delete();
         endif;
+            $kegiatan->jenis_kegiatan = $request->jenis_kegiatan;
+            $kegiatan->bidang         = $request->bidang;
+            $kegiatan->bentuk_kegiatan = $request->bentuk_kegiatan;
+            $kegiatan->judul_kegiatan = $request->nama_kegiatan;
+            $kegiatan->seragam = $request->seragam;
+            $kegiatan->penanggung_jawab = $request->penanggung_jawab;
+            $kegiatan->spt = $spt;
+            $kegiatan->no_urut_spt = $request->spt;
+            $kegiatan->tanggal_mulai = date("Y-m-d", strtotime($request->tanggal_mulai));
+            $kegiatan->tanggal_selesai = date("Y-m-d", strtotime($request->tanggal_selesai));
+            $kegiatan->jam_mulai = $request->jam_mulai;
+            $kegiatan->kota = $request->kota;
+            $kegiatan->lokasi = $request->lokasi;
             $kegiatan->save();
+        foreach($request->personel as $p):
+            $peg = Pegawai::where('nip',$p['nama'])->first();
+                KegiatanPersonel::create([
+                    "kegiatan_id" => $kegiatan->id,
+                    "nama"        => $peg->nama,
+                    "nip"         => $peg->nip,
+                    "pangkat"     => $peg->pangkat,
+                    "ket"     => $p['jenis']
+                ]);
+        endforeach;
+        return redirect('kegiatan')->with('success', 'DATA KEGIATAN BERHASIL TERSIMPAN');
     }
 
     public function delete(Request $request){
-
+        Kegiatan::find($request->id)->delete();
     }
 
     public function filter_bidang(Request $request){

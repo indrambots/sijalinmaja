@@ -384,6 +384,7 @@ var loadPanel = $(".loadpanel").dxLoadPanel({
                todayHighlight: true,
                orientation: "bottom left",
                autoclose: true,
+               format:'yyyy-mm-dd'
               });
       $('.timepickers').timepicker({
    minuteStep: 1,
