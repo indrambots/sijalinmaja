@@ -44,7 +44,8 @@
                         </div>
                         <div class="fxt-form">
                             <div class="fxt-transformY-50 fxt-transition-delay-1">
-                                <h2> </h2>
+                               <img src="{{url('media/bg/logo.png')}}">
+                               <h2>LOGIN</h2>
                             </div>
                             <form method="POST" action="{{ url('login') }}" >
                                     {{ csrf_field() }}

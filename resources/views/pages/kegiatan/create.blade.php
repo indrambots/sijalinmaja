@@ -109,9 +109,14 @@
 		    <label>Tanggal Mulai :</label>
 		    <input type="text" name="tanggal_mulai" id="tanggal_mulai" value="{{$keg->tanggal_mulai}}" class="form-control datepicker" placeholder="Tanggal Mulai. . ."/>
 	  	</div>
-	  	<div class="col-lg-4">
-		    <label>Waktu APP :</label>
-		    <input type="text" name="jam_mulai" id="jam_mulai" value="{{$keg->jam_mulai}}" class="timepickers form-control" placeholder="Waktu APP. . ."/>
+	  	<div class="col-lg-2">
+		    <label>APP :</label>
+		    <input type="text" name="jam_app" id="jam_app" value="{{$keg->jam_app}}" class="timepickers form-control" placeholder="Waktu APP. . ."/>
+	    <span class="form-text text-danger">Kosongi jika tidak ada APP.</span>
+	  	</div>
+	  	<div class="col-lg-2">
+		    <label>Jam Mulai :</label>
+		    <input type="text" name="jam_mulai" id="jam_mulai" value="{{$keg->jam_mulai}}" class="timepickers form-control" placeholder="Jam Mulai. . ."/>
 	  	</div>
 	  	<div class="col-lg-4">
 		    <label>Tanggal Selesai :</label>
@@ -146,7 +151,7 @@
 			<div class="col-lg-6">
 				<label>Pilih Personel :</label>
 				<select class="form-control pegawais" name="personel[1][nama]" id="personel_nama1">
-					@foreach($pegawai as $p)
+					@foreach($pegawai_all as $p)
 						<option value="{{$p->nip}}">{{$p->nama}} </option>
 					@endforeach
 				</select>

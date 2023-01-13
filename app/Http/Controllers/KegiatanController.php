@@ -28,7 +28,8 @@ class KegiatanController extends Controller
 
     public function print($id){
         $keg = Kegiatan::find($id);
-        return view('pages.kegiatan.spt_new',compact('keg'));
+        $bentuk_kegiatan = MasterBentukKegiatan::where('bentuk_kegiatan',$keg->bentuk_kegiatan)->first();
+        return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan'));
     }
 
     public function create($id)
@@ -37,7 +38,8 @@ class KegiatanController extends Controller
         $kota = Kota::orderBy('nama','asc')->get();
         $bidang = DB::SELECT("SELECT DISTINCT(bidang) FROM master_kegiatan ORDER BY bidang ASC");
         $pegawai = Pegawai::where('tingkat','<',11)->where('jenis_pegawai','PNS')->orderBy('nama','asc')->get();
-        return view('pages.kegiatan.create',compact('kota','keg','id','bidang','pegawai'));
+        $pegawai_all = Pegawai::where('id','>',0)->get();
+        return view('pages.kegiatan.create',compact('kota','keg','id','bidang','pegawai','pegawai_all'));
     }
 
     public function datatable(){
@@ -81,6 +83,7 @@ class KegiatanController extends Controller
             $kegiatan->tanggal_mulai = date("Y-m-d", strtotime($request->tanggal_mulai));
             $kegiatan->tanggal_selesai = date("Y-m-d", strtotime($request->tanggal_selesai));
             $kegiatan->jam_mulai = $request->jam_mulai;
+            $kegiatan->jam_app = $request->jam_app;
             $kegiatan->kota = $request->kota;
             $kegiatan->lokasi = $request->lokasi;
             $kegiatan->save();

@@ -38,6 +38,7 @@
         margin: 0;
     }
     @media print {
+        .pagebreak { page-break-before: always; }
         html, body {
             width: 210mm;
             height: 330mm;        
@@ -56,6 +57,7 @@
  p { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt; margin:0pt; }
  h2 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 14pt; }
  h1 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 18pt; }
+ h4 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 11pt; }
  h5 { color: black; font-family:"Times New Roman", sans-serif; font-style: normal; font-weight: bold; text-decoration: underline; font-size: 14pt; line-height:0pt; }
  a { color: #00AEEE; font-family:"Times New Roman", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; }
  .s2 { color: black; font-family:"Times New Roman", serif; font-style: normal; font-weight: bold; text-decoration: underline; font-size: 14pt; }
@@ -63,14 +65,18 @@
  .s4 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 11pt; }
  .s5 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt; }
  .s6 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+ .s7 { color: black; font-family:"Times New Roman", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; }
+ .s8 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: underline; font-size: 11pt; }
+ li {display: block; }
  h3 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration-line: underline; text-decoration-thickness: 2px;font-size: 12pt; }
  table, tbody {vertical-align: top; overflow: visible; }
+ .s9 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; margin:0pt; }
 </style>
 </head>
 <body>
 
     <div class="page">
-    	<table style="overflow:visible;">
+    	<table style="overflow:visible;margin-bottom: -10px;">
     		<tr>
     			<td style="width:80pt"><img alt="image" height="112" src="{{asset('media/bg/logo_jatim.gif')}}" width="74"/></td>
     			<td style="text-align: center; line-height: 1px">
@@ -92,7 +98,7 @@
         <p class="s3" style="ptext-indent: -2pt;line-height: 125%;text-align: center;">
             SURAT PERINTAH TUGAS</p>
             <p style="text-align: center;">
-                Nomor : 094/751/106.1/2022
+                Nomor : {{$keg->spt}}
             </p> <br>
         </p>
     	<table cellspacing="0" style="border-collapse:collapse; margin-bottom: -55px;">
@@ -163,7 +169,7 @@
                     </p>
                 </td>
             </tr>
-            <tr style="height:88pt">
+            <tr style="height:43pt">
                 <td style="width:61pt">
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -185,6 +191,31 @@
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-top: 2pt;padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
                         Dokumen Pelaksanaan Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPA/A.1/1.05.0.00.0.00.01.0000/001/2023
+                    </p>
+                </td>
+            </tr>
+            <tr style="height:88pt">
+                <td style="width:61pt">
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                </td>
+                <td style="width:24pt">
+                    <p class="s6" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
+                        5.
+                    </p>
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                </td>
+                <td colspan="3" style="width:421pt">
+                    <p class="s6" style="padding-top: 2pt;padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
+                        Surat Kepala Biro Organisasi Setda Provinsi Jawa Timur Nomor: 069.5/46087/031.1/2022 Tanggal 30 November 2022 Perihal Undangan
                     </p>
                 </td>
             </tr>
@@ -229,7 +260,16 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                       Melaksanakan Tugas Pengamanan Pergantian Malam Tahun Baru 2023 pada Hari Sabtu Tanggal 31 Desember 2022 di Gedung Negara Grahadi Surabaya, Pukul 19.00 WIB;
+                       {{$bentuk_kegiatan->format_spt}} {{$keg->judul_kegiatan}} pada Hari 
+                       @if($keg->tanggal_mulai == $keg->tanggal_selesai)
+                           {{$keg->hari($keg->tanggal_mulai)}} 
+                           Tanggal {{$keg->tgl_indo($keg->tanggal_mulai)}} 
+                       @else
+                       {{$keg->hari($keg->tanggal_mulai)}}
+                           {{$keg->hari($keg->tanggal_mulai)}} s/d  {{$keg->hari($keg->tanggal_selesai)}}
+                           Tanggal {{$keg->tgl_indo_2($keg->tanggal_mulai,$keg->tanggal_selesai)}} 
+                       @endif
+                       di {{$keg->lokasi}}, Pukul {{date('H.i', strtotime($keg->jam_mulai))}} WIB;
                     </p>
                 </td>
             </tr>
@@ -251,7 +291,7 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                       APP di Kantor Satuan Polisi Pamong Praja Provinsi Jawa Timur Jl. Jagir Wonokromo No.352 Surabaya, Pukul : 17.00 WIB
+                       APP di Kantor Satuan Polisi Pamong Praja Provinsi Jawa Timur Jl. Jagir Wonokromo No.352 Surabaya, Pukul : {{date('H.i', strtotime($keg->jam_app))}} WIB;
                     </p>
                 </td>
             </tr>
@@ -273,7 +313,7 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                       Pakaian PDL II + Topi Pet + Rompi Hitam yang terbaru
+                      Dalam melaksanakan tugas Pakaian {{$keg->seragam}}
                     </p>
                 </td>
             </tr>
@@ -317,9 +357,161 @@
                 </td>
             </tr>
         </table>
-
-        <p style="padding-top: 4pt;padding-left: 322pt;text-indent: 0pt;text-align: left;">
-            Ditetapkan di : Surabaya<br>
+        <br>
+<table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt">
+    <tbody>
+        <tr style="height:13pt">
+            <td style="width:64pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:64pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:64pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:97pt">
+                <p class="s5" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                    Dikeluarkan di
+                </p>
+            </td>
+            <td style="width:168pt">
+                <p class="s5" style="padding-left: 7pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                    : Surabaya
+                </p>
+            </td>
+        </tr>
+        <tr style="height:15pt">
+            <td style="width:64pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:64pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:64pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:97pt;border-bottom-style:solid;border-bottom-width:1pt">
+                <p class="s5" style="padding-left: 20pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    pada tanggal
+                </p>
+            </td>
+            <td style="width:168pt;border-bottom-style:solid;border-bottom-width:1pt">
+                <p class="s5" style="padding-left: 7pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    : {{$keg->tgl_indo(date('Y-m-d', strtotime($keg->created_at)))}}
+                </p>
+            </td>
+        </tr>
+        <tr style="height:10pt">
+            <td style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:97pt;border-top-style:solid;border-top-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:168pt;border-top-style:solid;border-top-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+        </tr>
+        <tr style="height:26pt">
+            <td colspan="3" style="width:192pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: left;">
+                    Konsep Naskah Dinas ini diajukan untuk mendapatkan tanda tangan eletronik
+                </p>
+            </td>
+            <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
+                <p class="s4" style="padding-left: 75pt;text-indent: -50pt;line-height: 13pt;text-align: left;">
+                    KEPALA SATUAN POLISI PAMONG PRAJA PROVINSI JAWA TIMUR
+                </p>
+            </td>
+        </tr>
+        <tr style="height:5pt">
+            <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s7" style="padding-left: 17pt;text-indent: 0pt;text-align: left;">
+                    Es. IV
+                </p>
+            </td>
+            <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s7" style="padding-left: 18pt;text-indent: 0pt;text-align: left;">
+                    Es. III
+                </p>
+            </td>
+            <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s7" style="padding-left: 13pt;text-indent: 0pt;text-align: left;">
+                    KASAT
+                </p>
+            </td>
+            <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+        </tr>
+        <tr style="height:10pt">
+            <td style="width:64pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt;border-bottom:1.25pt solid black;" >
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:64pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt;border-bottom:1.25pt solid black;" >
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td style="width:64pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt;border-bottom:1.25pt solid black;" >
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/> <br/>
+                </p>
+                <p class="s8" style="padding-left: 10pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    M. HADI WAWAN GUNTORO, S.STP., M.Si., CIPA
+                </p>
+                <p class="s4" style="padding-left: 66pt;padding-right: 49pt;text-indent: 14pt;line-height: 13pt;text-align: left;">
+                    Pembina Utama Muda NIP. 19770323 199511 1 001
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+        <p style="padding-top:30pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+            <span>
+                <img alt="image" height="55" src="{{asset('media/bg/image_003.jpg')}}" width="700"/>
+            </span>
+        </p>
+        {{-- <p style="padding-top: 4pt;padding-left: 322pt;text-indent: 0pt;text-align: left;">
+            Dikeluarkan di : Surabaya<br>
             <b style="border-bottom:2px solid black">
                 Pada tanggal : 8 Juni 2022
             </b>
@@ -339,11 +531,94 @@
         <p style="text-indent: 0pt;text-align: left;">
             <br/>
         </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        <p style="padding-top:0pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
             <span>
-                <img alt="image" height="55" src="{{asset()}}" width="768"/>
+                <img alt="image" height="55" src="{{asset('media/bg/image_003.jpg')}}" width="700"/>
             </span>
+        </p> --}}
+    </div>
+    <div class="pagebreak"></div>
+    <div class="page">
+
+        <p class="s9" style="padding-top: 3pt;padding-left: 297pt;text-indent: -56pt;text-align: justify;">
+            Lampiran : Surat Perintah Tugas Kepala Satuan Polisi Pamong  Praja  Provinsi  Jawa  Timur Tanggal &nbsp;&nbsp;: {{$keg->tgl_indo(date('Y-m-d', strtotime($keg->created_at)))}}
         </p>
+        <p class="s9" style="padding-left: 297pt;text-indent: 0pt;text-align: justify; ">
+            Nomor     :  {{$keg->spt}}
+        </p>
+        <div style="
+    float: right;
+    border-top: 2px solid black;
+    width: 285px;
+    align-items: right;
+"></div>
+        <h4 style="padding-top: 9pt;padding-left: 0pt;text-indent: 0pt;text-align: center;">
+            Daftar Nama {{$bentuk_kegiatan->format_spt}} {{$keg->judul_kegiatan}}
+        </h4>
+        <p style="text-indent: 0pt;text-align: left;">
+            <br/>
+        </p>
+        <table cellspacing="0" style="border-collapse:collapse;margin-left:21.675pt">
+            <tr style="height:26pt">
+                <td bgcolor="#BDBDBD" style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s8" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">
+                        NO.
+                    </p>
+                </td>
+                <td bgcolor="#BDBDBD" style="width:156pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s8" style="padding-top: 6pt;padding-left: 61pt;padding-right: 60pt;text-indent: 0pt;text-align: center;">
+                        NAMA
+                    </p>
+                </td>
+                <td bgcolor="#BDBDBD" style="width:135pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s8" style="padding-top: 6pt;padding-left: 5pt;padding-right: 4pt;text-indent: 0pt;text-align: center;">
+                        NIP/PTT-PK
+                    </p>
+                </td>
+                <td bgcolor="#BDBDBD" style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s8" style="padding-left: 2pt;padding-right: 2pt;text-indent: 0pt;line-height: 13pt;text-align: center;">
+                        GOL
+                    </p>
+                    <p class="s8" style="padding-left: 2pt;padding-right: 2pt;text-indent: 0pt;line-height: 12pt;text-align: center;">
+                        /PANGKAT
+                    </p>
+                </td>
+                <td bgcolor="#BDBDBD" style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s8" style="padding-top: 6pt;padding-left: 2pt;padding-right: 2pt;text-indent: 0pt;text-align: center;">
+                        KET
+                    </p>
+                </td>
+            </tr>
+            @foreach($keg->personel as $p)
+            <tr style="height:26pt">
+                <td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-top: 6pt;padding-right: 8pt;text-indent: 0pt;text-align: right;">
+                      {{$loop->iteration}}.
+                    </p>
+                </td>
+                <td style="width:156pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-left: 7pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        {{$p->nama}}
+                    </p>
+                </td>
+                <td style="width:135pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-top: 6pt;padding-left: 5pt;padding-right: 5pt;text-indent: 0pt;text-align: center;">
+                        {{$p->nip}}
+                    </p>
+                </td>
+                <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-top: 7pt;padding-left: 8pt;text-indent: 0pt;text-align: left;">
+                        {{$p->pangkat}}
+                    </p>
+                </td>
+                <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-top: 10pt;padding-left: 4pt;padding-right: 2pt;text-indent: 0pt;text-align: center;">
+                        {{$p->ket}}
+                    </p>
+                </td>
+            </tr>
+            @endforeach
+        </table>
     </div>
 </body>
 </html>

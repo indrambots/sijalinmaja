@@ -106,7 +106,7 @@ tr.details td.details-control {
 
                                     <div class="topbar-item">
                                         <a href="{{ url('/') }}" class="mr-20">
-                                            <img alt="Logo" src="{{ asset('landing/img/logo_bappeko_2022.png') }}" class="max-h-70px">
+                                            <img alt="Logo" src="{{url('media/bg/logo.png')}}" class="max-h-70px">
                                         </a>
                                     </div>
                                     <!--begin::Logo-->
