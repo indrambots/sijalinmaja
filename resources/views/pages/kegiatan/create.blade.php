@@ -3,7 +3,7 @@
 <form class="form" id="frm_create_kasus" enctype="multipart/form-data" method="POST" action="{{ url('kegiatan/save') }}">
 	{{csrf_field()}}
 <input type="hidden" id="id" name="id" value="{{ $id }}">
-@if($id !== 0)
+@if((int)$id !== 0)
 	
 <input type="hidden" id="bentuk_kegiatan_val" value="{{ $keg->bentuk_kegiatan }}">
 <input type="hidden" id="jenis_kegiatan_val"  value="{{ $keg->jenis_kegiatan }}">
