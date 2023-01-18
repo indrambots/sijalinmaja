@@ -51,16 +51,24 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::all();
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
-            return '  <div class="btn-group mr-2" role="group" aria-label="First group">
-            <a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" >
-                <i class="flaticon-edit-1"></i>
-            </a>
-        <a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>
-        <a href="'.url('kegiatan/print/'.$i->id.'/yes').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-fingerprint"></i></a>
-        <button onclick="deleteKeg('.$i->id.',\''.$i->spt.'\')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>
-    </div>';
+            $btn_aksi = '<a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a><button onclick="deleteKeg('.$i->id.',\''.$i->spt.'\')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>';
+            $btn_print = '<a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>
+        <a href="'.url('kegiatan/print/'.$i->id.'/yes').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-fingerprint"></i></a>';
+            if((int)Auth::user()->level <> 7):
+                if($i->created_by == (int)Auth::user()->id):
+                    return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.'</div>';
+                else:
+                    return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_print.'</div>';
+                endif;
+            else:
+                return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.'</div>';
+            endif;
         })->addColumn('waktu_kegiatan',function($i){
-            return date("d F Y", strtotime($i->tanggal_mulai))." - ".date("d F Y", strtotime($i->tanggal_selesai));
+            if($i->tanggal_mulai == $i->tanggal_selesai):
+                return date("d F Y", strtotime($i->tanggal_mulai));
+            else:
+                return date("d F Y", strtotime($i->tanggal_mulai))." s/d ".date("d F Y", strtotime($i->tanggal_selesai));
+            endif;
         })->rawColumns(['aksi','waktu_kegiatan'])
         ->make(true);
     }
@@ -97,6 +105,7 @@ class KegiatanController extends Controller
             $kegiatan->kota = $request->kota;
             $kegiatan->lokasi = $request->lokasi;
             $kegiatan->dasar_surat = $request->dasar_surat;
+            $kegiatan->created_by = Auth::user()->id;
             $kegiatan->save();
         foreach($request->personel as $p):
             $peg = Pegawai::where('nip',$p['nama'])->first();

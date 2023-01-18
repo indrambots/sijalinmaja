@@ -139,7 +139,7 @@ tr.details td.details-control {
                                                         <i class="flaticon-user text-info"></i>
                                                     </span>
 
-                                                    <h4 class="text-white m-0 flex-grow-1 mr-3">Hi, {{ Auth::user()->username }}</h4>
+                                                    <h4 class="text-white m-0 flex-grow-1 mr-3">Hi, {{ Auth::user()->name }}</h4>
                                                 </div>
                                                 <!--end::Header-->
                                                 <!--begin::Scroll-->
@@ -232,11 +232,11 @@ tr.details td.details-control {
                   <h4 class="modal-title text-left">Ganti Password</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form" method="POST" action="{{url('password/update')}}">
+                    <form class="form" method="POST" action="{{url('user/gantipassword')}}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Username:</label>
-                            <input type="text" required readonly class="form-control" style="background-color:#e4e4e4;" name="username" value="{{ Auth::user()->username }}" />
+                            <input type="text" required readonly class="form-control" style="background-color:#e4e4e4;" name="username" value="{{ Auth::user()->name }}" />
                         </div>
                         <div class="form-group">
                             <label>Password:</label>

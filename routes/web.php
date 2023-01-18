@@ -26,5 +26,7 @@ Route::prefix('kegiatan')->group(function () {
     Route::post('filter-bidang','KegiatanController@filter_bidang');
     Route::post('filter-kegiatan','KegiatanController@filter_kegiatan');
 });            
-
+Route::prefix('user')->group(function () {
+    Route::post('gantipassword','UserController@gantipassword');
+});
 Auth::routes();
