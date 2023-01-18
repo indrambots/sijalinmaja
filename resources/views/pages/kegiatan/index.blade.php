@@ -27,7 +27,6 @@
                 <th>Penanggung Jawab</th>
                 <th>Kota</th>
                 <th>Lokasi</th>
-                <th>Link</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -56,7 +55,6 @@
         {data: 'penanggung_jawab', name:'penanggung_jawab'},
         {data: 'kota', name:'kota'},
         {data: 'lokasi', name:'lokasi'},
-        {data: 'personel', name:'personel'},
         {data: 'aksi', name:'aksi'},
         ],
         "order": [[ 0, "desc" ]],

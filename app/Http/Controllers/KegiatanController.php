@@ -26,11 +26,14 @@ class KegiatanController extends Controller
         return view('pages.kegiatan.index');
     }
 
-    public function print($id){
+    public function print($id,$barcode){
         $keg = Kegiatan::find($id);
         $katim = KegiatanPersonel::where('ket','KATIM')->where('kegiatan_id',$id)->first();
         $anggota = KegiatanPersonel::where('ket','<>','KATIM')->where('kegiatan_id',$id)->get();
         $bentuk_kegiatan = MasterBentukKegiatan::where('bentuk_kegiatan',$keg->bentuk_kegiatan)->first();
+        if($barcode == "yes"):
+            return view('pages.kegiatan.spt_barcode',compact('keg','bentuk_kegiatan','katim','anggota'));
+        endif;
         return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan','katim','anggota'));
     }
 
@@ -52,16 +55,13 @@ class KegiatanController extends Controller
             <a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" >
                 <i class="flaticon-edit-1"></i>
             </a>
-        <a href="'.url('kegiatan/print/'.$i->id).'" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>
+        <a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>
+        <a href="'.url('kegiatan/print/'.$i->id.'/yes').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-fingerprint"></i></a>
         <button onclick="deleteKeg('.$i->id.',\''.$i->spt.'\')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>
     </div>';
-        })->addColumn('personel',function($i){
-            return '<button type="button" onclick="personel('.$i->id.')" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" >
-                <i class="fas fa-user-friends"></i>
-            </button>';
         })->addColumn('waktu_kegiatan',function($i){
             return date("d F Y", strtotime($i->tanggal_mulai))." - ".date("d F Y", strtotime($i->tanggal_selesai));
-        })->rawColumns(['aksi','personel','waktu_kegiatan'])
+        })->rawColumns(['aksi','waktu_kegiatan'])
         ->make(true);
     }
 
