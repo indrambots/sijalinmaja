@@ -28,8 +28,10 @@ class KegiatanController extends Controller
 
     public function print($id){
         $keg = Kegiatan::find($id);
+        $katim = KegiatanPersonel::where('ket','KATIM')->where('kegiatan_id',$id)->first();
+        $anggota = KegiatanPersonel::where('ket','<>','KATIM')->where('kegiatan_id',$id)->get();
         $bentuk_kegiatan = MasterBentukKegiatan::where('bentuk_kegiatan',$keg->bentuk_kegiatan)->first();
-        return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan'));
+        return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan','katim','anggota'));
     }
 
     public function create($id)
@@ -66,6 +68,14 @@ class KegiatanController extends Controller
     public function save(Request $request){
         $bidang = MasterKegiatan::where('bidang',$request->bidang)->first();
         $spt = "094/".$request->spt."/".$bidang->nomor_bidang."/2023";
+        $penanggung_jawab;
+
+        foreach($request->personel as $p):
+            if($p['jenis'] == 'KATIM'):
+            $peg = Pegawai::where('nip',$p['nama'])->first();
+                $penanggung_jawab = $peg->nama;
+            endif;
+        endforeach;
         if($request->id == 0):
             $kegiatan = new Kegiatan();
         else:
@@ -77,7 +87,7 @@ class KegiatanController extends Controller
             $kegiatan->bentuk_kegiatan = $request->bentuk_kegiatan;
             $kegiatan->judul_kegiatan = $request->nama_kegiatan;
             $kegiatan->seragam = $request->seragam;
-            $kegiatan->penanggung_jawab = $request->penanggung_jawab;
+            $kegiatan->penanggung_jawab = $penanggung_jawab;
             $kegiatan->spt = $spt;
             $kegiatan->no_urut_spt = $request->spt;
             $kegiatan->tanggal_mulai = date("Y-m-d", strtotime($request->tanggal_mulai));
@@ -86,6 +96,7 @@ class KegiatanController extends Controller
             $kegiatan->jam_app = $request->jam_app;
             $kegiatan->kota = $request->kota;
             $kegiatan->lokasi = $request->lokasi;
+            $kegiatan->dasar_surat = $request->dasar_surat;
             $kegiatan->save();
         foreach($request->personel as $p):
             $peg = Pegawai::where('nip',$p['nama'])->first();
@@ -93,7 +104,7 @@ class KegiatanController extends Controller
                     "kegiatan_id" => $kegiatan->id,
                     "nama"        => $peg->nama,
                     "nip"         => $peg->nip,
-                    "pangkat"     => $peg->pangkat,
+                    "pangkat"     => $peg->format_spt,
                     "ket"     => $p['jenis']
                 ]);
         endforeach;
@@ -105,8 +116,8 @@ class KegiatanController extends Controller
     }
 
     public function filter_bidang(Request $request){
-        $kegiatan = MasterKegiatan::where('bidang',$request->bidang)->get();
-        $bentuk_kegiatan = MasterBentukKegiatan::where('kegiatan_id',$kegiatan[0]->id)->get();
+        $kegiatan = MasterKegiatan::where('bidang',$request->bidang)->orderBy('nama_kegiatan','asc')->get();
+        $bentuk_kegiatan = MasterBentukKegiatan::where('kegiatan_id',$kegiatan[0]->id)->orderBy('bentuk_kegiatan','asc')->get();
         $view_kegiatan         = (string) view('pages.kegiatan.ajax.jenis_kegiatan', compact('kegiatan'));
         $view_bentuk_kegiatan         = (string) view('pages.kegiatan.ajax.bentuk_kegiatan', compact('bentuk_kegiatan'));
         return response()->json(array('view_kegiatan' => $view_kegiatan,'view_bentuk_kegiatan' => $view_bentuk_kegiatan));
@@ -114,8 +125,8 @@ class KegiatanController extends Controller
 
     public function filter_kegiatan(Request $request){
 
-        $kegiatan = MasterKegiatan::where('nama_kegiatan',$request->kegiatan)->where('bidang',$request->bidang)->first();
-        $bentuk_kegiatan = MasterBentukKegiatan::where('kegiatan_id',$kegiatan->id)->get();
+        $kegiatan = MasterKegiatan::where('nama_kegiatan',$request->kegiatan)->orderBy('nama_kegiatan','asc')->where('bidang',$request->bidang)->first();
+        $bentuk_kegiatan = MasterBentukKegiatan::where('kegiatan_id',$kegiatan->id)->orderBy('bentuk_kegiatan','asc')->get();
         $view_bentuk_kegiatan         = (string) view('pages.kegiatan.ajax.bentuk_kegiatan', compact('bentuk_kegiatan'));
         return response()->json(array('view_bentuk_kegiatan' => $view_bentuk_kegiatan));
     }

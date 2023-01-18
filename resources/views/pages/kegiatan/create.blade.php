@@ -76,19 +76,12 @@
 	   </div>
 	   </div>
 	 <div class="form-group row">
-	   <div class="col-lg-6">
-	    <label>Penanggung Jawab (KATIM):</label>
-	    <select class="form-control select2" name="penanggung_jawab" id="penanggung_jawab">
-	    	<option value="">--Pilih Penanggung Jawab(KATIM)--</option>
-	    	@foreach($pegawai as $p)
-	    		@if($keg->penanggung_jawab == $p->nama)
-	    			<option value="{{$p->nama}}" selected>{{$p->nama}}</option>
-	    		@else
-	    			<option value="{{$p->nama}}">{{$p->nama}}</option>
-	    		@endif
-	    	@endforeach
-	    </select>
-	   </div>
+
+	  	<div class="col-lg-6">
+		    <label>Dasar Surat:<span class="form-text text-muted">(OPTIONAL)</span></label>
+		    <textarea rows="4" class="form-control" name="dasar_surat" id="dasar_surat" placeholder="Misal(Surat dari Dinas Kepemudaan dan Olahraga Provinsi Jawa Timur Nomor 427/297/117.2/2023 tanggal 5 Januari 2023 Perihal Permohonan Petugas Pengamanan dan 1(Satu) Korps Musik (Korsik) )">{{$keg->dasar_surat}}</textarea>
+		    
+	  	</div>
 	   <div class="col-lg-6">
 		    <label>Nomor SPT : </label>
 	   	<div class="row">
@@ -107,7 +100,7 @@
 	  <div class="form-group row mt-2">
 	  	<div class="col-lg-4">
 		    <label>Tanggal Mulai :</label>
-		    <input type="text" name="tanggal_mulai" id="tanggal_mulai" value="{{$keg->tanggal_mulai}}" class="form-control datepicker" placeholder="Tanggal Mulai. . ."/>
+		    <input type="text" name="tanggal_mulai" required id="tanggal_mulai" value="{{$keg->tanggal_mulai}}" class="form-control datepicker" placeholder="Tanggal Mulai. . ."/>
 	  	</div>
 	  	<div class="col-lg-2">
 		    <label>APP :</label>
@@ -116,18 +109,18 @@
 	  	</div>
 	  	<div class="col-lg-2">
 		    <label>Jam Mulai :</label>
-		    <input type="text" name="jam_mulai" id="jam_mulai" value="{{$keg->jam_mulai}}" class="timepickers form-control" placeholder="Jam Mulai. . ."/>
+		    <input type="text" required name="jam_mulai" id="jam_mulai" value="{{$keg->jam_mulai}}" class="timepickers form-control" placeholder="Jam Mulai. . ."/>
 	  	</div>
 	  	<div class="col-lg-4">
 		    <label>Tanggal Selesai :</label>
-		    <input type="text" name="tanggal_selesai" id="tanggal_selesai" value="{{$keg->tanggal_selesai}}" class="datepicker form-control" placeholder="Tanggal Selesai. . ."/>
+		    <input type="text" required name="tanggal_selesai" id="tanggal_selesai" value="{{$keg->tanggal_selesai}}" class="datepicker form-control" placeholder="Tanggal Selesai. . ."/>
 	  	</div>
 	  	</div>
 
 	  <div class="form-group row mt-2">
 	  	<div class="col-lg-6">
 		    <label>Kabupaten/Kota :</label>
-			    <select class="form-control select2" name="kota" id="kota">
+			    <select class="form-control select2" name="kota" id="kota" required>
 			    	<option value="">--Pilih Kab/Kota--</option>
 			    	@foreach($kota as $k)
 			    		@if($keg->kota == $k->nama)
@@ -140,7 +133,7 @@
 	  	</div>
 	  	<div class="col-lg-6">
 		    <label>Lokasi Kegiatan :</label>
-		    <input type="text" name="lokasi" id="lokasi" class="form-control" value="{{$keg->lokasi}}" placeholder="Isikan lokasi kegiatan. . ."/>
+		    <input type="text" name="lokasi" id="lokasi" class="form-control" value="{{$keg->lokasi}}" placeholder="Isikan lokasi kegiatan. . ." required/>
 	  	</div>
 	  </div>
 	  <div class="card-body">
@@ -160,6 +153,7 @@
 			<div class="col-lg-4">
 				<label>Jenis Penugasan : </label>
 				<select class="form-control pegawais" name="personel[1][jenis]" id="personel_jenis1">
+					<option value="KATIM">KATIM</option>
 					<option value="ANGGOTA">ANGGOTA</option>
 					<option value="DOKUMENTASI">DOKUMENTASI</option>
 					<option value="PELAPORAN">PELAPORAN</option>
@@ -191,30 +185,42 @@
 						<label>Jenis Penugasan : </label>
 						<select class="form-control pegawais" name="personel[{{$loop->iteration}}][jenis]" id="personel_jenis{{$loop->iteration}}">
 							@if($k->ket == "ANGGOTA")
+							<option value="KATIM">KATIM</option>
 							<option value="ANGGOTA" selected>ANGGOTA</option>
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							@elseif($k->ket == "DOKUMENTASI")
+							<option value="KATIM">KATIM</option>
 							<option value="ANGGOTA">ANGGOTA</option>
 							<option value="DOKUMENTASI" selected>DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							@elseif($k->ket == "PELAPORAN")
+							<option value="KATIM">KATIM</option>
 							<option value="ANGGOTA">ANGGOTA</option>
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN" selected>PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							@elseif($k->ket == "PTI")
+							<option value="KATIM">KATIM</option>
 							<option value="ANGGOTA">ANGGOTA</option>
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI" selected>PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							@elseif($k->ket == "DRIVER")
+							<option value="KATIM">KATIM</option>
+							<option value="ANGGOTA">ANGGOTA</option>
+							<option value="DOKUMENTASI">DOKUMENTASI</option>
+							<option value="PELAPORAN">PELAPORAN</option>
+							<option value="PTI">PTI</option>
+							<option value="DRIVER" selected>DRIVER</option>
+							@elseif($k->ket == "KATIM")
+							<option value="KATIM" selected>KATIM</option>
 							<option value="ANGGOTA">ANGGOTA</option>
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>

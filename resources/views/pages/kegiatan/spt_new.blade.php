@@ -10,7 +10,6 @@
         height: 100%;
         margin: 0;
         padding: 0;
-        background-color: #FAFAFA;
     }
     * {
         box-sizing: border-box;
@@ -101,7 +100,7 @@
                 Nomor : {{$keg->spt}}
             </p> <br>
         </p>
-    	<table cellspacing="0" style="border-collapse:collapse; margin-bottom: -55px;">
+    	<table cellspacing="0" style="border-collapse:collapse; ">
             <tr style="height:43pt">
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -118,7 +117,7 @@
                         1.
                     </p>
                 </td>
-                <td colspan="3" style="width:421pt">
+                <td colspan="3" style="width:450pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
                         Peraturan Daerah Provinsi Jawa Timur Nomor 14 Tahun 2022 tentang Anggaran Pendapatan dan Belanja Daerah Provinsi Jawa Timur Tahun Anggaran 2023;
                     </p>
@@ -194,7 +193,8 @@
                     </p>
                 </td>
             </tr>
-            <tr style="height:88pt">
+            @if($keg->dasar_surat !== null)
+            <tr style="height:35pt">
                 <td style="width:61pt">
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -215,15 +215,17 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-top: 2pt;padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                        Surat Kepala Biro Organisasi Setda Provinsi Jawa Timur Nomor: 069.5/46087/031.1/2022 Tanggal 30 November 2022 Perihal Undangan
+                        {{$keg->dasar_surat}}
                     </p>
                 </td>
             </tr>
+            @endif
         </table>
+        <br>
             <p class="s5" style="text-align: center;">
                 M E M E R I N T A H K A N
             </p>
-            <br>
+            @if(count($keg->personel) > 3)
     	<table cellspacing="0" style="border-collapse:collapse;">
             <tr style="height:20pt">
                 <td style="width:61pt">
@@ -242,7 +244,7 @@
                     </p>
                 </td>
             </tr>
-            <tr style="height:43pt">
+            <tr>
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         UNTUK
@@ -265,7 +267,6 @@
                            {{$keg->hari($keg->tanggal_mulai)}} 
                            Tanggal {{$keg->tgl_indo($keg->tanggal_mulai)}} 
                        @else
-                       {{$keg->hari($keg->tanggal_mulai)}}
                            {{$keg->hari($keg->tanggal_mulai)}} s/d  {{$keg->hari($keg->tanggal_selesai)}}
                            Tanggal {{$keg->tgl_indo_2($keg->tanggal_mulai,$keg->tanggal_selesai)}} 
                        @endif
@@ -352,11 +353,193 @@
                 </td>
                 <td colspan="4" style="width:445pt">
                     <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 18pt;line-height: 14pt;text-align: left;">
-                        Demikian Surat Perintah Tugas ini untuk dilaksanakan dengan sebaik- baiknya dengan penuh rasa tanggung jawab.                         `
+                        Demikian Surat Perintah Tugas ini untuk dilaksanakan dengan sebaik- baiknya dengan penuh rasa tanggung jawab.
                     </p>
                 </td>
             </tr>
         </table>
+        @else
+        <table cellspacing="0" style="border-collapse:collapse;">
+            <tr style="height:51pt">
+                <td style="width:48pt">
+                    <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        Kepada
+                    </p>
+                </td>
+                <td style="width:14pt">
+                    <p class="s4" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        :
+                    </p>
+                </td>
+                <td style="width:20pt">
+                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        1.
+                    </p>
+                </td>
+                <td style="width:120pt">
+                    <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        Nama
+                    </p>
+                    <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
+                        Pangkat / Golongan NIP
+                    </p>
+                    <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        Jabatan
+                    </p>
+                </td>
+                <td style="width:17pt">
+                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        :
+                    </p>
+                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        :
+                    </p>
+                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        :
+                    </p>
+                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        :
+                    </p>
+                </td>
+                <td style="width:273pt">
+                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        {{$katim->nama}}
+                    </p>
+                    <p class="s6" style="padding-left: 5pt;padding-right: 125pt;text-indent: 0pt;text-align: left;">
+                        {{$katim->pangkat}} {{$katim->konversi_nip($katim->nip)}}
+                    </p>
+                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        {{ucwords(strtolower($katim->pegawai->nama_jabatan))}}
+                    </p>
+                </td>
+            </tr>
+            @foreach($anggota as $a)
+            <tr style="height:57pt">
+                <td style="width:48pt">
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                </td>
+                <td style="width:14pt">
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                </td>
+                <td style="width:20pt">
+                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        {{$loop->iteration + 1}}.
+                    </p>
+                </td>
+                <td style="width:111pt">
+                    <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        Nama
+                    </p>
+                    <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
+                        Pangkat / Golongan NIP
+                    </p>
+                    <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        Jabatan
+                    </p>
+                </td>
+                <td style="width:17pt">
+                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        :
+                    </p>
+                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        :
+                    </p>
+                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        :
+                    </p>
+                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        :
+                    </p>
+                </td>
+                <td style="width:273pt">
+                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        {{$a->nama}}
+                    </p>
+                    <p class="s6" style="padding-left: 5pt;padding-right: 125pt;text-indent: 0pt;text-align: left;">
+                        {{$a->pangkat}} {{$a->konversi_nip($a->nip)}}
+                    </p>
+                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        Pranata Komputer
+                    </p>
+                </td>
+            </tr>
+            @endforeach
+            <tr>
+                <td style="width:61pt">
+                    <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        UNTUK
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p class="s5" style="padding-left: 1pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        :
+                    </p>
+                </td>
+                <td style="width:24pt">
+                    <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        1.
+                    </p>
+                </td>
+                <td colspan="3" style="width:421pt">
+                    <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
+                       {{$bentuk_kegiatan->format_spt}} {{$keg->judul_kegiatan}} pada Hari 
+                       @if($keg->tanggal_mulai == $keg->tanggal_selesai)
+                           {{$keg->hari($keg->tanggal_mulai)}} 
+                           Tanggal {{$keg->tgl_indo($keg->tanggal_mulai)}} 
+                       @else
+                       {{$keg->hari($keg->tanggal_mulai)}}
+                           {{$keg->hari($keg->tanggal_mulai)}} s/d  {{$keg->hari($keg->tanggal_selesai)}}
+                           Tanggal {{$keg->tgl_indo_2($keg->tanggal_mulai,$keg->tanggal_selesai)}} 
+                       @endif
+                       di {{$keg->lokasi}}, Pukul {{date('H.i', strtotime($keg->jam_mulai))}} WIB;
+                    </p>
+                </td>
+            </tr>
+            <tr >
+                <td style="width:61pt">
+                    <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p class="s5" style="padding-left: 1pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:24pt">
+                    <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        2.
+                    </p>
+                </td>
+                <td colspan="3" style="width:421pt">
+                    <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
+                       Melaporkan hasil Pelaksanaan Tugas tersebut kepada Kepala Satuan Polisi Pamong Praja Provinsi Jawa Timur.
+                    </p>
+                </td>
+            </tr>
+            <tr style="height:36pt">
+                <td style="width:61pt">
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                </td>
+                <td colspan="4" style="width:445pt">
+                    <p class="s6" style="padding-top: 6pt;padding-left: 4pt;text-indent: 18pt;line-height: 14pt;text-align: left;">
+                        Demikian Surat Perintah Tugas ini untuk dilaksanakan dengan sebaik- baiknya dengan penuh rasa tanggung jawab.
+                    </p>
+                </td>
+            </tr>
+        </table>
+        @endif
         <br>
 <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt">
     <tbody>
@@ -505,11 +688,7 @@
         </tr>
     </tbody>
 </table>
-        <p style="padding-top:30pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            <span>
-                <img alt="image" height="55" src="{{asset('media/bg/image_003.jpg')}}" width="700"/>
-            </span>
-        </p>
+                <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: 20px;" />
         {{-- <p style="padding-top: 4pt;padding-left: 322pt;text-indent: 0pt;text-align: left;">
             Dikeluarkan di : Surabaya<br>
             <b style="border-bottom:2px solid black">
@@ -537,8 +716,9 @@
             </span>
         </p> --}}
     </div>
+    @if(count($keg->personel) > 3)
     <div class="pagebreak"></div>
-    <div class="page">
+    <div class="page" style="position:relative;">
 
         <p class="s9" style="padding-top: 3pt;padding-left: 297pt;text-indent: -56pt;text-align: justify;">
             Lampiran : Surat Perintah Tugas Kepala Satuan Polisi Pamong  Praja  Provinsi  Jawa  Timur Tanggal &nbsp;&nbsp;: {{$keg->tgl_indo(date('Y-m-d', strtotime($keg->created_at)))}}
@@ -565,8 +745,8 @@
                         NO.
                     </p>
                 </td>
-                <td bgcolor="#BDBDBD" style="width:156pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p class="s8" style="padding-top: 6pt;padding-left: 61pt;padding-right: 60pt;text-indent: 0pt;text-align: center;">
+                <td bgcolor="#BDBDBD" style="width:120pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s8" style="padding-top: 6pt;text-indent: 0pt;text-align: center;">
                         NAMA
                     </p>
                 </td>
@@ -589,21 +769,48 @@
                     </p>
                 </td>
             </tr>
-            @foreach($keg->personel as $p)
             <tr style="height:26pt">
                 <td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-right: 8pt;text-indent: 0pt;text-align: right;">
-                      {{$loop->iteration}}.
+                      1.
                     </p>
                 </td>
-                <td style="width:156pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-left: 7pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        {{$katim->nama}}
+                    </p>
+                </td>
+                <td style="width:135pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-top: 6pt;padding-left: 5pt;padding-right: 5pt;text-indent: 0pt;text-align: center;">
+                        {{$katim->konversi_nip($katim->nip)}}
+                    </p>
+                </td>
+                <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-top: 7pt;padding-left: 8pt;text-indent: 0pt;text-align: left;">
+                        {{$katim->pangkat}}
+                    </p>
+                </td>
+                <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-top: 10pt;padding-left: 4pt;padding-right: 2pt;text-indent: 0pt;text-align: center;">
+                        {{$katim->ket}}
+                    </p>
+                </td>
+            </tr>
+            @foreach($anggota as $p)
+            <tr style="height:26pt">
+                <td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s9" style="padding-top: 6pt;padding-right: 8pt;text-indent: 0pt;text-align: right;">
+                      {{$loop->iteration+1}}.
+                    </p>
+                </td>
+                <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-left: 7pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                         {{$p->nama}}
                     </p>
                 </td>
                 <td style="width:135pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-left: 5pt;padding-right: 5pt;text-indent: 0pt;text-align: center;">
-                        {{$p->nip}}
+                        {{$p->konversi_nip($p->nip)}}
                     </p>
                 </td>
                 <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -619,6 +826,15 @@
             </tr>
             @endforeach
         </table>
+
+        <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: -620px;" />
     </div>
+    @endif
+
+<script type="text/javascript">
+
+    window.print();
+
+</script>
 </body>
 </html>
