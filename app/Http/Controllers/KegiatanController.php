@@ -52,14 +52,20 @@ class KegiatanController extends Controller
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
             $btn_aksi = '<a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a><button onclick="deleteKeg('.$i->id.',\''.$i->spt.'\')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>';
-            $btn_print = '<a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>
-        <a href="'.url('kegiatan/print/'.$i->id.'/yes').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-fingerprint"></i></a>';
-            if((int)Auth::user()->level <> 7):
+            $btn_print = '<a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
+        $btn_upload_spt = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-upload" onclick="uploadBarcode('.$i->id.',\''.$i->link_spt.'\')"><i class="fas fa-upload"></i></button>';
+        $btn_link_spt = '<a href="'.$i->link_spt.'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-fingerprint"></i></a>';
+        if($i->link_spt !== null):
+            $btn_print = $btn_link_spt;
+        endif;
+            if((int)Auth::user()->level == 9):
                 if($i->created_by == (int)Auth::user()->id):
                     return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.'</div>';
                 else:
                     return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_print.'</div>';
                 endif;
+            elseif((int)Auth::user()->level == 6):
+                    return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_upload_spt.$btn_print.'</div>';
             else:
                 return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.'</div>';
             endif;
@@ -118,6 +124,14 @@ class KegiatanController extends Controller
                 ]);
         endforeach;
         return redirect('kegiatan')->with('success', 'DATA KEGIATAN BERHASIL TERSIMPAN');
+    }
+
+    public function update_link_spt(Request $request){
+        // dd($request->all());
+        Kegiatan::find($request->id)->update([
+            "link_spt" => $request->link_spt
+        ]);
+        return redirect('kegiatan')->with('success', 'LINK SPT BERHASIL TERSIMPAN');
     }
 
     public function delete(Request $request){

@@ -53,21 +53,31 @@
 	    <select class="form-control select2" name="seragam" id="seragam">
 	    	@if($keg->seragam == "PDL + JUNGLE PET")
 		    	<option value="">--Pilih Seragam--</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
 		    	<option value="PDL + JUNGLE PET" selected>PDL + JUNGLE PET</option>
 		    	<option value="PDL + BARET">PDL + BARET</option>
 		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
 	    	@elseif($keg->seragam == "PDL + BARET")
 		    	<option value="">--Pilih Seragam--</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
 		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
 		    	<option value="PDL + BARET" selected>PDL + BARET</option>
 		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
 	    	@elseif($keg->seragam == "TACTICAL + JUNGLE PET")
 		    	<option value="">--Pilih Seragam--</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
 		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
 		    	<option value="PDL + BARET">PDL + BARET</option>
 		    	<option value="TACTICAL + JUNGLE PET" selected>TACTICAL + JUNGLE PET</option>
+	    	@elseif($keg->seragam == "MENYESUAIKAN ACARA/HARI KERJA")
+		    	<option value="">--Pilih Seragam--</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA" selected>MENYESUAIKAN ACARA/HARI KERJA</option>
+		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
+		    	<option value="PDL + BARET">PDL + BARET</option>
+		    	<option value="TACTICAL + JUNGLE PET" >TACTICAL + JUNGLE PET</option>
 	    	@else
 		    	<option value="">--Pilih Seragam--</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
 		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
 		    	<option value="PDL + BARET">PDL + BARET</option>
 		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
@@ -152,7 +162,7 @@
 
 			<div class="col-lg-4">
 				<label>Jenis Penugasan : </label>
-				<select class="form-control pegawais" name="personel[1][jenis]" id="personel_jenis1">
+				<select class="form-control pegawais" name="personel[1][jenis]" id="personel_jenis1" required>
 					<option value="KATIM">KATIM</option>
 					<option value="ANGGOTA">ANGGOTA</option>
 					<option value="DOKUMENTASI">DOKUMENTASI</option>
@@ -171,7 +181,7 @@
 					<div class="col-lg-6">
 						<label>Pilih Personel :</label>
 						<select class="form-control pegawais" name="personel[{{$loop->iteration}}][nama]" id="personel_nama{{$loop->iteration}}">
-							@foreach($pegawai as $p)
+							@foreach($pegawai_all as $p)
 								@if($p->nama == $k->nama)
 								<option value="{{$p->nip}}" selected>{{$p->nama}} </option>
 								@else
@@ -183,7 +193,7 @@
 
 					<div class="col-lg-4">
 						<label>Jenis Penugasan : </label>
-						<select class="form-control pegawais" name="personel[{{$loop->iteration}}][jenis]" id="personel_jenis{{$loop->iteration}}">
+						<select class="form-control pegawais" name="personel[{{$loop->iteration}}][jenis]" id="personel_jenis{{$loop->iteration}}" required>
 							@if($k->ket == "ANGGOTA")
 							<option value="KATIM">KATIM</option>
 							<option value="ANGGOTA" selected>ANGGOTA</option>
@@ -225,7 +235,7 @@
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI">PTI</option>
-							<option value="DRIVER" selected>DRIVER</option>
+							<option value="DRIVER">DRIVER</option>
 							@endif
 						</select>
 					</div>
