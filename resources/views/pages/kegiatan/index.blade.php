@@ -21,8 +21,7 @@
               <tr>
                 <th>id</th>
                 <th>SPT</th>
-                <th>Jenis Kegiatan</th>
-                <th>Bentuk Kegiatan</th>
+                <th>Judul Kegiatan</th>
                 <th>Waktu Kegiatan</th>
                 <th>Penanggung Jawab</th>
                 <th>Kota</th>
@@ -74,8 +73,7 @@
          columns: [
         {data: 'id', name:'id'},
         {data: 'spt', name:'spt'},
-        {data: 'jenis_kegiatan', name:'jenis_kegiatan'},
-        {data: 'bentuk_kegiatan', name:'bentuk_kegiatan'},
+        {data: 'judul_kegiatan', name:'judul_kegiatan'},
         {data: 'waktu_kegiatan', name:'waktu_kegiatan'},
         {data: 'penanggung_jawab', name:'penanggung_jawab'},
         {data: 'kota', name:'kota'},

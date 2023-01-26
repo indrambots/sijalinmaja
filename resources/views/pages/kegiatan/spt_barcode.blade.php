@@ -75,7 +75,7 @@
 <body>
 
     <div class="page">
-        <table style="overflow:visible;margin-bottom: -10px;">
+        <table style="overflow:visible;margin-bottom: -10px; margin-top: -5px;">
             <tr>
                 <td style="width:80pt"><img alt="image" height="112" src="{{asset('media/bg/logo_jatim.gif')}}" width="74"/></td>
                 <td style="text-align: center; line-height: 1px">
@@ -100,7 +100,7 @@
                 Nomor : {{$keg->spt}}
             </p> <br>
         </p>
-        <table cellspacing="0" style="border-collapse:collapse; ">
+        <table cellspacing="0" style="border-collapse:collapse; margin-bottom:-10px;">
             <tr style="height:43pt">
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -163,7 +163,7 @@
                     </p>
                 </td>
                 <td colspan="3" style="width:421pt">
-                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;text-align: left;">
+                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;text-align: justify;">
                         Peraturan Gubernur Jawa Timur Nomor 89 Tahun 2022 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Provinsi Jawa Timur Tahun Anggaran 2023
                     </p>
                 </td>
@@ -189,7 +189,7 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-top: 2pt;padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                        Dokumen Pelaksanaan Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPA/A.1/1.05.0.00.0.00.01.0000/001/2023
+                        Dokumen Pelaksanaan Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPA/A.1/1.05.0.00.0.00.01.0000/001/2023;
                     </p>
                 </td>
             </tr>
@@ -360,7 +360,7 @@
         </table>
         @else
         <table cellspacing="0" style="border-collapse:collapse;">
-            <tr style="height:51pt">
+            <tr style="height:55pt">
                 <td style="width:48pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         Kepada
@@ -376,45 +376,48 @@
                         1.
                     </p>
                 </td>
-                <td style="width:120pt">
+                <td style="width:150pt">
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         Nama
                     </p>
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
-                        Pangkat / Golongan NIP
+                        Pangkat / Golongan
+                    </p>
+                    <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
+                        NIP
                     </p>
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         Jabatan
                     </p>
                 </td>
                 <td style="width:17pt">
-                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         :
                     </p>
-                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                         :
                     </p>
-                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                         :
                     </p>
-                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         :
                     </p>
                 </td>
                 <td style="width:273pt">
-                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         {{$katim->nama}}
                     </p>
-                    <p class="s6" style="padding-left: 5pt;padding-right: 125pt;text-indent: 0pt;text-align: left;">
-                        {{$katim->pangkat}} {{$katim->konversi_nip($katim->nip)}}
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;text-align: left;">
+                        {{$katim->pangkat}} <br> {{$katim->konversi_nip($katim->nip,$katim->pegawai->jenis_pegawai)}}
                     </p>
-                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         {{ucwords(strtolower($katim->pegawai->nama_jabatan))}}
                     </p>
                 </td>
             </tr>
             @foreach($anggota as $a)
-            <tr style="height:57pt">
+            <tr style="height:55pt">
                 <td style="width:48pt">
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -430,40 +433,43 @@
                         {{$loop->iteration + 1}}.
                     </p>
                 </td>
-                <td style="width:111pt">
+                <td style="width:150pt">
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         Nama
                     </p>
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
-                        Pangkat / Golongan NIP
+                        Pangkat / Golongan
+                    </p>
+                    <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
+                        NIP
                     </p>
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                         Jabatan
                     </p>
                 </td>
                 <td style="width:17pt">
-                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         :
                     </p>
-                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                         :
                     </p>
-                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                         :
                     </p>
-                    <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                         :
                     </p>
                 </td>
                 <td style="width:273pt">
-                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         {{$a->nama}}
                     </p>
-                    <p class="s6" style="padding-left: 5pt;padding-right: 125pt;text-indent: 0pt;text-align: left;">
-                        {{$a->pangkat}} {{$a->konversi_nip($a->nip)}}
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;text-align: left;">
+                        {{$a->pangkat}} <br> {{$a->konversi_nip($a->nip,$a->pegawai->jenis_pegawai)}}
                     </p>
-                    <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
-                        Pranata Komputer
+                    <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        {{ucwords(strtolower($a->pegawai->nama_jabatan))}}
                     </p>
                 </td>
             </tr>
@@ -541,140 +547,69 @@
         </table>
         @endif
         <br>
-<table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt;border-color: white;">
-    <tbody>
+        <table cellspacing="0" style="border-collapse:collapse;margin-left:250.075pt; margin-top: -10px;">
+            
         <tr style="height:13pt">
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
+            
             <td style="width:97pt">
-                <p class="s5" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                <p class="s5" style="text-indent: 0pt;line-height: 12pt;text-align: left; ">
                     Dikeluarkan di
                 </p>
             </td>
-            <td style="width:168pt">
+            <td style="width:150pt">
                 <p class="s5" style="padding-left: 7pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                     : Surabaya
                 </p>
             </td>
         </tr>
         <tr style="height:15pt">
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
+           
             <td style="width:97pt;border-bottom-style:solid;border-bottom-width:1pt">
-                <p class="s5" style="padding-left: 20pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                <p class="s5" style="text-indent: 0pt;line-height: 13pt;text-align: left;">
                     pada tanggal
                 </p>
             </td>
-            <td style="width:168pt;border-bottom-style:solid;border-bottom-width:1pt">
+            <td style="width:150pt;border-bottom-style:solid;border-bottom-width:1pt">
                 <p class="s5" style="padding-left: 7pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                     : {{$keg->tgl_indo(date('Y-m-d', strtotime($keg->created_at)))}}
                 </p>
             </td>
         </tr>
+        </table>
+<table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -10px;">
+    <tbody>
         <tr style="height:10pt">
-            <td style="width:64pt;">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt;">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt;">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:97pt;">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:168pt;">
+            <td colspan="4" style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt; border-color:white;">
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>
             </td>
         </tr>
         <tr style="height:26pt">
-            <td colspan="3" style="width:192pt;">
+            <td colspan="3" style="width:192pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt; border-color: white;">
                 <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: left;">
-                    <br>
                 </p>
             </td>
-            <td colspan="2" style="width:265pt;">
-                <p class="s4" style="padding-left: 75pt;text-indent: -50pt;line-height: 13pt;text-align: left;">
+            <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
+                <p class="s4" style="padding-left: 65pt;text-indent: -50pt;line-height: 13pt;text-align: left;">
                     KEPALA SATUAN POLISI PAMONG PRAJA PROVINSI JAWA TIMUR
                 </p>
             </td>
         </tr>
         <tr style="height:5pt">
-            <td style="width:64pt;">
-                <p class="s7" style="padding-left: 17pt;text-indent: 0pt;text-align: left;">
-                    
+            <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt; border-color: white;">
+                <p class="s7" style="padding-left: 0pt;text-indent: 0pt;text-align: left;">
                 </p>
-            </td>
-            <td style="width:64pt;">
-                <p class="s7" style="padding-left: 18pt;text-indent: 0pt;text-align: left;">
-                    
-                </p>
-            </td>
-            <td style="width:64pt;">
-                <p class="s7" style="padding-left: 13pt;text-indent: 0pt;text-align: left;">
-                    
-                </p>
-            </td>
-            <td colspan="2" style="width:265pt;">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
+                <br>
             </td>
         </tr>
         <tr style="height:10pt">
-            <td style="width:64pt;" >
+            <td colspan="3" style="width:64pt;border-left-width:1pt;border-right-width:1pt;border-bottom:1.25pt solid white;" >
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>
             </td>
-            <td style="width:64pt;" >
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt;" >
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td colspan="2" style="width:265pt;">
+            <td colspan="2" style="width:265pt;border-left-width:1pt">
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/> <br/>
                 </p>

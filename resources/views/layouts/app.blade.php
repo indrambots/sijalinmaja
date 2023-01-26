@@ -3,7 +3,7 @@
     <!--begin::Head-->
     <head><base href="">
         <meta charset="utf-8" />
-        <title>{{ config('app.name') }}</title>
+        <title>SIJALINMAJA</title>
         <meta name="description" content="Updates and statistics" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name       = "csrf-token" content="{{ csrf_token() }}">
@@ -236,7 +236,7 @@ tr.details td.details-control {
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Username:</label>
-                            <input type="text" required readonly class="form-control" style="background-color:#e4e4e4;" name="username" value="{{ Auth::user()->name }}" />
+                            <input type="text" required readonly class="form-control" style="background-color:#e4e4e4;" name="username" value="{{ Auth::user()->username }}" />
                         </div>
                         <div class="form-group">
                             <label>Password:</label>

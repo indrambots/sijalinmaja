@@ -381,7 +381,10 @@
                         Nama
                     </p>
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
-                        Pangkat / Golongan NIP
+                        Pangkat / Golongan 
+                    </p>
+                    <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
+                        NIP 
                     </p>
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         Jabatan
@@ -541,62 +544,37 @@
         </table>
         @endif
         <br>
-<table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -10px;">
-    <tbody>
+         <table cellspacing="0" style="border-collapse:collapse;margin-left:250.075pt; margin-top: -10px;">
+            
         <tr style="height:13pt">
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
+            
             <td style="width:97pt">
-                <p class="s5" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                <p class="s5" style="text-indent: 0pt;line-height: 12pt;text-align: left; ">
                     Dikeluarkan di
                 </p>
             </td>
-            <td style="width:168pt">
+            <td style="width:150pt">
                 <p class="s5" style="padding-left: 7pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                     : Surabaya
                 </p>
             </td>
         </tr>
         <tr style="height:15pt">
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
+           
             <td style="width:97pt;border-bottom-style:solid;border-bottom-width:1pt">
-                <p class="s5" style="padding-left: 20pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                <p class="s5" style="text-indent: 0pt;line-height: 13pt;text-align: left;">
                     pada tanggal
                 </p>
             </td>
-            <td style="width:168pt;border-bottom-style:solid;border-bottom-width:1pt">
+            <td style="width:150pt;border-bottom-style:solid;border-bottom-width:1pt">
                 <p class="s5" style="padding-left: 7pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                     : {{$keg->tgl_indo(date('Y-m-d', strtotime($keg->created_at)))}}
                 </p>
             </td>
         </tr>
+        </table>
+<table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -10px;">
+    <tbody>
         <tr style="height:10pt">
             <td style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt">
                 <p style="text-indent: 0pt;text-align: left;">
@@ -613,12 +591,12 @@
                     <br/>
                 </p>
             </td>
-            <td style="width:97pt;border-top-style:solid;border-top-width:1pt">
+            <td style="width:97pt;">
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>
             </td>
-            <td style="width:168pt;border-top-style:solid;border-top-width:1pt">
+            <td style="width:168pt;">
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>

@@ -18,7 +18,8 @@ class UserController extends Controller
     public function gantipassword(Request $request){
         // echo $request->username;
         // echo $request->password;
-        $users = User::where('username',$request['username'])->first(); 
+        // dd($request->all());
+        $users = User::where('username',$request->username)->first();
         $users->password= Hash::make($request['password']);
         $users->save();
         return redirect('/')->with('message','Password Updated');
