@@ -215,7 +215,7 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-top: 2pt;padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                        {{$keg->dasar_surat}}
+                        {{$keg->dasar_surat}}.
                     </p>
                 </td>
             </tr>
@@ -376,7 +376,7 @@
                         1.
                     </p>
                 </td>
-                <td style="width:150pt">
+                <td style="width:120pt">
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         Nama
                     </p>
@@ -390,7 +390,7 @@
                         Jabatan
                     </p>
                 </td>
-                <td style="width:17pt">
+                <td style="width:10pt">
                     <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         :
                     </p>
@@ -433,7 +433,7 @@
                         {{$loop->iteration + 1}}.
                     </p>
                 </td>
-                <td style="width:150pt">
+                <td style="width:120pt">
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         Nama
                     </p>
@@ -447,7 +447,7 @@
                         Jabatan
                     </p>
                 </td>
-                <td style="width:17pt">
+                <td style="width:10pt">
                     <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         :
                     </p>
