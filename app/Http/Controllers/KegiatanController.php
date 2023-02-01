@@ -52,7 +52,6 @@ class KegiatanController extends Controller
 
     public function laporan(Request $request){
         $image = $request->dokumentasi_1;
-        dd($request->all());
         $dokumentasi_1 = $this->uploadDokumentasi($image,1,$request->id);
         $image = $request->file('dokumentasi_2');
         $dokumentasi_2 = $this->uploadDokumentasi($image,2,$request->id);
