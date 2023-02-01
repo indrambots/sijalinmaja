@@ -296,6 +296,7 @@ tr.details td.details-control {
         <!--begin::Page Vendors(used by this page)-->
         <script src="{{ asset('js/pages/features/miscellaneous/sweetalert2.js')}}"></script>
         <script src="{{ asset('js/pages/features/miscellaneous/toastr.js')}}"></script>
+        <script src="{{ asset('plugins/custom/tinymce/tinymce.bundle.js')}}"></script>
         <!--end::Page Vendors-->
         <!--begin::Page Scripts(used by this page)-->
         <script src={{ asset('js/pages/jquery.number.js') }}></script>

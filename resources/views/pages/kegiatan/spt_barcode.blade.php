@@ -553,7 +553,7 @@
             
             <td style="width:97pt">
                 <p class="s5" style="text-indent: 0pt;line-height: 12pt;text-align: left; ">
-                    Dikeluarkan di
+                    Ditetapkan di
                 </p>
             </td>
             <td style="width:150pt">
@@ -625,7 +625,7 @@
 </table>
                 <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: 20px;" />
         {{-- <p style="padding-top: 4pt;padding-left: 322pt;text-indent: 0pt;text-align: left;">
-            Dikeluarkan di : Surabaya<br>
+            Ditetapkan di : Surabaya<br>
             <b style="border-bottom:2px solid black">
                 Pada tanggal : 8 Juni 2022
             </b>
@@ -717,7 +717,7 @@
                 </td>
                 <td style="width:135pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-left: 5pt;padding-right: 5pt;text-indent: 0pt;text-align: center;">
-                        {{$katim->konversi_nip($katim->nip)}}
+                        {{$katim->konversi_nip($katim->nip,$katim->pegawai->jenis_pegawai)}}
                     </p>
                 </td>
                 <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -745,7 +745,7 @@
                 </td>
                 <td style="width:135pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-left: 5pt;padding-right: 5pt;text-indent: 0pt;text-align: center;">
-                        {{$p->konversi_nip($p->nip)}}
+                        {{$p->konversi_nip($p->nip,$p->pegawai->jenis_pegawai)}}
                     </p>
                 </td>
                 <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -762,7 +762,7 @@
             @endforeach
         </table>
 
-        <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: -620px;" />
+        <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: -725px;" />
     </div>
     @endif
 

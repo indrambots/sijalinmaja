@@ -10,6 +10,9 @@ use App\KegiatanPersonel;
 use App\User;
 use App\Kota;
 use App\Pegawai;
+use Image;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 use Yajra\Datatables\Datatables;
 use DB;
 use Auth;
@@ -47,6 +50,26 @@ class KegiatanController extends Controller
         return view('pages.kegiatan.create',compact('kota','keg','id','bidang','pegawai','pegawai_all'));
     }
 
+    public function laporan(Request $request){
+        $image = $request->file('dokumentasi_1');
+        $dokumentasi_1 = $this->uploadDokumentasi($image,1,$request->id);
+        $image = $request->file('dokumentasi_2');
+        $dokumentasi_2 = $this->uploadDokumentasi($image,2,$request->id);
+        $image = $request->file('dokumentasi_3');
+        $dokumentasi_3 = $this->uploadDokumentasi($image,3,$request->id);
+        Kegiatan::find($request->id)->update([
+            'hasil_kegiatan' => $request->hasil_kegiatan,
+            'dokumentasi_1' => $dokumentasi_1,
+            'dokumentasi_2' => $dokumentasi_2,
+            'dokumentasi_3' => $dokumentasi_3,
+        ]);
+        dd($request->all());
+
+    }
+
+    public function laporan_save(Request $request){
+    }
+
     public function datatable(){
         $kegiatan = Kegiatan::all();
         return Datatables::of($kegiatan)
@@ -54,19 +77,24 @@ class KegiatanController extends Controller
             $btn_aksi = '<a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a><button onclick="deleteKeg('.$i->id.',\''.$i->spt.'\')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>';
             $btn_print = '<a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
             if(Auth::user()->level == 6):
-
             $btn_print = '<a href="'.url('kegiatan/print/'.$i->id.'/yes').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
             endif;
         $btn_upload_spt = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-upload" onclick="uploadBarcode('.$i->id.',\''.$i->link_spt.'\')"><i class="fas fa-upload"></i></button>';
         $btn_link_spt = '<a href="'.$i->link_spt.'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-fingerprint"></i></a>';
+        $btn_laporan = '';
+        foreach($i->personel as $k):
+            if(Auth::user()->username == $k->nip):
+            $btn_laporan = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-laporan" onclick="laporan('.$i->id.')"><i class="fas fa-file-alt"></i></button>';
+            endif;
+        endforeach;
         if($i->link_spt !== null):
             $btn_print = $btn_link_spt;
         endif;
             if((int)Auth::user()->level == 9):
                 if($i->created_by == (int)Auth::user()->id):
-                    return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.'</div>';
+                    return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.$btn_laporan.'</div>';
                 else:
-                    return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_print.'</div>';
+                    return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_print.$btn_laporan.'</div>';
                 endif;
             elseif((int)Auth::user()->level == 6):
                     return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_upload_spt.$btn_print.'</div>';
@@ -156,5 +184,17 @@ class KegiatanController extends Controller
         $bentuk_kegiatan = MasterBentukKegiatan::where('kegiatan_id',$kegiatan->id)->orderBy('bentuk_kegiatan','asc')->get();
         $view_bentuk_kegiatan         = (string) view('pages.kegiatan.ajax.bentuk_kegiatan', compact('bentuk_kegiatan'));
         return response()->json(array('view_bentuk_kegiatan' => $view_bentuk_kegiatan));
+    }
+
+    protected function uploadDokumentasi($image,$ke,$id){
+        $keg = Kegiatan::find($id);
+        $spt =  str_replace("/","_",$keg->spt);
+        $filename = $spt.'_'.'dok_'.$ke.'.'.$image->extension();
+        $destinationPath = storage_path('app/dokumentasi');
+        $img = Image::make($image->path());
+        $img->resize(720, 480, function ($constraint) {
+            $constraint->aspectRatio();
+        })->encode('jpg')->save($destinationPath.'/'.$filename);
+        return $filename;
     }
 }

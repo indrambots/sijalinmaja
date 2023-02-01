@@ -62,6 +62,42 @@
 
             </div>
           </div>
+           <div id="modal-laporan" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-xl">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title text-left">FORM LAPORAN KEGIATAN</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form" enctype="multipart/form-data" method="POST" action="{{url('kegiatan/laporan')}}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" id="id_laporan" value="">
+                        <div class="form-group">
+                            <label>POINT PENTING / HASIL KEGIATAN :</label>
+                            <textarea name="hasil_kegiatan" id="hasil_kegiatan" class="form-control" ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>DOKUMENTASI 1 :</label>
+                            <input type="file" class="form-control" name="dokumentasi_1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>DOKUMENTASI 2 :</label>
+                            <input type="file" class="form-control" name="dokumentasi_2" required>
+                        </div>
+                        <div class="form-group">
+                            <label>DOKUMENTASI 3 :</label>
+                            <input type="file" class="form-control" name="dokumentasi_3" required>
+                        </div>
+                        <button type='submit'  class="btn btn-primary mr-2">SIMPAN</button>
+                    </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
 @endsection
 @section('script')
 <script type="text/javascript">
@@ -126,5 +162,25 @@
       $('#idspt').val(id)
       $('#link').val(link)
     }
+
+    function laporan(id){
+      $('#id_laporan').val(id)
+    }
+$(document).ready(function(){
+  tinymce.init({
+  selector: 'textarea#hasil_kegiatan',
+  height: 500,
+  plugins: [
+    'advlist', 'autolink', 'lists', 'link',
+    'searchreplace', 'visualblocks', 'code', 'fullscreen',
+    'insertdatetime', 'table', 'wordcount'
+  ],
+  toolbar: 'undo redo | blocks | ' +
+  'bold italic backcolor | alignleft aligncenter ' +
+  'alignright alignjustify | bullist numlist outdent indent | ' +
+  'removeformat',
+  content_style: 'body { font-family:Arial,sans-serif; font-size:12px }'
+});
+})
 </script>
 @endsection
