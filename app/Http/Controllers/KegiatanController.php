@@ -10,7 +10,7 @@ use App\KegiatanPersonel;
 use App\User;
 use App\Kota;
 use App\Pegawai;
-use Image;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use Yajra\Datatables\Datatables;
