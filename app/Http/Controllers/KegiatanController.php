@@ -51,7 +51,7 @@ class KegiatanController extends Controller
     }
 
     public function laporan(Request $request){
-        $image = $request->file('dokumentasi_1');
+        $image = $request->dokumentasi_1;
         dd($image);
         $dokumentasi_1 = $this->uploadDokumentasi($image,1,$request->id);
         $image = $request->file('dokumentasi_2');
