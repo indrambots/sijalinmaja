@@ -63,7 +63,7 @@ class KegiatanController extends Controller
             'dokumentasi_2' => $dokumentasi_2,
             'dokumentasi_3' => $dokumentasi_3,
         ]);
-        dd($request->all());
+        return redirect('kegiatan')->with('success_laporan', 'LAPORAN BERHASIL DIBUAT');
 
     }
 
@@ -107,7 +107,24 @@ class KegiatanController extends Controller
             else:
                 return date("d F Y", strtotime($i->tanggal_mulai))." s/d ".date("d F Y", strtotime($i->tanggal_selesai));
             endif;
-        })->rawColumns(['aksi','waktu_kegiatan'])
+        })->addColumn('status',function($i){
+            if($i->link_spt == null && $i->hasil_kegiatan == null):
+                return '<label> <span class="badge badge-danger">BELUM BARCODE & LAPORAN</span> </label>';
+            elseif($i->link_spt !== null && $i->hasil_kegiatan == null):
+                return '<label> <span class="badge badge-warning">BELUM LAPORAN</span> </label>';
+            elseif($i->link_spt !== null && $i->hasil_kegiatan !== null):
+                return '<label> <span class="badge badge-success">LAPORAN SELESAI</span> </label>';
+            elseif($i->link_spt == null && $i->hasil_kegiatan !== null):
+                return '<label> <span class="badge badge-success">BELUM BARCODE</span> </label>';
+            endif;
+        })->editColumn('spt',function($i){
+            if($i->link_spt !== null):
+                return '<a href="'.$i->link_spt.'" target="_blank" class="stretched-link">'.$i->spt.'</a>';
+            else:
+                return $i->spt;
+            endif;
+
+        })->rawColumns(['aksi','waktu_kegiatan','spt','status'])
         ->make(true);
     }
 
@@ -163,7 +180,7 @@ class KegiatanController extends Controller
         Kegiatan::find($request->id)->update([
             "link_spt" => $request->link_spt
         ]);
-        return redirect('kegiatan')->with('success', 'LINK SPT BERHASIL TERSIMPAN');
+        return redirect('kegiatan')->with('success_barcode', 'LINK SPT BERHASIL TERSIMPAN');
     }
 
     public function delete(Request $request){

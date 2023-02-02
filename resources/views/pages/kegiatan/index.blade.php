@@ -23,9 +23,10 @@
                 <th>SPT</th>
                 <th>Judul Kegiatan</th>
                 <th>Waktu Kegiatan</th>
-                <th>Penanggung Jawab</th>
-                <th>Kota</th>
                 <th>Lokasi</th>
+                <th>Kota</th>
+                <th>Penanggung Jawab</th>
+                <th>Status</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -111,9 +112,10 @@
         {data: 'spt', name:'spt'},
         {data: 'judul_kegiatan', name:'judul_kegiatan'},
         {data: 'waktu_kegiatan', name:'waktu_kegiatan'},
-        {data: 'penanggung_jawab', name:'penanggung_jawab'},
-        {data: 'kota', name:'kota'},
         {data: 'lokasi', name:'lokasi'},
+        {data: 'kota', name:'kota'},
+        {data: 'penanggung_jawab', name:'penanggung_jawab'},
+        {data: 'status', name:'status'},
         {data: 'aksi', name:'aksi'},
         ],
         "order": [[ 0, "desc" ]],
@@ -183,4 +185,22 @@ $(document).ready(function(){
 });
 })
 </script>
+
+@if(isset(Session::get('success')))
+<script type="text/javascript">
+    toastr.success("DATA KEGIATAN BERHASIL TERSIMPAN");
+</script>
+@endif
+
+@if(Session::get('success_barcode'))
+<script type="text/javascript">
+    toastr.success("LINK SPT BERHASIL TERSIMPAN");
+</script>
+@endif
+
+@if(Session::get('success_laporan'))
+<script type="text/javascript">
+    toastr.success("LAPORAN BERHASIL DIBUAT");
+</script>
+@endif
 @endsection
