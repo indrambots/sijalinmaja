@@ -424,4 +424,5 @@ var loadPanel = $(".loadpanel").dxLoadPanel({
     <!--end::Body-->
 @stack('scriptTambahan')
 <script src = "{{ asset('js/default/alpinejs.js') }}"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB6fouhBbFhJmgiFuFNFuYAtfF7Sy_VxDg&libraries=places&callback=initMap"></script>
 </html>

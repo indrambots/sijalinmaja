@@ -9,6 +9,7 @@ use App\MasterBentukKegiatan;
 use App\KegiatanPersonel;
 use App\User;
 use App\Kota;
+use App\SumberInformasi;
 use App\Pegawai;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;

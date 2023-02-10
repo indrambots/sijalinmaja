@@ -29,6 +29,18 @@ Route::prefix('kegiatan')->group(function () {
     Route::post('filter-bidang','KegiatanController@filter_bidang');
     Route::post('filter-kegiatan','KegiatanController@filter_kegiatan');
 });            
+
+Route::prefix('kasus')->group(function () {
+    Route::get('/', 'KasusController@index');
+    Route::get('create/{id}','KasusController@create');
+    Route::post('save','KasusController@save');
+});
+
+Route::prefix('ajax')->group(function () {
+    Route::post('filter-urusan','AjaxController@filter_urusan');
+    Route::post('filter-kecamatan','AjaxController@filter_kecamatan');
+    Route::post('filter-kelurahan','AjaxController@filter_kelurahan');
+});
 Route::prefix('user')->group(function () {
     Route::post('gantipassword','UserController@gantipassword');
 });

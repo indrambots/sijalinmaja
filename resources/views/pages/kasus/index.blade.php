@@ -6,11 +6,11 @@
     <div class="card-body">
       <div class="row justify-content-between">
         <div class="col-4">
-          <h5 class="card-title">Data Kegiatan</h5>
+          <h5 class="card-title">Data Kasus</h5>
         </div>
         <div class="col-4">
           <div class="d-flex justify-content-end">
-          <a href="{{ url('kegiatan/create/0')}} " type="button" class="btn btn-outline-primary m-b-xs "><i class="fas fa-plus-circle"></i> Buat Kegiatan</a>
+          <a href="{{ url('kasus/create/0')}} " type="button" class="btn btn-outline-primary m-b-xs "><i class="fas fa-plus-circle"></i> Input Data Kasus Baru</a>
         </div>
         </div>
       </div>
@@ -102,31 +102,31 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-    var datatable = $('#datatable').DataTable({
-        processing: true,
-        serverSide: false,
-        paging:true,
-        ajax:'{{ url('kegiatan/datatable') }}',
-         columns: [
-        {data: 'id', name:'id'},
-        {data: 'spt', name:'spt'},
-        {data: 'judul_kegiatan', name:'judul_kegiatan'},
-        {data: 'waktu_kegiatan', name:'waktu_kegiatan'},
-        {data: 'lokasi', name:'lokasi'},
-        {data: 'kota', name:'kota'},
-        {data: 'penanggung_jawab', name:'penanggung_jawab'},
-        {data: 'status', name:'status'},
-        {data: 'aksi', name:'aksi'},
-        ],
-        "order": [[ 0, "desc" ]],
-        "columnDefs": [
-            {
-                "targets": [ 0 ],
-                "visible": false,
-                "searchable": false
-            },
-          ],
-      })
+    // var datatable = $('#datatable').DataTable({
+    //     processing: true,
+    //     serverSide: false,
+    //     paging:true,
+    //     ajax:'{{ url('kasus/datatable') }}',
+    //      columns: [
+    //     {data: 'id', name:'id'},
+    //     {data: 'spt', name:'spt'},
+    //     {data: 'judul_kegiatan', name:'judul_kegiatan'},
+    //     {data: 'waktu_kegiatan', name:'waktu_kegiatan'},
+    //     {data: 'lokasi', name:'lokasi'},
+    //     {data: 'kota', name:'kota'},
+    //     {data: 'penanggung_jawab', name:'penanggung_jawab'},
+    //     {data: 'status', name:'status'},
+    //     {data: 'aksi', name:'aksi'},
+    //     ],
+    //     "order": [[ 0, "desc" ]],
+    //     "columnDefs": [
+    //         {
+    //             "targets": [ 0 ],
+    //             "visible": false,
+    //             "searchable": false
+    //         },
+    //       ],
+    //   })
     function personel(id){
 
     }
