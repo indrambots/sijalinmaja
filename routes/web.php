@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('test','TestController@index');
 
 Route::prefix('kegiatan')->group(function () {
 
@@ -34,10 +35,11 @@ Route::prefix('kasus')->group(function () {
     Route::get('/', 'KasusController@index');
     Route::get('create/{id}','KasusController@create');
     Route::post('save','KasusController@save');
+    Route::get('datatable','KasusController@datatable');
 });
 
 Route::prefix('ajax')->group(function () {
-    Route::post('filter-urusan','AjaxController@filter_urusan');
+    Route::post('filter-trantib','AjaxController@filter_trantib');
     Route::post('filter-kecamatan','AjaxController@filter_kecamatan');
     Route::post('filter-kelurahan','AjaxController@filter_kelurahan');
 });

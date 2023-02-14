@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Kecamatan;
 use App\Kelurahan;
 use App\Kota;
+use App\JenisTrantib;
 
 class AjaxController extends Controller
 {
@@ -31,7 +32,11 @@ class AjaxController extends Controller
         return response()->json(array('view_kelurahan' => $view_kelurahan));
     }
 
-    public function filter_urusan(Request $request){
+    public function filter_trantib(Request $request){
         
+        $trantib = JenisTrantib::where('urusan',$request->urusan)->get();
+        $view = (String) view('ajax.filter_trantib', compact('trantib'));
+        return response()->json(array('view' => $view));
+
     }
 }

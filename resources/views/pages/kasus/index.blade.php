@@ -20,12 +20,12 @@
             <thead>
               <tr>
                 <th>id</th>
-                <th>SPT</th>
-                <th>Judul Kegiatan</th>
-                <th>Waktu Kegiatan</th>
+                <th>Judul Kasus</th>
+                <th>Deskripsi Kasus</th>
+                <th>Tanggal Informasi Kasus</th>
                 <th>Lokasi</th>
-                <th>Kota</th>
-                <th>Penanggung Jawab</th>
+                <th>Pelapor</th>
+                <th>Pelanggar</th>
                 <th>Status</th>
                 <th>Aksi</th>
               </tr>
@@ -46,17 +46,43 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title text-left">LINK SPT</h4>
+                  <h4 class="modal-title text-left">VERIFIKASI KASUS</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form" method="POST" action="{{url('kegiatan/update-link-spt')}}">
                         {{ csrf_field() }}
-                        <input type="hidden" name="id" id="idspt" value="">
+                        <input type="hidden" name="id" id="idkasus" value="">
                         <div class="form-group">
-                            <label>Link Google Drive SPT:</label>
-                            <input type="text" required class="form-control" id="link" name="link_spt" value="" />
+                            <label>STATUS KASUS SAAT INI:</label>
+                            <select class="form-control" name="status" id="status_kasus">
+                                <option value="AKTIF">AKTIF</option>
+                                <option value="DITERUSKAN KAB/KOTA">DITERUSKAN KAB/KOTA</option>
+                                <option value="DITERUSKAN DALAM PENANGANAN OPD">DITERUSKAN DALAM PENANGANAN OPD</option>
+                                <option value="DALAM PENANGANAN OPD">DALAM PENANGANAN OPD</option>
+                                <option value="DALAM PENANGANAN SATPOLPP PEMPROV">DALAM PENANGANAN SATPOLPP PEMPROV</option>
+                                <option value="SELESAI">SELESAI</option>
+                            </select>
                         </div>
-                        <button type='submit'  class="btn btn-primary mr-2">SIMPAN LINK SPT</button>
+                        <div class="form-group">
+                            <label>KEWENANGAN</label>
+                            <div class="radio-inline">
+                                <label class="radio">
+                                <input type="radio" name="kewenangan" value="1">
+                                <span></span>OPD PEMPROV JATIM</label>
+                                <label class="radio">
+                                <input type="radio" name="kewenangan" value="2">
+                                <span></span>KAB/KOTA</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Kabupaten/Kota</label>
+                            <select class="form-control select2" name="kota" id="kota">
+                                @foreach($kota as $k)
+                                    <option value="{{$k->nama}}">{{$k->nama}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <button type='submit'  class="btn btn-primary mr-2">SUBMIT VERIFIKASI</button>
                     </form>
                 </div>
               </div>
@@ -102,31 +128,31 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-    // var datatable = $('#datatable').DataTable({
-    //     processing: true,
-    //     serverSide: false,
-    //     paging:true,
-    //     ajax:'{{ url('kasus/datatable') }}',
-    //      columns: [
-    //     {data: 'id', name:'id'},
-    //     {data: 'spt', name:'spt'},
-    //     {data: 'judul_kegiatan', name:'judul_kegiatan'},
-    //     {data: 'waktu_kegiatan', name:'waktu_kegiatan'},
-    //     {data: 'lokasi', name:'lokasi'},
-    //     {data: 'kota', name:'kota'},
-    //     {data: 'penanggung_jawab', name:'penanggung_jawab'},
-    //     {data: 'status', name:'status'},
-    //     {data: 'aksi', name:'aksi'},
-    //     ],
-    //     "order": [[ 0, "desc" ]],
-    //     "columnDefs": [
-    //         {
-    //             "targets": [ 0 ],
-    //             "visible": false,
-    //             "searchable": false
-    //         },
-    //       ],
-    //   })
+    var datatable = $('#datatable').DataTable({
+        processing: true,
+        serverSide: false,
+        paging:true,
+        ajax:'{{ url('kasus/datatable') }}',
+         columns: [
+        {data: 'id', name:'id'},
+        {data: 'judul', name:'judul'},
+        {data: 'deskripsi_kasus', name:'deskripsi_kasus'},
+        {data: 'tanggal_informasi', name:'tanggal_informasi'},
+        {data: 'lokasi_kasus', name:'lokasi_kasus'},
+        {data: 'data_pelapor', name:'data_pelapor'},
+        {data: 'data_pelanggar', name:'data_pelanggar'},
+        {data: 'status', name:'status'},
+        {data: 'aksi', name:'aksi'},
+        ],
+        "order": [[ 0, "desc" ]],
+        "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+            },
+          ],
+      })
     function personel(id){
 
     }
