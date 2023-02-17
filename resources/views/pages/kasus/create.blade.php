@@ -197,14 +197,24 @@
 
    var map;
       var marker;
-
       function initMap() {
         var myLatLng = new google.maps.LatLng(-7.9666200, 112.6326600);
         var mapOptions = {
           zoom: 8,
-          center: myLatLng
+          center: myLatLng,
+  				mapTypeId: 'hybrid'
         };
         map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions); 
+
+      var baselayer = new google.maps.Data();
+      baselayer.loadGeoJson('{{ asset('js/jawa_timur.json') }}')
+      baselayer.setStyle({
+    fillColor: 'green',
+    opacity: 0.1,
+    strokeWeight: 0.5,
+    clickable: false
+  });
+      baselayer.setMap(map);
         @if($id == 0)
         marker = new google.maps.Marker({
           // position: myLatLng,
@@ -246,7 +256,14 @@
 										  };
 			var autocomplete = new google.maps.places.Autocomplete(input, options);
   		autocomplete.bindTo("bounds", map);
-  		var place = autocomplete.getPlace();
+  		autocomplete.addListener("place_changed", getCoordinates);
+
+  		function getCoordinates(){
+  			var place = autocomplete.getPlace()
+  			marker.setPosition(place.geometry.location);
+       	$('#koordinat').val('['+place.geometry.location.lat()+','+place.geometry.location.lng()+']')
+  		}
+
       }
 
 window.initMap = initMap;

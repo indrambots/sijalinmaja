@@ -36,6 +36,11 @@ Route::prefix('kasus')->group(function () {
     Route::get('create/{id}','KasusController@create');
     Route::post('save','KasusController@save');
     Route::get('datatable','KasusController@datatable');
+    Route::prefix('modal')->group(function () {
+        Route::post('show-verif','KasusController@show_verif');
+        Route::post('verif','KasusController@verif');
+    });
+    Route::post('delete','KasusController@delete');
 });
 
 Route::prefix('ajax')->group(function () {
@@ -46,4 +51,9 @@ Route::prefix('ajax')->group(function () {
 Route::prefix('user')->group(function () {
     Route::post('gantipassword','UserController@gantipassword');
 });
+
+Route::prefix('peta')->group(function () {
+    Route::get('','PetaController@index');
+});
+
 Auth::routes();

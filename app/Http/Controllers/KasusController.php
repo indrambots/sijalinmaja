@@ -11,6 +11,7 @@ use App\Pd;
 use App\Urusan;
 use App\Kasus;
 use App\SumberInformasi;
+use App\HistoryVerif;
 use Yajra\Datatables\Datatables;
 
 class KasusController extends Controller
@@ -23,7 +24,8 @@ class KasusController extends Controller
     public function index()
     {
         $kota = Kota::orderBy('nama','asc')->get();
-        return view('pages.kasus.index', compact('kota'));
+        $opd = Pd::orderBy('nama','asc')->get();
+        return view('pages.kasus.index', compact('kota','opd'));
     }
 
     public function create($id){
@@ -68,7 +70,7 @@ class KasusController extends Controller
         $kasus->nik_pelanggar = $request->nik_pelanggar;
         $kasus->alamat_pelanggar = $request->alamat_pelanggar;
         $kasus->potensi_pad = ($request->potensi_pad == 0) ? 0 : $potensi_pad;
-        $kasus->status = 0;
+        $kasus->status = ($request->id == 0) ? 0 : $kasus->status;
         $kasus->kota_nama = $kota->nama;
         $kasus->kec_nama = $kec->nama;
         $kasus->kel_nama = $kel;
@@ -77,12 +79,16 @@ class KasusController extends Controller
         return redirect('kasus')->with('success', 'Data Kasus Berhasil Ditambahkan');
     }
 
+    public function delete(Request $request){
+        Kasus::find($request->id)->delete();
+    }
+
     public function datatable()
     {
         $kasus = Kasus::where('id','>',0)->get();
         return Datatables::of($kasus)
         ->addColumn('aksi',function($i){
-            $btn_verif = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-upload" onclick="verifKasus('.$i->id.')"><i class="far fa-check-circle"></i></button>';
+            $btn_verif = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-verif" onclick="verifKasus('.$i->id.')"><i class="far fa-check-circle"></i></button>';
             $btn_aksi = '<a href="'.url('kasus/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a><button onclick="deleteKasus('.$i->id.')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>';
             return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_verif.'</div>';
         })
@@ -114,11 +120,34 @@ class KasusController extends Controller
             elseif($i->status == 4){
                 return '<span class="label label-lg label-primary label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:250px;">DALAM PENANGANAN SATPOLPP PEMPROV</span>';
             }
-            elseif($i->status == 4){
+            elseif($i->status == 5){
                 return '<span class="label label-lg label-success label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:75px;">SELESAI</span>';
             }
         })
         ->rawColumns(['aksi','tanggal_informasi','data_pelapor','data_pelanggar','lokasi_kasus','deskripsi_kasus','status'])
         ->make(true);
+    }
+
+    public function show_verif(Request $request){
+        $kasus = Kasus::find($request->id);
+        return response()->json(array('kasus' => $kasus));
+
+    }
+
+    public function verif(Request $request){
+        // dd($request->all());
+        $kasus = Kasus::find($request->id);
+        $kasus->status = $request->status;
+        $kasus->kewenangan = $request->kewenangan;
+        $kasus->keterangan_kewenangan = ($request->kewenangan == 1) ? $request->opd : $request->kota;
+        $kasus->save();
+        HistoryVerif::create([
+            'kasus_id' => $request->id,
+            'status' => $request->status,
+            'kewenangan' => $request->kewenangan,
+            'keterangan_kewenangan' => ($request->kewenangan == 1) ? $request->opd : $request->kota,
+            'tanggal' => date("Y-m-d H:i:s", strtotime('+7 hours')),
+        ]);
+        return redirect('kasus')->with('success_verif', 'Berhasil Verifikasi Kasus');
     }
 }

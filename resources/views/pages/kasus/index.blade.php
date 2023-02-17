@@ -39,7 +39,7 @@
   </div>
 </div>
 
-        <div id="modal-upload" class="modal fade" role="dialog">
+        <div id="modal-verif" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
               <!-- Modal content-->
@@ -49,76 +49,50 @@
                   <h4 class="modal-title text-left">VERIFIKASI KASUS</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form" method="POST" action="{{url('kegiatan/update-link-spt')}}">
+                    <form class="form" method="POST" action="{{url('kasus/modal/verif')}}">
                         {{ csrf_field() }}
                         <input type="hidden" name="id" id="idkasus" value="">
                         <div class="form-group">
                             <label>STATUS KASUS SAAT INI:</label>
                             <select class="form-control" name="status" id="status_kasus">
-                                <option value="AKTIF">AKTIF</option>
-                                <option value="DITERUSKAN KAB/KOTA">DITERUSKAN KAB/KOTA</option>
-                                <option value="DITERUSKAN DALAM PENANGANAN OPD">DITERUSKAN DALAM PENANGANAN OPD</option>
-                                <option value="DALAM PENANGANAN OPD">DALAM PENANGANAN OPD</option>
-                                <option value="DALAM PENANGANAN SATPOLPP PEMPROV">DALAM PENANGANAN SATPOLPP PEMPROV</option>
-                                <option value="SELESAI">SELESAI</option>
+                                <option value="">--PILIH STATUS KASUS--</option>
+                                <option value="1">AKTIF</option>
+                                <option value="2">DITERUSKAN KAB/KOTA</option>
+                                <option value="3">DITERUSKAN DALAM PENANGANAN OPD</option>
+                                <option value="4">DALAM PENANGANAN SATPOLPP PEMPROV</option>
+                                <option value="5">SELESAI</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>KEWENANGAN</label>
                             <div class="radio-inline">
                                 <label class="radio">
-                                <input type="radio" name="kewenangan" value="1">
+                                <input type="radio" class="kewenangan" name="kewenangan" value="1">
                                 <span></span>OPD PEMPROV JATIM</label>
                                 <label class="radio">
-                                <input type="radio" name="kewenangan" value="2">
+                                <input type="radio" class="kewenangan" name="kewenangan" value="2">
                                 <span></span>KAB/KOTA</label>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row" id="div_kota">
                             <label>Kabupaten/Kota</label>
                             <select class="form-control select2" name="kota" id="kota">
+                                <option value="">--PILIH KAB/KOTA--</option>
                                 @foreach($kota as $k)
                                     <option value="{{$k->nama}}">{{$k->nama}}</option>
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group row" id="div_opd">
+                            <label>Perangkat Daerah</label>
+                            <select class="form-control select2" name="opd" id="opd">
+                                <option value="">--PILIH OPD PEMPROV--</option>
+                                @foreach($opd as $k)
+                                    <option value="{{$k->nama}}">{{$k->nama}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <button type='submit'  class="btn btn-primary mr-2">SUBMIT VERIFIKASI</button>
-                    </form>
-                </div>
-              </div>
-
-            </div>
-          </div>
-           <div id="modal-laporan" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-xl">
-
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title text-left">FORM LAPORAN KEGIATAN</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form" enctype="multipart/form-data" method="POST" action="{{url('kegiatan/laporan')}}">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="id" id="id_laporan" value="">
-                        <div class="form-group">
-                            <label>POINT PENTING / HASIL KEGIATAN :</label>
-                            <textarea name="hasil_kegiatan" id="hasil_kegiatan" class="form-control" ></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>DOKUMENTASI 1 :</label>
-                            <input type="file" class="form-control" name="dokumentasi_1" required>
-                        </div>
-                        <div class="form-group">
-                            <label>DOKUMENTASI 2 :</label>
-                            <input type="file" class="form-control" name="dokumentasi_2" required>
-                        </div>
-                        <div class="form-group">
-                            <label>DOKUMENTASI 3 :</label>
-                            <input type="file" class="form-control" name="dokumentasi_3" required>
-                        </div>
-                        <button type='submit'  class="btn btn-primary mr-2">SIMPAN</button>
                     </form>
                 </div>
               </div>
@@ -153,29 +127,77 @@
             },
           ],
       })
-    function personel(id){
-
+    $('input[type=radio][name=kewenangan]').change(function() {
+        console.log(this.value)
+    if (this.value == '1') {
+        $('#div_kota').hide();
+        $('#div_opd').show();
     }
-    function deleteKeg(id,nospt){
+    else {
+        $('#div_kota').show();
+        $('#div_opd').hide();
+    }
+    })
+    function verifKasus(id){
+        $('#idkasus').val(id)
+        $('#div_kota').hide();
+        $('#div_opd').hide();
+        $.ajax({
+                method:'POST',
+                url:'{{ url("kasus/modal/show-verif") }}',
+                data:{
+                  id:id,
+                  '_token': $('input[name=_token]').val()
+                },
+                success:function(data){
+                    // console.log(data.kasus.status)
+                    if(data.kasus.status == 0){
+                        $('#status_kasus').val($("#status_kasus option:first").val())
+                        $('.kewenangan').prop('checked',false)
+                        $('#kota').val($("#kota option:first").val())
+                        $('#opd').val($("#opd option:first").val())
+                    }
+                    else{
+                        $('#status_kasus').val(data.kasus.status)
+                        $("input[name=kewenangan][value='"+data.kasus.kewenangan+"']").prop("checked",true);
+                        $("input[name=kewenangan][value='"+data.kasus.kewenangan+"']").prop("checked",true);
+                        console.log(data.kasus.keterangan_kewenangan)
+                        if (data.kasus.kewenangan == '1') {
+                            $('#div_kota').hide();
+                            $('#div_opd').show();
+                            $('#opd').val(data.kasus.keterangan_kewenangan).change()
+                            $('#kota').val($("#kota option:first").val())
+                        }
+                        else {
+                            $('#div_kota').show();
+                            $('#div_opd').hide();
+                            $('#kota').val(data.kasus.keterangan_kewenangan).change()
+                            $('#opd').val($("#opd option:first").val())
+                        }
+                    }
+                }
+              }) 
+    }
+    function deleteKasus(id){
         Swal.fire({   
                       title: "Anda Yakin?",   
-                      text: "Data Kegiatan bernomor "+nospt+" akan terhapus",   
+                      text: "Data Kasus akan terhapus",   
                       icon: "warning",   
                       showCancelButton: true,   
                       confirmButtonColor: "#e6b034",   
-                      confirmButtonText: "Ya, Hapus Kegiatan" 
+                      confirmButtonText: "Ya, Hapus Kasus" 
                        
                   }).then((result) => {
             if (result.value) {
                 $.ajax({
                             method:'POST',
-                            url:'{{ url("kegiatan/delete") }}',
+                            url:'{{ url("kasus/delete") }}',
                             data:{
                               id:id,
                               '_token': $('input[name=_token]').val()
                             },
                             success:function(data){
-                                Swal.fire({title:"Terhapus!", text:"Kegiatan nomor "+nospt+" berhasil terhapus dari sistem", icon:"success"}
+                                Swal.fire({title:"Terhapus!", text:"Kasus berhasil terhapus dari sistem", icon:"success"}
                                 ).then((result) => {
                                     location.reload()
                                 })
@@ -186,14 +208,7 @@
          });
     }
 
-    function uploadBarcode(id,link){
-      $('#idspt').val(id)
-      $('#link').val(link)
-    }
 
-    function laporan(id){
-      $('#id_laporan').val(id)
-    }
 $(document).ready(function(){
   tinymce.init({
   selector: 'textarea#hasil_kegiatan',
@@ -214,19 +229,13 @@ $(document).ready(function(){
 
 @if(Session::get('success'))
 <script type="text/javascript">
-    toastr.success("DATA KEGIATAN BERHASIL TERSIMPAN");
+    toastr.success("DATA KASUS BERHASIL DITAMBAHKAN");
 </script>
 @endif
 
-@if(Session::get('success_barcode'))
+@if(Session::get('success_verif'))
 <script type="text/javascript">
-    toastr.success("LINK SPT BERHASIL TERSIMPAN");
-</script>
-@endif
-
-@if(Session::get('success_laporan'))
-<script type="text/javascript">
-    toastr.success("LAPORAN BERHASIL DIBUAT");
+    toastr.success("KASUS BERHASIL DIVERIFIKASI");
 </script>
 @endif
 @endsection

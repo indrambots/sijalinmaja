@@ -22,12 +22,27 @@
                 <div class="card-body text-center">
                     <a href="{{ url('kasus') }}">
                         <span class="svg-icon svg-icon-primary svg-icon-6x">
-                            <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-info-circle" aria-hidden="true"></i>
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid flaticon2-warning" aria-hidden="true"></i>
                         </span>
                     </a>
                     <br>
                     <a href="{{ url('kasus') }}"
                         class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">KASUS
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-6 col-xl-6 mb-5">
+            <div class="card card-custom wave wave-animate-fast wave-primary">
+                <div class="card-body text-center">
+                    <a href="{{ url('peta') }}">
+                        <span class="svg-icon svg-icon-primary svg-icon-6x">
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid flaticon-map-location" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <br>
+                    <a href="{{ url('peta') }}"
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">PEMETAAN
                     </a>
                 </div>
             </div>
