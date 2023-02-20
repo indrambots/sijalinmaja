@@ -6,9 +6,9 @@
 @section('script')
 <script>
 	var map;
-      var marker;
       var mylocation;
       function initMap() {
+        var infowindow = new google.maps.InfoWindow();
         var myLatLng = new google.maps.LatLng(-7.9666200, 112.6326600);
         var mapOptions = {
           zoom: 8,
@@ -16,13 +16,13 @@
   				mapTypeId: 'hybrid'
         };
         map = new google.maps.Map(document.getElementById("map"), mapOptions); 
-
       var baselayer = new google.maps.Data();
-      baselayer.loadGeoJson('{{ asset('js/jawa_timur.json') }}')
+      baselayer.loadGeoJson('{{ asset('js/kota_all.json') }}')
       baselayer.setStyle({
-    fillColor: 'green',
+    fillColor: 'yellow',
     opacity: 0.1,
     strokeWeight: 0.5,
+    strokeColor:'red',
     clickable: false
   });
       baselayer.setMap(map);
@@ -31,6 +31,27 @@
           map: map,
           // icon:'{{asset('js/icon/mylock.gif')}}'
         });
+       var opor; var array_opor = {!!$opor!!}
+       console.log(array_opor.length)
+       for(var i = 0; i < array_opor.length; i++){
+        var koordinat = JSON.parse(array_opor[i].koordinat_fix);
+        console.log(koordinat);
+          opor = new google.maps.Marker({
+            position: { lat: koordinat[0], lng: koordinat[1] },
+            map: map,
+            draggable: false,
+            icon:'{{ asset('js/icon/opor_resize.png') }}', // anchor
+            scaledSize: new google.maps.Size(22, 27), // scaled size
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(0, 0)
+          });
+          google.maps.event.addListener(opor, 'click', (function(marker, i) {
+            return function() {
+              infowindow.setContent(array_opor[i].nama_tempat);
+              infowindow.open(map, marker);
+            }
+          })(opor, i));
+       }
   }
 
 
