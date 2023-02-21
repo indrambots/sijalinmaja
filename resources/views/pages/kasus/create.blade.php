@@ -13,7 +13,6 @@
 	</div>
 </div>
  <div class="card-body">
-
 	  	<div id="map_canvas" class="row mb-10" style="height: 500px;"></div>
 	  <div class="form-group row mb-5">
 	  	<label>Judul Kasus</label>
@@ -195,7 +194,7 @@
             e.preventDefault();
     });
 
-   var map;
+   var map;var mylocation;
       var marker;
       function initMap() {
         var myLatLng = new google.maps.LatLng(-7.9666200, 112.6326600);
@@ -210,8 +209,10 @@
       baselayer.loadGeoJson('{{ asset('js/jawa_timur.json') }}')
       baselayer.setStyle({
     fillColor: 'green',
+    fillOpacity:0.0,
     opacity: 0.1,
-    strokeWeight: 0.5,
+    strokeColor:'red',
+    strokeWeight: 1,
     clickable: false
   });
       baselayer.setMap(map);
@@ -261,8 +262,52 @@
   		function getCoordinates(){
   			var place = autocomplete.getPlace()
   			marker.setPosition(place.geometry.location);
+        map.setZoom(18)
+        map.setCenter(place.geometry.location);
        	$('#koordinat').val('['+place.geometry.location.lat()+','+place.geometry.location.lng()+']')
   		}
+  		 mylocation = new google.maps.Marker({
+  			map:map,
+  			draggable:false,
+  			icon:{
+							path: google.maps.SymbolPath.MAP_PIN,
+							fillColor: '#9C27B0',
+							fillOpacity: 1,
+							strokeColor: '',
+							strokeWeight: 0
+  					},
+  		});
+  var locationButton = document.createElement("button");
+
+  locationButton.textContent = "Lokasi Saya";
+  locationButton.classList.add("custom-map-control-button");
+  locationButton.type = 'button';
+  // console.log(locationButton);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+  locationButton.addEventListener("click", () => {
+  	// console.log('clickef')
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          map.setZoom(18)
+          map.setCenter(pos);
+          mylocation.setPosition(pos)
+       		$('#koordinat').val('['+position.coords.latitude+','+position.coords.longitude+']')
+        },
+        () => {
+          handleLocationError(true, infoWindow, map.getCenter());
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  });
 
       }
 

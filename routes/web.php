@@ -56,4 +56,9 @@ Route::prefix('peta')->group(function () {
     Route::get('','PetaController@index');
 });
 
+Route::prefix('popup')->group(function(){
+    Route::get('kasandra-kasus/{id}','KasusController@kasandra_list');
+    Route::post('kasandra-kasus/save','KasusController@kasandra_save');
+});
+
 Auth::routes();

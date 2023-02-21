@@ -6,8 +6,13 @@
 @section('script')
 <script>
 	var map;
-      var mylocation;
+      var mylocation;  var menubtn;
       function initMap() {
+        menubtn = document.createElement("button");
+
+        menubtn.textContent = "MENU";
+        menubtn.classList.add("custom-map-control-button");
+        menubtn.type = 'button';
         var infowindow = new google.maps.InfoWindow();
         var myLatLng = new google.maps.LatLng(-7.9666200, 112.6326600);
         var mapOptions = {
@@ -15,7 +20,8 @@
           center: myLatLng,
   				mapTypeId: 'hybrid'
         };
-        map = new google.maps.Map(document.getElementById("map"), mapOptions); 
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(menubtn); 
       var baselayer = new google.maps.Data();
       baselayer.loadGeoJson('{{ asset('js/kota_all.json') }}')
       baselayer.setStyle({
@@ -35,7 +41,6 @@
        console.log(array_opor.length)
        for(var i = 0; i < array_opor.length; i++){
         var koordinat = JSON.parse(array_opor[i].koordinat_fix);
-        console.log(koordinat);
           opor = new google.maps.Marker({
             position: { lat: koordinat[0], lng: koordinat[1] },
             map: map,
@@ -52,6 +57,7 @@
             }
           })(opor, i));
        }
+
   }
 
 
@@ -85,7 +91,7 @@
         );
       }
 $(document).ready(function(){
-	getLocation()
+	// getLocation()
 })
 </script>
 @endsection

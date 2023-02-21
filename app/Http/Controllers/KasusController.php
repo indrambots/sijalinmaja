@@ -9,6 +9,8 @@ use App\Kecamatan;
 use App\Kelurahan;
 use App\Pd;
 use App\Urusan;
+use App\Kasandra;
+use App\KasusKasandra;
 use App\Kasus;
 use App\SumberInformasi;
 use App\HistoryVerif;
@@ -104,6 +106,9 @@ class KasusController extends Controller
         ->addColumn('lokasi_kasus',function($i){
             return $i->lokasi_kejadian.", ".ucfirst(strtolower($i->kel_nama)).", Kecamatan ".ucfirst(strtolower($i->kec_nama)).", ".ucfirst(strtolower($i->kota_nama));
         })
+        ->addColumn('perda',function($i){
+            return '<button class="btn btn-icon btn-xl btn-outline-danger" onclick="kasandra('.$i->id.')" data-toggle="modal" data-target="#modal-kasandra"><i class="fas fa-book"></i></button>';
+        })
         ->editColumn('status',function($i){
             if($i->status == 0){
                 return '<span class="label label-lg label-warning label-pill label-inline font-weight-bolder mr-2"  style="text-align:center; width:100px;">BELUM VERIF</span>';
@@ -124,7 +129,7 @@ class KasusController extends Controller
                 return '<span class="label label-lg label-success label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:75px;">SELESAI</span>';
             }
         })
-        ->rawColumns(['aksi','tanggal_informasi','data_pelapor','data_pelanggar','lokasi_kasus','deskripsi_kasus','status'])
+        ->rawColumns(['aksi','tanggal_informasi','data_pelapor','data_pelanggar','lokasi_kasus','deskripsi_kasus','status','perda'])
         ->make(true);
     }
 
@@ -149,5 +154,31 @@ class KasusController extends Controller
             'tanggal' => date("Y-m-d H:i:s", strtotime('+7 hours')),
         ]);
         return redirect('kasus')->with('success_verif', 'Berhasil Verifikasi Kasus');
+    }
+
+    public function kasandra_list($id){
+        $id = $id;
+        $kasandra = Kasandra::all();
+        return view('pages.kasus.popup.kasandra',compact('id','kasandra'));
+    }
+
+    public function kasandra_save(Request $request)
+    {
+        dd($request->all());
+        $kasus = KasusKasandra::where('kasus_id',$request->id)->get();
+        if(count($kasus) > 0):
+            KasusKasandra::where('kasus_id',$request->id)->delete();
+            foreach($kasandra as $k):
+                KasusKasandra::create([
+                'kasus_id' => $request->id,
+                'kasandra_id' => $k]);
+            endforeach;
+        else:
+            foreach($kasandra as $k):
+                KasusKasandra::create([
+                'kasus_id' => $request->id,
+                'kasandra_id' => $k]);
+            endforeach;
+        endif;
     }
 }

@@ -25,6 +25,7 @@
         <link href="{{ asset('plugins/custom/prismjs/prismjs.bundle.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/devextreme/21.1.5/css/dx.light.css" rel="stylesheet">
+        <link href="{{ asset('plugins/map-icon/css/map-icons.css')}}" rel="stylesheet" type="text/css" />
 
         {{-- <link data-theme="generic.light" href="{{ asset('plugins/devex/css/dx.light.css')}}" data-active="true"/>
         <link href="{{ asset('plugins/devex/css/dx.common.css')}}"/> --}}
@@ -52,6 +53,21 @@ tr.details td.details-control {
 .exs{
               background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23505050D1' stroke-width='4' stroke-dasharray='14%2c 23%2c 16' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
             }
+            .custom-map-control-button {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  height: 40px;
+  cursor: pointer;
+}
+.custom-map-control-button:hover {
+  background: rgb(235, 235, 235);
+}
         </style>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44S1H0GN2F"></script>
@@ -287,8 +303,9 @@ tr.details td.details-control {
         <script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1200 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#0BB783", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#F3F6F9", "dark": "#212121" }, "light": { "white": "#ffffff", "primary": "#D7F9EF", "secondary": "#ECF0F3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#212121", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#ECF0F3", "gray-300": "#E5EAEE", "gray-400": "#D6D6E0", "gray-500": "#B5B5C3", "gray-600": "#80808F", "gray-700": "#464E5F", "gray-800": "#1B283F", "gray-900": "#212121" } }, "font-family": "Poppins" };</script>
         <!--end::Global Config-->
         <!--begin::Global Theme Bundle(used by all pages)-->
-        <script src = "{{ asset('js/default/axios.js') }}"></script>
+        {{-- <script src = "{{ asset('js/default/axios.js') }}"></script> --}}
         <script src="{{ asset('plugins/global/plugins.bundle.js')}}"></script>
+        <script src="{{ asset('plugins/map-icon/js/map-icons.js')}}"></script>
         <script src="{{ asset('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
         <script src="{{ asset('plugins/forms/submit/jquery.form.js')}}"></script>
         <script src="{{ asset('js/scripts.bundle.js')}}"></script>
@@ -304,8 +321,8 @@ tr.details td.details-control {
         <script src="{{ asset('js/pages/widgets.js')}}"></script>
         <script src="{{ asset('plugins/devex/js/jszip.min.js')}}"></script>
         <script src="{{ asset('plugins/devex/js/dx.all.js')}}"></script>
-        <script src = "{{ asset('js/jquery.countdown.min.js') }}"></script>
-        <script src = "{{ asset('js/livewireGlobalVariable.js') }}"></script>
+        {{-- <script src = "{{ asset('js/jquery.countdown.min.js') }}"></script> --}}
+        {{-- <script src = "{{ asset('js/livewireGlobalVariable.js') }}"></script> --}}
         <script>
             $.ajaxSetup({headers: {'X-CSRF-TOKEN':  document.querySelector('meta[name="csrf-token"]').content }});
         </script>
@@ -424,6 +441,6 @@ var loadPanel = $(".loadpanel").dxLoadPanel({
 @endif
     <!--end::Body-->
 @stack('scriptTambahan')
-<script src = "{{ asset('js/default/alpinejs.js') }}"></script>
+{{-- <script src = "{{ asset('js/default/alpinejs.js') }}"></script> --}}
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB6fouhBbFhJmgiFuFNFuYAtfF7Sy_VxDg&libraries=places&callback=initMap"></script>
 </html>

@@ -27,6 +27,7 @@
                 <th>Pelapor</th>
                 <th>Pelanggar</th>
                 <th>Status</th>
+                <th>Perda</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -99,6 +100,30 @@
 
             </div>
           </div>
+<div id="modal-kasandra" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-xl">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title text-left">POTENSI PELANGGARAN PERDA</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form" method="POST" action="{{url('kasus/kasandra/save')}}">
+                        {{ csrf_field() }}
+                        <input type="hidden" id="idkasandra">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" onclick="lihatKasandra()"  class="btn btn-lg btn-success border-0 font-weight-bold mr-2"> PILIH POTENSI PERDA YANG DILANGGAR</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
 @endsection
 @section('script')
 <script type="text/javascript">
@@ -116,6 +141,7 @@
         {data: 'data_pelapor', name:'data_pelapor'},
         {data: 'data_pelanggar', name:'data_pelanggar'},
         {data: 'status', name:'status'},
+        {data: 'perda', name:'perda'},
         {data: 'aksi', name:'aksi'},
         ],
         "order": [[ 0, "desc" ]],
@@ -206,6 +232,14 @@
                           }) 
             } 
          });
+    }
+
+    function kasandra(id)
+    {
+        $('#idkasandra').val(id)
+    }
+    function lihatKasandra(){
+        window.open('{{ url('popup/kasandra-kasus') }}/'+$('#idkasandra').val(), 'Preview Simbada', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1024, height=700');
     }
 
 
