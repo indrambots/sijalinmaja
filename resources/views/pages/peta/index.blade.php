@@ -39,7 +39,18 @@
             </div>
             <div id="collapseTwo4" class="collapse" data-parent="#accordionExample4">
              <div class="card-body">
-              ...
+              <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                KASUS AKTIF &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" checked="checked" name="aktif" id="aktif">
+              <span></span></label>
+              <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                PROSES &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" checked="checked" name="proses" id="proses">
+              <span></span></label>
+              <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                SELESAI &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" checked="checked" name="selesai" id="selesai">
+              <span></span></label>
              </div>
             </div>
            </div>
@@ -78,7 +89,9 @@
   var mylocation;  
   var menubtn; 
   var opors = [];
-  var cases = [];
+  var cases_aktif = []; var btnaktif;
+  var cases_proses = []; var btnproses;
+  var cases_selesai = []; var btnselesai;
       function initMap() {
         btnjatim = document.getElementById("jawa_timur")
         btnjatim.addEventListener("click",function(){
@@ -138,18 +151,39 @@
         var array_cased = {!!$cased!!};
        for(var i = 0; i < array_cased.length; i++){
         var koordinat = JSON.parse(array_cased[i].koordinat);
-          cased = new google.maps.Marker({
-            position: { lat: koordinat[0], lng: koordinat[1] },
-            map: map,
-            draggable: false,
-          });
+          if(array_cased[i].status <= 1){
+            cased = new google.maps.Marker({
+              position: { lat: koordinat[0], lng: koordinat[1] },
+              map: map,
+              icon:'{{ asset('js/icon/red.png')}}',
+              draggable: false,
+            });
+            cased_aktif.push(cased)
+          }
+          else if(array_cased[i].status > 1 && array_cased[i].status < 5){
+            cased = new google.maps.Marker({
+              position: { lat: koordinat[0], lng: koordinat[1] },
+              map: map,
+              icon:'{{ asset('js/icon/yellow.png')}}',
+              draggable: false,
+            });
+            cases_proses.push(cased)
+          }
+          else if(array_cased[i].status == 5){
+            cased = new google.maps.Marker({
+              position: { lat: koordinat[0], lng: koordinat[1] },
+              map: map,
+              icon:'{{ asset('js/icon/green.png')}}',
+              draggable: false,
+            });
+            cases_selesai.push(cased)
+          }
           google.maps.event.addListener(cased, 'click', (function(marker, i) {
             return function() {
               infowindow.setContent(array_cased[i].judul);
               infowindow.open(map, marker);
             }
           })(cased, i));
-          cases.push(cased)
        }
 
        var opor; var array_opor = {!!$opor!!}
@@ -159,7 +193,7 @@
             position: { lat: koordinat[0], lng: koordinat[1] },
             map: map,
             draggable: false,
-            icon:'{{ asset('js/icon/opor_resize.png') }}', // anchor
+            icon:'{{ asset('js/icon/blue.png') }}', // anchor
             scaledSize: new google.maps.Size(22, 27), // scaled size
             origin: new google.maps.Point(0,0), // origin
             anchor: new google.maps.Point(0, 0)
