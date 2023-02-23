@@ -115,6 +115,8 @@
                         <input type="hidden" id="idkasandra">
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="table-responsive" id="table-kasandra">
+                                </div>
                                 <button type="button" onclick="lihatKasandra()"  class="btn btn-lg btn-success border-0 font-weight-bold mr-2"> PILIH POTENSI PERDA YANG DILANGGAR</button>
                             </div>
                         </div>
@@ -237,9 +239,20 @@
     function kasandra(id)
     {
         $('#idkasandra').val(id)
+         $.ajax({
+                method:'POST',
+                url:'{{ url("kasus/modal/show-kasandra") }}',
+                data:{
+                  id:id,
+                  '_token': $('input[name=_token]').val()
+                },
+                success:function(data){
+                  $('#table-kasandra').html(data.view);
+                }
+              }) 
     }
     function lihatKasandra(){
-        window.open('{{ url('popup/kasandra-kasus') }}/'+$('#idkasandra').val(), 'Preview Simbada', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1024, height=700');
+        window.open('{{ url('popup/kasandra-kasus') }}/'+$('#idkasandra').val(), 'Pilih Perda', 'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1800, height=700');
     }
 
 

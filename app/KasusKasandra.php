@@ -13,4 +13,8 @@ class KasusKasandra extends Model
     protected $guarded = ['id'];
     protected $table   = 'kasus_kasandra';
     
+    public function perda()
+    {
+        return $this->hasOne('App\Kasandra', 'id', 'kasandra_id');
+    }
 }

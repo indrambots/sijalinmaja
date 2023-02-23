@@ -1,17 +1,113 @@
 @extends('layouts.app_peta')
 @section('content')
-<div id="map" style="width: 100%; height: 100%;">
+<div id="map" style="width: 100%; height: 100%;"></div>
+<button type="button" id="kt_demo_panel_toggle">MENU</button>
+  <div id="kt_demo_panel" class="offcanvas offcanvas-right">
+      <!--begin::Header-->
+      <div class="offcanvas-header d-flex align-items-center justify-content-between p-7">
+        <h4 class="font-weight-bold m-0">DATABASE KASUS</h4>
+        <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_demo_panel_close">
+          <i class="ki ki-close icon-xs text-muted"></i>
+        </a>
+      </div>
+      <!--end::Header-->
+      <!--begin::Content-->
+      <div class="offcanvas-content">
+        <!--begin::Wrapper-->
+        <div class="offcanvas-wrapper mb-5 scroll-pull">
+          <div class="accordion" id="accordionExample4">
+           <div class="card">
+            <div class="card-header" id="headingOne4">
+             <div class="card-title">
+              <i class="flaticon2-layers-1" data-toggle="collapse" data-target="#collapseOne4"></i> Batas Wilayah
+             </div>
+            </div>
+            <div id="collapseOne4" class="collapse" data-parent="#accordionExample4">
+             <div class="card-body">
+              <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                Jawa Timur &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" checked="checked" name="jawa_timur" id="jawa_timur">
+              <span></span></label>
+             </div>
+            </div>
+           </div>
+           <div class="card">
+            <div class="card-header" id="headingTwo4">
+             <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo4">
+              <i class="flaticon-danger"></i> Kasus
+             </div>
+            </div>
+            <div id="collapseTwo4" class="collapse" data-parent="#accordionExample4">
+             <div class="card-body">
+              ...
+             </div>
+            </div>
+           </div>
+
+           <div class="card">
+            <div class="card-header">
+             <div class="card-title collapsed" data-toggle="collapse" data-target="#oporTab">
+              <i class="flaticon-danger"></i> Peduli Lindungi
+             </div>
+            </div>
+            <div id="oporTab" class="collapse" data-parent="#accordionExample4">
+             <div class="card-body">
+              <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                OPOR SIGAP &nbsp;&nbsp;&nbsp;
+                <input type="checkbox" checked="checked" name="opor" id="opor">
+              <span></span></label>
+             </div>
+            </div>
+           </div>
+          </div>
+        </div>
+        <!--end::Wrapper-->
+        <!--begin::Purchase-->
+        <!--end::Purchase-->
+      </div>
+      <!--end::Content-->
+    </div>
 @endsection
 
 @section('script')
 <script>
-	var map;
-      var mylocation;  var menubtn;
+	var map; 
+  var btnjatim;
+  var btnopor;
+  var baselayer;
+  var mylocation;  
+  var menubtn; 
+  var opors = [];
+  var cases = [];
       function initMap() {
-        menubtn = document.createElement("button");
-
+        btnjatim = document.getElementById("jawa_timur")
+        btnjatim.addEventListener("click",function(){
+          if (btnjatim.checked){
+            baselayer.setMap(map);
+          }
+          else
+          {
+            baselayer.setMap(null);
+          }
+        });
+        btnopor = document.getElementById("opor")
+        btnopor.addEventListener("click",function(){
+          if (btnopor.checked){
+            for(var i = 0; i < opors.length; i++){
+              opors[i].setVisible(true);
+            }
+          }
+          else
+          {
+            for(var i = 0; i < opors.length; i++){
+              opors[i].setVisible(false);
+            }
+          }
+        });
+        menubtn = document.getElementById("kt_demo_panel_toggle");
         menubtn.textContent = "MENU";
         menubtn.classList.add("custom-map-control-button");
+        menubtn.setAttribute("id", "kt_demo_panel_toggle");
         menubtn.type = 'button';
         var infowindow = new google.maps.InfoWindow();
         var myLatLng = new google.maps.LatLng(-7.9666200, 112.6326600);
@@ -22,7 +118,7 @@
         };
         map = new google.maps.Map(document.getElementById("map"), mapOptions);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(menubtn); 
-      var baselayer = new google.maps.Data();
+      baselayer = new google.maps.Data();
       baselayer.loadGeoJson('{{ asset('js/kota_all.json') }}')
       baselayer.setStyle({
     fillColor: 'yellow',
@@ -33,12 +129,30 @@
   });
       baselayer.setMap(map);
        mylocation = new google.maps.Marker({
-          position: { lat: -7.9666200, lng: 112.6326600 },
+          // position: { lat: -7.9666200, lng: 112.6326600 },
           map: map,
           // icon:'{{asset('js/icon/mylock.gif')}}'
         });
+
+       var cased;
+        var array_cased = {!!$cased!!};
+       for(var i = 0; i < array_cased.length; i++){
+        var koordinat = JSON.parse(array_cased[i].koordinat);
+          cased = new google.maps.Marker({
+            position: { lat: koordinat[0], lng: koordinat[1] },
+            map: map,
+            draggable: false,
+          });
+          google.maps.event.addListener(cased, 'click', (function(marker, i) {
+            return function() {
+              infowindow.setContent(array_cased[i].judul);
+              infowindow.open(map, marker);
+            }
+          })(cased, i));
+          cases.push(cased)
+       }
+
        var opor; var array_opor = {!!$opor!!}
-       console.log(array_opor.length)
        for(var i = 0; i < array_opor.length; i++){
         var koordinat = JSON.parse(array_opor[i].koordinat_fix);
           opor = new google.maps.Marker({
@@ -56,6 +170,7 @@
               infowindow.open(map, marker);
             }
           })(opor, i));
+          opors.push(opor)
        }
 
   }

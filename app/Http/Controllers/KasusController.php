@@ -162,19 +162,25 @@ class KasusController extends Controller
         return view('pages.kasus.popup.kasandra',compact('id','kasandra'));
     }
 
+    public function show_kasandra(Request $request){
+        $kasandra = KasusKasandra::where('kasus_id',$request->id)->get();
+        $view = (string) view('ajax.show_kasandra', compact('kasandra'));
+        return response()->json(array('view' => $view));
+
+    }
+
     public function kasandra_save(Request $request)
     {
-        dd($request->all());
         $kasus = KasusKasandra::where('kasus_id',$request->id)->get();
         if(count($kasus) > 0):
             KasusKasandra::where('kasus_id',$request->id)->delete();
-            foreach($kasandra as $k):
+            foreach($request->kasandra as $k):
                 KasusKasandra::create([
                 'kasus_id' => $request->id,
                 'kasandra_id' => $k]);
             endforeach;
         else:
-            foreach($kasandra as $k):
+            foreach($request->kasandra as $k):
                 KasusKasandra::create([
                 'kasus_id' => $request->id,
                 'kasandra_id' => $k]);

@@ -39,8 +39,14 @@ Route::prefix('kasus')->group(function () {
     Route::prefix('modal')->group(function () {
         Route::post('show-verif','KasusController@show_verif');
         Route::post('verif','KasusController@verif');
+        Route::post('show-kasandra','KasusController@show_kasandra');
     });
     Route::post('delete','KasusController@delete');
+});
+
+Route::prefix('penanganan')->group(function () {
+    Route::get('','PenangananController@index');
+    Route::get('datatable','PenangananController@datatable');
 });
 
 Route::prefix('ajax')->group(function () {

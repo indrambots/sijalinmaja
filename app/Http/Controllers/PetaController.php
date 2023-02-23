@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\OporDetail;
 use App\Opor;
+use App\Kasus;
 use DB;
 
 class PetaController extends Controller
@@ -21,6 +22,8 @@ class PetaController extends Controller
     OR koordinat_fix LIKE '%]%'");
         // dd($opor);
         $opor = json_encode($opor);
-        return view('pages.peta.index',compact('opor'));
+        $cased = Kasus::where('id','>',0)->get()->toArray();
+        $cased = json_encode($cased);
+        return view('pages.peta.index',compact('opor','cased'));
     }
 }
