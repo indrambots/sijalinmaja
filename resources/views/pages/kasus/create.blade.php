@@ -253,7 +253,7 @@
   componentRestrictions: { country: "id" },
   fields: ["address_components", "geometry", "icon", "name"],
   strictBounds: false,
-  types: ["establishment"],
+  types: ["address"],
 										  };
 			var autocomplete = new google.maps.places.Autocomplete(input, options);
   		autocomplete.bindTo("bounds", map);
