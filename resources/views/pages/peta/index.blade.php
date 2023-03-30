@@ -152,13 +152,14 @@
        for(var i = 0; i < array_cased.length; i++){
         var koordinat = JSON.parse(array_cased[i].koordinat);
           if(array_cased[i].status <= 1){
+            console.log(array_cased[i])
             cased = new google.maps.Marker({
               position: { lat: koordinat[0], lng: koordinat[1] },
               map: map,
               icon:'{{ asset('js/icon/red.png')}}',
               draggable: false,
             });
-            cased_aktif.push(cased)
+            cases_aktif.push(cased)
           }
           else if(array_cased[i].status > 1 && array_cased[i].status < 5){
             cased = new google.maps.Marker({
