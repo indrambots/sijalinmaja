@@ -125,7 +125,34 @@
 		    <label>Tanggal Selesai :</label>
 		    <input type="text" required name="tanggal_selesai" id="tanggal_selesai" value="{{$keg->tanggal_selesai}}" class="datepicker form-control" placeholder="Tanggal Selesai. . ."/>
 	  	</div>
+	  </div>
+	  <div class="form-group row mt-2">
+	  	<div class="col-lg-2">
+		    <label>HT POC :</label>
+		    <input type="number" name="ht_poc" required id="ht_poc" value="{{$keg->ht_poc}}" class="form-control" placeholder="Jumlah POC. . ."/>
+	    <span class="form-text text-danger">Diisi 0 Jika tidak membawa.</span>
 	  	</div>
+	  	<div class="col-lg-2">
+		    <label>HT Local :</label>
+		    <input type="number" name="ht_lokal" required id="ht_lokal" value="{{$keg->ht_lokal}}" class="form-control" placeholder="Jumlah HT Lokal. . ."/>
+	    <span class="form-text text-danger">Diisi 0 Jika tidak membawa.</span>
+	  	</div>
+	  	<div class="col-lg-2">
+		    <label>Mobil Pamwal :</label>
+		    <input type="number" name="mobil_pamwal" id="mobil_pamwal" value="{{$keg->mobil_pamwal}}" class="form-control" placeholder="Jumlah Mobil Pamwal. . ."/>
+	    <span class="form-text text-danger">Diisi 0 Jika tidak membawa.</span>
+	  	</div>
+	  	<div class="col-lg-2">
+		    <label>Mobil :</label>
+		    <input type="number" required name="mobil" id="mobil" value="{{$keg->mobil}}" class="form-control" placeholder="Jumlah mobil. . ."/>
+	    	<span class="form-text text-danger">Diisi 0 Jika tidak membawa.</span>
+	  	</div>
+	  	<div class="col-lg-2">
+		    <label>Truck :</label>
+		    <input type="number" required name="truck" id="truck" value="{{$keg->truck}}" class="form-control" placeholder="Jumlah truck. . ."/>
+	    	<span class="form-text text-danger">Diisi 0 Jika tidak membawa.</span>
+	  	</div>
+	  </div>
 
 	  <div class="form-group row mt-2">
 	  	<div class="col-lg-6">
@@ -152,7 +179,7 @@
 	  	<div id="frmpersonel1" class="form-horizontal attributs">
 		<div class="form-group row ">
 			<div class="col-lg-6">
-				<label>Pilih Personel :</label>
+				<label>Personel <strong id="urut_personel1">1 </strong> :</label>
 				<select class="form-control pegawais" name="personel[1][nama]" id="personel_nama1">
 					@foreach($pegawai_all as $p)
 						<option value="{{$p->nip}}">{{$p->nama}} </option>
@@ -163,12 +190,13 @@
 			<div class="col-lg-4">
 				<label>Jenis Penugasan : </label>
 				<select class="form-control pegawais" name="personel[1][jenis]" id="personel_jenis1" required>
-					<option value="KATIM">KATIM</option>
+					<option value="KAOPSGAP">KAOPSGAP</option>
 					<option value="ANGGOTA">ANGGOTA</option>
 					<option value="DOKUMENTASI">DOKUMENTASI</option>
 					<option value="PELAPORAN">PELAPORAN</option>
 					<option value="PTI">PTI</option>
 					<option value="DRIVER">DRIVER</option>
+					<option value="PETUGAS TUM">PETUGAS TUM</option> 
 				</select>
 			</div>
 				<button type="button" class="btn btn-sm btn-danger" class="delete_attributs" id="delete_attribut1"><i class="far fa-trash-alt"></i></button>
@@ -179,7 +207,7 @@
 	  	<div id="frmpersonel{{$loop->iteration}}" class="form-horizontal attributs">
 				<div class="form-group row ">
 					<div class="col-lg-6">
-						<label>Pilih Personel :</label>
+						<label>Personel <strong id="urut_personel{{$loop->iteration}}">{{$loop->iteration}} </strong>:</label>
 						<select class="form-control pegawais" name="personel[{{$loop->iteration}}][nama]" id="personel_nama{{$loop->iteration}}">
 							@foreach($pegawai_all as $p)
 								@if($p->nama == $k->nama)
@@ -195,47 +223,60 @@
 						<label>Jenis Penugasan : </label>
 						<select class="form-control pegawais" name="personel[{{$loop->iteration}}][jenis]" id="personel_jenis{{$loop->iteration}}" required>
 							@if($k->ket == "ANGGOTA")
-							<option value="KATIM">KATIM</option>
+							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA" selected>ANGGOTA</option>
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
+							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							@elseif($k->ket == "DOKUMENTASI")
-							<option value="KATIM">KATIM</option>
+							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
 							<option value="DOKUMENTASI" selected>DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
+							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							@elseif($k->ket == "PELAPORAN")
-							<option value="KATIM">KATIM</option>
+							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN" selected>PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
+							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							@elseif($k->ket == "PTI")
-							<option value="KATIM">KATIM</option>
+							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI" selected>PTI</option>
 							<option value="DRIVER">DRIVER</option>
+							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							@elseif($k->ket == "DRIVER")
-							<option value="KATIM">KATIM</option>
+							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER" selected>DRIVER</option>
-							@elseif($k->ket == "KATIM")
-							<option value="KATIM" selected>KATIM</option>
+							@elseif($k->ket == "KAOPSGAP")
+							<option value="KAOPSGAP" selected>KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
 							<option value="DOKUMENTASI">DOKUMENTASI</option>
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
+							<option value="PETUGAS TUM">PETUGAS TUM</option> 
+							@elseif($k->ket == "PETUGAS TUM")
+							<option value="KAOPSGAP">KAOPSGAP</option>
+							<option value="ANGGOTA">ANGGOTA</option>
+							<option value="DOKUMENTASI">DOKUMENTASI</option>
+							<option value="PELAPORAN">PELAPORAN</option>
+							<option value="PTI">PTI</option>
+							<option value="DRIVER">DRIVER</option>
+							<option value="PETUGAS TUM" selected>PETUGAS TUM</option> 
 							@endif
 						</select>
 					</div>
@@ -354,7 +395,7 @@ $('.pegawais').select2({ //apply select2 to my element
         var newElemb = $('#frmpersonel' + numb).clone().attr('id', 'frmpersonel' + newNumb);
         newElemb.find('#personel_nama' + numb).attr('id', 'personel_nama' + newNumb).attr('name', 'personel[' + newNumb + '][nama]').val('');
         newElemb.find('#personel_jenis' + numb).attr('id', 'personel_jenis' + newNumb).attr('name', 'personel[' + newNumb + '][jenis]').val('');
-
+        newElemb.find('#urut_personel' + numb).attr('id', 'urut_personel' + newNumb).html(newNumb);
         newElemb.find('#delete_attribut' + numb).attr('id', 'delete_attribut' + newNumb).attr('onclick', 'removeAttribut("#frmpersonel' + newNumb + '")').show();
 
         $('#frmpersonel' + numb).after(newElemb);

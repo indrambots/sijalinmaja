@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class KegiatanPersonel extends Model
 { 
-    use SoftDeletes;
+    // use SoftDeletes;
     use LogsActivity;
     protected $guarded = ['id'];
     protected $table = 'kegiatan_personel';

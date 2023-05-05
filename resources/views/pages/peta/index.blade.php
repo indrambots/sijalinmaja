@@ -1,5 +1,13 @@
 @extends('layouts.app_peta')
 @section('content')
+<style type="text/css">
+  #tabel_peta td {
+
+    padding-bottom:3px;    
+    padding-top:3px;
+    padding-left:5px;
+  }
+</style>
 <div id="map" style="width: 100%; height: 100%;"></div>
 <button type="button" id="kt_demo_panel_toggle">MENU</button>
   <div id="kt_demo_panel" class="offcanvas offcanvas-right">
@@ -181,7 +189,46 @@
           }
           google.maps.event.addListener(cased, 'click', (function(marker, i) {
             return function() {
-              infowindow.setContent(array_cased[i].judul);
+            console.log(array_cased[i])
+              infowindow.setContent(`<strong>`+array_cased[i].judul+`</strong>
+                <table id="tabel_peta">
+                  <tr> 
+                    <td><strong>Lokasi</strong></td>
+                    <td>`+array_cased[i].lokasi_kejadian+`,`+array_cased[i].lokasi_kejadian+`, `+array_cased[i].kota_nama+`, `+array_cased[i].kec_nama +`, `+array_cased[i].kel_nama+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Pelanggar</strong></td>
+                    <td>`+array_cased[i].nama_pelanggar+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Urusan</strong></td>
+                    <td>`+array_cased[i].urusan+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Jenis Trantibum</strong></td>
+                    <td>`+array_cased[i].jenis_trantib+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Potensi PAD</strong></td>
+                    <td class="rupiah">`+formatRupiah(array_cased[i].potensi_pad)+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Waktu Kejadian</strong></td>
+                    <td>`+array_cased[i].waktu_kejadian+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Pelapor</strong></td>
+                    <td>`+array_cased[i].pelapor+` (`+array_cased[i].no_telp_pelapor+`)</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Sumber Informasi</strong></td>
+                    <td>`+array_cased[i].sumber_informasi+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Tanggal Informasi</strong></td>
+                    <td>`+array_cased[i].tanggal_informasi+`</td>
+                  </tr>
+                 </table>`);
               infowindow.open(map, marker);
             }
           })(cased, i));
@@ -240,6 +287,20 @@
             : "Error: Your browser doesn't support geolocation."
         );
       }
+
+  function formatRupiah(bilangan){
+    var number_string = bilangan.toString()
+    console.log(number_string)
+      sisa  = number_string.length % 3,
+      rupiah  = number_string.substr(0, sisa),
+      ribuan  = number_string.substr(sisa).match(/\d{3}/g);
+        
+    if (ribuan) {
+      separator = sisa ? '.' : '';
+      rupiah += separator + ribuan.join('.');
+    }
+    return rupiah;
+  }
 $(document).ready(function(){
 	// getLocation()
 })

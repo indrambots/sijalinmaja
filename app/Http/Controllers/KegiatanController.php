@@ -32,13 +32,40 @@ class KegiatanController extends Controller
 
     public function print($id,$barcode){
         $keg = Kegiatan::find($id);
-        $katim = KegiatanPersonel::where('ket','KATIM')->where('kegiatan_id',$id)->first();
-        $anggota = KegiatanPersonel::where('ket','<>','KATIM')->where('kegiatan_id',$id)->get();
+        $katim = KegiatanPersonel::where('ket','KAOPSGAP')->where('kegiatan_id',$id)->first();
+        $anggota = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+        FROM_DAYS(
+            DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+        ),
+        '%y Years %m Months %d Days'
+    ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC");
+
+        $anggota1 = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+        FROM_DAYS(
+            DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+        ),
+        '%y Years %m Months %d Days'
+    ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 14");
+
+        $anggota2 = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+        FROM_DAYS(
+            DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+        ),
+        '%y Years %m Months %d Days'
+    ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 15 OFFSET 14");
+
+        $anggota3 = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+        FROM_DAYS(
+            DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+        ),
+        '%y Years %m Months %d Days'
+    ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 30 OFFSET 30");
+
         $bentuk_kegiatan = MasterBentukKegiatan::where('bentuk_kegiatan',$keg->bentuk_kegiatan)->first();
         if($barcode == "yes"):
-            return view('pages.kegiatan.spt_barcode',compact('keg','bentuk_kegiatan','katim','anggota'));
+            return view('pages.kegiatan.spt_barcode',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3'));
         endif;
-        return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan','katim','anggota'));
+        return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3'));
     }
 
     public function create($id)
@@ -133,9 +160,9 @@ class KegiatanController extends Controller
         $bidang = MasterKegiatan::where('bidang',$request->bidang)->first();
         $spt = "094/".$request->spt."/".$bidang->nomor_bidang."/2023";
         $penanggung_jawab;
-
+        $kegiatan = Kegiatan::find($request->id);
         foreach($request->personel as $p):
-            if($p['jenis'] == 'KATIM'):
+            if($p['jenis'] == 'KAOPSGAP'):
             $peg = Pegawai::where('nip',$p['nama'])->first();
                 $penanggung_jawab = $peg->nama;
             endif;
@@ -143,8 +170,6 @@ class KegiatanController extends Controller
         if($request->id == 0):
             $kegiatan = new Kegiatan();
         else:
-            $kegiatan = Kegiatan::find($request->id);
-            KegiatanPersonel::where('kegiatan_id',$request->id)->delete();
         endif;
             $kegiatan->jenis_kegiatan = $request->jenis_kegiatan;
             $kegiatan->bidang         = $request->bidang;
@@ -161,8 +186,14 @@ class KegiatanController extends Controller
             $kegiatan->kota = $request->kota;
             $kegiatan->lokasi = $request->lokasi;
             $kegiatan->dasar_surat = $request->dasar_surat;
+            $kegiatan->ht_poc = $request->ht_poc;
+            $kegiatan->ht_lokal = $request->ht_lokal;
+            $kegiatan->mobil_pamwal = $request->mobil_pamwal;
+            $kegiatan->mobil = $request->mobil;
+            $kegiatan->truck = $request->truck;
             $kegiatan->created_by = Auth::user()->id;
             $kegiatan->save();
+        KegiatanPersonel::where('kegiatan_id',$request->id)->delete();
         foreach($request->personel as $p):
             $peg = Pegawai::where('nip',$p['nama'])->first();
                 KegiatanPersonel::create([
@@ -170,6 +201,7 @@ class KegiatanController extends Controller
                     "nama"        => $peg->nama,
                     "nip"         => $peg->nip,
                     "pangkat"     => $peg->format_spt,
+                    "tingkat"     => $peg->tingkat,
                     "ket"     => $p['jenis']
                 ]);
         endforeach;
