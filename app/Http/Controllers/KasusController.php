@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\JenisTrantib;
 use App\Kota;
 use App\Kecamatan;
@@ -33,11 +34,14 @@ class KasusController extends Controller
     public function create($id){
         $sumber = SumberInformasi::orderBy('nama','asc')->get();
         $urusan = Urusan::orderBy('nama','asc')->get();
-        $kota = Kota::orderBy('nama','asc')->get();
-        $pd = Pd::orderBy('nama','asc')->get();
         $kasus = Kasus::find($id);
+        $kota = Kota::orderBy('nama','asc')->get();
         $kecamatan = Kecamatan::where('kode_kab',$kasus->kota)->get();
         $kelurahan = Kelurahan::where('kode_kab',$kasus->kota)->where('kode_kec',$kasus->kecamatan)->get();
+        if(Auth::user()->kota > 0):
+            $kota = Kota::orderBy('nama','asc')->where('id',Auth::user()->kota)->get();
+        endif;
+        $pd = Pd::orderBy('nama','asc')->get();
         $jenis_trantib = JenisTrantib::where('urusan',$kasus->urusan)->get();
         return view('pages.kasus.create',compact('sumber','urusan','kota','pd','id','kasus','kecamatan','kelurahan','jenis_trantib'));
     }
@@ -77,6 +81,7 @@ class KasusController extends Controller
         $kasus->kec_nama = $kec->nama;
         $kasus->kel_nama = $kel;
         $kasus->deskripsi_kasus = $request->deskripsi_kasus;
+        $kasus->user_id = Auth::user()->id;
         $kasus->save();
         return redirect('kasus')->with('success', 'Data Kasus Berhasil Ditambahkan');
     }
@@ -87,7 +92,7 @@ class KasusController extends Controller
 
     public function datatable()
     {
-        $kasus = Kasus::where('id','>',0)->get();
+        $kasus = Kasus::where('id','>',0)->where('user_id',Auth::user()->id)->get();
         return Datatables::of($kasus)
         ->addColumn('aksi',function($i){
             $btn_verif = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-verif" onclick="verifKasus('.$i->id.')"><i class="far fa-check-circle"></i></button>';

@@ -30,6 +30,11 @@ class LaporanKejadianController extends Controller
         return view('pages.damkar.laporan_kejadian.create',compact('kejadian','id','kecamatan','kelurahan'));
     }
 
+    public function delete(Request $request)
+    {
+        LaporanKejadian::find($request->id)->delete();
+    }
+
     public function save(Request $request)
     {
         // dd($request->all());
@@ -54,7 +59,7 @@ class LaporanKejadianController extends Controller
         $kejadian->korban = $request->korban;
         $kejadian->keterangan = $request->keterangan;
         $kejadian->save();
-        // return redirect('damkar/laporan-kejadian')->with('success', 'SUKSES');
+        return redirect('damkar/laporan-kejadian')->with('success', 'SUKSES');
     }
 
     public function datatable()

@@ -73,6 +73,7 @@ Route::prefix('damkar')->group(function () {
         Route::get('','Damkar\LaporanKejadianController@index');
         Route::get('create/{id}','Damkar\LaporanKejadianController@create');
         Route::post('save','Damkar\LaporanKejadianController@save');
+        Route::post('delete','Damkar\LaporanKejadianController@delete');
         Route::get('datatable','Damkar\LaporanKejadianController@datatable');
     });
 });

@@ -73,26 +73,26 @@
     function personel(id){
 
     }
-    function deleteKeg(id,nospt){
+    function deleteKejadian(id){
         Swal.fire({   
                       title: "Anda Yakin?",   
-                      text: "Data Kegiatan bernomor "+nospt+" akan terhapus",   
+                      text: "Data Kejadian akan terhapus dari sistem",   
                       icon: "warning",   
                       showCancelButton: true,   
                       confirmButtonColor: "#e6b034",   
-                      confirmButtonText: "Ya, Hapus Kegiatan" 
+                      confirmButtonText: "Ya, Hapus Kejadian" 
                        
                   }).then((result) => {
             if (result.value) {
                 $.ajax({
                             method:'POST',
-                            url:'{{ url("kegiatan/delete") }}',
+                            url:'{{ url("damkar/laporan-kejadian/delete") }}',
                             data:{
                               id:id,
                               '_token': $('input[name=_token]').val()
                             },
                             success:function(data){
-                                Swal.fire({title:"Terhapus!", text:"Kegiatan nomor "+nospt+" berhasil terhapus dari sistem", icon:"success"}
+                                Swal.fire({title:"Terhapus!", text:"Kejadian berhasil terhapus dari sistem", icon:"success"}
                                 ).then((result) => {
                                     location.reload()
                                 })
