@@ -62,6 +62,21 @@ Route::prefix('peta')->group(function () {
     Route::get('','PetaController@index');
 });
 
+Route::prefix('damkar')->group(function () {
+    Route::get('','Damkar\HomeController@index');
+
+    Route::prefix('profil')->group(function () {
+        Route::post('save','Damkar\HomeController@profil_save');
+    });
+
+    Route::prefix('laporan-kejadian')->group(function () {
+        Route::get('','Damkar\LaporanKejadianController@index');
+        Route::get('create/{id}','Damkar\LaporanKejadianController@create');
+        Route::post('save','Damkar\LaporanKejadianController@save');
+        Route::get('datatable','Damkar\LaporanKejadianController@datatable');
+    });
+});
+
 Route::prefix('popup')->group(function(){
     Route::get('kasandra-kasus/{id}','KasusController@kasandra_list');
     Route::post('kasandra-kasus/save','KasusController@kasandra_save');
