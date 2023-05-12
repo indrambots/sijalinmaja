@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::post('profil/save','HomeController@save_profil');
 Route::get('test','TestController@index');
 
 Route::prefix('kegiatan')->group(function () {
@@ -64,6 +65,7 @@ Route::prefix('peta')->group(function () {
 
 Route::prefix('damkar')->group(function () {
     Route::get('','Damkar\HomeController@index');
+        Route::post('update-sarpras','Damkar\HomeController@sarpras_update');
 
     Route::prefix('profil')->group(function () {
         Route::post('save','Damkar\HomeController@profil_save');

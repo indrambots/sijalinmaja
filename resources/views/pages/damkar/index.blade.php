@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-@if($profil->id > 0)
 <div class="row justify-content-center">
+@if($profil->id > 0)
 <div class="col-md-4">
 <div class="card mb-6">
     <div class="card-body pt-9 pb-0">
@@ -39,8 +39,9 @@
                         <div class="col mt-2">
                             <div class="font-size-sm text-muted font-weight-bold">Kepala Perangkat Daerah</div>
                             <div class="font-size-h4 font-weight-bolder">{{$profil->ka_opd}}</div>
+                            <div class="font-size-sm font-weight-bolder" style="text-decoration:underline;">{{$profil->golongan}}</div>
                         </div>
-                        <div class="col mt-2">
+                        <div class="col mt-4">
                             <div class="font-size-sm text-muted font-weight-bold">Alamat Kantor</div>
                             <div class="font-size-h4 font-weight-bolder">{{$profil->alamat}}</div>
                         </div>
@@ -72,18 +73,123 @@
     <div class="alert-text">Anda Belum Mengisi Kelengkapaan Profil Kelembagaan Silahkan <button data-toggle="modal" data-target="#modal-profil" class="btn btn-lg btn-primary"> Klik Disini </button> untuk mengisi profil kelembagaan</div>
 </div>
 @endif
-        <div class="col-8 col-lg-8 col-xl-8 mb-5">
-            <div class="card card-custom wave wave-animate-fast wave-primary">
-                <div class="card-body text-center">
-                    <a href="{{ url('damkar/laporan-kejadian') }}">
-                        <span class="svg-icon svg-icon-primary svg-icon-6x">
-                            <i class="icon-6x text-info mb-10 mt-10 fa-solid flaticon2-warning" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                    <br>
-                    <a href="{{ url('damkar/laporan-kejadian') }}"
-                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">Laporan Kejadian Kebakaran dan Non Kebakaran
-                    </a>
+        <div class="col-8 col-lg-8 col-xl-8 mb-2">
+            <div class="row">
+                <div class="col-12 mb-5">
+
+                    <div class="card card-custom wave wave-animate-fast wave-primary">
+                        <div class="card-body text-center">
+                            <a href="{{ url('damkar/laporan-kejadian') }}">
+                                <span class="svg-icon svg-icon-primary svg-icon-6x">
+                                    <i class="icon-6x text-info mb-10 mt-10 fa-solid flaticon2-warning" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                            <br>
+                            <a href="{{ url('damkar/laporan-kejadian') }}"
+                                class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">Laporan Kejadian Kebakaran dan Non Kebakaran
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                     <div class="card card-custom gutter-b">
+                        <div class="card-header card-header-tabs-line">
+                            <div class="card-toolbar">
+                                <ul class="nav nav-tabs nav-bold nav-tabs-line">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#sarana_pencegahan">
+                                            <span class="nav-text">Sarana Pencegahan</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#sarana_pemadaman_pengendalian">
+                                            <span class="nav-text">Sarana Pemadaman dan Pengendalian</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#sarana_penyelamatan">
+                                            <span class="nav-text">Sarana Penyelamatan</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#sarana_penanganan_bahan_berbahaya">
+                                            <span class="nav-text">Sarana Penanganan Bahan Berhaya dan Beracun</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#prasarana_damkar">
+                                            <span class="nav-text">Prasarana Damkar</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="sarana_pencegahan" role="tabpanel" aria-labelledby="sarana_pencegahan">
+                                    @include('pages.damkar.tab.sarana_pencegahan')
+                                </div>
+                                <div class="tab-pane fade" id="sarana_pemadaman_pengendalian" role="tabpanel" aria-labelledby="sarana_pemadaman_pengendalian">
+                                    @include('pages.damkar.tab.sarana_pemadaman_pengendalian')                                
+                                </div>
+                                <div class="tab-pane fade" id="sarana_penyelamatan" role="tabpanel" aria-labelledby="sarana_penyelamatan">
+                                    @include('pages.damkar.tab.sarana_penyelamatan')                                
+                                </div>
+                                <div class="tab-pane fade" id="sarana_penanganan_bahan_berbahaya" role="tabpanel" aria-labelledby="sarana_penanganan_bahan_berbahaya">
+                                    @include('pages.damkar.tab.sarana_penanganan_bahan_berbahaya')
+                                </div>
+                                <div class="tab-pane fade" id="prasarana_damkar" role="tabpanel" aria-labelledby="prasarana_damkar">
+                                    @include('pages.damkar.tab.prasarana_damkar')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                     <div class="card card-custom gutter-b">
+                        <div class="card-header card-header-tabs-line">
+                            <div class="card-toolbar">
+                                <ul class="nav nav-tabs nav-bold nav-tabs-line">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#inspeksi_peralatan_potensi_kebakaran">
+                                            <span class="nav-text">Sarana Inspeksi Peralatan Potensi Kebakaran</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#investigasi_kejadian_kebakaran">
+                                            <span class="nav-text">Sarana Investigasi Kejadian Kebakaran</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#pemberdayaan_masyarakat">
+                                            <span class="nav-text">Sarana Pemberdayaan Masyarakat</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#perlindungan_diri_petugas">
+                                            <span class="nav-text">Alat Perlindungan Diri Petugas</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="inspeksi_peralatan_potensi_kebakaran" role="tabpanel" aria-labelledby="inspeksi_peralatan_potensi_kebakaran">
+                                    @include('pages.damkar.tab.inspeksi_peralatan_potensi_kebakaran')
+                                </div>
+                                <div class="tab-pane fade" id="investigasi_kejadian_kebakaran" role="tabpanel" aria-labelledby="investigasi_kejadian_kebakaran">
+                                    @include('pages.damkar.tab.investigasi_kejadian_kebakaran')
+                                </div>
+                                <div class="tab-pane fade" id="pemberdayaan_masyarakat" role="tabpanel" aria-labelledby="pemberdayaan_masyarakat">
+                                    @include('pages.damkar.tab.pemberdayaan_masyarakat')
+                                </div>
+                                <div class="tab-pane fade" id="perlindungan_diri_petugas" role="tabpanel" aria-labelledby="perlindungan_diri_petugas">
+                                    @include('pages.damkar.tab.perlindungan_diri_petugas')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
