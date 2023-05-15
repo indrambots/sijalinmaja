@@ -33,6 +33,8 @@ class KegiatanController extends Controller
     public function print($id,$barcode){
         $keg = Kegiatan::find($id);
         $katim = KegiatanPersonel::where('ket','KAOPSGAP')->where('kegiatan_id',$id)->first();
+        $katim_page_2 = "";
+
         $anggota = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
         FROM_DAYS(
             DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
@@ -59,13 +61,44 @@ class KegiatanController extends Controller
             DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
         ),
         '%y Years %m Months %d Days'
-    ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 30 OFFSET 30");
+    ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 45 OFFSET 29");
 
+    
         $bentuk_kegiatan = MasterBentukKegiatan::where('bentuk_kegiatan',$keg->bentuk_kegiatan)->first();
-        if($barcode == "yes"):
-            return view('pages.kegiatan.spt_barcode',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3'));
+
+        if($katim == null):
+                    $anggota = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+                ),
+                '%y Years %m Months %d Days'
+            ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC");
+
+                $anggota1 = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+                ),
+                '%y Years %m Months %d Days'
+            ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 15");
+
+                $anggota2 = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+                ),
+                '%y Years %m Months %d Days'
+            ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 15 OFFSET 15");
+
+                $anggota3 = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+                ),
+                '%y Years %m Months %d Days'
+            ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 15 OFFSET 30");
         endif;
-        return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3'));
+        if($barcode == "yes"):
+            return view('pages.kegiatan.spt_barcode',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3','barcode'));
+        endif;
+        return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3','barcode'));
     }
 
     public function create($id)
@@ -116,9 +149,9 @@ class KegiatanController extends Controller
             endif;
         endforeach;
         if($i->link_spt !== null):
-            $btn_print = $btn_link_spt;
+            $btn_print = '';
         endif;
-            if((int)Auth::user()->level == 9):
+            if((int)Auth::user()->level == 9 || (int)Auth::user()->level == 8):
                 if($i->created_by == (int)Auth::user()->id):
                     return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.$btn_laporan.'</div>';
                 else:
@@ -147,7 +180,7 @@ class KegiatanController extends Controller
             endif;
         })->editColumn('spt',function($i){
             if($i->link_spt !== null):
-                return '<a href="'.$i->link_spt.'" target="_blank" class="stretched-link">'.$i->spt.'</a>';
+                return '<a href="'.url('download/spt/'.$i->id).'" target="_blank">'.$i->spt.'</a>';
             else:
                 return $i->spt;
             endif;
@@ -157,19 +190,36 @@ class KegiatanController extends Controller
     }
 
     public function save(Request $request){
-        $bidang = MasterKegiatan::where('bidang',$request->bidang)->first();
-        $spt = "094/".$request->spt."/".$bidang->nomor_bidang."/2023";
         $penanggung_jawab;
-        $kegiatan = Kegiatan::find($request->id);
+        $penanggung_jawab_check = 0;
         foreach($request->personel as $p):
             if($p['jenis'] == 'KAOPSGAP'):
-            $peg = Pegawai::where('nip',$p['nama'])->first();
-                $penanggung_jawab = $peg->nama;
+                $penanggung_jawab_check = 1;
             endif;
         endforeach;
+        $kegiatan = Kegiatan::find($request->id);
+        if($penanggung_jawab_check == 1):
+            foreach($request->personel as $p):
+                if($p['jenis'] == 'KAOPSGAP'):
+                $peg = Pegawai::where('nip',$p['nama'])->first();
+                    $penanggung_jawab = $peg->nama;
+                endif;
+            endforeach;
+        else:
+            $peg = Pegawai::where('nip',$request->personel[1]['nama'])->first();
+            $penanggung_jawab = $peg->nama;
+        endif;
         if($request->id == 0):
+                $bidang = MasterKegiatan::where('bidang',$request->bidang)->first();
+                $no = Kegiatan::orderBy('no_urut_spt','desc')->first();
+                // dd($no);
+                $fix_no = $no->no_urut_spt+1;
+                $spt = "094/".$fix_no."/".$bidang->nomor_bidang."/2023";
             $kegiatan = new Kegiatan();
         else:
+            $kegiatan = Kegiatan::where('id',$request->id)->first();
+            $fix_no = $kegiatan->no_urut_spt;
+            $spt = $kegiatan->spt;
         endif;
             $kegiatan->jenis_kegiatan = $request->jenis_kegiatan;
             $kegiatan->bidang         = $request->bidang;
@@ -178,7 +228,7 @@ class KegiatanController extends Controller
             $kegiatan->seragam = $request->seragam;
             $kegiatan->penanggung_jawab = $penanggung_jawab;
             $kegiatan->spt = $spt;
-            $kegiatan->no_urut_spt = $request->spt;
+            $kegiatan->no_urut_spt = $fix_no;
             $kegiatan->tanggal_mulai = date("Y-m-d", strtotime($request->tanggal_mulai));
             $kegiatan->tanggal_selesai = date("Y-m-d", strtotime($request->tanggal_selesai));
             $kegiatan->jam_mulai = $request->jam_mulai;
@@ -209,9 +259,15 @@ class KegiatanController extends Controller
     }
 
     public function update_link_spt(Request $request){
-        // dd($request->all());
+        $path = $request->file('link_spt')->getRealPath();
+        $ext = $request->link_spt->extension();
+        $doc = file_get_contents($path);
+        $base64 = base64_encode($doc);
+        $mime = $request->file('link_spt')->getClientMimeType();
         Kegiatan::find($request->id)->update([
-            "link_spt" => $request->link_spt
+            "link_spt" => $base64,
+            'ext' => $ext,
+            'mime' => $mime
         ]);
         return redirect('kegiatan')->with('success_barcode', 'LINK SPT BERHASIL TERSIMPAN');
     }

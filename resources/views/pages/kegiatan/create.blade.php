@@ -51,61 +51,73 @@
 	   <div class="col-lg-6">
 	    <label>Seragam :</label>
 	    <select class="form-control select2" name="seragam" id="seragam">
-	    	@if($keg->seragam == "PDL + JUNGLE PET")
+	    	@if($keg->seragam == "MENYESUAIKAN ACARA/HARI KERJA")
 		    	<option value="">--Pilih Seragam--</option>
-		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA" selected>MENYESUAIKAN ACARA/HARI KERJA</option>
+		    	<option value="PDL + JUNGLE PET" >PDL + JUNGLE PET</option>
+		    	<option value="PDL + BARET">PDL + BARET</option>
+		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
+		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
+		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
+	    	@elseif($keg->seragam == "PDL + JUNGLE PET")
+		    	<option value="">--Pilih Seragam--</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA" >MENYESUAIKAN ACARA/HARI KERJA</option>
 		    	<option value="PDL + JUNGLE PET" selected>PDL + JUNGLE PET</option>
 		    	<option value="PDL + BARET">PDL + BARET</option>
-		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
+		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
+		    	<option value="TACTICAL + JUNGLE PET" >TACTICAL + JUNGLE PET</option>
+		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@elseif($keg->seragam == "PDL + BARET")
 		    	<option value="">--Pilih Seragam--</option>
 		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
 		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
 		    	<option value="PDL + BARET" selected>PDL + BARET</option>
+		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
 		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
+		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
+	    	@elseif($keg->seragam == "PDL + PECI HITAM")
+		    	<option value="">--Pilih Seragam--</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
+		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
+		    	<option value="PDL + BARET">PDL + BARET</option>
+		    	<option value="PDL + PECI HITAM" selected >PDL + PECI HITAM</option>
+		    	<option value="TACTICAL + JUNGLE PET" >TACTICAL + JUNGLE PET</option>
+		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@elseif($keg->seragam == "TACTICAL + JUNGLE PET")
 		    	<option value="">--Pilih Seragam--</option>
 		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
 		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
 		    	<option value="PDL + BARET">PDL + BARET</option>
+		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
 		    	<option value="TACTICAL + JUNGLE PET" selected>TACTICAL + JUNGLE PET</option>
-	    	@elseif($keg->seragam == "MENYESUAIKAN ACARA/HARI KERJA")
+		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
+	    	@elseif($keg->seragam == "HITAM PUTIH BERDASI / SCARF")
 		    	<option value="">--Pilih Seragam--</option>
-		    	<option value="MENYESUAIKAN ACARA/HARI KERJA" selected>MENYESUAIKAN ACARA/HARI KERJA</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA" >MENYESUAIKAN ACARA/HARI KERJA</option>
 		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
 		    	<option value="PDL + BARET">PDL + BARET</option>
+		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
 		    	<option value="TACTICAL + JUNGLE PET" >TACTICAL + JUNGLE PET</option>
+		    	<option value="HITAM PUTIH BERDASI / SCARF" selected>HITAM PUTIH BERDASI / SCARF</option>
 	    	@else
 		    	<option value="">--Pilih Seragam--</option>
 		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
 		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
 		    	<option value="PDL + BARET">PDL + BARET</option>
+		    	<option value="PDL + PECI HITAM">PDL + PECI HITAM</option>
 		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
+		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@endif
 	    </select>
 	   </div>
 	   </div>
 	 <div class="form-group row">
 
-	  	<div class="col-lg-6">
+	  	<div class="col-lg-12">
 		    <label>Dasar Surat:<span class="form-text text-muted">(OPTIONAL)</span></label>
 		    <textarea rows="4" class="form-control" name="dasar_surat" id="dasar_surat" placeholder="Misal(Surat dari Dinas Kepemudaan dan Olahraga Provinsi Jawa Timur Nomor 427/297/117.2/2023 tanggal 5 Januari 2023 Perihal Permohonan Petugas Pengamanan dan 1(Satu) Korps Musik (Korsik) )">{{$keg->dasar_surat}}</textarea>
 		    
 	  	</div>
-	   <div class="col-lg-6">
-		    <label>Nomor SPT : </label>
-	   	<div class="row">
-	   		<div class="col-lg-1" style="margin-right: 0px;">
-	   			<label>094/</label>
-	   		</div>
-	   		<div class="col-lg-2" style="margin-right: 0px;">
-		    	<input type="number" name="spt" value="{{$keg->no_urut_spt}}" id="spt" class="form-control" placeholder="01"/>
-			</div>
-	   		<div class="col-lg-1" style="margin-left: 0px;">
-	   			<label id="nomor_bidang">106.2/{{date('Y')}}</label>
-			</div>
-	   </div>
-	  </div>
 	</div>
 	  <div class="form-group row mt-2">
 	  	<div class="col-lg-4">
@@ -197,6 +209,7 @@
 					<option value="PTI">PTI</option>
 					<option value="DRIVER">DRIVER</option>
 					<option value="PETUGAS TUM">PETUGAS TUM</option> 
+					<option value="PESERTA">PESERTA</option>
 				</select>
 			</div>
 				<button type="button" class="btn btn-sm btn-danger" class="delete_attributs" id="delete_attribut1"><i class="far fa-trash-alt"></i></button>
@@ -277,6 +290,15 @@
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM" selected>PETUGAS TUM</option> 
+							@elseif($k->ket == "PESERTA")
+							<option value="KAOPSGAP">KAOPSGAP</option>
+							<option value="ANGGOTA">ANGGOTA</option>
+							<option value="DOKUMENTASI">DOKUMENTASI</option>
+							<option value="PELAPORAN">PELAPORAN</option>
+							<option value="PTI">PTI</option>
+							<option value="DRIVER">DRIVER</option>
+							<option value="PETUGAS TUM" selected>PETUGAS TUM</option> 
+							<option value="PESERTA" selected>PESERTA</option> 
 							@endif
 						</select>
 					</div>

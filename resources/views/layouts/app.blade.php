@@ -87,7 +87,7 @@ tr.details td.details-control {
         <div id="kt_header_mobile" class="header-mobile bg-primary header-mobile-fixed">
             <!--begin::Logo-->
             <a href="{{ url('/') }}">
-                <img alt="Logo" src="{{ asset('img/icon/logo-sby.png') }}" class="max-h-40px" />
+                <img alt="Logo" src="{{ asset('assets/logo/sigap.png') }}" class="max-h-40px" />
             </a>
             <div class="topbar-item">
                 <a href="{url('/')} " class="mr-20">

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::post('profil/save','HomeController@save_profil');
+Route::get('kegiatan-datatable','HomeController@kegiatan_datatable');
 Route::get('test','TestController@index');
 
 Route::prefix('kegiatan')->group(function () {
@@ -83,6 +84,10 @@ Route::prefix('damkar')->group(function () {
 Route::prefix('popup')->group(function(){
     Route::get('kasandra-kasus/{id}','KasusController@kasandra_list');
     Route::post('kasandra-kasus/save','KasusController@kasandra_save');
+});
+
+Route::prefix('download')->group(function(){
+    Route::get('spt/{id}','DownloadController@download_spt');
 });
 
 Auth::routes();

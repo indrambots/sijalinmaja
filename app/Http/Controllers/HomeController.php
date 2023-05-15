@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Pegawai;
+use Yajra\Datatables\Datatables;
+use DB;
+use App\Kegiatan;
 
 class HomeController extends Controller
 {
@@ -86,6 +89,21 @@ class HomeController extends Controller
                 </div>
             </div>
         </div>';
+        $page['kegiatan_operator'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
+            <div class="card card-custom wave wave-animate-fast wave-primary">
+                <div class="card-body text-center">
+                    <a href="'.url('kegiatan').'">
+                        <span class="svg-icon svg-icon-primary svg-icon-6x">
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-people-arrows" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <br>
+                    <a href="'.url('kegiatan').'"
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">KEGIATAN
+                    </a>
+                </div>
+            </div>
+        </div>';
         $data = array();
         // dd(Auth::user()->pegawai);
         if(Auth::user()->level == 7 || Auth::user()->level == 5):
@@ -99,6 +117,10 @@ class HomeController extends Controller
             else:
                 array_push($data,$page['kasus'],$page['damkarmat']);
             endif;
+        elseif(Auth::user()->level == 6):
+                array_push($data,$page['kegiatan']);
+        elseif(Auth::user()->level == 8):
+                array_push($data,$page['kegiatan_operator']);
         endif;
         return view('home',compact('data'));
     }
@@ -111,5 +133,32 @@ class HomeController extends Controller
             'email' => $request->email,
         ]);
         return redirect('')->with('success_profil', 'Profil Berhasil di Update');
+    }
+
+    public function kegiatan_datatable()
+    {
+        $kegiatan = DB::Select("SELECT k.*, p.ket, p.nip FROM `kegiatan` k INNER JOIN kegiatan_personel p ON k.id = p.kegiatan_id 
+                                WHERE p.nip = '".Auth::user()->username."' AND k.deleted_at IS NULL");
+        return Datatables::of($kegiatan)
+        ->addColumn('aksi',function($i){
+            if($i->ket == 'PELAPORAN'):
+                return '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-laporan" onclick="laporan('.$i->id.')"><i class="fas fa-file-alt"></i></button>';
+            else:
+                return '-';
+            endif;
+        })
+        ->addColumn('kegiatan',function($i){
+            return $i->bentuk_kegiatan." - ".$i->judul_kegiatan;
+        })->addColumn('waktu_kegiatan',function($i){
+        $func = new Kegiatan();
+            return $func->dateIndo($i->tanggal_mulai)."<br>"."Pukul ".date("h.i", strtotime($i->jam_mulai));
+        })->editColumn('link_spt',function($i){
+            if($i->link_spt !== null):
+                return '<a href="'.url('download/spt/'.$i->id).'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
+            else:
+                return '<a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
+            endif;
+        })->rawColumns(['aksi','waktu_kegiatan','link_spt','aksi'])
+        ->make(true);
     }
 }

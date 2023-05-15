@@ -232,7 +232,7 @@
             <p class="s5" style="margin-bottom:5px; font-weight:bold; text-align: center;">
                 MEMERINTAHKAN
             </p>
-            @if(count($keg->personel) > 2)
+             @if(count($keg->personel) > 2)
     	<table cellspacing="0" style="border-collapse:collapse;">
             <tr style="height:20pt">
                 <td style="width:61pt">
@@ -306,7 +306,7 @@
                 </td>
             </tr>
 <?php $count = 2;?>
-            @endif;
+            @endif
             <tr >
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">

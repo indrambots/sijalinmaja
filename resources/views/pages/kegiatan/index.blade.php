@@ -46,17 +46,17 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title text-left">LINK SPT</h4>
+                  <h4 class="modal-title text-left">UPLOAD SPT</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form" method="POST" action="{{url('kegiatan/update-link-spt')}}">
+                    <form class="form" method="POST" action="{{url('kegiatan/update-link-spt')}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input type="hidden" name="id" id="idspt" value="">
                         <div class="form-group">
-                            <label>Link Google Drive SPT:</label>
-                            <input type="text" required class="form-control" id="link" name="link_spt" value="" />
+                            <label>Upload SPT:</label>
+                            <input type="file" required class="form-control" id="link" name="link_spt" value="" />
                         </div>
-                        <button type='submit'  class="btn btn-primary mr-2">SIMPAN LINK SPT</button>
+                        <button type='submit'  class="btn btn-primary mr-2">SIMPAN SPT</button>
                     </form>
                 </div>
               </div>
