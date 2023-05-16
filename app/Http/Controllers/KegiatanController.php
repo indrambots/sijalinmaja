@@ -131,7 +131,7 @@ class KegiatanController extends Controller
     }
 
     public function datatable(){
-        $kegiatan = Kegiatan::all();
+        $kegiatan = Kegiatan::where('id','>',0)->get();
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
             $btn_aksi = '<a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>';
