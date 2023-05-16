@@ -63,7 +63,6 @@ class KegiatanController extends Controller
         '%y Years %m Months %d Days'
     ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 45 OFFSET 29");
 
-    
         $bentuk_kegiatan = MasterBentukKegiatan::where('bentuk_kegiatan',$keg->bentuk_kegiatan)->first();
 
         if($katim == null):

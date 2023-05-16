@@ -90,9 +90,9 @@ tr.details td.details-control {
                 <img alt="Logo" src="{{ asset('assets/logo/sigap.png') }}" class="max-h-40px" />
             </a>
             <div class="topbar-item">
-                <a href="{url('/')} " class="mr-20">
+                {{-- <a href="{url('/')} " class="mr-20">
                     <img alt="Logo" src="{{ asset('img/icon/logo-baru.png') }}" class="max-h-35px">
-                </a>
+                </a> --}}
             </div>
             <!--end::Logo-->
             <!--begin::Toolbar-->
