@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-URL::forceScheme('https');
+if (env('APP_ENV') == 'production' ||env('APP_ENV') == 'prod' )
+{URL::forceScheme('https');}
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::post('profil/save','HomeController@save_profil');
