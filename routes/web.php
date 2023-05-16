@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 if (env('APP_ENV') == 'production' ||env('APP_ENV') == 'prod' )
 {URL::forceScheme('https');}
+Route::get('', 'HomeController@indexs')->name('home');
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::post('profil/save','HomeController@save_profil');
 Route::get('kegiatan-datatable','HomeController@kegiatan_datatable');
 Route::get('test','TestController@index');

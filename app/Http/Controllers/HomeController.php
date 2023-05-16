@@ -27,6 +27,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function indexs()
+    {
+       return redirect('login');
+    }
     public function index()
     {
         $page['peta'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
