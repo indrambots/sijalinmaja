@@ -123,17 +123,12 @@
 <table cellspacing="0" style="border-collapse:collapse;margin-left:60.075pt; margin-top: -10px;">
     <tbody>
         <tr style="height:10pt">
-            <td style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt">
+            <td style="width:96pt;border-bottom-style:solid;border-bottom-width:1pt">
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>
             </td>
-            <td style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt">
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt">
+            <td style="width:96pt;border-bottom-style:solid;border-bottom-width:1pt">
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>
@@ -150,8 +145,8 @@
             </td>
         </tr>
         <tr style="height:26pt">
-            <td colspan="3" style="width:192pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: left;">
+            <td colspan="2" style="width:192pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: center;">
                     Konsep Naskah Dinas ini diajukan untuk mendapatkan tanda tangan eletronik
                 </p>
             </td>
@@ -162,19 +157,14 @@
             </td>
         </tr>
         <tr style="height:5pt">
-            <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <td style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
                 <p class="s7" style="padding-left: 17pt;text-indent: 0pt;text-align: left;">
                     Es. IV
                 </p>
             </td>
-            <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <td style="width:96pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
                 <p class="s7" style="padding-left: 18pt;text-indent: 0pt;text-align: left;">
                     Es. III
-                </p>
-            </td>
-            <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
-                <p class="s7" style="padding-left: 13pt;text-indent: 0pt;text-align: left;">
-                    KASAT
                 </p>
             </td>
             <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
@@ -184,17 +174,12 @@
             </td>
         </tr>
         <tr style="height:10pt">
-            <td style="width:64pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt;border-bottom:1.25pt solid black;" >
+            <td style="width:96pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt;border-bottom:1.25pt solid black;" >
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>
             </td>
-            <td style="width:64pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt;border-bottom:1.25pt solid black;" >
-                <p style="text-indent: 0pt;text-align: left;">
-                    <br/>
-                </p>
-            </td>
-            <td style="width:64pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt;border-bottom:1.25pt solid black;" >
+            <td style="width:96pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt;border-bottom:1.25pt solid black;" >
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>
