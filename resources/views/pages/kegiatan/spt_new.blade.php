@@ -514,7 +514,11 @@
                         {{$nip->konversi_nip($a->nip,$a->jenis_pegawai)}} <br> {{$a->pangkat}} 
                     </p>
                     <p class="s6" style="padding-left: 0pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                        @if($a->jenis_pegawai == 'PNS')
                         {{ucwords(strtolower($a->nama_jabatan))}}
+                        @else
+                        {{$a->nama_jabatan}}
+                        @endif
                     </p>
                 </td>
             </tr>

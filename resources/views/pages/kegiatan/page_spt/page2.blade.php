@@ -17,7 +17,6 @@
             Daftar Nama {{$bentuk_kegiatan->format_spt}} {{$keg->judul_kegiatan}}
         </h4>
         <p style="text-indent: 0pt;text-align: left;">
-            <br/>
         </p>
         <table cellspacing="0" style="border-collapse:collapse;width:100%;">
             <tr style="height:26pt">
@@ -97,6 +96,35 @@
             @endforeach
         </table>
         @if(count($keg->personel) < 16)
+        <table cellspacing="0" style="border-collapse:collapse;margin-left:274.075pt; margin-top: 10px;">
+            
+        <tr style="height:13pt">
+            
+            <td style="width:97pt">
+                <p class="s5" style="text-indent: 0pt;line-height: 12pt;text-align: left; ">
+                    Ditetapkan di
+                </p>
+            </td>
+            <td style="width:150pt">
+                <p class="s5" style="padding-left: 7pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                    : Surabaya
+                </p>
+            </td>
+        </tr>
+        <tr style="height:15pt">
+           
+            <td style="width:97pt;">
+                <p class="s5" style="text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    pada tanggal
+                </p>
+            </td>
+            <td style="width:150pt;">
+                <p class="s5" style="padding-left: 7pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    : {{$keg->tgl_indo(date('Y-m-d', strtotime($keg->created_at)))}}
+                </p>
+            </td>
+        </tr>
+        </table>
         @if($barcode == "yes")
         <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -10px;">
     <tbody>

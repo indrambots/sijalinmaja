@@ -59,6 +59,7 @@
 		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
 		    	<option value="PDH">PDH</option>
 		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
+		    	<option value="TACTICAL HIJAU">TACTICAL HIJAU</option>
 		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@elseif($keg->seragam == "PDL + JUNGLE PET")
 		    	<option value="">--Pilih Seragam--</option>
@@ -68,6 +69,7 @@
 		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
 		    	<option value="PDH">PDH</option>
 		    	<option value="TACTICAL + JUNGLE PET" >TACTICAL + JUNGLE PET</option>
+		    	<option value="TACTICAL HIJAU">TACTICAL HIJAU</option>
 		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@elseif($keg->seragam == "PDL + BARET")
 		    	<option value="">--Pilih Seragam--</option>
@@ -77,6 +79,7 @@
 		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
 		    	<option value="PDH">PDH</option>
 		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
+		    	<option value="TACTICAL HIJAU">TACTICAL HIJAU</option>
 		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@elseif($keg->seragam == "PDL + PECI HITAM")
 		    	<option value="">--Pilih Seragam--</option>
@@ -86,6 +89,7 @@
 		    	<option value="PDL + PECI HITAM" selected >PDL + PECI HITAM</option>
 		    	<option value="PDH">PDH</option>
 		    	<option value="TACTICAL + JUNGLE PET" >TACTICAL + JUNGLE PET</option>
+		    	<option value="TACTICAL HIJAU">TACTICAL HIJAU</option>
 		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@elseif($keg->seragam == "PDH")
 		    	<option value="">--Pilih Seragam--</option>
@@ -95,6 +99,7 @@
 		    	<option value="PDL + PECI HITAM">PDL + PECI HITAM</option>
 		    	<option value="PDH" selected >PDH</option>
 		    	<option value="TACTICAL + JUNGLE PET" >TACTICAL + JUNGLE PET</option>
+		    	<option value="TACTICAL HIJAU">TACTICAL HIJAU</option>
 		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@elseif($keg->seragam == "TACTICAL + JUNGLE PET")
 		    	<option value="">--Pilih Seragam--</option>
@@ -104,6 +109,17 @@
 		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
 		    	<option value="PDH">PDH</option>
 		    	<option value="TACTICAL + JUNGLE PET" selected>TACTICAL + JUNGLE PET</option>
+		    	<option value="TACTICAL HIJAU">TACTICAL HIJAU</option>
+		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
+	    	@elseif($keg->seragam == "TACTICAL + HIJAU")
+		    	<option value="">--Pilih Seragam--</option>
+		    	<option value="MENYESUAIKAN ACARA/HARI KERJA">MENYESUAIKAN ACARA/HARI KERJA</option>
+		    	<option value="PDL + JUNGLE PET">PDL + JUNGLE PET</option>
+		    	<option value="PDL + BARET">PDL + BARET</option>
+		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
+		    	<option value="PDH">PDH</option>
+		    	<option value="TACTICAL + JUNGLE PET" >TACTICAL + JUNGLE PET</option>
+		    	<option value="TACTICAL HIJAU" selected>TACTICAL HIJAU</option>
 		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@elseif($keg->seragam == "HITAM PUTIH BERDASI / SCARF")
 		    	<option value="">--Pilih Seragam--</option>
@@ -113,6 +129,7 @@
 		    	<option value="PDL + PECI HITAM" >PDL + PECI HITAM</option>
 		    	<option value="PDH">PDH</option>
 		    	<option value="TACTICAL + JUNGLE PET" >TACTICAL + JUNGLE PET</option>
+		    	<option value="TACTICAL HIJAU">TACTICAL HIJAU</option>
 		    	<option value="HITAM PUTIH BERDASI / SCARF" selected>HITAM PUTIH BERDASI / SCARF</option>
 	    	@else
 		    	<option value="">--Pilih Seragam--</option>
@@ -122,6 +139,7 @@
 		    	<option value="PDL + PECI HITAM">PDL + PECI HITAM</option>
 		    	<option value="PDH">PDH</option>
 		    	<option value="TACTICAL + JUNGLE PET">TACTICAL + JUNGLE PET</option>
+		    	<option value="TACTICAL HIJAU">TACTICAL HIJAU</option>
 		    	<option value="HITAM PUTIH BERDASI / SCARF">HITAM PUTIH BERDASI / SCARF</option>
 	    	@endif
 	    </select>
