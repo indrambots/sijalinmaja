@@ -217,8 +217,10 @@ class KegiatanController extends Controller
             $kegiatan = new Kegiatan();
         else:
             $kegiatan = Kegiatan::where('id',$request->id)->first();
+            $bidang = MasterKegiatan::where('bidang',$request->bidang)->first();
+            // dd($no);
             $fix_no = $kegiatan->no_urut_spt;
-            $spt = $kegiatan->spt;
+            $spt = "094/".$fix_no."/".$bidang->nomor_bidang."/2023";
         endif;
             $kegiatan->jenis_kegiatan = $request->jenis_kegiatan;
             $kegiatan->bidang         = $request->bidang;
