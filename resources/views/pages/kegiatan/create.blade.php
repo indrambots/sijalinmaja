@@ -226,6 +226,7 @@
 					<option value="DRIVER">DRIVER</option>
 					<option value="PETUGAS TUM">PETUGAS TUM</option> 
 					<option value="PESERTA">PESERTA</option>
+					<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 				</select>
 			</div>
 				<button type="button" class="btn btn-sm btn-danger" class="delete_attributs" id="delete_attribut1"><i class="far fa-trash-alt"></i></button>
@@ -259,6 +260,8 @@
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
+							<option value="PESERTA">PESERTA</option>
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 							@elseif($k->ket == "DOKUMENTASI")
 							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
@@ -267,6 +270,8 @@
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
+							<option value="PESERTA">PESERTA</option>
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 							@elseif($k->ket == "PELAPORAN")
 							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
@@ -275,6 +280,8 @@
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
+							<option value="PESERTA">PESERTA</option>
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 							@elseif($k->ket == "PTI")
 							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
@@ -283,6 +290,8 @@
 							<option value="PTI" selected>PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
+							<option value="PESERTA">PESERTA</option>
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 							@elseif($k->ket == "DRIVER")
 							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
@@ -290,6 +299,8 @@
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER" selected>DRIVER</option>
+							<option value="PESERTA">PESERTA</option>
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 							@elseif($k->ket == "KAOPSGAP")
 							<option value="KAOPSGAP" selected>KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
@@ -298,6 +309,8 @@
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
+							<option value="PESERTA">PESERTA</option>
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 							@elseif($k->ket == "PETUGAS TUM")
 							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
@@ -306,6 +319,8 @@
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM" selected>PETUGAS TUM</option> 
+							<option value="PESERTA">PESERTA</option>
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 							@elseif($k->ket == "PESERTA")
 							<option value="KAOPSGAP">KAOPSGAP</option>
 							<option value="ANGGOTA">ANGGOTA</option>
@@ -313,8 +328,20 @@
 							<option value="PELAPORAN">PELAPORAN</option>
 							<option value="PTI">PTI</option>
 							<option value="DRIVER">DRIVER</option>
-							<option value="PETUGAS TUM" selected>PETUGAS TUM</option> 
+							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA" selected>PESERTA</option> 
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
+							@elseif($k->ket == "PESERTA + PELAPORAN")
+							<option value="KAOPSGAP">KAOPSGAP</option>
+							<option value="ANGGOTA">ANGGOTA</option>
+							<option value="DOKUMENTASI">DOKUMENTASI</option>
+							<option value="PELAPORAN">PELAPORAN</option>
+							<option value="PTI">PTI</option>
+							<option value="DRIVER">DRIVER</option>
+							<option value="PETUGAS TUM">PETUGAS TUM</option> 
+							<option value="PESERTA">PESERTA</option> 
+							<option value="PESERTA + PELAPORAN" selected>PESERTA + PELAPORAN</option> 
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 							@endif
 						</select>
 					</div>

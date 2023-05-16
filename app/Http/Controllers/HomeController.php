@@ -141,7 +141,7 @@ class HomeController extends Controller
                                 WHERE p.nip = '".Auth::user()->username."' AND k.deleted_at IS NULL");
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
-            if($i->ket == 'PELAPORAN'):
+            if($i->ket == 'PELAPORAN' || $i->ket == 'PESERTA + PELAPORAN' || $i->ket == 'KAOPSGAP'):
                 return '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-laporan" onclick="laporan('.$i->id.')"><i class="fas fa-file-alt"></i></button>';
             else:
                 return '-';
