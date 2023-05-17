@@ -547,7 +547,7 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                       Melaporkan hasil Pelaksanaan Tugas tersebut kepada Kepala Satuan Polisi Pamong Praja Provinsi Jawa Timur.
+                       Melaporkan hasil Pelaksanaan Tugas tersebut kepada Kepala Satuan Polisi Pamong Praja Provinsi Jawa Timur dan mengisi link <a style="font-size:12pt" href="https://sijalinmaja.jatimprov.go.id">https://sijalinmaja.jatimprov.go.id</a>
                     </p>
                 </td>
             </tr>
