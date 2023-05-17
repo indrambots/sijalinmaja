@@ -35,6 +35,7 @@ Route::prefix('kegiatan')->group(function () {
     Route::get('datatable','KegiatanController@datatable');
     Route::post('filter-bidang','KegiatanController@filter_bidang');
     Route::post('filter-kegiatan','KegiatanController@filter_kegiatan');
+    Route::post('batalkan','KegiatanController@batalkan');
 });            
 
 Route::prefix('kasus')->group(function () {

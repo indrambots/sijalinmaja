@@ -18,6 +18,11 @@ class Kegiatan extends Model
         return $this->hasMany('App\KegiatanPersonel', 'kegiatan_id', 'id');
     }
 
+    public function sub()
+    {
+        return $this->hasOne('App\MasterBidang', 'sub', 'sub_bidang');
+    }
+
     public function tgl_indo($tanggal)
     {
         $bulan = array(

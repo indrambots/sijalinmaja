@@ -160,6 +160,36 @@
          });
     }
 
+     function batalkan(id){
+        Swal.fire({   
+                      title: "Anda Yakin?",   
+                      text: "SPT Kegiatan akan dibatalkan",   
+                      icon: "warning",   
+                      showCancelButton: true,   
+                      confirmButtonColor: "#e6b034",   
+                      confirmButtonText: "Ya, Batalkan Kegiatan" 
+                       
+                  }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                            method:'POST',
+                            url:'{{ url("kegiatan/batalkan") }}',
+                            data:{
+                              id:id,
+                              '_token': $('input[name=_token]').val()
+                            },
+                            success:function(data){
+                                Swal.fire({title:"Berhasil!", text:"SPT Kegiatan berhasil dibatalkan", icon:"success"}
+                                ).then((result) => {
+                                    location.reload()
+                                })
+                              
+                            }
+                          }) 
+            } 
+         });
+    }
+
     function uploadBarcode(id,link){
       $('#idspt').val(id)
       $('#link').val(link)

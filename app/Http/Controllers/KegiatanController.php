@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Kegiatan;
 use App\MasterKegiatan;
 use App\MasterBentukKegiatan;
+use App\MasterBidang;
 use App\KegiatanPersonel;
 use App\User;
 use App\Kota;
@@ -137,6 +138,10 @@ class KegiatanController extends Controller
             $btn_aksi = '<a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>';
             $btn_delete = '<button onclick="deleteKeg('.$i->id.',\''.$i->spt.'\')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>';
             $btn_print = '<a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
+            $btn_batal = '<button onclick="batalkan('.$i->id.')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-handshake-slash"></i></button>';
+            if($i->is_batal ==1):
+                $btn_batal = '';
+            endif;
             if(Auth::user()->level == 6):
             $btn_print = '<a href="'.url('kegiatan/print/'.$i->id.'/yes').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
             endif;
@@ -153,14 +158,14 @@ class KegiatanController extends Controller
         endif;
             if((int)Auth::user()->level == 9 || (int)Auth::user()->level == 8):
                 if($i->created_by == (int)Auth::user()->id):
-                    return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.$btn_laporan.'</div>';
+                    return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.$btn_laporan.$btn_batal.'</div>';
                 else:
                     return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_print.$btn_laporan.'</div>';
                 endif;
             elseif((int)Auth::user()->level == 6):
                     return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_upload_spt.$btn_print.'</div>';
             else:
-                return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.'</div>';
+                return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_print.$btn_batal.'</div>';
             endif;
         })->addColumn('waktu_kegiatan',function($i){
             if($i->tanggal_mulai == $i->tanggal_selesai):
@@ -169,14 +174,18 @@ class KegiatanController extends Controller
                 return date("d F Y", strtotime($i->tanggal_mulai))." s/d ".date("d F Y", strtotime($i->tanggal_selesai));
             endif;
         })->addColumn('status',function($i){
-            if($i->link_spt == null && $i->hasil_kegiatan == null):
-                return '<label> <span class="badge badge-danger">BELUM BARCODE & LAPORAN</span> </label>';
-            elseif($i->link_spt !== null && $i->hasil_kegiatan == null):
-                return '<label> <span class="badge badge-warning">BELUM LAPORAN</span> </label>';
-            elseif($i->link_spt !== null && $i->hasil_kegiatan !== null):
-                return '<label> <span class="badge badge-success">LAPORAN SELESAI</span> </label>';
-            elseif($i->link_spt == null && $i->hasil_kegiatan !== null):
-                return '<label> <span class="badge badge-success">BELUM BARCODE</span> </label>';
+            if($i->is_batal == 0):
+                if($i->link_spt == null && $i->hasil_kegiatan == null):
+                    return '<label> <span class="badge badge-danger">BELUM BARCODE & LAPORAN</span> </label>';
+                elseif($i->link_spt !== null && $i->hasil_kegiatan == null):
+                    return '<label> <span class="badge badge-warning">BELUM LAPORAN</span> </label>';
+                elseif($i->link_spt !== null && $i->hasil_kegiatan !== null):
+                    return '<label> <span class="badge badge-success">LAPORAN SELESAI</span> </label>';
+                elseif($i->link_spt == null && $i->hasil_kegiatan !== null):
+                    return '<label> <span class="badge badge-success">BELUM BARCODE</span> </label>';
+                endif;
+            else:
+                return '<label> <span class="badge badge-danger">BATAL</span> </label>';
             endif;
         })->editColumn('spt',function($i){
             if($i->link_spt !== null):
@@ -225,6 +234,7 @@ class KegiatanController extends Controller
         endif;
             $kegiatan->jenis_kegiatan = $request->jenis_kegiatan;
             $kegiatan->bidang         = $request->bidang;
+            $kegiatan->sub_bidang         = $request->sub_bidang;
             $kegiatan->bentuk_kegiatan = $request->bentuk_kegiatan;
             $kegiatan->judul_kegiatan = $request->nama_kegiatan;
             $kegiatan->seragam = $request->seragam;
@@ -274,6 +284,13 @@ class KegiatanController extends Controller
         return redirect('kegiatan')->with('success_barcode', 'LINK SPT BERHASIL TERSIMPAN');
     }
 
+    public function batalkan(Request $request){
+        // dd($request->all());
+        Kegiatan::find($request->id)->update([
+            'is_batal' => 1
+        ]);
+    }
+
     public function delete(Request $request){
         Kegiatan::find($request->id)->delete();
     }
@@ -281,9 +298,11 @@ class KegiatanController extends Controller
     public function filter_bidang(Request $request){
         $kegiatan = MasterKegiatan::where('bidang',$request->bidang)->orderBy('nama_kegiatan','asc')->get();
         $bentuk_kegiatan = MasterBentukKegiatan::where('kegiatan_id',$kegiatan[0]->id)->orderBy('bentuk_kegiatan','asc')->get();
+        $sub = MasterBidang::where('bidang',$kegiatan[0]->bidang)->orderBy('sub','asc')->get();
         $view_kegiatan         = (string) view('pages.kegiatan.ajax.jenis_kegiatan', compact('kegiatan'));
         $view_bentuk_kegiatan         = (string) view('pages.kegiatan.ajax.bentuk_kegiatan', compact('bentuk_kegiatan'));
-        return response()->json(array('view_kegiatan' => $view_kegiatan,'view_bentuk_kegiatan' => $view_bentuk_kegiatan));
+        $view_sub         = (string) view('pages.kegiatan.ajax.sub', compact('sub'));
+        return response()->json(array('view_kegiatan' => $view_kegiatan,'view_bentuk_kegiatan' => $view_bentuk_kegiatan,'view_sub_bidang' => $view_sub));
     }
 
     public function filter_kegiatan(Request $request){

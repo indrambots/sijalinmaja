@@ -5,8 +5,10 @@
 <input type="hidden" id="id" name="id" value="{{ $id }}">
 @if((int)$id !== 0)
 	
+<input type="hidden" id="bidang_val"  value="{{ $keg->bidang }}">
 <input type="hidden" id="bentuk_kegiatan_val" value="{{ $keg->bentuk_kegiatan }}">
 <input type="hidden" id="jenis_kegiatan_val"  value="{{ $keg->jenis_kegiatan }}">
+<input type="hidden" id="sub_bidang_val"  value="{{ $keg->sub_bidang }}">
 @endif
 <div class="card card-custom gutter-b example example-compact">
 <div class="card-header">
@@ -15,8 +17,8 @@
 	</div>
 </div>
  <div class="card-body">
-	  <div class="form-group row mb-5">
-		   <div class="col-lg-4">
+	  <div class="form-group row mb-2">
+		   <div class="col-lg-6">
 		    <label>Bidang:</label>
 		    <select class="form-control select2" name="bidang" id="bidang">
 		    	<option value="">--Pilih Bidang--</option>
@@ -29,13 +31,21 @@
 		    	@endforeach
 		    </select>
 		   </div>
-		   <div class="col-lg-4">
+		   <div class="col-lg-6">
+		    <label>Sub Bidang:</label>
+		    <select class="form-control select2" name="sub_bidang" id="sub_bidang">
+		    	<option value="">--Pilih Seksi/Subbag--</option>
+		    </select>
+		   </div>
+		</div>
+	  <div class="form-group row mb-2">
+		   <div class="col-lg-6">
 		    <label>Jenis Kegiatan:</label>
 		    <select class="form-control select2" name="jenis_kegiatan" id="jenis_kegiatan">
 		    	<option value="">--Pilih Jenis Kegiatan--</option>
 		    </select>
 		   </div>
-		   <div class="col-lg-4">
+		   <div class="col-lg-6">
 		    <label>Bentuk Kegiatan:</label>
 		    <select class="form-control select2" name="bentuk_kegiatan" id="bentuk_kegiatan">
 		    	<option value="">--Pilih Bentuk Kegiatan--</option>
@@ -417,6 +427,7 @@ $('.pegawais').select2({ //apply select2 to my element
 	        console.log(data);
 	        $('#jenis_kegiatan').html(data.view_kegiatan);        
 	        $('#bentuk_kegiatan').html(data.view_bentuk_kegiatan);
+	        $('#sub_bidang').html(data.view_sub_bidang);
 	      }
 	    })
 	})
@@ -468,6 +479,7 @@ $('.pegawais').select2({ //apply select2 to my element
 	        console.log(data);
 	        $('#jenis_kegiatan').html(data.view_kegiatan).val($('#jenis_kegiatan_val').val()).trigger('change');
 	        $('#bentuk_kegiatan').html(data.view_bentuk_kegiatan).val($('#bentuk_kegiatan_val').val()).trigger('change');
+	        $('#sub_bidang').html(data.view_sub_bidang).val($('#sub_bidang_val').val()).trigger('change');
 	      }
 	    })
       }
