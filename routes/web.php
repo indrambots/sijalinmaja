@@ -90,6 +90,9 @@ Route::prefix('popup')->group(function(){
     Route::get('kasandra-kasus/{id}','KasusController@kasandra_list');
     Route::post('kasandra-kasus/save','KasusController@kasandra_save');
 });
+Route::prefix('rekap')->group(function(){
+    Route::get('kegiatan','Rekap\KegiatanController@index');
+});
 
 Route::prefix('download')->group(function(){
     Route::get('spt/{id}','DownloadController@download_spt');

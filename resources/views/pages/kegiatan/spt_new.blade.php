@@ -306,6 +306,9 @@
                 </td>
             </tr>
 <?php $count = 2;?>
+@else
+<?php $count = 1;?>
+
             @endif
             <tr >
                 <td style="width:61pt">
@@ -325,12 +328,16 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                      Dalam melaksanakan tugas Pakaian {{$keg->seragam}}
+                      Dalam melaksanakan tugas Pakaian {{$keg->seragam}};
                     </p>
                 </td>
             </tr>
 @if($keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
-<?php $count = 2;?>
+    @if($keg->jam_app !== null)
+    <?php $count = 2;?>
+    @else
+    <?php $count = 1;?>
+    @endif
             <tr >
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -363,6 +370,11 @@
                     </p>    
                 </td>
             </tr>
+    @if($keg->jam_app !== null)
+    <?php $count = 3;?>
+    @else
+    <?php $count = 2;?>
+    @endif
 @else
 <?php $count = 1;?>
 @endif
@@ -379,7 +391,7 @@
                 </td>
                 <td style="width:24pt">
                     <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
-                        {{$count + 3}}.
+                        {{$count + 2}}.
                     </p>
                 </td>
                 <td colspan="3" style="width:421pt">

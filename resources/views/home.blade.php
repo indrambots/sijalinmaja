@@ -3,6 +3,46 @@
 @section('content')
     <div class="row justify-content-center">
         @if(Auth::user()->level == 9 || Auth::user()->level ==2 || Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 8)
+        
+        <div class="col-lg-8">
+            <div class="row justify-content-center">
+
+
+                @foreach($data as $d)
+                 {!! $d !!}
+                @endforeach
+                <div class="col-lg-12">
+                    <div class="card card-custom gutter-b">
+                    <div class="card-header bg-warning">
+                        <div class="card-title">
+                            <h3 class="card-label">Penugasan</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                       <div class="table-responsive">
+                            <table id="datatable" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Kegiatan</th>
+                                        <th>Waktu Kegiatan</th>
+                                        <th>Lokasi Kegiatan</th>
+                                        <th>Seragam</th>
+                                        <th>Penugasan</th>
+                                        <th>SPT</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                       </div>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
         <div class="col-lg-4 col-md-4">
             <div class="card mb-6">
                 <div class="card-body pt-9 pb-0">
@@ -60,116 +100,43 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
-    <div class="row justify-content-center">
-        <div class="col-lg-12">
-            <div class="card card-custom gutter-b">
-            <div class="card-header bg-warning">
-                <div class="card-title">
-                    <h3 class="card-label">Penugasan</h3>
-                </div>
-            </div>
-            <div class="card-body">
-               <div class="table-responsive">
-                    <table id="datatable" class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>Kegiatan</th>
-                                <th>Waktu Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
-                                <th>Seragam</th>
-                                <th>Penugasan</th>
-                                <th>SPT</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-               </div>
-            </div>
-        </div>
 
-    <div id="modal-profil" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
+                <div id="modal-profil" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
 
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title text-left">LENGKAPI PROFIL</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form" method="POST" action="{{url('profil/save')}}">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="nip" id="nip" value="{{Auth::user()->pegawai->nip}}">
-                        <div class="form-group">
-                            <label>Nomor HP / WA Aktif :</label>
-                            <input class="form-control" type="number" name="no_telp" id="no_telp" value="{{Auth::user()->pegawai->no_telp}}" required placeholder="isikan akun instagram. . .">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title text-left">LENGKAPI PROFIL</h4>
                         </div>
-                        <div class="form-group">
-                            <label>Email (GMAIL):</label>
-                            <input class="form-control" type="email" name="email" id="email" value="{{Auth::user()->pegawai->email}}" required placeholder="isikan alamat email aktif">
+                        <div class="modal-body">
+                            <form class="form" method="POST" action="{{url('profil/save')}}">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="nip" id="nip" value="{{Auth::user()->pegawai->nip}}">
+                                <div class="form-group">
+                                    <label>Nomor HP / WA Aktif :</label>
+                                    <input class="form-control" type="number" name="no_telp" id="no_telp" value="{{Auth::user()->pegawai->no_telp}}" required placeholder="isikan akun instagram. . .">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email (GMAIL):</label>
+                                    <input class="form-control" type="email" name="email" id="email" value="{{Auth::user()->pegawai->email}}" required placeholder="isikan alamat email aktif">
+                                </div>
+                                <div class="form-group">
+                                    <label>Akun Instagram (Tanpa @) :</label>
+                                    <input class="form-control" type="text" name="instagram" id="instagram" value="{{Auth::user()->pegawai->instagram}}" placeholder="isikan akun instagram. . .">
+                                </div>
+                                <div class="form-group">
+                                    <label>Akun Facebook :</label>
+                                    <input class="form-control" type="text" name="facebook" id="facebook" value="{{Auth::user()->pegawai->facebook}}"  placeholder="isikan akun facebook. . .">
+                                </div>
+                                <button type='submit'  class="btn btn-primary mr-2">SIMPAN</button>
+                            </form>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Akun Instagram (Tanpa @) :</label>
-                            <input class="form-control" type="text" name="instagram" id="instagram" value="{{Auth::user()->pegawai->instagram}}" placeholder="isikan akun instagram. . .">
-                        </div>
-                        <div class="form-group">
-                            <label>Akun Facebook :</label>
-                            <input class="form-control" type="text" name="facebook" id="facebook" value="{{Auth::user()->pegawai->facebook}}"  placeholder="isikan akun facebook. . .">
-                        </div>
-                        <button type='submit'  class="btn btn-primary mr-2">SIMPAN</button>
-                    </form>
+                      </div>
+
                     </div>
-                </div>
-              </div>
-
-            </div>
-             <div id="modal-laporan" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-xl">
-
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title text-left">FORM LAPORAN KEGIATAN</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form" enctype="multipart/form-data" method="POST" action="{{url('kegiatan/laporan')}}">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="id" id="id_laporan" value="">
-                        <div class="form-group">
-                            <label>POINT PENTING / HASIL KEGIATAN :</label>
-                            <textarea name="hasil_kegiatan" id="hasil_kegiatan" class="form-control" ></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>DOKUMENTASI 1 :</label>
-                            <input type="file" class="form-control" name="dokumentasi_1" required>
-                        </div>
-                        <div class="form-group">
-                            <label>DOKUMENTASI 2 :</label>
-                            <input type="file" class="form-control" name="dokumentasi_2" required>
-                        </div>
-                        <div class="form-group">
-                            <label>DOKUMENTASI 3 :</label>
-                            <input type="file" class="form-control" name="dokumentasi_3" required>
-                        </div>
-                        <button type='submit'  class="btn btn-primary mr-2">SIMPAN</button>
-                    </form>
-                </div>
-              </div>
-
-            </div>
-          </div>
-    </div>
-</div>
-
-        @foreach($data as $d)
-         {!! $d !!}
-        @endforeach
-</div>
         @else
         @foreach($data as $d)
          {!! $d !!}
