@@ -310,6 +310,8 @@
 <?php $count = 1;?>
 
             @endif
+            
+            @if($keg->seragam !== null)
             <tr >
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -332,6 +334,7 @@
                     </p>
                 </td>
             </tr>
+            @endif
 @if($keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
     @if($keg->jam_app !== null)
     <?php $count = 2;?>
@@ -376,8 +379,25 @@
     <?php $count = 2;?>
     @endif
 @else
-<?php $count = 1;?>
+<?php $count = 3;?>
 @endif
+    @if($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0 && $keg->seragam !== null)
+    <?php $count = 5;?>
+    @else
+    <?php $count = 2;?>
+    @endif
+    @if($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
+    <?php $count = 4; ?>
+    @endif
+    @if($keg->jam_app !== null && $keg->seragam !== null)
+    <?php $count = 4; ?>
+    @endif
+    @if($keg->jam_app == null && $keg->seragam !== null)
+    <?php $count = 3; ?>
+    @endif
+    @if($keg->jam_app !== null && $keg->seragam == null)
+    <?php $count = 3; ?>
+    @endif
             <tr >
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -391,7 +411,7 @@
                 </td>
                 <td style="width:24pt">
                     <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
-                        {{$count + 2}}.
+                        {{$count}}.
                     </p>
                 </td>
                 <td colspan="3" style="width:421pt">
@@ -566,6 +586,37 @@
                     </p>
                 </td>
             </tr>
+
+            <?php $count = 1; ?>
+            @if($keg->jam_app !== null)
+            <tr>
+                <td style="width:61pt">
+                    <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p class="s5" style="padding-left: 1pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:24pt">
+                    <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        {{$count + 1}}.
+                    </p>
+                </td>
+                <td colspan="3" style="width:421pt">
+                    <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
+                       APP di Kantor Satuan Polisi Pamong Praja Provinsi Jawa Timur Jl. Jagir Wonokromo No.352 Surabaya, Pukul : {{date('H.i', strtotime($keg->jam_app))}} WIB;
+                    </p>
+                </td>
+            </tr>
+<?php $count = 2;?>
+@else
+<?php $count = 1;?>
+
+            @endif
+            @if($keg->seragam !== null)
             <tr >
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -579,7 +630,93 @@
                 </td>
                 <td style="width:24pt">
                     <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
-                        2.
+                        {{$count + 1}}.
+                    </p>
+                </td>
+                <td colspan="3" style="width:421pt">
+                    <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
+                      Dalam melaksanakan tugas Pakaian {{$keg->seragam}};
+                    </p>
+                </td>
+            </tr>
+            @endif
+@if($keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
+    @if($keg->jam_app !== null)
+    <?php $count = 2;?>
+    @else
+    <?php $count = 1;?>
+    @endif
+            <tr >
+                <td style="width:61pt">
+                    <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p class="s5" style="padding-left: 1pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:24pt">
+                    <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        {{$count + 2}}.
+                    </p>
+                </td>
+                <td colspan="3" style="width:421pt">
+                    <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
+                      Sarana dan Prasarana : 
+                      @if($keg->ht_mobil_pamwal > 0)
+                      {{$keg->ht_mobil_pamwal}} Unit Mobil Pamwal,
+                      @endif
+                      @if($keg->ht_mobil > 0)
+                      {{$keg->ht_mobil_pamwal}} Unit Mobil Operasional,
+                      @endif
+                      @if($keg->truck > 0)
+                      {{$keg->ht_mobil_pamwal}} Unit Truck,
+                      @endif
+                      {{$keg->ht_poc}} Buah HT POC, {{$keg->ht_lokal}} Buah HT Lokal
+                    </p>    
+                </td>
+            </tr>
+    @if($keg->jam_app !== null)
+    <?php $count = 3;?>
+    @else
+    <?php $count = 2;?>
+    @endif
+@else
+@endif
+    
+    @if($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0 && $keg->seragam !== null)
+    <?php $count = 5;?>
+    
+    @elseif($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
+    <?php $count = 4; ?>
+    
+    @elseif($keg->jam_app !== null && $keg->seragam !== null)
+    <?php $count = 4; ?>
+    
+    @elseif($keg->jam_app == null && $keg->seragam !== null)
+    <?php $count = 3; ?>
+    
+    @elseif($keg->jam_app !== null && $keg->seragam == null)
+    <?php $count = 3; ?>
+    @else
+    <?php $count = 2;?>
+    @endif
+            <tr >
+                <td style="width:61pt">
+                    <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p class="s5" style="padding-left: 1pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:24pt">
+                    <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        {{$count}}.
                     </p>
                 </td>
                 <td colspan="3" style="width:421pt">

@@ -132,7 +132,7 @@ class KegiatanController extends Controller
     }
 
     public function datatable(){
-        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode')->where('id','>',0)->get();
+        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by')->where('id','>',0)->get();
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
             $btn_aksi = '<a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>';
@@ -153,7 +153,7 @@ class KegiatanController extends Controller
             $btn_laporan = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-laporan" onclick="laporan('.$i->id.')"><i class="fas fa-file-alt"></i></button>';
             endif;
         endforeach;
-        if($i->link_spt !== null):
+        if($i->is_barcode !== null):
             $btn_print = '';
         endif;
             if((int)Auth::user()->level == 9 || (int)Auth::user()->level == 8):

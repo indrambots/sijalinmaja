@@ -282,7 +282,6 @@
                     </p>
                 </td>
             </tr>
-
 <?php $count = 1; ?>
             @if($keg->jam_app !== null)
             <tr>
@@ -312,6 +311,8 @@
 <?php $count = 1;?>
 
             @endif
+            
+            @if($keg->seragam !== null)
             <tr >
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -330,11 +331,12 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                      Dalam melaksanakan tugas Pakaian {{$keg->seragam}}
+                      Dalam melaksanakan tugas Pakaian {{$keg->seragam}};
                     </p>
                 </td>
             </tr>
-            @if($keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
+            @endif
+@if($keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
     @if($keg->jam_app !== null)
     <?php $count = 2;?>
     @else
@@ -378,10 +380,26 @@
     <?php $count = 2;?>
     @endif
 @else
-<?php $count = 1;?>
+<?php $count = 3;?>
 @endif
-
-             <tr >
+    @if($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0 && $keg->seragam !== null)
+    <?php $count = 5;?>
+    @else
+    <?php $count = 2;?>
+    @endif
+    @if($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
+    <?php $count = 4; ?>
+    @endif
+    @if($keg->jam_app !== null && $keg->seragam !== null)
+    <?php $count = 4; ?>
+    @endif
+    @if($keg->jam_app == null && $keg->seragam !== null)
+    <?php $count = 3; ?>
+    @endif
+    @if($keg->jam_app !== null && $keg->seragam == null)
+    <?php $count = 3; ?>
+    @endif
+            <tr >
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         <br>
@@ -394,7 +412,7 @@
                 </td>
                 <td style="width:24pt">
                     <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
-                        {{$count + 2}}.
+                        {{$count}}.
                     </p>
                 </td>
                 <td colspan="3" style="width:421pt">
@@ -403,24 +421,7 @@
                     </p>
                 </td>
             </tr>
-            <tr >
-                <td style="width:61pt">
-                    <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-                        <br>
-                    </p>
-                </td>
-                <td style="width:18pt">
-                    <p class="s5" style="padding-left: 1pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
-                        <br>
-                    </p>
-                </td>
-                <td colspan="3" style="width:421pt">
-                <p class="s6" style="padding-top: 6pt;/* padding-left: 14pt; */text-indent: 30pt;line-height: 14pt;text-align: left;letter-spacing: -0.3px;">
-                        Demikian Surat Perintah Tugas ini untuk dilaksanakan dengan sebaik- baiknya dengan penuh rasa tanggung jawab.
-                </p>
-                </td>
-            </tr>
-            {{-- <tr style="height:36pt">
+            <tr style="height:36pt">
                 <td style="width:61pt">
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -428,13 +429,15 @@
                 </td>
                 <td style="width:18pt">
                     <p style="text-indent: 0pt;text-align: left;">
-                       
-                <p class="s6" style="padding-top: 6pt;/* padding-left: 14pt; */text-indent: 30pt;line-height: 14pt;text-align: left;letter-spacing: -0.3px;">
-                        Demikian Surat Perintah Tugas ini untuk dilaksanakan dengan sebaik- baiknya dengan penuh rasa tanggung jawab.
-                </p>
+                        <br/>
                     </p>
                 </td>
-            </tr> --}}
+                <td colspan="4" style="width:445pt">
+                    <p class="s6" style="padding-top: 6pt;/* padding-left: 14pt; */text-indent: 30pt;line-height: 14pt;text-align: left;letter-spacing: -0.3px;">
+                        Demikian Surat Perintah Tugas ini untuk dilaksanakan dengan sebaik- baiknya dengan penuh rasa tanggung jawab.
+                    </p>
+                </td>
+            </tr>
         </table>
         @else
         <table cellspacing="0" style="border-collapse:collapse;">
@@ -584,6 +587,37 @@
                     </p>
                 </td>
             </tr>
+
+            <?php $count = 1; ?>
+            @if($keg->jam_app !== null)
+            <tr>
+                <td style="width:61pt">
+                    <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p class="s5" style="padding-left: 1pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:24pt">
+                    <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        {{$count + 1}}.
+                    </p>
+                </td>
+                <td colspan="3" style="width:421pt">
+                    <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
+                       APP di Kantor Satuan Polisi Pamong Praja Provinsi Jawa Timur Jl. Jagir Wonokromo No.352 Surabaya, Pukul : {{date('H.i', strtotime($keg->jam_app))}} WIB;
+                    </p>
+                </td>
+            </tr>
+<?php $count = 2;?>
+@else
+<?php $count = 1;?>
+
+            @endif
+            @if($keg->seragam !== null)
             <tr >
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -597,15 +631,22 @@
                 </td>
                 <td style="width:24pt">
                     <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
-                        2.
+                        {{$count + 1}}.
                     </p>
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                       Melaporkan hasil Pelaksanaan Tugas tersebut kepada Kepala Satuan Polisi Pamong Praja Provinsi Jawa Timur dan mengisi link <a style="font-size:12pt" href="https://sijalinmaja.jatimprov.go.id">https://sijalinmaja.jatimprov.go.id</a>
+                      Dalam melaksanakan tugas Pakaian {{$keg->seragam}};
                     </p>
                 </td>
             </tr>
+            @endif
+@if($keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
+    @if($keg->jam_app !== null)
+    <?php $count = 2;?>
+    @else
+    <?php $count = 1;?>
+    @endif
             <tr >
                 <td style="width:61pt">
                     <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -618,9 +659,86 @@
                     </p>
                 </td>
                 <td style="width:24pt">
+                    <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        {{$count + 2}}.
+                    </p>
                 </td>
                 <td colspan="3" style="width:421pt">
-                <p class="s6" style="padding-top: 6pt;/* padding-left: 14pt; */text-indent: 30pt;line-height: 14pt;text-align: left;letter-spacing: -0.3px;">
+                    <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
+                      Sarana dan Prasarana : 
+                      @if($keg->ht_mobil_pamwal > 0)
+                      {{$keg->ht_mobil_pamwal}} Unit Mobil Pamwal,
+                      @endif
+                      @if($keg->ht_mobil > 0)
+                      {{$keg->ht_mobil_pamwal}} Unit Mobil Operasional,
+                      @endif
+                      @if($keg->truck > 0)
+                      {{$keg->ht_mobil_pamwal}} Unit Truck,
+                      @endif
+                      {{$keg->ht_poc}} Buah HT POC, {{$keg->ht_lokal}} Buah HT Lokal
+                    </p>    
+                </td>
+            </tr>
+    @if($keg->jam_app !== null)
+    <?php $count = 3;?>
+    @else
+    <?php $count = 2;?>
+    @endif
+@else
+@endif
+    
+    @if($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0 && $keg->seragam !== null)
+    <?php $count = 5;?>
+    
+    @elseif($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
+    <?php $count = 4; ?>
+    
+    @elseif($keg->jam_app !== null && $keg->seragam !== null)
+    <?php $count = 4; ?>
+    
+    @elseif($keg->jam_app == null && $keg->seragam !== null)
+    <?php $count = 3; ?>
+    
+    @elseif($keg->jam_app !== null && $keg->seragam == null)
+    <?php $count = 3; ?>
+    @else
+    <?php $count = 2;?>
+    @endif
+            <tr >
+                <td style="width:61pt">
+                    <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p class="s5" style="padding-left: 1pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        <br>
+                    </p>
+                </td>
+                <td style="width:24pt">
+                    <p class="s6" style="padding-left: 4pt;padding-right: 5pt;text-indent: 0pt;line-height: 14pt;text-align: center;">
+                        {{$count}}.
+                    </p>
+                </td>
+                <td colspan="3" style="width:421pt">
+                    <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
+                       Melaporkan hasil Pelaksanaan Tugas tersebut kepada Kepala Satuan Polisi Pamong Praja Provinsi Jawa Timur dan mengisi link <a style="font-size:12pt" href="https://sijalinmaja.jatimprov.go.id">https://sijalinmaja.jatimprov.go.id</a>
+                    </p>
+                </td>
+            </tr>
+            <tr style="height:36pt">
+                <td style="width:61pt">
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                </td>
+                <td style="width:18pt">
+                    <p style="text-indent: 0pt;text-align: left;">
+                        <br/>
+                    </p>
+                </td>
+                <td colspan="4" style="width:445pt">
+                    <p class="s6" style="padding-top: 6pt;/* padding-left: 14pt; */text-indent: 30pt;line-height: 14pt;text-align: left;letter-spacing: -0.3px;">
                         Demikian Surat Perintah Tugas ini untuk dilaksanakan dengan sebaik- baiknya dengan penuh rasa tanggung jawab.
                     </p>
                 </td>
