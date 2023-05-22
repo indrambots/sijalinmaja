@@ -2,7 +2,7 @@
     <div class="page">
 
           <p class="s9" style="padding-top: 3pt;padding-left: 297pt;text-indent: -56pt;text-align: justify;">
-            LAMPIRAN : SURAT PERINTAH TUGAS <br> &nbsp;&nbsp;&nbsp;KASATPOL PP PROV. JATIM <br> &nbsp;&nbsp;&nbsp;TANGGAL : {{$keg->tgl_indo(date('Y-m-d', strtotime($keg->created_at)))}}
+            LAMPIRAN : &nbsp; SURAT PERINTAH TUGAS <br> &nbsp;&nbsp;&nbsp;KASATPOL PP PROV. JATIM <br> &nbsp;&nbsp;&nbsp;TANGGAL : {{$keg->tgl_indo(date('Y-m-d', strtotime($keg->created_at)))}}
         </p>
         <p class="s9" style="padding-left: 297pt;text-indent: 0pt;text-align: justify; ">
             &nbsp;&nbsp;&nbsp;NOMOR     :  {{$keg->spt}}
