@@ -190,9 +190,8 @@
          });
     }
 
-    function uploadBarcode(id,link){
+    function uploadBarcode(id){
       $('#idspt').val(id)
-      $('#link').val(link)
     }
 
     function laporan(id){

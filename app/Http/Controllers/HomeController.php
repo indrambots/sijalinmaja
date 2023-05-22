@@ -108,6 +108,21 @@ class HomeController extends Controller
                 </div>
             </div>
         </div>';
+        $page['rekap_kegiatan'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
+            <div class="card card-custom wave wave-animate-fast wave-primary">
+                <div class="card-body text-center">
+                    <a href="'.url('rekap/kegiatan').'">
+                        <span class="svg-icon svg-icon-primary svg-icon-6x">
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-book" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <br>
+                    <a href="'.url('rekap/kegiatan').'"
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">REKAP KEGIATAN
+                    </a>
+                </div>
+            </div>
+        </div>';
         $data = array();
         // dd(Auth::user()->pegawai);
         if(Auth::user()->level == 7 || Auth::user()->level == 5):
@@ -157,7 +172,7 @@ class HomeController extends Controller
         $func = new Kegiatan();
             return $func->dateIndo($i->tanggal_mulai)."<br>"."Pukul ".date("h.i", strtotime($i->jam_mulai));
         })->editColumn('link_spt',function($i){
-            if($i->link_spt !== null):
+            if($i->is_barcode !== null):
                 return '<a href="'.url('download/spt/'.$i->id).'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
             else:
                 return '<a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';

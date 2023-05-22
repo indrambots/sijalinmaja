@@ -132,7 +132,7 @@ class KegiatanController extends Controller
     }
 
     public function datatable(){
-        $kegiatan = Kegiatan::where('id','>',0)->get();
+        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode')->where('id','>',0)->get();
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
             $btn_aksi = '<a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>';
@@ -145,8 +145,8 @@ class KegiatanController extends Controller
             if(Auth::user()->level == 6):
             $btn_print = '<a href="'.url('kegiatan/print/'.$i->id.'/yes').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
             endif;
-        $btn_upload_spt = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-upload" onclick="uploadBarcode('.$i->id.',\''.$i->link_spt.'\')"><i class="fas fa-upload"></i></button>';
-        $btn_link_spt = '<a href="'.$i->link_spt.'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-fingerprint"></i></a>';
+        $btn_upload_spt = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-upload" onclick="uploadBarcode('.$i->id.')"><i class="fas fa-upload"></i></button>';
+        // $btn_link_spt = '<a href="'.$i->link_spt.'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-fingerprint"></i></a>';
         $btn_laporan = '';
         foreach($i->personel as $k):
             if(Auth::user()->username == $k->nip):
@@ -175,20 +175,20 @@ class KegiatanController extends Controller
             endif;
         })->addColumn('status',function($i){
             if($i->is_batal == 0):
-                if($i->link_spt == null && $i->hasil_kegiatan == null):
+                if($i->is_barcode == NULL && $i->hasil_kegiatan == null):
                     return '<label> <span class="badge badge-danger">BELUM BARCODE & LAPORAN</span> </label>';
-                elseif($i->link_spt !== null && $i->hasil_kegiatan == null):
+                elseif($i->is_barcode !== NULL && $i->hasil_kegiatan == null):
                     return '<label> <span class="badge badge-warning">BELUM LAPORAN</span> </label>';
-                elseif($i->link_spt !== null && $i->hasil_kegiatan !== null):
+                elseif($i->is_barcode !== NULL && $i->hasil_kegiatan !== null):
                     return '<label> <span class="badge badge-success">LAPORAN SELESAI</span> </label>';
-                elseif($i->link_spt == null && $i->hasil_kegiatan !== null):
+                elseif($i->is_barcode == NULL && $i->hasil_kegiatan !== null):
                     return '<label> <span class="badge badge-success">BELUM BARCODE</span> </label>';
                 endif;
             else:
                 return '<label> <span class="badge badge-danger">BATAL</span> </label>';
             endif;
         })->editColumn('spt',function($i){
-            if($i->link_spt !== null):
+            if($i->is_barcode == 1):
                 return '<a href="'.url('download/spt/'.$i->id).'" target="_blank">'.$i->spt.'</a>';
             else:
                 return $i->spt;
@@ -279,7 +279,8 @@ class KegiatanController extends Controller
         Kegiatan::find($request->id)->update([
             "link_spt" => $base64,
             'ext' => $ext,
-            'mime' => $mime
+            'mime' => $mime,
+            'is_barcode' => 1
         ]);
         return redirect('kegiatan')->with('success_barcode', 'LINK SPT BERHASIL TERSIMPAN');
     }
