@@ -170,7 +170,7 @@ class HomeController extends Controller
             return $i->bentuk_kegiatan." - ".$i->judul_kegiatan;
         })->addColumn('waktu_kegiatan',function($i){
         $func = new Kegiatan();
-            return $func->dateIndo($i->tanggal_mulai)."<br>"."Pukul ".date("h.i", strtotime($i->jam_mulai));
+            return $func->dateIndo($i->tanggal_mulai)."<br>"."Pukul ".date("H.i", strtotime($i->jam_mulai));
         })->editColumn('link_spt',function($i){
             if($i->is_barcode !== null):
                 return '<a href="'.url('download/spt/'.$i->id).'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
