@@ -519,7 +519,11 @@
                         Nama
                     </p>
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
-                        NIP<br>  Pangkat / Golongan
+                        @if($a->jenis_pegawai == 'PNS')
+                        NIP<br>  
+                        @else
+                        NIPTT-PK<br>
+                        @endif  Pangkat / Golongan
                     </p>
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
                         Jabatan
