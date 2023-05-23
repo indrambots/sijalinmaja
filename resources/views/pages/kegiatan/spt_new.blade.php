@@ -383,20 +383,20 @@
 @endif
     @if($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0 && $keg->seragam !== null)
     <?php $count = 5;?>
+    
+    @elseif($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
+    <?php $count = 4; ?>
+    
+    @elseif($keg->jam_app !== null && $keg->seragam !== null)
+    <?php $count = 4; ?>
+    
+    @elseif($keg->jam_app == null && $keg->seragam !== null)
+    <?php $count = 3; ?>
+    
+    @elseif($keg->jam_app !== null && $keg->seragam == null)
+    <?php $count = 3; ?>
     @else
     <?php $count = 2;?>
-    @endif
-    @if($keg->jam_app !== null && $keg->ht_poc > 0 || $keg->ht_lokal > 0 || $keg->ht_mobil_pamwal > 0 || $keg->ht_mobil > 0 || $keg->truck > 0)
-    <?php $count = 4; ?>
-    @endif
-    @if($keg->jam_app !== null && $keg->seragam !== null)
-    <?php $count = 4; ?>
-    @endif
-    @if($keg->jam_app == null && $keg->seragam !== null)
-    <?php $count = 3; ?>
-    @endif
-    @if($keg->jam_app !== null && $keg->seragam == null)
-    <?php $count = 3; ?>
     @endif
             <tr >
                 <td style="width:61pt">
