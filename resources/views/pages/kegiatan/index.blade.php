@@ -10,7 +10,9 @@
         </div>
         <div class="col-4">
           <div class="d-flex justify-content-end">
+            @if(Auth::user()->level == 8 || Auth::user()->level == 7)
           <a href="{{ url('kegiatan/create/0')}} " type="button" class="btn btn-outline-primary m-b-xs "><i class="fas fa-plus-circle"></i> Buat Kegiatan</a>
+          @endif
         </div>
         </div>
       </div>

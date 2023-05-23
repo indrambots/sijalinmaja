@@ -578,7 +578,6 @@
                            {{$keg->hari($keg->tanggal_mulai)}} 
                            Tanggal {{$keg->tgl_indo($keg->tanggal_mulai)}} 
                        @else
-                       {{$keg->hari($keg->tanggal_mulai)}}
                            {{$keg->hari($keg->tanggal_mulai)}} s/d  {{$keg->hari($keg->tanggal_selesai)}}
                            Tanggal {{$keg->tgl_indo_2($keg->tanggal_mulai,$keg->tanggal_selesai)}} 
                        @endif
