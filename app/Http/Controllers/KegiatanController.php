@@ -124,7 +124,7 @@ class KegiatanController extends Controller
             'dokumentasi_2' => $dokumentasi_2,
             'dokumentasi_3' => $dokumentasi_3,
         ]);
-        return redirect('kegiatan')->with('success_laporan', 'LAPORAN BERHASIL DIBUAT');
+        return redirect('')->with('success_laporan', 'LAPORAN BERHASIL DIBUAT');
 
     }
 
@@ -327,6 +327,7 @@ class KegiatanController extends Controller
         $keg = Kegiatan::find($id);
         $spt =  str_replace("/","_",$keg->spt);
         $filename = $spt.'_'.'dok_'.$ke.'.'.$image->extension();
+        unlink(storage_path('app/public/'.$filename));
         $destinationPath = storage_path('app/public');
         $img = Image::make($image->path());
         $img->resize(720, 480, function ($constraint) {

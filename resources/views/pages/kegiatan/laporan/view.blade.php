@@ -113,9 +113,9 @@
             Dokumentasi 
         </p><br>
         <center>
-            <img src="{{ url('storage/public/'.$kegiatan->dokumentasi_1) }}">
-            <img src="{{ url('storage/public/'.$kegiatan->dokumentasi_2) }}">
-            <img src="{{ url('storage/public/'.$kegiatan->dokumentasi_3) }}">
+            <img src="{{ url('storage/'.$kegiatan->dokumentasi_1) }}">
+            <img src="{{ url('storage/'.$kegiatan->dokumentasi_2) }}">
+            <img src="{{ url('storage/'.$kegiatan->dokumentasi_3) }}">
         </center>
     </div>
 <script type="text/javascript">
