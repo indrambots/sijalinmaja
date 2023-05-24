@@ -159,7 +159,8 @@ class KegiatanController extends Controller
         $btn_laporan = '';
         foreach($i->personel as $k):
             if(Auth::user()->username == $k->nip):
-            $btn_laporan = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-laporan" onclick="laporan('.$i->id.')"><i class="fas fa-file-alt"></i></button>';
+            // $btn_laporan = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-laporan" onclick="laporan('.$i->id.')"><i class="fas fa-file-alt"></i></button>';
+        $btn_laporan = '';
             endif;
         endforeach;
         if($i->is_barcode !== null):
@@ -189,7 +190,7 @@ class KegiatanController extends Controller
                 elseif($i->is_barcode !== NULL && $i->hasil_kegiatan == null):
                     return '<label> <span class="badge badge-warning">BELUM LAPORAN</span> </label>';
                 elseif($i->is_barcode !== NULL && $i->hasil_kegiatan <> null):
-                    return '<label> <span class="badge badge-success">LAPORAN SELESAI</span> </label>';
+                    return '<a href="'.url('kegiatan/laporan/'.$i->id).'"><label> <span class="badge badge-success">LAPORAN SELESAI</span> </label></a>';
                 elseif($i->is_barcode == NULL && $i->hasil_kegiatan <> null):
                     return '<label> <span class="badge badge-success">BELUM BARCODE</span> </label>';
                 endif;
