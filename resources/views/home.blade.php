@@ -143,9 +143,58 @@
         @endforeach
         @endif
 </div>
+<div id="modal-laporan" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-xl">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title text-left">FORM LAPORAN KEGIATAN</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="laporan_cek">
+                        <div class="alert alert-custom alert-outline-2x alert-outline-success fade show mb-5" role="alert">
+                            <div class="alert-icon">
+                                <i class="flaticon-warning"></i>
+                            </div>
+                            <div class="alert-text">Laporan dari kegiatan ini sudah ada, silahkan cek di 
+                            <a href="" class="btn btn-primary" id="link_laporan"> Klik Disini </a>. Jika masih ingin merubah laporan silahkan isi laporan pada form di bawah ini.
+                            </div>
+                            <div class="alert-close">
+                            </div>
+                        </div>
+                    </div>
+                    <form class="form" enctype="multipart/form-data" method="POST" action="{{url('kegiatan/laporan')}}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" id="id_laporan" value="">
+                        <div class="form-group">
+                            <label>POINT PENTING / HASIL KEGIATAN :</label>
+                            <textarea name="hasil_kegiatan" id="hasil_kegiatan" class="form-control" ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>DOKUMENTASI 1 :</label>
+                            <input type="file" class="form-control" name="dokumentasi_1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>DOKUMENTASI 2 :</label>
+                            <input type="file" class="form-control" name="dokumentasi_2" required>
+                        </div>
+                        <div class="form-group">
+                            <label>DOKUMENTASI 3 :</label>
+                            <input type="file" class="form-control" name="dokumentasi_3" required>
+                        </div>
+                        <button type='submit'  class="btn btn-primary mr-2">SIMPAN</button>
+                    </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
 @endsection
 @section('script')
 <script>
+    $('#laporan_cek').hide();
     var datatable = $('#datatable').DataTable({
         processing: true,
         serverSide: false,
@@ -172,6 +221,26 @@
       })
     function laporan(id){
       $('#id_laporan').val(id)
+      $.ajax({
+            method:'POST',
+            url:'{{ url("kegiatan/laporan/cek") }}',
+            data:{
+              id:id,
+              '_token': $('input[name=_token]').val()
+            },
+            success:function(data){
+                console.log(data)
+                if(data.kegiatan.hasil_kegiatan !== null)
+                {
+                    $('#laporan_cek').show()
+                    $('#link_laporan').attr("href", "{{url('kegiatan/laporan')}}/"+data.kegiatan.id).attr('target','_blank');;
+                }
+                else
+                {
+                    $('#laporan_cek').hide()
+                }
+            }
+          }) 
     }
 </script>
 @if(Session::get('success_profil'))

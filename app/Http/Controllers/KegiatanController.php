@@ -128,11 +128,20 @@ class KegiatanController extends Controller
 
     }
 
-    public function laporan_save(Request $request){
+    public function laporan_cek(Request $request){
+        $kegiatan = Kegiatan::select('hasil_kegiatan','id','dokumentasi_1','dokumentasi_2','dokumentasi_3')->find($request->id);
+        // dd($kegiatan);
+        return response()->json(array('kegiatan' => $kegiatan));
+    }
+
+    public function laporan_view($id){
+        $kegiatan = Kegiatan::select('hasil_kegiatan','id','dokumentasi_1','dokumentasi_2','dokumentasi_3','tanggal_mulai','tanggal_selesai','lokasi','bentuk_kegiatan','judul_kegiatan','spt')->find($id);
+        // dd($kegiatan);
+        return view('pages.kegiatan.laporan.view',compact('kegiatan'));
     }
 
     public function datatable(){
-        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by')->where('id','>',0)->get();
+        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('id','>',0)->get();
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
             $btn_aksi = '<a href="'.url('kegiatan/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>';
@@ -179,9 +188,9 @@ class KegiatanController extends Controller
                     return '<label> <span class="badge badge-danger">BELUM BARCODE & LAPORAN</span> </label>';
                 elseif($i->is_barcode !== NULL && $i->hasil_kegiatan == null):
                     return '<label> <span class="badge badge-warning">BELUM LAPORAN</span> </label>';
-                elseif($i->is_barcode !== NULL && $i->hasil_kegiatan !== null):
+                elseif($i->is_barcode !== NULL && $i->hasil_kegiatan <> null):
                     return '<label> <span class="badge badge-success">LAPORAN SELESAI</span> </label>';
-                elseif($i->is_barcode == NULL && $i->hasil_kegiatan !== null):
+                elseif($i->is_barcode == NULL && $i->hasil_kegiatan <> null):
                     return '<label> <span class="badge badge-success">BELUM BARCODE</span> </label>';
                 endif;
             else:

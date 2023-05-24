@@ -29,7 +29,8 @@ Route::prefix('kegiatan')->group(function () {
     Route::get('print/{id}/{barcode}','KegiatanController@print');
     Route::post('update-link-spt','KegiatanController@update_link_spt');
     Route::post('laporan','KegiatanController@laporan');
-    Route::post('laporan/save','KegiatanController@laporan/save');
+    Route::post('laporan/cek','KegiatanController@laporan_cek');
+    Route::get('laporan/{id}','KegiatanController@laporan_view');
     Route::post('save','KegiatanController@save');
     Route::post('delete','KegiatanController@delete');
     Route::get('datatable','KegiatanController@datatable');
