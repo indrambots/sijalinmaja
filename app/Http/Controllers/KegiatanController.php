@@ -328,7 +328,9 @@ class KegiatanController extends Controller
         $keg = Kegiatan::find($id);
         $spt =  str_replace("/","_",$keg->spt);
         $filename = $spt.'_'.'dok_'.$ke.'.'.$image->extension();
-        unlink(storage_path('app/public/'.$filename));
+        if($keg->dokumentasi_1 !== null):
+            unlink(storage_path('app/public/'.$filename));
+        endif;
         $destinationPath = storage_path('app/public');
         $img = Image::make($image->path());
         $img->resize(720, 480, function ($constraint) {
