@@ -49,4 +49,9 @@ public function konversi_nip($nip, $jenis,$batas = " ") {
         return $this->hasOne('App\Pegawai', 'nip', 'nip');
     }
 
+    public function kegiatan(){
+        return $this->belongsToMany('App\Kegiatan','kegiatan_id','id');
+    
+    }
+
 }

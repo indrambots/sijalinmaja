@@ -91,8 +91,21 @@ Route::prefix('popup')->group(function(){
     Route::post('kasandra-kasus/save','KasusController@kasandra_save');
 });
 Route::prefix('rekap')->group(function(){
-    Route::get('kegiatan','Rekap\KegiatanController@index');
+    Route::prefix('kegiatan')->group(function(){
+        Route::get('','Rekap\KegiatanController@index');
+        Route::post('lapor-seksi','Rekap\KegiatanController@laporan_seksi');
+        Route::post('lapor-bentuk','Rekap\KegiatanController@laporan_bentuk');
+        Route::post('modal-bentuk','Rekap\KegiatanController@modal_bentuk');
+        Route::post('modal-batal-seksi','Rekap\KegiatanController@modalBatalSeksi');
+        Route::post('modal-batal-bentuk','Rekap\KegiatanController@modalBatalBentuk');
+    });
     Route::get('datatable-rekap-kegiatan','Rekap\KegiatanController@datatable_rekap_kegiatan');
+    Route::post('kegiatan-bidang','Rekap\KegiatanController@kegiatan_bidang');
+});
+Route::prefix('report')->group(function(){
+    Route::prefix('kegiatan')->group(function(){
+
+    });
 });
 
 Route::prefix('download')->group(function(){
