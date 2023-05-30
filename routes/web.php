@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-URL::forceScheme('https');
+// URL::forceScheme('https');
 Route::get('', 'HomeController@indexs')->name('home');
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -92,6 +92,7 @@ Route::prefix('popup')->group(function(){
 });
 Route::prefix('rekap')->group(function(){
     Route::get('kegiatan','Rekap\KegiatanController@index');
+    Route::get('datatable-rekap-kegiatan','Rekap\KegiatanController@datatable_rekap_kegiatan');
 });
 
 Route::prefix('download')->group(function(){
