@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Rekap;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use App\MasterBidang;
 use DB;
 use App\Kegiatan;
+use App\KegiatanPersonel;
+use Auth;
 use Yajra\Datatables\Datatables;
 
 class KegiatanController extends Controller
@@ -28,6 +31,11 @@ class KegiatanController extends Controller
         return view('pages.rekap.kegiatan.index',compact('bidang','kegiatan_bidang','grand','total_belum_laporan','total_sudah','progress','total_batal'));
     }
 
+    public function personel()
+    {
+        return view('pages.rekap.kegiatan.personel');
+    }
+
     public function datatable_rekap_kegiatan()
     {
         $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bidang, sub_bidang FROM kegiatan WHERE deleted_at IS NULL AND id >0 GROUP BY bidang, sub_bidang ORDER BY bidang ASC");
@@ -40,6 +48,37 @@ class KegiatanController extends Controller
             return "<button class='btn btn-danger' data-toggle='modal' data-target='#modal-batal-seksi' onclick='modalBatalSeksi(`".$i->sub_bidang."`)'>".count($batal)."</button>";
         })->rawColumns(['belum_laporan','batal'])
         ->make(true);
+    }
+
+
+    public function personel_grid(Request $request)
+    {
+        $kegiatan = KegiatanPersonel::with(["kegiatan" => function($q){
+                    // $q->where('kegiatan.deleted_at', '<>', NULL);
+                    }])->where('nip',Auth::user()->username)->get();
+        // dd($kegiatan);
+        $data = new Collection;
+        foreach($kegiatan as $k):
+            $tanggal = "";
+            dd($k->kegiatan);
+            if($k->kegiatan->tanggal_mulai == $k->kegiatan->tanggal_selesai):
+                $tanggal = date("d F Y", strtotime($k->kegiatan->tanggal_mulai));
+            else:
+                return date("d F Y", strtotime($k->kegiatan->tanggal_mulai))." s/d ".date("d F Y", strtotime($k->kegiatan->tanggal_selesai));
+            endif;
+            $data->push([
+                'spt' => $k->kegiatan->spt,
+                'jenis_kegiatan' => $k->kegiatan->jenis_kegiatan,
+                'bentuk_kegiatan' => $k->kegiatan->bentuk_kegiatan,
+                'judul_kegiatan' => $k->kegiatan->judul_kegiatan,
+                'lokasi'        => $k->kegiatan->lokasi_kegiatan,
+                'tanggal' => $tanggal,
+                'penanggung_jawab' => $k->kegiatan->penanggung_jawab,
+                'status'           => ($k->kegiatan->is_batal == 0) ? 'Dilaksanakan' : 'Batal',
+                'jam'              => date('H.i', strtotime($keg->kegiatan->jam_mulai))
+            ]);
+        endforeach;
+        return response()->json($data);
     }
 
     public function kegiatan_bidang(Request $request)

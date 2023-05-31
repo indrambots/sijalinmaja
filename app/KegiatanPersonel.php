@@ -50,7 +50,7 @@ public function konversi_nip($nip, $jenis,$batas = " ") {
     }
 
     public function kegiatan(){
-        return $this->belongsToMany('App\Kegiatan','kegiatan_id','id');
+        return $this->belongsTo('App\Kegiatan','kegiatan_id','id');
     
     }
 

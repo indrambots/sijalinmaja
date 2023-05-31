@@ -93,6 +93,8 @@ Route::prefix('popup')->group(function(){
 Route::prefix('rekap')->group(function(){
     Route::prefix('kegiatan')->group(function(){
         Route::get('','Rekap\KegiatanController@index');
+        Route::get('personel','Rekap\KegiatanController@personel');
+        Route::post('personel-grid','Rekap\KegiatanController@personel_grid');
         Route::post('lapor-seksi','Rekap\KegiatanController@laporan_seksi');
         Route::post('lapor-bentuk','Rekap\KegiatanController@laporan_bentuk');
         Route::post('modal-bentuk','Rekap\KegiatanController@modal_bentuk');
@@ -112,4 +114,7 @@ Route::prefix('download')->group(function(){
     Route::get('spt/{id}','DownloadController@download_spt');
 });
 
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
 Auth::routes();
