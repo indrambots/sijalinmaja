@@ -53,29 +53,43 @@ class KegiatanController extends Controller
 
     public function personel_grid(Request $request)
     {
-        $kegiatan = KegiatanPersonel::with(["kegiatan" => function($q){
-                    // $q->where('kegiatan.deleted_at', '<>', NULL);
-                    }])->where('nip',Auth::user()->username)->get();
-        // dd($kegiatan);
+        $kegiatan = DB::SELECT("SELECT
+    k.judul_kegiatan,
+    k.is_batal,
+    p.ket,
+    k.jenis_kegiatan,
+    k.bentuk_kegiatan,
+    k.lokasi,
+    k.penanggung_jawab,
+    k.tanggal_mulai,
+    k.tanggal_selesai,
+    k.jam_mulai,
+    k.spt
+FROM
+    kegiatan k
+    INNER JOIN kegiatan_personel p ON k.id = p.kegiatan_id 
+WHERE
+    p.nip = '".Auth::user()->username."' AND k.deleted_at IS NULL");
         $data = new Collection;
         foreach($kegiatan as $k):
             $tanggal = "";
-            dd($k->kegiatan);
-            if($k->kegiatan->tanggal_mulai == $k->kegiatan->tanggal_selesai):
-                $tanggal = date("d F Y", strtotime($k->kegiatan->tanggal_mulai));
+            // dd($k->kegiatan);
+            if($k->tanggal_mulai == $k->tanggal_selesai):
+                $tanggal = date("d F Y", strtotime($k->tanggal_mulai));
             else:
-                return date("d F Y", strtotime($k->kegiatan->tanggal_mulai))." s/d ".date("d F Y", strtotime($k->kegiatan->tanggal_selesai));
+                return date("d F Y", strtotime($k->tanggal_mulai))." s/d ".date("d F Y", strtotime($k->tanggal_selesai));
             endif;
             $data->push([
-                'spt' => $k->kegiatan->spt,
-                'jenis_kegiatan' => $k->kegiatan->jenis_kegiatan,
-                'bentuk_kegiatan' => $k->kegiatan->bentuk_kegiatan,
-                'judul_kegiatan' => $k->kegiatan->judul_kegiatan,
-                'lokasi'        => $k->kegiatan->lokasi_kegiatan,
+                'spt' => $k->spt,
+                'jenis_kegiatan' => $k->jenis_kegiatan,
+                'bentuk_kegiatan' => $k->bentuk_kegiatan,
+                'judul_kegiatan' => $k->judul_kegiatan,
+                'lokasi'        => $k->lokasi,
                 'tanggal' => $tanggal,
-                'penanggung_jawab' => $k->kegiatan->penanggung_jawab,
-                'status'           => ($k->kegiatan->is_batal == 0) ? 'Dilaksanakan' : 'Batal',
-                'jam'              => date('H.i', strtotime($keg->kegiatan->jam_mulai))
+                'penanggung_jawab' => $k->penanggung_jawab,
+                'penugasan' => $k->ket,
+                'status'           => ($k->is_batal == 0) ? 'Dilaksanakan' : 'Batal',
+                'jam'              => date('H.i', strtotime($k->jam_mulai))
             ]);
         endforeach;
         return response()->json($data);

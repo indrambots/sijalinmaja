@@ -49,8 +49,8 @@
                 dataType : "json",
                 data :  $("#form").serialize(),
                 success : function(response) {
-                    console.log(response)
-                    show_grid(response.data)
+                    console.log(response.data)
+                    show_grid(response)
                 },
                 error : function(jqXHR, textStatus, errorThrown) {
                     alert(errorThrown)
@@ -95,6 +95,14 @@
                 fileName: "Report Kegiatan",
                 allowExportSelectedData: true
             },
+            summary: {
+              totalItems: [{
+                column: 'spt',
+                summaryType: 'count',
+                displayFormat: 'Total Kegiatan Kamu : {0}',
+                showInColumn: 'spt',
+              }],
+              },
             onToolbarPreparing: function (e) {
                 e.toolbarOptions.items.push({
                     widget: 'dxButton',
@@ -127,7 +135,7 @@
                     caption: "Spt",
                     dataField: "spt",
                     dataType: "string",
-                    width:110,
+                    width:150,
                 },
                 {
                     caption: "Jenis Kegiatan",

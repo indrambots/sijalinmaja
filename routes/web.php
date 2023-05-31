@@ -114,7 +114,7 @@ Route::prefix('download')->group(function(){
     Route::get('spt/{id}','DownloadController@download_spt');
 });
 
-Route::get('/foo', function () {
-    Artisan::call('storage:link');
-});
+// Route::get('/foo', function () {
+//     Artisan::call('storage:link');
+// });
 Auth::routes();
