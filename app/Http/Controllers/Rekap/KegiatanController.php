@@ -77,7 +77,7 @@ WHERE
             if($k->tanggal_mulai == $k->tanggal_selesai):
                 $tanggal = date("d F Y", strtotime($k->tanggal_mulai));
             else:
-                return date("d F Y", strtotime($k->tanggal_mulai))." s/d ".date("d F Y", strtotime($k->tanggal_selesai));
+                $tanggal = date("d F Y", strtotime($k->tanggal_mulai))." s/d ".date("d F Y", strtotime($k->tanggal_selesai));
             endif;
             $data->push([
                 'spt' => $k->spt,
