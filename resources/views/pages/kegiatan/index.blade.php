@@ -5,8 +5,14 @@
   <div class="card">
     <div class="card-body">
       <div class="row justify-content-between">
-        <div class="col-4">
+        <div class="col-8">
           <h5 class="card-title">Data Kegiatan</h5>
+              <select id='filter_bidang' class="form-control col-6 col-md-3 select2">
+                <option value='-'>Tampilkan Semua Bidang</option>
+                @foreach($bidang as $b)
+                    <option value="{{$b->bidang}}">{{$b->bidang}}</option>
+                @endforeach
+              </select> 
         </div>
         <div class="col-4">
           <div class="d-flex justify-content-end">
@@ -108,7 +114,12 @@
         processing: true,
         serverSide: false,
         paging:true,
-        ajax:'{{ url('kegiatan/datatable') }}',
+        ajax:  {
+            "url": '{{ url('kegiatan/datatable') }}',
+            data: function(d){
+                d.bidang = $('#filter_bidang').val();
+            }
+        },
          columns: [
         {data: 'id', name:'id'},
         {data: 'spt', name:'spt'},
@@ -199,6 +210,9 @@
     function laporan(id){
       $('#id_laporan').val(id)
     }
+    $('#filter_bidang').on('change',function(e){
+        datatable.ajax.reload()
+    })
 $(document).ready(function(){
   tinymce.init({
   selector: 'textarea#hasil_kegiatan',
