@@ -19,7 +19,7 @@ class DownloadController extends Controller
                          ->header('Content-Description', 'File Transfer')
                          ->header('Content-Type', $kegiatan->mime)
                          ->header('Content-length', strlen($file_contents))
-                         ->header('Content-Disposition', 'attachment; filename="'.$filename.'"')
+                         ->header('Content-Disposition', 'attachment; filename='.$filename)
                          ->header('Content-Transfer-Encoding', 'binary');
     }
 }
