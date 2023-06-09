@@ -28,7 +28,8 @@ class KegiatanController extends Controller
         $total_batal = DB::SELECT("SELECT COUNT(id) AS tot FROM kegiatan WHERE deleted_at IS NULL AND id > 0 AND is_batal = 1 ")[0];
         $total_sudah = $grand->tot - $total_belum_laporan->tot;
         $progress = round($total_belum_laporan->tot/$grand->tot * 100,2);
-        return view('pages.rekap.kegiatan.index',compact('bidang','kegiatan_bidang','grand','total_belum_laporan','total_sudah','progress','total_batal'));
+        $progress_sudah = round($total_sudah/$grand->tot * 100,2);
+        return view('pages.rekap.kegiatan.index',compact('bidang','kegiatan_bidang','grand','total_belum_laporan','total_sudah','progress','progress_sudah','total_batal'));
     }
 
     public function personel()
@@ -36,9 +37,10 @@ class KegiatanController extends Controller
         return view('pages.rekap.kegiatan.personel');
     }
 
-    public function datatable_rekap_kegiatan()
+    public function datatable_rekap_kegiatan(Request $request)
     {
-        $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bidang, sub_bidang FROM kegiatan WHERE deleted_at IS NULL AND id >0 GROUP BY bidang, sub_bidang ORDER BY bidang ASC");
+        $bulancondition = ($request->bulan == '-') ? "" : "AND MONTH(tanggal_mulai) = '".$request->bulan."' ";
+        $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bidang, sub_bidang FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bulancondition." GROUP BY bidang, sub_bidang ORDER BY bidang ASC");
         return Datatables::of($kegiatan)
         ->addColumn('belum_laporan',function($i){
             $blm = Kegiatan::select('id')->where('bidang',$i->bidang)->where('sub_bidang',$i->sub_bidang)->whereNull('hasil_kegiatan')->where('is_batal',0)->get();
@@ -98,8 +100,9 @@ WHERE
     public function kegiatan_bidang(Request $request)
     {
         $bidangcondition = ($request->bidang == '-') ? "" : "AND bidang = '".$request->bidang."' ";
+        $bulancondition = ($request->bulan == '-') ? "" : "AND MONTH(tanggal_mulai) = '".$request->bulan."' ";
         $bidang = $request->bidang;
-        $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bentuk_kegiatan FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bidangcondition." GROUP BY bentuk_kegiatan ORDER BY bentuk_kegiatan ASC");
+        $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bentuk_kegiatan FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bidangcondition." ".$bulancondition."GROUP BY bentuk_kegiatan ORDER BY bentuk_kegiatan ASC");
         $view = (String) view('pages.rekap.kegiatan.ajax.rekap_bidang', compact('kegiatan','bidang'));
         return response()->json(array('view' => $view));
 

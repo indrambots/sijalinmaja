@@ -12,11 +12,11 @@
                     </tr>
                     <tr>
                         <td style="padding-right: 5px;">Total Kegiatan Belum Laporan </td>
-                        <td> : <strong>{{ $total_belum_laporan->tot}}</strong></td>
+                        <td> : <strong>{{ $total_belum_laporan->tot}}</strong> (Presentase <strong>{{$progress}} %</label>) </td>
                     </tr>
                     <tr>
                         <td style="padding-right: 5px;">Total Kegiatan Sudah Laporan</td>
-                        <td> : <strong>{{ $total_sudah}}</strong> (Presentase <strong>{{$progress}} %</label>) </td>
+                        <td> : <strong>{{ $total_sudah}}</strong> (Presentase <strong>{{$progress_sudah}} %</label>)  </td>
                     </tr>
                     <tr>
                         <td style="padding-right: 5px;">Total Kegiatan Seluruhnya </td>
@@ -33,6 +33,21 @@
         <div class="card-body">
             <div class="col-12">
               <h5 class="card-title">Rekap Kegiatan Per Seksi Subbag</h5>
+        <select id='bulan_sub' class="form-control col-6 col-md-3 select2" onChange="onChangeFilterSub()">
+        <option value='-'>Semua Bulan</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">Maret</option>
+        <option value="4">April</option>
+        <option value="5">Mei</option>
+        <option value="6">Juni</option>
+        <option value="7">July</option>
+        <option value="8">Agustus</option>
+        <option value="9">September</option>
+        <option value="10">Oktober</option>
+        <option value="11">November</option>
+        <option value="12">Desember</option>
+      </select> 
             </div>
           <div class="row mt-2">
             <div class="table-responsive">
@@ -60,6 +75,21 @@
       <div class="card">
         <div class="card-body">
               <h5 class="card-title">Rekap Kegiatan Per Bidang</h5>
+        <select id='bulan' class="form-control col-6 col-md-3 select2" onChange="onChangeFilter()">
+        <option value='-'>Semua Bulan</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">Maret</option>
+        <option value="4">April</option>
+        <option value="5">Mei</option>
+        <option value="6">Juni</option>
+        <option value="7">July</option>
+        <option value="8">Agustus</option>
+        <option value="9">September</option>
+        <option value="10">Oktober</option>
+        <option value="11">November</option>
+        <option value="12">Desember</option>
+      </select> 
             <select id='bidang' class="form-control col-6 col-md-3 select2" onChange="onChangeFilter()">
         <option value='-'>Semua Bidang</option>
         @foreach($bidang as $b)
@@ -241,6 +271,7 @@
           url:'{{ url("rekap/kegiatan-bidang") }}',
           data:{
             bidang: $('#bidang').val(),
+            bulan: $('#bulan').val(),
             '_token': $('input[name=_token]').val()
           },
           success:function(data){
@@ -249,12 +280,20 @@
           }
         })
     }
+    function onChangeFilterSub(){
+       datatable.ajax.reload()
+    }
     $('.datatables').DataTable()
      var datatable = $('#datatable').DataTable({
         processing: true,
         serverSide: false,
         paging:false,
-        ajax:'{{ url('rekap/datatable-rekap-kegiatan') }}',
+        ajax:  {
+            "url": '{{ url('rekap/datatable-rekap-kegiatan') }}',
+            data: function(d){
+                d.bulan = $('#bulan_sub').val();
+            }
+        },
          columns: [
         {data: 'bidang', name:'bidang'},
         {data: 'sub_bidang', name:'sub_bidang'},
