@@ -120,16 +120,29 @@
             </td>
         </tr>
         <tr style="height:5pt">
-            <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
-                <p class="s7" style="text-indent: 0pt;text-align: center;">
-                    {{ucwords(strtolower($keg->sub->paraf))}}
-                </p>
-            </td>
-            <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
-                <p class="s7" style="text-indent: 0pt;text-align: center;">
-                    {{ucwords(strtolower($keg->sub->paraf_kabid))}}
-                </p>
-            </td>
+            @if($keg->jenis_kegiatan == 'Puskogap' || $keg->jenis_kegiatan == 'pengawalan' || $keg->jenis_kegiatan == 'deteksi dan cegah dini' || $keg->jenis_kegiatan == 'penanganan unjuk rasa dan kerusuhan massa' || $keg->jenis_kegiatan == 'pengamanan'  || $keg->jenis_kegiatan == 'penertiban' )
+                <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s7" style="text-indent: 0pt;text-align: center;">
+                        Waka Puskogap
+                    </p>
+                </td>
+                <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s7" style="text-indent: 0pt;text-align: center;">
+                        Ka &nbsp;&nbsp;Puskogap
+                    </p>
+                </td>
+            @else
+                <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s7" style="text-indent: 0pt;text-align: center;">
+                        {{ucwords(strtolower($keg->sub->paraf))}}
+                    </p>
+                </td>
+                <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p class="s7" style="text-indent: 0pt;text-align: center;">
+                        {{ucwords(strtolower($keg->sub->paraf_kabid))}}
+                    </p>
+                </td>
+            @endif
             <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
                 <p class="s7" style="text-indent: 0pt;text-align: center;">
                     Sekretaris
