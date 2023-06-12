@@ -115,8 +115,9 @@ WHERE
         $bidangcondition = ($request->bidang == '-') ? "" : "AND bidang = '".$request->bidang."' ";
         $bulancondition = ($request->bulan == '-') ? "" : "AND EXTRACT( MONTH FROM tanggal_mulai ) = '".$request->bulan."' ";
         $bidang = $request->bidang;
+        $bulan = $request->bulan;
         $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bentuk_kegiatan FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bidangcondition." ".$bulancondition."GROUP BY bentuk_kegiatan ORDER BY bentuk_kegiatan ASC");
-        $view = (String) view('pages.rekap.kegiatan.ajax.rekap_bidang', compact('kegiatan','bidang'));
+        $view = (String) view('pages.rekap.kegiatan.ajax.rekap_bidang', compact('kegiatan','bidang','bulan'));
         return response()->json(array('view' => $view));
 
     }
