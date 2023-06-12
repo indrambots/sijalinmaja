@@ -39,16 +39,29 @@ class KegiatanController extends Controller
 
     public function datatable_rekap_kegiatan(Request $request)
     {
-        $bulancondition = ($request->bulan == '-') ? "" : "AND MONTH(tanggal_mulai) = '".$request->bulan."' ";
+        $bulancondition = ($request->bulan == '-') ? "" : "AND EXTRACT( MONTH FROM tanggal_mulai ) = '".$request->bulan."' ";
         $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bidang, sub_bidang FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bulancondition." GROUP BY bidang, sub_bidang ORDER BY bidang ASC");
-        return Datatables::of($kegiatan)
-        ->addColumn('belum_laporan',function($i){
-            $blm = Kegiatan::select('id')->where('bidang',$i->bidang)->where('sub_bidang',$i->sub_bidang)->whereNull('hasil_kegiatan')->where('is_batal',0)->get();
-            return "<button class='btn btn-warning' data-toggle='modal' data-target='#modal-laporan-seksi' onclick='belumLaporan(`".$i->bidang."`,`".$i->sub_bidang."`)'>".count($blm)."</button>";
-        })->addColumn('batal',function($i){
-            $batal = Kegiatan::select('id')->where('bidang',$i->bidang)->where('sub_bidang',$i->sub_bidang)->where('is_batal',1)->get();
-            return "<button class='btn btn-danger' data-toggle='modal' data-target='#modal-batal-seksi' onclick='modalBatalSeksi(`".$i->sub_bidang."`)'>".count($batal)."</button>";
-        })->rawColumns(['belum_laporan','batal'])
+        $data = new Collection;
+        foreach($kegiatan as $k):
+            $blm = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->whereNull('hasil_kegiatan')->where('is_batal',0)->get();
+            $batal = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->where('is_batal',1)->get();
+            if($request->bulan !== '-'):
+                $blm = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->whereNull('hasil_kegiatan')->where('is_batal',0)->whereMonth('tanggal_mulai',$request->bulan)->get();
+                $batal = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->where('is_batal',1)->whereMonth('tanggal_mulai',$request->bulan)->get();
+            endif;
+            $btn_blm = "<button class='btn btn-warning' data-toggle='modal' data-target='#modal-laporan-seksi' onclick='belumLaporan(`".$k->bidang."`,`".$k->sub_bidang."`)'>".count($blm)."</button>";
+            $btn_batal = "<button class='btn btn-danger' data-toggle='modal' data-target='#modal-batal-seksi' onclick='modalBatalSeksi(`".$k->sub_bidang."`)'>".count($batal)."</button>";
+            $data->push([
+                "bulancondition" => $request->bulan,
+                "total" => $k->total,
+                "bidang" => $k->bidang,
+                "sub_bidang" => $k->sub_bidang,
+                "belum_laporan" => $btn_blm,
+                "batal" => $btn_batal,
+            ]);
+        endforeach;
+        return Datatables::of($data)
+        ->rawColumns(['belum_laporan','batal'])
         ->make(true);
     }
 
@@ -100,7 +113,7 @@ WHERE
     public function kegiatan_bidang(Request $request)
     {
         $bidangcondition = ($request->bidang == '-') ? "" : "AND bidang = '".$request->bidang."' ";
-        $bulancondition = ($request->bulan == '-') ? "" : "AND MONTH(tanggal_mulai) = '".$request->bulan."' ";
+        $bulancondition = ($request->bulan == '-') ? "" : "AND EXTRACT( MONTH FROM tanggal_mulai ) = '".$request->bulan."' ";
         $bidang = $request->bidang;
         $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bentuk_kegiatan FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bidangcondition." ".$bulancondition."GROUP BY bentuk_kegiatan ORDER BY bentuk_kegiatan ASC");
         $view = (String) view('pages.rekap.kegiatan.ajax.rekap_bidang', compact('kegiatan','bidang'));
