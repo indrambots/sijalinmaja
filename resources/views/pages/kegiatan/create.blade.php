@@ -33,7 +33,7 @@
 		   </div>
 		   <div class="col-lg-6">
 		    <label>Sub Bidang:</label>
-		    <select class="form-control select2" name="sub_bidang" id="sub_bidang">
+		    <select class="form-control select2" name="sub_bidang" id="sub_bidang" required>
 		    	<option value="">--Pilih Seksi/Subbag--</option>
 		    </select>
 		   </div>
