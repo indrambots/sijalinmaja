@@ -88,7 +88,7 @@ class HomeController extends Controller
                     </a>
                     <br>
                     <a href="'.url('damkar').'"
-                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">SIKARMAT
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">SiDandiKeren
                     </a>
                 </div>
             </div>
