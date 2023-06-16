@@ -6,7 +6,7 @@
     <div class="card-body">
       <div class="row justify-content-between">
         <div class="col-4">
-          <h5 class="card-title">Data Kejadian Kebakaran Dan Non Kebakaran</h5>
+          <h5 class="card-title">Data Kejadian Kebakaran Dan Penyelamatan</h5>
         </div>
         <div class="col-4">
           <div class="d-flex justify-content-end">
@@ -20,7 +20,8 @@
             <thead>
               <tr>
                 <th>id</th>
-                <th>Judul</th>
+                <th>Jenis Kejadian</th>
+                <th>Objek</th>
                 <th>Lokasi Kejadian</th>
                 <th>Waktu Kejadian</th>
                 <th>Terima Berita</th>
@@ -50,7 +51,8 @@
         ajax:'{{ url('damkar/laporan-kejadian/datatable') }}',
          columns: [
         {data: 'id', name:'id'},
-        {data: 'judul', name:'judul'},
+        {data: 'jenis_kejadian', name:'jenis_kejadian'},
+        {data: 'objek', name:'objek'},
         {data: 'lokasi_kejadian', name:'lokasi_kejadian'},
         {data: 'waktu_kejadian', name:'waktu_kejadian'},
         {data: 'terima_berita', name:'terima_berita'},

@@ -74,4 +74,30 @@ class HomeController extends Controller
         endif;
         return redirect('damkar')->with('success_profil', 'SUKSES');
     }
+
+    public function spm_save(Request $request)
+    {
+        $path = $request->file('spm')->getRealPath();
+        $ext = $request->spm->extension();
+        $doc = file_get_contents($path);
+        $base64 = base64_encode($doc);
+        $mime = $request->file('spm')->getClientMimeType();
+        $profil = ProfilDamkar::where('user_id',Auth::user()->id)->first();
+        if(!empty($profil)):
+            ProfilDamkar::where('user_id',Auth::user()->id)->update([
+                'nilai_spm' => $request->nilai_spm,
+                'spm' => $base64,
+                'mime' => $mime,
+                'ext'   => $ext
+            ]);
+        else:
+            ProfilDamkar::create([
+                'nilai_spm' => $request->nilai_spm,
+                'spm' => $base64,
+                'mime' => $mime,
+                'ext'   => $ext
+            ]);
+        endif;
+        return redirect('damkar')->with('success_profil', 'SUKSES');
+    }
 }

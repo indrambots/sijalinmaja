@@ -12,6 +12,7 @@
                 @foreach($bidang as $b)
                     <option value="{{$b->bidang}}">{{$b->bidang}}</option>
                 @endforeach
+                <option value="saya">Tampilkan Yang Saya Buat</option>
               </select> 
         </div>
         <div class="col-4">

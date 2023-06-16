@@ -14,10 +14,7 @@
 </div>
  <div class="card-body">
 	  	<div id="map_canvas" class="row mb-10" style="height: 500px;"></div>
-		  <div class="form-group col-md-12 mb-2">
-		  	<label>Judul Kejadian</label>
-		  	<input type="text" class="form-control" value="{{$kejadian->judul}}" name="judul" id="judul" placeholder="isikan judul kejadian. . ." required>
-		  </div>
+		  
 	  	<div class="row">
 		  <div class="form-group col-md-6 mb-4">
 		  	<label>Lokasi Kejadian Kasus</label>
@@ -74,10 +71,14 @@
 		  	<input type="time" class="form-control" value="{{$kejadian->jam_kejadian}}" name="jam_kejadian" id="jam_kejadian" placeholder="isikan jam kejadian. . ." required>
 		  </div>
 		</div>
+		  <div class="form-group col-md-12">
+		  	<label>Sumber Informasi</label>
+		  	<input type="text" class="form-control" value="{{$kejadian->sumber_berita}}" name="sumber_berita" id="sumber_berita" placeholder="sumber berita/sumber informasi. . ." required>
+		  </div>
 	  	<div class="row">
 		  <div class="form-group col-md-4 mb-4">
 		  	<label>Terima Berita</label>
-		  	<input type="time" class="form-control" value="{{$kejadian->terima_berita}}" name="terima_berita" id="terima_berita" placeholder="jam terima berita kejadian. . ." required>
+		  	<input type="time" class="form-control" value="{{$kejadian->terima_berita}}" name="terima_berita" id="terima_berita" placeholder="jam terima berita kejadian. . ." onkeyup="responTime()" onkeydown="responTime()" required>
 		  </div>
 		  <div class="form-group col-md-4 mb-4">
 		  	<label>Berangkat</label>
@@ -85,13 +86,13 @@
 		  </div>
 		  <div class="form-group col-md-4 mb-4">
 		  	<label>Tiba di Lokasi</label>
-		  	<input type="time" class="form-control" value="{{$kejadian->tiba}}" name="tiba" id="tiba" placeholder="isikan jam tiba di lokasi. . ." required>
+		  	<input type="time" class="form-control"  onkeyup="responTime()" onkeydown="responTime()" onchange="responTime()" value="{{$kejadian->tiba}}" name="tiba" id="tiba" placeholder="isikan jam tiba di lokasi. . ." required>
 		  </div>
 		</div>
 	  	<div class="row">
-		  <div class="form-group col-md-6 mb-4">
-		  	<label>Respon Time (menit)</label>
-		  	<input type="number" class="form-control" value="{{$kejadian->respon_time}}" name="respon_time" id="respon_time" placeholder="respon time dalam menit. . ." required>
+		  <div class="form-group col-md-6 pb-4" style="background-color: #ffffc9;">
+		  	<label>Response Time (menit)</label>
+		  	<input type="number" readonly class="form-control" value="{{$kejadian->respon_time}}" name="respon_time" id="respon_time" placeholder="respon time dalam menit. . ." required>
 		  </div>
 		  <div class="form-group col-md-6 mb-4">
 		  	<label>Kembali ke Mako/Pos</label>
@@ -166,6 +167,9 @@
 						<label class="checkbox">
 						<input type="checkbox" class="bangunan" name="objek[]" value="Tempat Wisata">
 						<span></span>Tempat Wisata</label>
+						<label class="checkbox">
+						<input type="checkbox" class="bangunan" name="objek[]" value="Lainnya">
+						<span></span>Lainnya</label>
 					</div>
 				</div>
 			</div>
@@ -182,6 +186,9 @@
 						<label class="checkbox">
 						<input type="checkbox" class="nonbangunan" name="objek[]" value="Sampah">
 						<span></span>Sampah</label>
+						<label class="checkbox">
+						<input type="checkbox" class="nonbangunan" name="objek[]" value="Lainnya">
+						<span></span>Lainnya</label>
 					</div>
 				</div>
 			</div>
@@ -193,11 +200,14 @@
 						<input type="checkbox" class="kendaraan" name="objek[]" value="Roda 4">
 						<span></span>Roda 4</label>
 						<label class="checkbox">
-						<input type="checkbox" class="kendaraan" name="objek[]" value="Roda < 4">
-						<span></span>Roda < 4</label>
+						<input type="checkbox" class="kendaraan" name="objek[]" value="Roda 2">
+						<span></span>Roda 2</label>
 						<label class="checkbox">
 						<input type="checkbox" class="kendaraan" name="objek[]" value="Roda > 4">
-						<span></span>Roda > 4</label>
+						<span></span>Roda lebih dari 4</label>
+						<label class="checkbox">
+						<input type="checkbox" class="kendaraan" name="objek[]" value="Lainnya">
+						<span></span>Lainnya</label>
 					</div>
 				</div>
 			</div>
@@ -218,8 +228,14 @@
 						<input type="radio" name="sumber" value="Cuaca Extreme">
 						<span></span>Cuaca Extreme</label>
 						<label class="radio">
+						<input type="radio" name="sumber" value="Api Mekanik">
+						<span></span>Api Mekanik</label>
+						<label class="radio">
 						<input type="radio" name="sumber" value="Dalam Penyelidikan">
 						<span></span>Dalam Penyelidikan</label>
+						<label class="radio">
+						<input type="radio" name="sumber" value="Lainnya">
+						<span></span>Lainnya</label>
 					</div>
 				</div>
 			</div>
@@ -238,17 +254,50 @@
 						<label class="checkbox">
 						<input type="checkbox" name="objek[]" class="objeknonkebakaran" value="Barang Berharga">
 						<span></span>Barang Berharga</label>
+						<label class="checkbox">
+						<input type="checkbox" name="objek[]" class="objeknonkebakaran" value="Lainnya">
+						<span></span>Lainnya</label>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="form-group col-md-6 mb-2">
+			  	<label>Nilai Kerugian</label>
+			  	<input type="text" class="rupiah form-control" value="{{$kejadian->nilai_kerugian}}" name="nilai_kerugian" id="nilai_kerugian" placeholder="isikan nilai kerugian. . ." required>
+			</div>
+			<div class="form-group col-md-6 mb-2">
+			  	<label>Jumlah Korban</label>
+			  	<input type="number" class="form-control" value="{{$kejadian->korban}}" name="korban" id="korban" placeholder="isikan jumlah korban. . ." required>
+			  </div>
+			</div>
+		<div class="row">
+			<div class="form-group col-md-6 mb-2">
+			  	<label>Jumlah Armada yg Berangkat</label>
+			  	<input type="number" class="form-control" value="{{$kejadian->jumlah_armada}}" name="jumlah_armada" id="jumlah_armada" placeholder="isikan nilai kerugian. . ." required>
+			</div>
+			<div class="form-group col-md-6 mb-2">
+			  	<label>Jumlah Personel</label>
+			  	<input type="number" class="form-control" value="{{$kejadian->jumlah_personel}}" name="jumlah_personel" id="jumlah_personel" placeholder="isikan jumlah personel. . ." required>
+			  </div>
+			</div>
+		<div class="row">
+			<div class="form-group col-md-6 mb-2">
+			  	<label>Dokumentasi</label>
+			  	<input type="file" class="form-control" name="dokumentasi">
+			</div>
+			<div class="form-group col-md-6 mb-2">
+			  	<label>Dokumentasi</label>
+			  	<input type="file" class="form-control" name="dokumentasi_2">
+			  </div>
+			</div>
 		<div class="form-group col-md-12 mb-2">
-		  	<label>Jumlah Korban</label>
-		  	<input type="number" class="form-control" value="{{$kejadian->korban}}" name="korban" id="korban" placeholder="isikan jumlah korban. . ." required>
+		  	<label>Kendala atau Permasalahan</label>
+		  	<textarea class="form-control" name="kendala" id="kendala" rows="4">{{$kejadian->kendala}}</textarea>
 		  </div>
 		<div class="form-group col-md-12 mb-2">
 		  	<label>Keterangan Tambahan</label>
-		  	<textarea type="number" class="form-control" name="keterangan" id="keterangan" rows="4">{{$kejadian->keterangan}}</textarea>
+		  	<textarea class="form-control" name="keterangan" id="keterangan" rows="4">{{$kejadian->keterangan}}</textarea>
 		  </div>
 
 	  <div class="form-group">
@@ -526,6 +575,24 @@ function jenisObjek(val)
 		$('#checkbox_nonbangunan').show()
 		$('#checkbox_kendaraan').hide()
 	}
+}
+function responTime()
+{
+	var timeOfCall = $('#terima_berita').val(),
+        timeOfResponse = $('#tiba').val(),
+
+     hours = timeOfResponse.split(':')[0] - timeOfCall.split(':')[0],
+        minutes = timeOfResponse.split(':')[1] - timeOfCall.split(':')[1];
+
+    minutes = minutes.toString().length<2?'0'+minutes:minutes;
+    if(minutes<0){
+        hours--;
+        minutes = 60 + minutes;
+    }
+    hours = hours.toString().length<2?'0'+hours:hours;
+    console.log(hours);
+    console.log(minutes);
+    $('#respon_time').val(parseInt(hours)*60+parseInt(minutes))
 }
 </script>
 @endsection

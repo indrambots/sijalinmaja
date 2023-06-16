@@ -69,6 +69,6 @@ class LaporanKejadian extends Model
                 $hari_ini = "Tidak di ketahui";
                 break;
         }
-        return $hari_ini." ,".$angka." ".$bulan[(int) $pecahkan[1]];
+        return $hari_ini.", ".$angka." ".$bulan[(int) $pecahkan[1]];
     }
 }

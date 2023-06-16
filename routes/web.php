@@ -75,6 +75,7 @@ Route::prefix('damkar')->group(function () {
 
     Route::prefix('profil')->group(function () {
         Route::post('save','Damkar\HomeController@profil_save');
+        Route::post('spm-save','Damkar\HomeController@spm_save');
     });
 
     Route::prefix('laporan-kejadian')->group(function () {
@@ -112,6 +113,7 @@ Route::prefix('report')->group(function(){
 
 Route::prefix('download')->group(function(){
     Route::get('spt/{id}','DownloadController@download_spt');
+    Route::get('spm-damkar','DownloadController@spm_damkar');
 });
 
 // Route::get('/foo', function () {
