@@ -99,11 +99,47 @@
 </div>
 </div>
 @else
+<div class="col-md-4">
 <div class="alert alert-custom alert-dark" role="alert">
     <div class="alert-icon">
         <i class="flaticon-warning"></i>
     </div>
     <div class="alert-text">Anda Belum Mengisi Kelengkapaan Profil Kelembagaan Silahkan <button data-toggle="modal" data-target="#modal-profil" class="btn btn-lg btn-primary"> Klik Disini </button> untuk mengisi profil kelembagaan</div>
+</div>
+
+
+<div class="card card-custom mb-4">
+     <div class="card-header">
+          <div class="card-title">
+                    <span class="card-icon">
+                        <i class="flaticon2-graph-1 text-primary"></i>
+                    </span>
+           <h3 class="card-label">
+            <small style="color: black;">Nilai SPM Urusan Kebakaran dan Penyelamatan</small>
+           </h3>
+          </div>
+                <div class="card-toolbar">
+                    <a href="javascript:void(0)" class="btn btn-sm btn-success font-weight-bold" data-toggle="modal" data-target="#modal-spm">
+                        <i class="flaticon2-pen"></i> Perbaharui Nilai
+                    </a>
+                </div>
+         </div>
+         <div class="card-body">
+            <div class="d-flex row-auto justify-content-center">
+                <div class="d-flex flex-column">
+                        <div class="text-center">
+                            <div class="text-muted mb-2">Nilai SPM</div>
+                            <h4 class="font-weight-bold my-2">{{$profil->nilai_spm}}</h4>
+                            @if($profil->spm !== null)
+                            <a href="{{ url('download/spm-damkar') }}" target="_blank" class="btn btn-outline-primary btn-md"><i class="flaticon-doc"></i>Dokumen Pendukung </a>
+                            @else
+                            <div class="alert alert-secondary" role="alert">Anda belum memperbaharui NILAI SPM</div>
+                            @endif
+                        </div>
+                </div>
+            </div>
+         </div>
+    </div>
 </div>
 @endif
         <div class="col-8 col-lg-8 col-xl-8 mb-2">
