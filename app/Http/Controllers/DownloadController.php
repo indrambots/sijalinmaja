@@ -14,7 +14,7 @@ class DownloadController extends Controller
     {
         $kegiatan = Kegiatan::where('id',$id)->first();
         $tanggal = date('Ymd',strtotime($kegiatan->tanggal_mulai));
-        $filename = $tanggal." SPT ".$kegiatan->judul_kegiatan.".".$kegiatan->ext;
+        $filename = $tanggal." SPT ".$kegiatan->bentuk_kegiatan.".".$kegiatan->ext;
         $file_contents = base64_decode($kegiatan->link_spt);
         return response($file_contents)
                          ->header('Cache-Control', 'no-cache private')
