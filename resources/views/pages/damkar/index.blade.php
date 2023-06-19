@@ -260,6 +260,44 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                     <div class="card card-custom gutter-b">
+                        <div class="card-header card-header-tabs-line">
+                            <div class="card-toolbar">
+                                <ul class="nav nav-tabs nav-bold nav-tabs-line">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#sdm_golongan">
+                                            <span class="nav-text">SDM Damkar Berdasarkan Golongan</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#sdm_fungsional">
+                                            <span class="nav-text">SDM Damkar Berdasarkan Jabatan Fungsional</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#sdm_kualifikasi">
+                                            <span class="nav-text">SDM Damkar Berdasarkan Kualifikasi</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="sdm_golongan" role="tabpanel" aria-labelledby="sdm_golongan">
+                                    @include('pages.damkar.tab.sdm_golongan')
+                                </div>
+                                <div class="tab-pane fade" id="sdm_fungsional" role="tabpanel" aria-labelledby="sdm_fungsional">
+                                    @include('pages.damkar.tab.sdm_fungsional')
+                                </div>
+                                <div class="tab-pane fade" id="sdm_kualifikasi" role="tabpanel" aria-labelledby="sdm_kualifikasi">
+                                    @include('pages.damkar.tab.sdm_kualifikasi')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -417,6 +455,21 @@
 @if(Session::get('success_profil'))
 <script type="text/javascript">
     toastr.success("PROFIL BERHASIL TERUPDATE");
+</script>
+@endif
+@if(Session::get('success_sarpras'))
+<script type="text/javascript">
+    toastr.success("DATA SARANA PRASARANA BERHASIL TERUPDATE");
+</script>
+@endif
+@if(Session::get('success_spm'))
+<script type="text/javascript">
+    toastr.success("DATA SPM BERHASIL TERUPDATE");
+</script>
+@endif
+@if(Session::get('success_sdm'))
+<script type="text/javascript">
+    toastr.success("DATA SUMBER DAYA MANUSIA BERHASIL TERUPDATE");
 </script>
 @endif
 @endsection
