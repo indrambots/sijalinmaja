@@ -39,12 +39,12 @@ class HomeController extends Controller
     {
         $sdm = SdmDamkar::where('user_id',Auth::user()->id)->first();
 
-        if(empty($sarpras)):
+        if(empty($sdm)):
             SdmDamkar::create($request->all());
         else:
             $req = $request->all();
             unset($req['_token']);
-            SdmDamkar::where('user_id',Auth::user()->id)->update($request->all());
+            SdmDamkar::where('user_id',Auth::user()->id)->update($req);
         endif;
         return redirect('damkar')->with('success_sdm', 'SUKSES');
     }
