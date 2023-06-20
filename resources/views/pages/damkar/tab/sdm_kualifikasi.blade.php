@@ -16,9 +16,15 @@
         </div>
         <div class="col-lg-3"> 
                 <span class="form-text">
-                    Jumlah SDM Damkar Kualifikasi Keahlian/Keterampilan Pemadam
+                    Jumlah SDM Damkar Kualifikasi Keahlian/Keterampilan Pemadam 1
                 </span>
-                <input class="form-control" name="kualifikasi_pemadam" value="{{ $sdm->kualifikasi_pemadam}}" type="number"/>
+                <input class="form-control" name="kualifikasi_pemadam_1" value="{{ $sdm->kualifikasi_pemadam_1}}" type="number"/>
+        </div>
+        <div class="col-lg-3"> 
+                <span class="form-text">
+                    Jumlah SDM Damkar Kualifikasi Keahlian/Keterampilan Pemadam 2
+                </span>
+                <input class="form-control" name="kualifikasi_pemadam_2" value="{{ $sdm->kualifikasi_pemadam_2}}" type="number"/>
         </div>
         <div class="col-lg-3"> 
                 <span class="form-text">

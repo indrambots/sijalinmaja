@@ -72,6 +72,7 @@ Route::prefix('peta')->group(function () {
 Route::prefix('damkar')->group(function () {
     Route::get('','Damkar\HomeController@index');
         Route::post('update-sarpras','Damkar\HomeController@sarpras_update');
+        Route::post('update-sdm','Damkar\HomeController@sdm_update');
 
     Route::prefix('profil')->group(function () {
         Route::post('save','Damkar\HomeController@profil_save');
