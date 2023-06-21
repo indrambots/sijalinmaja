@@ -138,10 +138,25 @@ class HomeController extends Controller
                 </div>
             </div>
         </div>';
+        $page['user_setting'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
+            <div class="card card-custom wave wave-animate-fast wave-primary">
+                <div class="card-body text-center">
+                    <a href="'.url('user').'">
+                        <span class="svg-icon svg-icon-primary svg-icon-6x">
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-user-circle" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <br>
+                    <a href="'.url('user').'"
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">USER SETTING
+                    </a>
+                </div>
+            </div>
+        </div>';
         $data = array();
         // dd(Auth::user()->pegawai);
         if(Auth::user()->level == 7 || Auth::user()->level == 5):
-            array_push($data,$page['kegiatan'],$page['peta'],$page['kasus'],$page['damkarmat'],$page['rekap_kegiatan'],);
+            array_push($data,$page['kegiatan'],$page['peta'],$page['kasus'],$page['damkarmat'],$page['rekap_kegiatan'],$page['user_setting']);
         elseif(Auth::user()->level == 12):
             array_push($data,$page['damkarmat']);
         elseif(Auth::user()->level == 11):

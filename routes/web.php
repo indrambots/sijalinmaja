@@ -112,6 +112,13 @@ Route::prefix('report')->group(function(){
     });
 });
 
+Route::prefix('user')->group(function(){
+    Route::get('','UserController@index');
+    Route::get('datatable','UserController@datatable');
+    Route::post('reset-password','UserController@reset_password');
+    Route::post('update-level','UserController@update_level');
+});
+
 Route::prefix('download')->group(function(){
     Route::get('spt/{id}','DownloadController@download_spt');
     Route::get('spm-damkar','DownloadController@spm_damkar');
