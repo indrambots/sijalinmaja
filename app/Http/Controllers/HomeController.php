@@ -174,6 +174,8 @@ class HomeController extends Controller
                 array_push($data,$page['rekap_kegiatan'],$page['report_kegiatan']);
         elseif(Auth::user()->level == 9):
                 array_push($data,$page['report_kegiatan']);
+        elseif(Auth::user()->level == 10):
+                array_push($data,$page['kasus'],$page['report_kegiatan']);
         endif;
         return view('home',compact('data'));
     }
