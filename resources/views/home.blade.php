@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row justify-content-center">
-        @if(Auth::user()->level == 9 || Auth::user()->level ==2 || Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 8)
+        @if(Auth::user()->level == 9 || Auth::user()->level ==2 || Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 8 || Auth::user()->level == 10)
         
         <div class="col-lg-8">
             <div class="row justify-content-center">
