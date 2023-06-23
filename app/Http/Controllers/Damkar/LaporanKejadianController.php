@@ -41,7 +41,6 @@ class LaporanKejadianController extends Controller
         // dd($request->all());
         $dok = null;
         $dok2 = null;
-        // dd($request->all());
         $kejadian = ($request->id !== "0") ? LaporanKejadian::find($request->id) : new LaporanKejadian();
         $kejadian->user_id = Auth::user()->id;
         $kejadian->judul = $request->judul;
@@ -71,7 +70,7 @@ class LaporanKejadianController extends Controller
         if($request->dokumentasi !== null):
             $dok = $this->uploadDokumentasi($request->dokumentasi,1,$request->id);
         endif;
-        if($request->dokumentasi !== null):
+        if($request->dokumentasi_2 !== null):
             $dok2 = $this->uploadDokumentasi($request->dokumentasi_2,2,$request->id);
         endif;
         LaporanKejadian::find($kejadian->id)->update([
