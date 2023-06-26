@@ -268,17 +268,17 @@
 			</div>
 			<div class="form-group col-md-6 mb-2">
 			  	<label>Jumlah Korban</label>
-			  	<input type="number" class="form-control" value="{{$kejadian->korban}}" name="korban" id="korban" placeholder="isikan jumlah korban. . ." required>
+			  	<input type="number" class="form-control" value="{{$kejadian->korban}}" name="korban" id="korban" min="0" oninput="this.value = Math.abs(this.value)" placeholder="isikan jumlah korban. . ." required>
 			  </div>
 			</div>
 		<div class="row">
 			<div class="form-group col-md-6 mb-2">
 			  	<label>Jumlah Armada yg Berangkat</label>
-			  	<input type="number" class="form-control" value="{{$kejadian->jumlah_armada}}" name="jumlah_armada" id="jumlah_armada" placeholder="isikan nilai kerugian. . ." required>
+			  	<input type="number" class="form-control" value="{{$kejadian->jumlah_armada}}" name="jumlah_armada" min="0" oninput="this.value = Math.abs(this.value)" id="jumlah_armada" placeholder="isikan nilai kerugian. . ." required>
 			</div>
 			<div class="form-group col-md-6 mb-2">
 			  	<label>Jumlah Personel</label>
-			  	<input type="number" class="form-control" value="{{$kejadian->jumlah_personel}}" name="jumlah_personel" id="jumlah_personel" placeholder="isikan jumlah personel. . ." required>
+			  	<input type="number" class="form-control" value="{{$kejadian->jumlah_personel}}" name="jumlah_personel" min="0" oninput="this.value = Math.abs(this.value)" id="jumlah_personel" placeholder="isikan jumlah personel. . ." required>
 			  </div>
 			</div>
 		<div class="row">
