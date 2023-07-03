@@ -210,6 +210,7 @@
           data:{
             bidang: bidang,
             sub_bidang: seksi,
+            bulan:$('#bulan_sub').val(),
             '_token': $('input[name=_token]').val()
           },
           success:function(data){
@@ -224,6 +225,7 @@
           method:'POST',
           url:'{{ url("rekap/kegiatan/modal-batal-seksi") }}',
           data:{
+            bulan:$('#bulan_sub').val(),
             sub_bidang: seksi,
             '_token': $('input[name=_token]').val()
           },

@@ -117,7 +117,8 @@ WHERE
         $bidang = $request->bidang;
         $bulan = $request->bulan;
         $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bentuk_kegiatan FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bidangcondition." ".$bulancondition."GROUP BY bentuk_kegiatan ORDER BY bentuk_kegiatan ASC");
-        $view = (String) view('pages.rekap.kegiatan.ajax.rekap_bidang', compact('kegiatan','bidang','bulan'));
+        $total_batal = DB::SELECT("SELECT COUNT(id) AS tot FROM kegiatan WHERE deleted_at IS NULL AND id > 0 AND is_batal = 1 ".$bidangcondition." ".$bulancondition)[0];
+        $view = (String) view('pages.rekap.kegiatan.ajax.rekap_bidang', compact('kegiatan','bidang','bulan','total_batal'));
         return response()->json(array('view' => $view));
 
     }
@@ -125,6 +126,9 @@ WHERE
     public function laporan_seksi(Request $request)
     {
         $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('sub_bidang',$request->sub_bidang)->whereNull('hasil_kegiatan')->where('id','>',0)->whereNull('deleted_at')->get();
+        if($request->bulan !== '-'):
+        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->whereMonth('tanggal_mulai',$request->bulan)->where('sub_bidang',$request->sub_bidang)->whereNull('hasil_kegiatan')->where('id','>',0)->whereNull('deleted_at')->get();
+        endif;
         $view = (String) view('pages.rekap.kegiatan.ajax.modal_seksi', compact('kegiatan'));
         return response()->json(array('view' => $view));
 
@@ -142,7 +146,11 @@ WHERE
 
     public function modalBatalSeksi(Request $request)
     {
+        // dd($request->all());
         $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('sub_bidang',$request->sub_bidang)->where('is_batal',1)->get();
+        if($request->bulan !== '-'):
+        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('sub_bidang',$request->sub_bidang)->whereMonth('tanggal_mulai',$request->bulan)->where('is_batal',1)->get();
+        endif;
         $view = (String) view('pages.rekap.kegiatan.ajax.modal_batal_seksi', compact('kegiatan'));
         return response()->json(array('view' => $view));
     }
