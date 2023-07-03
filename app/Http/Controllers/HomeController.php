@@ -153,6 +153,21 @@ class HomeController extends Controller
                 </div>
             </div>
         </div>';
+        $page['penugasan_staff'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
+            <div class="card card-custom wave wave-animate-fast wave-primary">
+                <div class="card-body text-center">
+                    <a href="'.url('report/kegiatan/seksi').'">
+                        <span class="svg-icon svg-icon-primary svg-icon-6x">
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid far fa-file-excel" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <br>
+                    <a href="'.url('report/kegiatan/seksi').'"
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">PENUGASAN STAFF
+                    </a>
+                </div>
+            </div>
+        </div>';
         $data = array();
         // dd(Auth::user()->pegawai);
         if(Auth::user()->level == 7 || Auth::user()->level == 5):
@@ -170,8 +185,10 @@ class HomeController extends Controller
                 array_push($data,$page['kegiatan'],$page['report_kegiatan']);
         elseif(Auth::user()->level == 8):
                 array_push($data,$page['kegiatan_operator'],$page['report_kegiatan']);
-        elseif(Auth::user()->level <= 3):
+        elseif(Auth::user()->level <= 2):
                 array_push($data,$page['rekap_kegiatan'],$page['report_kegiatan']);
+        elseif(Auth::user()->level == 3):
+                array_push($data,$page['rekap_kegiatan'],$page['report_kegiatan'],$page['penugasan_staff']);
         elseif(Auth::user()->level == 9):
                 array_push($data,$page['report_kegiatan']);
         elseif(Auth::user()->level == 10):

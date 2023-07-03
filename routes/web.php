@@ -109,7 +109,8 @@ Route::prefix('rekap')->group(function(){
 Route::prefix('report')->group(function(){
     Route::prefix('kegiatan')->group(function(){
         Route::get('seksi','Report\KegiatanController@seksi');
-        Route::post('seksi-grid','Report\KegiatanController@seksi_grid');
+        Route::get('seksi-grid','Report\KegiatanController@seksi_grid');
+        Route::get('datatable-puskogap','Report\KegiatanController@datatable_puskogap');
     });
 });
 
