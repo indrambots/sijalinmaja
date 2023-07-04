@@ -186,13 +186,13 @@ class HomeController extends Controller
         elseif(Auth::user()->level == 8):
                 array_push($data,$page['kegiatan_operator'],$page['report_kegiatan']);
         elseif(Auth::user()->level <= 2):
-                array_push($data,$page['rekap_kegiatan'],$page['report_kegiatan']);
+                array_push($data,$page['rekap_kegiatan'],$page['report_kegiatan'],$page['kasus'],$page['peta']);
         elseif(Auth::user()->level == 3):
                 array_push($data,$page['rekap_kegiatan'],$page['report_kegiatan'],$page['penugasan_staff']);
         elseif(Auth::user()->level == 9):
                 array_push($data,$page['report_kegiatan']);
         elseif(Auth::user()->level == 10):
-                array_push($data,$page['kasus'],$page['report_kegiatan']);
+                array_push($data,$page['kasus'],$page['report_kegiatan'],$page['peta']);
         endif;
         return view('home',compact('data'));
     }

@@ -92,7 +92,11 @@ class KasusController extends Controller
 
     public function datatable()
     {
-        $kasus = Kasus::where('id','>',0)->where('user_id',Auth::user()->id)->get();
+        if(Auth::user()->level == 11):
+            $kasus = Kasus::where('id','>',0)->where('user_id',Auth::user()->id)->get();
+        else:
+            $kasus = Kasus::where('id','>',0)->get();
+        endif;
         return Datatables::of($kasus)
         ->addColumn('aksi',function($i){
             $btn_verif = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-verif" onclick="verifKasus('.$i->id.')"><i class="far fa-check-circle"></i></button>';
