@@ -114,6 +114,18 @@ Route::prefix('report')->group(function(){
     });
 });
 
+
+Route::prefix('pti')->group(function(){
+    Route::get('','PtiController@index');
+    Route::post('filter-tanggal-spt','PtiController@filter_tanggal_spt');
+    Route::post('create','PtiController@create');
+    Route::post('save','PtiController@save');
+    Route::post('delete','PtiController@delete');
+    Route::get('datatable','PtiController@datatable');
+    Route::post('absen-save','PtiController@absen_save');
+    Route::get('absen/{id}','PtiController@absen');
+});
+
 Route::prefix('user')->group(function(){
     Route::get('','UserController@index');
     Route::get('datatable','UserController@datatable');
