@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Admin</title>
+    <title>SIJALINMAJA</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -73,6 +73,7 @@
                                                 <button type="submit"  class="btn btn-warning col-12 " style="margin-bottom:10px;">LOG IN</button>
                                             @endif
                                         </div>
+                                        <a href="https://bit.ly/JuknisSIJALINMAJA" target="blank" type="submit" class="col-12 btn btn-outline-primary"> <span> <i class="fa fa-book"></i> Petunjuk/PEDOMAN Teknis SIJALINMAJA</span></a>
                                     </div>
                                 </div>
                             </form>

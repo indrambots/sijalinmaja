@@ -76,54 +76,13 @@ class PtiController extends Controller
     {
         $pti = Pti::find($id);
         $id = $id;
-        $sekret = DB::SELECT("SELECT nama,nip FROM pegawai WHERE nip NOT IN (
-                                SELECT p.nip FROM
-                                kegiatan k
-                                INNER JOIN kegiatan_personel kp ON k.id = kp.kegiatan_id
-                                INNER JOIN pegawai p ON kp.nip = p.nip 
-                                WHERE
-                                k.deleted_at IS NULL 
-                                AND '".$pti->tanggal."' between tanggal_mulai AND tanggal_selesai )
-                                AND bidang = 'SEKRETARIAT'");
-        $tibum = DB::SELECT("SELECT nama,nip FROM pegawai WHERE nip NOT IN (
-                                SELECT p.nip FROM
-                                kegiatan k
-                                INNER JOIN kegiatan_personel kp ON k.id = kp.kegiatan_id
-                                INNER JOIN pegawai p ON kp.nip = p.nip 
-                                WHERE
-                                k.deleted_at IS NULL 
-                                AND '".$pti->tanggal."' between tanggal_mulai AND tanggal_selesai )
-                                AND bidang = 'KETENTRAMAN DAN KETERTIBAN UMUM'");
-        $damkar = DB::SELECT("SELECT nama,nip FROM pegawai WHERE nip NOT IN (
-                                SELECT p.nip FROM
-                                kegiatan k
-                                INNER JOIN kegiatan_personel kp ON k.id = kp.kegiatan_id
-                                INNER JOIN pegawai p ON kp.nip = p.nip 
-                                WHERE
-                                k.deleted_at IS NULL 
-                                AND '".$pti->tanggal."' between tanggal_mulai AND tanggal_selesai )
-                                AND bidang = 'PEMADAM KEBAKARAN DAN PENYELAMATAN'");
-
-        $gakda = DB::SELECT("SELECT nama,nip FROM pegawai WHERE nip NOT IN (
-                                SELECT p.nip FROM
-                                kegiatan k
-                                INNER JOIN kegiatan_personel kp ON k.id = kp.kegiatan_id
-                                INNER JOIN pegawai p ON kp.nip = p.nip 
-                                WHERE
-                                k.deleted_at IS NULL 
-                                AND '".$pti->tanggal."' between tanggal_mulai AND tanggal_selesai )
-                                AND bidang = 'PENEGAKAN PERATURAN DAERAH'");
-        $linmas = DB::SELECT("SELECT nama,nip FROM pegawai WHERE nip NOT IN (
-                                SELECT p.nip FROM
-                                kegiatan k
-                                INNER JOIN kegiatan_personel kp ON k.id = kp.kegiatan_id
-                                INNER JOIN pegawai p ON kp.nip = p.nip 
-                                WHERE
-                                k.deleted_at IS NULL 
-                                AND '".$pti->tanggal."' between tanggal_mulai AND tanggal_selesai )
-                                AND bidang = 'PELINDUNGAN MASYARAKAT'");
+        $sekret = Pegawai::where('bidang','SEKRETARIAT')->get();
+        $tibum = Pegawai::where('bidang','KETENTRAMAN DAN KETERTIBAN UMUM')->get();
+        $damkar = Pegawai::where('bidang','PEMADAM KEBAKARAN DAN PENYELAMATAN')->get();
+        $gakda = Pegawai::where('bidang','PENEGAKAN PERATURAN DAERAH')->get();
+        $linmas = Pegawai::where('bidang','PELINDUNGAN MASYARAKAT')->get();
         $kehadiran = KehadiranPti::where('pti_id',$id)->get();
-        return view('pages.pti.popup.absen',compact('kehadiran','sekret','tibum','damkar','gakda','linmas','id'));
+        return view('pages.pti.popup.absen',compact('kehadiran','sekret','tibum','damkar','gakda','linmas','id','pti'));
     }
 
     public function absen_save(Request $request)
