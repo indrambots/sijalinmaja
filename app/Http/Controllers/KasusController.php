@@ -15,6 +15,7 @@ use App\KasusKasandra;
 use App\Kasus;
 use App\SumberInformasi;
 use App\HistoryVerif;
+use App\KasusHistory;
 use Yajra\Datatables\Datatables;
 
 class KasusController extends Controller
@@ -95,7 +96,7 @@ class KasusController extends Controller
         if(Auth::user()->level == 11):
             $kasus = Kasus::where('id','>',0)->where('user_id',Auth::user()->id)->get();
         else:
-            $kasus = Kasus::where('id','>',0)->get();
+            $kasus = Kasus::select('id','tanggal_informasi','pelapor','no_telp_pelapor','nama_pelanggar','nik_pelanggar','alamat_pelanggar','lokasi_kejadian','kel_nama','kec_nama','status','judul','tanggal_informasi','deskripsi_kasus')->where('id','>',0)->get();
         endif;
         return Datatables::of($kasus)
         ->addColumn('aksi',function($i){
@@ -154,14 +155,36 @@ class KasusController extends Controller
         $kasus->status = $request->status;
         $kasus->kewenangan = $request->kewenangan;
         $kasus->keterangan_kewenangan = ($request->kewenangan == 1) ? $request->opd : $request->kota;
+        $kasus->bidang  = $request->bidang;
+
+        $path = $request->file('ba')->getRealPath();
+        $ext = $request->ba->extension();
+        $doc = file_get_contents($path);
+        $base64 = base64_encode($doc);
+        $mime = $request->file('ba')->getClientMimeType();
+        $kasus->ba = $base64;
+        $kasus->ext = $ext;
+        $kasus->mime = $mime;
         $kasus->save();
         HistoryVerif::create([
             'kasus_id' => $request->id,
             'status' => $request->status,
             'kewenangan' => $request->kewenangan,
+            'bidang'     => $request->bidang,
             'keterangan_kewenangan' => ($request->kewenangan == 1) ? $request->opd : $request->kota,
             'tanggal' => date("Y-m-d H:i:s", strtotime('+7 hours')),
         ]);
+
+        KasusHistory::create([
+            'tanggal' => date("Y-m-d H:i:s", strtotime('+7 hours')),
+            'kasus_id' => $request->id,
+            'oleh'     => 'SATPOL PP PROV JATIM',
+            'keterangan' => 'Berita Acara sidang internal dengan hasil kewenangan kasus dan status kasus',
+            'data_pendukung' => $base64,
+            'mime' => $mime,
+            'ext'   => $ext
+        ]);
+
         return redirect('kasus')->with('success_verif', 'Berhasil Verifikasi Kasus');
     }
 

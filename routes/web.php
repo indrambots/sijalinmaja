@@ -136,6 +136,7 @@ Route::prefix('user')->group(function(){
 Route::prefix('download')->group(function(){
     Route::get('spt/{id}','DownloadController@download_spt');
     Route::get('spm-damkar','DownloadController@spm_damkar');
+    Route::get('kasus-ba/{id}','DownloadController@kasus_ba');
 });
 
 // Route::get('/foo', function () {

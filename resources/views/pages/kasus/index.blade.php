@@ -41,7 +41,7 @@
 </div>
 
         <div id="modal-verif" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl">
 
               <!-- Modal content-->
               <div class="modal-content">
@@ -50,7 +50,7 @@
                   <h4 class="modal-title text-left">VERIFIKASI KASUS</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form" method="POST" action="{{url('kasus/modal/verif')}}">
+                    <form class="form" method="POST" action="{{url('kasus/modal/verif')}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input type="hidden" name="id" id="idkasus" value="">
                         <div class="form-group">
@@ -73,11 +73,14 @@
                                 <label class="radio">
                                 <input type="radio" class="kewenangan" name="kewenangan" value="2">
                                 <span></span>KAB/KOTA</label>
+                                <label class="radio">
+                                <input type="radio" class="kewenangan" name="kewenangan" value="3">
+                                <span></span>PEMERINTAH PUSAT</label>
                             </div>
                         </div>
                         <div class="form-group row" id="div_kota">
                             <label>Kabupaten/Kota</label>
-                            <select class="form-control select2" name="kota" id="kota">
+                            <select style="width:95%;" class="form-control select2" name="kota" id="kota">
                                 <option value="">--PILIH KAB/KOTA--</option>
                                 @foreach($kota as $k)
                                     <option value="{{$k->nama}}">{{$k->nama}}</option>
@@ -86,12 +89,36 @@
                         </div>
                         <div class="form-group row" id="div_opd">
                             <label>Perangkat Daerah</label>
-                            <select class="form-control select2" name="opd" id="opd">
+                            <select style="width:95%;" class="form-control select2" name="opd" id="opd">
                                 <option value="">--PILIH OPD PEMPROV--</option>
                                 @foreach($opd as $k)
                                     <option value="{{$k->nama}}">{{$k->nama}}</option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>YANG MEMBIDANGI</label>
+                            <div class="radio-inline">
+                                <label class="radio">
+                                <input type="radio" class="bidang" name="bidang" value="KETENTRAMAN DAN KETERTIBAN UMUM">
+                                <span></span>BIDANG KETENTRAMAN DAN KETERTIBAN UMUM</label>
+                                <label class="radio">
+                                <input type="radio" class="bidang" name="bidang" value="PENEGAKAN PERATURAN DAERAH">
+                                <span></span>BIDANG PENEGAKAN PERATURAN DAERAH</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>FORMAT BERITA ACARA</label>
+                            <a href="#" target="_blank" class="btn btn-primary">Download Format Berita Acara</a>
+                        </div>
+                        <div class="form-group">
+                            <label>BERITA ACARA</label>
+                            <input type="file" name="ba" class="form-control" accept="application/pdf, application/vnd.ms-excel"  required>
+                        </div>
+
+                        <div class="alert alert-info" role="alert" id="alert_ba">
+                            Berita acara sudah pernah dibuat silahkan <a href="" id="link_ba" target="_blank"> KLIK DISINI </a> untuk mendownload BERITA ACARA
                         </div>
                         <button type='submit'  class="btn btn-primary mr-2">SUBMIT VERIFIKASI</button>
                     </form>
@@ -147,13 +174,13 @@
         {data: 'aksi', name:'aksi'},
         ],
         "order": [[ 0, "desc" ]],
-        "columnDefs": [
-            {
-                "targets": [ 0 ],
-                "visible": false,
-                "searchable": false
-            },
-          ],
+        // "columnDefs": [
+        //     {
+        //         "targets": [ 0 ],
+        //         "visible": false,
+        //         "searchable": false
+        //     },
+        //   ],
       })
     $('input[type=radio][name=kewenangan]').change(function() {
         console.log(this.value)
@@ -161,12 +188,17 @@
         $('#div_kota').hide();
         $('#div_opd').show();
     }
-    else {
+    else if(this.value == '2') {
         $('#div_kota').show();
+        $('#div_opd').hide();
+    }
+    else{
+        $('#div_kota').hide();
         $('#div_opd').hide();
     }
     })
     function verifKasus(id){
+        $('#alert_ba').hide();
         $('#idkasus').val(id)
         $('#div_kota').hide();
         $('#div_opd').hide();
@@ -182,13 +214,16 @@
                     if(data.kasus.status == 0){
                         $('#status_kasus').val($("#status_kasus option:first").val())
                         $('.kewenangan').prop('checked',false)
+                        $('.bidang').prop('checked',false)
                         $('#kota').val($("#kota option:first").val())
                         $('#opd').val($("#opd option:first").val())
                     }
                     else{
+                        $('#alert_ba').show();
+                        $('#link_ba').attr("href", "{{ url('download/kasus-ba') }}/"+id)
                         $('#status_kasus').val(data.kasus.status)
                         $("input[name=kewenangan][value='"+data.kasus.kewenangan+"']").prop("checked",true);
-                        $("input[name=kewenangan][value='"+data.kasus.kewenangan+"']").prop("checked",true);
+                        $("input[name=bidang][value='"+data.kasus.bidang+"']").prop("checked",true);
                         console.log(data.kasus.keterangan_kewenangan)
                         if (data.kasus.kewenangan == '1') {
                             $('#div_kota').hide();
@@ -196,10 +231,17 @@
                             $('#opd').val(data.kasus.keterangan_kewenangan).change()
                             $('#kota').val($("#kota option:first").val())
                         }
-                        else {
+                        else if(data.kasus.kewenangan == '2'){
+
                             $('#div_kota').show();
                             $('#div_opd').hide();
                             $('#kota').val(data.kasus.keterangan_kewenangan).change()
+                            $('#opd').val($("#opd option:first").val())
+                        }
+                        else {
+                            $('#div_kota').hide();
+                            $('#div_opd').hide();
+                            $('#kota').val($("#kota option:first").val())
                             $('#opd').val($("#opd option:first").val())
                         }
                     }

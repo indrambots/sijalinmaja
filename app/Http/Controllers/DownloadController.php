@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kegiatan;
 use App\ProfilDamkar;
+use App\Kasus;
 use Auth;
 
 class DownloadController extends Controller
@@ -37,6 +38,20 @@ class DownloadController extends Controller
                          ->header('Content-Type', $kegiatan->mime)
                          ->header('Content-length', strlen($file_contents))
                          ->header('Content-Disposition', 'attachment; filename='.$filename)
+                         ->header('Content-Transfer-Encoding', 'binary');
+    }
+
+    public function kasus_ba($id)
+    {
+        $kasus = Kasus::where('id',$id)->first();
+        $file_contents = base64_decode($kasus->ba);
+        return response($file_contents)
+                         ->header('Cache-Control', 'no-cache private')
+                         ->header('Content-Description', 'File Transfer')
+                         ->header('Content-Type', $kasus->mime)
+                         ->header('Content-length', strlen($file_contents))
+                         ->header('Content-Disposition', 'attachment; filename=ba_kasus_id_'.$id.".".$kasus->ext)
+                         // ("Content-Disposition: attachment; "filename=\"".$this->filename."\"")
                          ->header('Content-Transfer-Encoding', 'binary');
     }
 }
