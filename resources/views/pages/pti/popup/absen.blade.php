@@ -7,6 +7,7 @@
                 <div class="card-header card-header-tabs-line">
                     <div class="card-toolbar">
                         <ul class="nav nav-tabs nav-bold nav-tabs-line">
+                        	@if($pti->spt == null)
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#gakda">
                                     <span class="nav-text">GAKDA</span>
@@ -32,26 +33,39 @@
                                     <span class="nav-text">SEKRETARIAT</span>
                                 </a>
                             </li>
+                            @else
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#spt">
+                                    <span class="nav-text">PERSONEL YANG DITUGASKAN</span>
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
                 <div class="card-body">
 		            <div class="tab-content">
-		                <div class="tab-pane fade show active" id="gakda" role="tabpanel" aria-labelledby="gakda">
-		                    @include('pages.pti.popup.tab.gakda')
-		                </div>
-		                <div class="tab-pane fade" id="tibum" role="tabpanel" aria-labelledby="tibum">
-		                    @include('pages.pti.popup.tab.tibum')                                
-		                </div>
-		                <div class="tab-pane fade" id="sekret" role="tabpanel" aria-labelledby="sekret">
-		                    @include('pages.pti.popup.tab.sekret')                                
-		                </div>
-		                <div class="tab-pane fade" id="damkar" role="tabpanel" aria-labelledby="damkar">
-		                    @include('pages.pti.popup.tab.damkar')
-		                </div>
-		                <div class="tab-pane fade" id="linmas" role="tabpanel" aria-labelledby="linmas">
-		                    @include('pages.pti.popup.tab.linmas')
-		                </div>
+		                @if($pti->spt == null)
+			                <div class="tab-pane fade show active" id="gakda" role="tabpanel" aria-labelledby="gakda">
+			                    @include('pages.pti.popup.tab.gakda')
+			                </div>
+			                <div class="tab-pane fade" id="tibum" role="tabpanel" aria-labelledby="tibum">
+			                    @include('pages.pti.popup.tab.tibum')                                
+			                </div>
+			                <div class="tab-pane fade" id="sekret" role="tabpanel" aria-labelledby="sekret">
+			                    @include('pages.pti.popup.tab.sekret')                                
+			                </div>
+			                <div class="tab-pane fade" id="damkar" role="tabpanel" aria-labelledby="damkar">
+			                    @include('pages.pti.popup.tab.damkar')
+			                </div>
+			                <div class="tab-pane fade" id="linmas" role="tabpanel" aria-labelledby="linmas">
+			                    @include('pages.pti.popup.tab.linmas')
+			                </div>
+		                @else
+			                <div class="tab-pane fade show active" id="spt" role="tabpanel" aria-labelledby="spt">
+			                    @include('pages.pti.popup.tab.spt')
+			                </div>
+		                @endif
 		            </div>
 		        </div>
 		    </div>
@@ -67,17 +81,10 @@
             [50, 'All'],
         ],
 	})
-	$('#frm_kasandra').on('submit',function(e){
-		e.preventDefault()
-    $(this).ajaxSubmit({
-            success:function(data){
-            	Swal.fire({title:"Berhasil!", text:"Absen berhasil dilakukan", icon:"success"}
-                            ).then((result) => {
-					        window.opener.location.reload(true);
-					        window.close();
-                            })
-            }
-		})
-	})
 </script>
+@if(Session::get('success'))
+<script type="text/javascript">
+    toastr.success("ABSEN BERHASIL TERSIMPAN");
+</script>
+@endif
 @endsection

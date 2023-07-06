@@ -14,7 +14,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($sekret as $k)
+				@foreach($linmas as $k)
 				<tr>
 					<td>{{$k->nama}}</td>
 					<td>

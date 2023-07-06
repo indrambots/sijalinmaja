@@ -38,7 +38,10 @@ class PtiController extends Controller
             return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_absen.$btn_aksi.$btn_delete.'</div>';
         })
         ->addColumn('kehadiran',function($i){
-            $kehadiran = KehadiranPti::where('pti_id',$i->id)->get();
+            $kehadiran = DB::SELECT("SELECT p.nip FROM pegawai p WHERE p.nip NOT IN (
+                                    SELECT nip 
+                                    FROM kehadiran_pti k 
+                                    WHERE k.pti_id = ".$i->id.")");
             if(count($kehadiran) == 0):
                 return '<label> <span class="badge badge-warning">BELUM MELAKUKAN ABSEN</span> </label>';
             else:
@@ -81,8 +84,12 @@ class PtiController extends Controller
         $damkar = Pegawai::where('bidang','PEMADAM KEBAKARAN DAN PENYELAMATAN')->get();
         $gakda = Pegawai::where('bidang','PENEGAKAN PERATURAN DAERAH')->get();
         $linmas = Pegawai::where('bidang','PELINDUNGAN MASYARAKAT')->get();
+        $spt = ($pti->spt !== null) ? DB::SELECT("SELECT p.nama,p.nip FROM pegawai p
+                                                INNER JOIN kegiatan_personel kp ON p.nip = kp.nip
+                                                INNER JOIN kegiatan k ON kp.kegiatan_id = k.id
+                                                WHERE k.spt = '".$pti->spt."'") : null;
         $kehadiran = KehadiranPti::where('pti_id',$id)->get();
-        return view('pages.pti.popup.absen',compact('kehadiran','sekret','tibum','damkar','gakda','linmas','id','pti'));
+        return view('pages.pti.popup.absen',compact('kehadiran','sekret','tibum','damkar','gakda','linmas','id','pti','spt'));
     }
 
     public function absen_save(Request $request)
@@ -102,7 +109,7 @@ class PtiController extends Controller
         else:
             $absen = KehadiranPti::where('bidang',$request->bidang)->where('pti_id',$request->id)->delete();
         endif;
-        return redirect('pti/absen/'.$request->id);
+        return redirect('pti/absen/'.$request->id)->with('success', 'ABSEN BERHASIL TERSIMPAN');
     }
 
     public function delete(Request $request)
