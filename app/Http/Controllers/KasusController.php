@@ -156,15 +156,19 @@ class KasusController extends Controller
         $kasus->kewenangan = $request->kewenangan;
         $kasus->keterangan_kewenangan = ($request->kewenangan == 1) ? $request->opd : $request->kota;
         $kasus->bidang  = $request->bidang;
-
-        $path = $request->file('ba')->getRealPath();
-        $ext = $request->ba->extension();
-        $doc = file_get_contents($path);
-        $base64 = base64_encode($doc);
-        $mime = $request->file('ba')->getClientMimeType();
-        $kasus->ba = $base64;
-        $kasus->ext = $ext;
-        $kasus->mime = $mime;
+        $base64 = null;
+        $mime = null;
+        $ext = null;
+        if($request->file('ba') !== null):
+            $path = $request->file('ba')->getRealPath();
+            $ext = $request->ba->extension();
+            $doc = file_get_contents($path);
+            $base64 = base64_encode($doc);
+            $mime = $request->file('ba')->getClientMimeType();
+            $kasus->ba = $base64;
+            $kasus->ext = $ext;
+            $kasus->mime = $mime;
+        endif;
         $kasus->save();
         HistoryVerif::create([
             'kasus_id' => $request->id,
@@ -176,7 +180,8 @@ class KasusController extends Controller
         ]);
 
         KasusHistory::create([
-            'tanggal' => date("Y-m-d H:i:s", strtotime('+7 hours')),
+            'tanggal' => date("Y-m-d"),
+            'created_at' => date("Y-m-d H:i:s", strtotime('+7 hours')),
             'kasus_id' => $request->id,
             'oleh'     => 'SATPOL PP PROV JATIM',
             'keterangan' => 'Berita Acara sidang internal dengan hasil kewenangan kasus dan status kasus',
@@ -218,5 +223,14 @@ class KasusController extends Controller
                 'kasandra_id' => $k]);
             endforeach;
         endif;
+    }
+
+    public function history($id)
+    {
+        $kasus = Kasus::where('id',$id)->with(['history' => function ($q) {
+            $q->orderBy('created_at', 'asc');
+        }])->first();
+        // dd($kasus->history);
+        return view('pages.kasus.history',compact('kasus'));
     }
 }

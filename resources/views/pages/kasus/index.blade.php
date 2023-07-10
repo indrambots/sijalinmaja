@@ -114,7 +114,7 @@
                         </div>
                         <div class="form-group">
                             <label>BERITA ACARA</label>
-                            <input type="file" name="ba" class="form-control" accept="application/pdf, application/vnd.ms-excel"  required>
+                            <input type="file" name="ba" class="form-control" accept="application/pdf, application/vnd.ms-excel" >
                         </div>
 
                         <div class="alert alert-info" role="alert" id="alert_ba">
@@ -219,7 +219,14 @@
                         $('#opd').val($("#opd option:first").val())
                     }
                     else{
-                        $('#alert_ba').show();
+                        if(data.kasus.ba !== null){
+
+                            $('#alert_ba').show();
+                        }
+                        else
+                        {
+                            $('#alert_ba').hide();
+                        }
                         $('#link_ba').attr("href", "{{ url('download/kasus-ba') }}/"+id)
                         $('#status_kasus').val(data.kasus.status)
                         $("input[name=kewenangan][value='"+data.kasus.kewenangan+"']").prop("checked",true);
