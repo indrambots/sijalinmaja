@@ -66,6 +66,7 @@ class LaporanKejadianController extends Controller
         $kejadian->jumlah_personel = $request->jumlah_personel;
         $kejadian->kendala = $request->kendala;
         $kejadian->sumber_berita = $request->sumber_berita;
+        $kejadian->kota = Auth::user()->kota;
         $kejadian->save();
         if($request->dokumentasi !== null):
             $dok = $this->uploadDokumentasi($request->dokumentasi,1,$request->id);
