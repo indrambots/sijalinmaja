@@ -40,6 +40,7 @@ Route::prefix('kegiatan')->group(function () {
 
 Route::prefix('kasus')->group(function () {
     Route::get('/', 'KasusController@index');
+    Route::get('history/{id}', 'KasusController@history');
     Route::get('create/{id}','KasusController@create');
     Route::post('save','KasusController@save');
     Route::get('datatable','KasusController@datatable');
@@ -71,8 +72,14 @@ Route::prefix('peta')->group(function () {
 
 Route::prefix('damkar')->group(function () {
     Route::get('','Damkar\HomeController@index');
-        Route::post('update-sarpras','Damkar\HomeController@sarpras_update');
-        Route::post('update-sdm','Damkar\HomeController@sdm_update');
+    Route::post('update-sarpras','Damkar\HomeController@sarpras_update');
+    Route::post('update-sdm','Damkar\HomeController@sdm_update');
+    Route::prefix('report')->group(function () {
+        Route::get('kejadian','Damkar\ReportController@kejadian');
+        Route::get('kelembagaan','Damkar\ReportController@kelembagaan');
+        Route::post('kelembagaan-grid','Damkar\ReportController@kelembagaan_grid');
+        Route::post('kejadian-grid','Damkar\ReportController@kejadian_grid');
+    });
 
     Route::prefix('profil')->group(function () {
         Route::post('save','Damkar\HomeController@profil_save');
@@ -138,6 +145,7 @@ Route::prefix('download')->group(function(){
     Route::get('spm-damkar','DownloadController@spm_damkar');
     Route::get('kasus-ba/{id}','DownloadController@kasus_ba');
 });
+
 
 // Route::get('/foo', function () {
 //     Artisan::call('storage:link');

@@ -8,6 +8,7 @@ use Auth;
 use App\ProfilDamkar;
 use App\SarprasDamkar;
 use App\SdmDamkar;
+use DB;
 
 class HomeController extends Controller
 {
@@ -18,21 +19,25 @@ class HomeController extends Controller
 
     public function index()
     {
-        $profil = ProfilDamkar::where('user_id',Auth::user()->id)->first();
-        $sarpras = SarprasDamkar::where('user_id',Auth::user()->id)->first();
-        $sdm = SdmDamkar::where('user_id',Auth::user()->id)->first();
-        if(empty($profil)):
-            $profil = ProfilDamkar::find(0);
-            $sarpras = SarprasDamkar::find(0);
-            $sdm = SdmDamkar::find(0);
-        endif;
-        if(empty($sarpras)):
-            $sarpras = SarprasDamkar::find(0);
-        endif;
-        if(empty($sdm)):
-            $sdm = SdmDamkar::find(0);
-        endif;
-        return view('pages.damkar.index',compact('profil','sarpras','sdm'));   
+        if(Auth::user()->level == 11 || Auth::user()->level == 12):
+            $profil = ProfilDamkar::where('user_id',Auth::user()->id)->first();
+            $sarpras = SarprasDamkar::where('user_id',Auth::user()->id)->first();
+            $sdm = SdmDamkar::where('user_id',Auth::user()->id)->first();
+            if(empty($profil)):
+                $profil = ProfilDamkar::find(0);
+                $sarpras = SarprasDamkar::find(0);
+                $sdm = SdmDamkar::find(0);
+            endif;
+            if(empty($sarpras)):
+                $sarpras = SarprasDamkar::find(0);
+            endif;
+            if(empty($sdm)):
+                $sdm = SdmDamkar::find(0);
+            endif;
+            return view('pages.damkar.index',compact('profil','sarpras','sdm')); 
+        else:
+            return view('pages.damkar.admin.index');
+        endif;  
     }
 
     public function sdm_update(Request $request)
