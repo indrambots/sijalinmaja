@@ -27,7 +27,7 @@
                 <th>Pelapor</th>
                 <th>Pelanggar</th>
                 <th>Status</th>
-                <th>Perda</th>
+                <th>History</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -170,7 +170,7 @@
         {data: 'data_pelapor', name:'data_pelapor'},
         {data: 'data_pelanggar', name:'data_pelanggar'},
         {data: 'status', name:'status'},
-        {data: 'perda', name:'perda'},
+        {data: 'history', name:'history'},
         {data: 'aksi', name:'aksi'},
         ],
         "order": [[ 0, "desc" ]],

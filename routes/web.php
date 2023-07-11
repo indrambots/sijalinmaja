@@ -41,6 +41,8 @@ Route::prefix('kegiatan')->group(function () {
 Route::prefix('kasus')->group(function () {
     Route::get('/', 'KasusController@index');
     Route::get('history/{id}', 'KasusController@history');
+    Route::post('history/create', 'KasusController@history_create');
+    Route::post('history/save', 'KasusController@history_save');
     Route::get('create/{id}','KasusController@create');
     Route::post('save','KasusController@save');
     Route::get('datatable','KasusController@datatable');
@@ -144,6 +146,7 @@ Route::prefix('download')->group(function(){
     Route::get('spt/{id}','DownloadController@download_spt');
     Route::get('spm-damkar','DownloadController@spm_damkar');
     Route::get('kasus-ba/{id}','DownloadController@kasus_ba');
+    Route::get('kasus-history/{id}','DownloadController@kasus_history');
 });
 
 

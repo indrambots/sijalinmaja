@@ -13,4 +13,8 @@ class Kasus extends Model
     protected $guarded = ['id'];
     protected $table   = 'kasus';
     
+    public function history()
+    {
+        return $this->hasMany('App\KasusHistory', 'kasus_id', 'id');
+    }
 }

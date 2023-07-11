@@ -116,8 +116,8 @@ class KasusController extends Controller
         ->addColumn('lokasi_kasus',function($i){
             return $i->lokasi_kejadian.", ".ucfirst(strtolower($i->kel_nama)).", Kecamatan ".ucfirst(strtolower($i->kec_nama)).", ".ucfirst(strtolower($i->kota_nama));
         })
-        ->addColumn('perda',function($i){
-            return '<button class="btn btn-icon btn-xl btn-outline-danger" onclick="kasandra('.$i->id.')" data-toggle="modal" data-target="#modal-kasandra"><i class="fas fa-book"></i></button>';
+        ->addColumn('history',function($i){
+            return '<a target="_blank" class="btn btn-icon btn-xl btn-outline-info" href="'.url('kasus/history/'.$i->id).'" ><i class="fas fa-history"></i></a>';
         })
         ->editColumn('status',function($i){
             if($i->status == 0){
@@ -139,7 +139,7 @@ class KasusController extends Controller
                 return '<span class="label label-lg label-success label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:75px;">SELESAI</span>';
             }
         })
-        ->rawColumns(['aksi','tanggal_informasi','data_pelapor','data_pelanggar','lokasi_kasus','deskripsi_kasus','status','perda'])
+        ->rawColumns(['aksi','tanggal_informasi','data_pelapor','data_pelanggar','lokasi_kasus','deskripsi_kasus','status','history'])
         ->make(true);
     }
 
@@ -232,5 +232,36 @@ class KasusController extends Controller
         }])->first();
         // dd($kasus->history);
         return view('pages.kasus.history',compact('kasus'));
+    }
+
+    public function history_create(Request $request){
+        $history = KasusHistory::find($request->id);
+        return response()->json(array('history' => $history));
+    }
+
+    public function history_save(Request $request){
+
+        if($request->id == 0):
+            $history = new KasusHistory();
+        else:
+            $history = KasusHistory::find($request->id);
+        endif;
+        if($request->data_pendukung !== null)
+        {
+            $path = $request->file('data_pendukung')->getRealPath();
+            $ext = $request->data_pendukung->extension();
+            $doc = file_get_contents($path);
+            $base64 = base64_encode($doc);
+            $mime = $request->file('data_pendukung')->getClientMimeType();
+            $history->data_pendukung = $base64;
+            $history->ext = $ext;
+            $history->mime = $mime;
+        }
+        $history->tanggal = $request->tanggal;
+        $history->oleh = $request->oleh;
+        $history->keterangan = $request->keterangan;
+        $history->kasus_id = $request->kasus_id;
+        $history->save();
+        return redirect('kasus/history/'.$request->kasus_id)->with('success', 'History');
     }
 }
