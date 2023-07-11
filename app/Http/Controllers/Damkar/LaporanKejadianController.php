@@ -10,6 +10,7 @@ use App\Kecamatan;
 use App\Kelurahan;
 use Yajra\Datatables\Datatables;
 use Intervention\Image\ImageManagerStatic as Image;
+use DB;
 
 class LaporanKejadianController extends Controller
 {
@@ -39,6 +40,14 @@ class LaporanKejadianController extends Controller
     public function save(Request $request)
     {
         // dd($request->all());
+
+        $region = DB::SELECT("SELECT
+                                kec.nama AS kecamatan, kota.nama AS kota, kel.nama_desa AS kelurahan
+                                FROM
+                                master_kota kota INNER JOIN master_kecamatan kec ON kota.id = kec.kode_kab
+                                INNER JOIN master_kelurahan kel ON kec.kode_kec = kel.kode_kec AND kel.kode_kab = kota.id
+                                WHERE kota.id = ".Auth::user()->kota." AND kel.kode_kel = ".$request->kelurahan." AND kec.kode_kec = ".$request->kecamatan."
+    ")[0];
         $dok = null;
         $dok2 = null;
         $kejadian = ($request->id !== "0") ? LaporanKejadian::find($request->id) : new LaporanKejadian();
@@ -67,6 +76,9 @@ class LaporanKejadianController extends Controller
         $kejadian->kendala = $request->kendala;
         $kejadian->sumber_berita = $request->sumber_berita;
         $kejadian->kota = Auth::user()->kota;
+        $kejadian->nama_kecamatan = $region->kecamatan;
+        $kejadian->nama_kelurahan = $region->kelurahan;
+        $kejadian->nama_kota = $region->kota;
         $kejadian->save();
         if($request->dokumentasi !== null):
             $dok = $this->uploadDokumentasi($request->dokumentasi,1,$request->id);
