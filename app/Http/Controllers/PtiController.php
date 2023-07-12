@@ -94,16 +94,21 @@ class PtiController extends Controller
 
     public function absen_save(Request $request)
     {
-        if(!empty($request->absen)):
+        $peg = Pegawai::where('bidang',$request->bidang)->get();
+        if(!empty($request->hadir)):
             $absen = KehadiranPti::where('bidang',$request->bidang)->where('pti_id',$request->id)->delete();
-        foreach($request->absen as $a):
-            $peg = Pegawai::where('nip',$a)->first();
+        foreach($request->hadir as $a):
+            $nip = substr_replace($a ,"", -1);
+            $is_hadir = substr($a, -1);
+            $peg = Pegawai::where('nip',$nip)->first();
+            // dd($peg);
             KehadiranPti::create([
                 'pti_id' => $request->id,
                 'nip' => $peg->nip,
                 'nama' => $peg->nama,
                 'bidang' => $peg->bidang,
                 'sub' => $peg->sub_bidang,
+                'hadir' => $is_hadir
             ]);
         endforeach;
         else:

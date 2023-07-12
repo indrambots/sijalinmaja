@@ -11,6 +11,7 @@
 					<th>Nama</th>
 					<th>Ada Kegiatan</th>
 					<th>HADIR</th>
+					<th>TIDAK</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -48,14 +49,53 @@
 					@endif
 					</td>
 					<td>
-						<label class="checkbox checkbox-lg">
 <?php $hadir = App\KehadiranPti::where('pti_id',$id)->where('nip',$k->nip)->first(); ?>
 						@if($hadir !== null)
-						<input type="checkbox" checked="checked" name="absen[]" value="{{$k->nip}}">
+							@if($hadir->hadir == 1)
+								<div class="radio-inline">
+									<label class="radio radio-lg">
+									<input type="radio" checked="checked" name="hadir[{{$loop->iteration}}]" value="{{$k->nip}}1">
+									<span></span></label>
+								</div>
+							@else
+								<div class="radio-inline">
+									<label class="radio radio-lg">
+									<input type="radio" name="hadir[{{$loop->iteration}}]" value="{{$k->nip}}1">
+									<span></span></label>
+								</div>
+							@endif
 						@else
-						<input type="checkbox" name="absen[]" value="{{$k->nip}}">
+								<div class="radio-inline">
+									<label class="radio radio-lg">
+									<input type="radio" name="hadir[{{$loop->iteration}}]" value="{{$k->nip}}1">
+									<span></span></label>
+								</div>
 						@endif
-						<span></span></label>
+					</td>
+					<td>
+<?php $hadir = App\KehadiranPti::where('pti_id',$id)->where('nip',$k->nip)->first(); ?>
+						@if($hadir !== null)
+							@if($hadir->hadir == 0)
+								<div class="radio-inline">
+									<label class="radio radio-lg">
+									<input type="radio" checked="checked" name="hadir[{{$loop->iteration}}]" value="{{$k->nip}}0">
+									<span></span></label>
+								</div>
+								@else
+
+								<div class="radio-inline">
+									<label class="radio radio-lg">
+									<input type="radio" name="hadir[{{$loop->iteration}}]" value="{{$k->nip}}0">
+									<span></span></label>
+								</div>
+								@endif
+						@else
+								<div class="radio-inline">
+									<label class="radio radio-lg">
+									<input type="radio" name="hadir[{{$loop->iteration}}]" value="{{$k->nip}}0">
+									<span></span></label>
+								</div>
+						@endif
 					</td>
 				</tr>
 				@endforeach
