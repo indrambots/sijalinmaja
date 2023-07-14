@@ -95,20 +95,25 @@ class PtiController extends Controller
     public function absen_save(Request $request)
     {
         $peg = Pegawai::where('bidang',$request->bidang)->get();
+        $pti = Pti::find($request->id);
         if(!empty($request->hadir)):
             $absen = KehadiranPti::where('bidang',$request->bidang)->where('pti_id',$request->id)->delete();
         foreach($request->hadir as $a):
             $nip = substr_replace($a ,"", -1);
             $is_hadir = substr($a, -1);
             $peg = Pegawai::where('nip',$nip)->first();
-            // dd($peg);
+            $cek_spt = DB::SELECT("SELECT k.spt FROM kegiatan_personel kp INNER JOIN kegiatan k ON kp.kegiatan_id = k.id WHERE
+                '".$pti->tanggal."' BETWEEN tanggal_mulai AND tanggal_selesai AND kp.nip = '".$nip."'
+                ");
+            $is_spt = (count($cek_spt) > 0) ? 1 : 0;
             KehadiranPti::create([
                 'pti_id' => $request->id,
                 'nip' => $peg->nip,
                 'nama' => $peg->nama,
                 'bidang' => $peg->bidang,
                 'sub' => $peg->sub_bidang,
-                'hadir' => $is_hadir
+                'hadir' => $is_hadir,
+                'is_spt' => $is_spt
             ]);
         endforeach;
         else:
@@ -120,6 +125,50 @@ class PtiController extends Controller
     public function delete(Request $request)
     {
         Pti::find($request->id)->delete();
+    }
+
+    public function laporan_personel(Request $request){
+        $pti = Pti::select('nama_kegiatan')->whereBetween('tanggal',[$request->tanggal_mulai,$request->tanggal_selesai])->distinct()->get();
+        // dd($pti);
+        $tanggal_mulai = $request->tanggal_mulai;
+        $tanggal_selesai = $request->tanggal_selesai;
+        $pegawai = Pegawai::where('praja_id','>',1)->orderBy('tingkat','desc')->orderBy(DB::raw('DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(nip, 1, 8) as date))
+                ),
+                "%y Years %m Months %d Days"
+            )'),'desc')->get();
+        $sekret = $pegawai->toQuery()->where('bidang','SEKRETARIAT')->orderBy('tingkat','desc')->orderBy(DB::raw('DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(nip, 1, 8) as date))
+                ),
+                "%y Years %m Months %d Days"
+            )'),'desc')->get();
+        $gakda = $pegawai->toQuery()->where('bidang','PENEGAKAN PERATURAN DAERAH')->orderBy('tingkat','desc')->orderBy(DB::raw('DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(nip, 1, 8) as date))
+                ),
+                "%y Years %m Months %d Days"
+            )'),'desc')->get();
+        $tibum = $pegawai->toQuery()->where('bidang','KETENTRAMAN DAN KETERTIBAN UMUM')->orderBy('tingkat','desc')->orderBy(DB::raw('DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(nip, 1, 8) as date))
+                ),
+                "%y Years %m Months %d Days"
+            )'),'desc')->get();
+        $damkar = $pegawai->toQuery()->where('bidang','PEMADAM KEBAKARAN DAN PENYELAMATAN')->orderBy('tingkat','desc')->orderBy(DB::raw('DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(nip, 1, 8) as date))
+                ),
+                "%y Years %m Months %d Days"
+            )'),'desc')->get();
+        $linmas = $pegawai->toQuery()->where('bidang','PELINDUNGAN MASYARAKAT')->orderBy('tingkat','desc')->orderBy(DB::raw('DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(nip, 1, 8) as date))
+                ),
+                "%y Years %m Months %d Days"
+            )'),'desc')->get();
+        return view('pages.pti.laporan_personel.index',compact('pti','sekret','tanggal_mulai','tanggal_selesai','gakda','tibum','damkar','linmas'));
     }
 
 }

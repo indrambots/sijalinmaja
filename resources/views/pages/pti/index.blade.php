@@ -1,7 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col">
+
+ <div class="row mb-2">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header border-0" style="padding-bottom:0px;">
+          <div class="card-title font-weight-bolder" style="margin-bottom:-5px;">
+            <div class="card-label">GENERATE LAPORAN PTI</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form class="form" id="form" action="{{ url('pti/laporan-personel') }}" method="POST">
+            {{ csrf_field() }}
+           
+            <div class="row">
+              <div class="col-lg-2">
+                <label class="font-weight-bold mt-5">Tanggal Awal :</label><br>
+                <input type="text"  class="datepicker form-control" name="tanggal_mulai"  required>
+              </div>
+              <div class="col-lg-2">
+                <label class="font-weight-bold mt-5">Tanggal Akhir:</label><br>
+                <input type="text"  class="datepicker form-control" name="tanggal_selesai"  required>
+              </div>
+          </div>
+            <div class="row mt-2">
+              <div class="col-lg-3">
+                <button type="submit" class="btn btn-lg btn-outline-primary btn-success" id="btnproses"> BUAT LAPORAN</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-body">
       <div class="row justify-content-between">
@@ -33,7 +66,6 @@
       </div>
     </div>
   </div>
-</div>
 
         <div id="modal-create" class="modal fade" role="dialog">
             <div class="modal-dialog modal-xl">
@@ -77,6 +109,7 @@
                                 <option value="APEL DADAKAN">APEL DADAKAN</option>
                                 <option value="GLAGAPAN RABU">GLAGAPAN RABU</option>
                                 <option value="SIDAK RUANGAN">SIDAK RUANGAN</option>
+                                <option value="SENAM">SENAM</option>
                                 <option value="UPACARA HARI BESAR">UPACARA HARI BESAR</option>
                             </select>
                         </div>

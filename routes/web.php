@@ -79,8 +79,10 @@ Route::prefix('damkar')->group(function () {
     Route::prefix('report')->group(function () {
         Route::get('kejadian','Damkar\ReportController@kejadian');
         Route::get('kelembagaan','Damkar\ReportController@kelembagaan');
+        Route::get('sarpras','Damkar\ReportController@sarpras');
         Route::post('kelembagaan-grid','Damkar\ReportController@kelembagaan_grid');
         Route::post('kejadian-grid','Damkar\ReportController@kejadian_grid');
+        Route::post('sarpras-grid','Damkar\ReportController@sarpras_grid');
     });
 
     Route::prefix('profil')->group(function () {
@@ -133,6 +135,7 @@ Route::prefix('pti')->group(function(){
     Route::get('datatable','PtiController@datatable');
     Route::post('absen-save','PtiController@absen_save');
     Route::get('absen/{id}','PtiController@absen');
+    Route::post('laporan-personel','PtiController@laporan_personel');
 });
 
 Route::prefix('user')->group(function(){

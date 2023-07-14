@@ -49,7 +49,7 @@
 			                <div class="tab-pane fade show active" id="gakda" role="tabpanel" aria-labelledby="gakda">
 			                    @include('pages.pti.popup.tab.gakda')
 			                </div>
-			                <div class="tab-pane fade" id="tibum" role="tabpanel" aria-labelledby="tibum">
+			                {{-- <div class="tab-pane fade" id="tibum" role="tabpanel" aria-labelledby="tibum">
 			                    @include('pages.pti.popup.tab.tibum')                                
 			                </div>
 			                <div class="tab-pane fade" id="sekret" role="tabpanel" aria-labelledby="sekret">
@@ -60,7 +60,7 @@
 			                </div>
 			                <div class="tab-pane fade" id="linmas" role="tabpanel" aria-labelledby="linmas">
 			                    @include('pages.pti.popup.tab.linmas')
-			                </div>
+			                </div> --}}
 		                @else
 			                <div class="tab-pane fade show active" id="spt" role="tabpanel" aria-labelledby="spt">
 			                    @include('pages.pti.popup.tab.spt')
