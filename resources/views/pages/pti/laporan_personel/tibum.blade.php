@@ -35,7 +35,7 @@
              <tr style="height:26pt">
                 <td style="width:20pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-right: 8pt;text-indent: 0pt;text-align: right;">
-                        {{$loop->iteration}}
+                        {{$loop->iteration+63}}
                     </p>
                 </td>
                 <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -96,7 +96,7 @@
             <tr>
                 <td  bgcolor="yellow" style="width:20pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="{{count($pti)+2}}">
                 <p class="s8" style="padding-top: 6pt;text-indent: 0pt;text-align: left;">
-                SEKRETARIAT
+                KETENTRAMAN DAN KETERTIBAN UMUM
                 </p>
                 </td>
             </tr>
@@ -104,7 +104,7 @@
              <tr style="height:26pt">
                 <td style="width:20pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-right: 8pt;text-indent: 0pt;text-align: right;">
-                        {{$loop->iteration + 25}}
+                        {{$loop->iteration + 88}}
                     </p>
                 </td>
                 <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -165,7 +165,7 @@
             <tr>
                 <td  bgcolor="yellow" style="width:20pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="{{count($pti)+2}}">
                 <p class="s8" style="padding-top: 6pt;text-indent: 0pt;text-align: left;">
-                SEKRETARIAT
+                KETENTRAMAN DAN KETERTIBAN UMUM
                 </p>
                 </td>
             </tr>
@@ -173,7 +173,7 @@
              <tr style="height:26pt">
                 <td style="width:20pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-right: 8pt;text-indent: 0pt;text-align: right;">
-                        {{$loop->iteration + 50}}
+                        {{$loop->iteration + 113}}
                     </p>
                 </td>
                 <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -234,7 +234,7 @@
             <tr>
                 <td  bgcolor="yellow" style="width:20pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="{{count($pti)+2}}">
                 <p class="s8" style="padding-top: 6pt;text-indent: 0pt;text-align: left;">
-                SEKRETARIAT
+                KETENTRAMAN DAN KETERTIBAN UMUM
                 </p>
                 </td>
             </tr>
@@ -242,7 +242,7 @@
              <tr style="height:26pt">
                 <td style="width:20pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-right: 8pt;text-indent: 0pt;text-align: right;">
-                        {{$loop->iteration + 75}}
+                        {{$loop->iteration + 138}}
                     </p>
                 </td>
                 <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">

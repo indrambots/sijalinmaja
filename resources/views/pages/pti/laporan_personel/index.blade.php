@@ -73,9 +73,9 @@
 </style>
 </head>
 <body>
-    {{-- @include('pages.pti.laporan_personel.sekret')
-    @include('pages.pti.laporan_personel.gakda') --}}
+    @include('pages.pti.laporan_personel.sekretariat')
+    @include('pages.pti.laporan_personel.gakda')
     @include('pages.pti.laporan_personel.tibum')
-    {{-- @include('pages.pti.laporan_personel.damkar')
-    @include('pages.pti.laporan_personel.linmas') --}}
+    @include('pages.pti.laporan_personel.damkar')
+    @include('pages.pti.laporan_personel.linmas')
 </body>
