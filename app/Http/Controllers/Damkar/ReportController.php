@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Damkar;
 
 use App\Http\Controllers\Controller;
 use DB;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -24,6 +25,11 @@ class ReportController extends Controller
     {
 
         return view('pages.damkar.admin.kejadian.index');
+    }
+
+    public function sarpras()
+    {
+        return view('pages.damkar.admin.sarpras.index');
     }
 
     public function kelembagaan_grid(Request $request)
@@ -51,9 +57,11 @@ FROM
 
     public function kejadian_grid(Request $request)
     {
+        $wherecondition = (Auth::user()->level >= 11) ? " user_id = ".Auth::user()->id : "";
+
         $kejadian = DB::SELECT("
             SELECT l.*, m.nama AS kota_null FROM `laporan_kejadian` l RIGHT JOIN master_kota m ON l.kota = m.id WHERE m.nama <> 'LUAR JAWA TIMUR'
-             AND deleted_at IS NULL");
+             AND deleted_at IS NULL AND".$wherecondition);
         $data = new Collection();
         foreach ($kejadian as $k):
             $objek = "";
@@ -96,5 +104,10 @@ FROM
             ]);
         endforeach;
         return response()->json($data);
+    }
+
+    public function sarpras_grid(Request $request)
+    {
+        $sarpras = DB::SELECT("SELECT s.*,u.`name` FROM `sarpras_damkar` s INNER JOIN users u ON s.user_id = u.id ");
     }
 }
