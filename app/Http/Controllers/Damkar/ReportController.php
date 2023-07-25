@@ -57,11 +57,11 @@ FROM
 
     public function kejadian_grid(Request $request)
     {
-        $wherecondition = (Auth::user()->level >= 11) ? " user_id = ".Auth::user()->id : "";
+        $wherecondition = (Auth::user()->level >= 11) ? "AND user_id = ".Auth::user()->id : "";
 
         $kejadian = DB::SELECT("
             SELECT l.*, m.nama AS kota_null FROM `laporan_kejadian` l RIGHT JOIN master_kota m ON l.kota = m.id WHERE m.nama <> 'LUAR JAWA TIMUR'
-             AND deleted_at IS NULL AND".$wherecondition);
+             AND deleted_at IS NULL ".$wherecondition);
         $data = new Collection();
         foreach ($kejadian as $k):
             $objek = "";
