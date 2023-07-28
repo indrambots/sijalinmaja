@@ -66,21 +66,22 @@ FROM
         foreach ($kejadian as $k):
             $objek = "";
             if (isset($k->objek)):
+                if($k->objek !== 'null'):
                 $countobjek = count(json_decode($k->objek));
-                // dd($countobjek);
-                $i = 0;
-                foreach (json_decode($k->objek) as $o):
-                    if ($countobjek == 1) {
-                        $objek = $o;
-                    } else {
-                        if ($i !== $countobjek) {
-                            $objek .= $o . ", ";
+                    $i = 0;
+                    foreach (json_decode($k->objek) as $o):
+                        if ($countobjek == 1) {
+                            $objek = $o;
                         } else {
-                            $objek .= $o;
+                            if ($i !== $countobjek) {
+                                $objek .= $o . ", ";
+                            } else {
+                                $objek .= $o;
+                            }
+                            $i++;
                         }
-                        $i++;
-                    }
-                endforeach;
+                    endforeach;
+                endif;
             endif;
             // dd($k);
             $data->push([

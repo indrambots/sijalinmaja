@@ -31,7 +31,7 @@
     <section class="fxt-template-animation fxt-template-layout29">
         <div class="container-fluid">
             <div class="row">
-                <div class="vegas-container col-md-6 col-12 fxt-bg-img" id="vegas-slide" data-vegas-options='{"delay":5000, "timer":false,"animation":"kenburns", "transition":"swirlLeft", "slides":[{"src": "{{ asset('media/bg/1.jpeg') }}"},{"src": "{{ asset('media/bg/2.jpeg') }}"},{"src": "{{ asset('media/bg/3.jpeg') }}"}   ]}'>
+                <div class="vegas-container col-md-6 col-12 fxt-bg-img" id="vegas-slide" data-vegas-options='{"delay":5000, "timer":false,"animation":"kenburns", "transition":"swirlLeft", "slides":[{"src": "{{ asset('media/bg/1.jpg') }}"},{"src": "{{ asset('media/bg/2.jpeg') }}"},{"src": "{{ asset('media/bg/3.jpeg') }}"}   ]}'>
                     <div class="fxt-page-switcher">
                         <a href="login-29.html" class="switcher-text1 active">Login</a>
                     </div>
