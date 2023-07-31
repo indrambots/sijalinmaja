@@ -94,10 +94,7 @@ class PtiController extends Controller
 
     public function absen_save(Request $request)
     {
-        $peg = Pegawai::where('bidang',$request->bidang)->get();
         $pti = Pti::find($request->id);
-        if(!empty($request->hadir)):
-            $absen = KehadiranPti::where('bidang',$request->bidang)->where('pti_id',$request->id)->delete();
         foreach($request->hadir as $a):
             $nip = substr_replace($a ,"", -1);
             $is_hadir = substr($a, -1);
@@ -106,19 +103,22 @@ class PtiController extends Controller
                 '".$pti->tanggal."' BETWEEN tanggal_mulai AND tanggal_selesai AND kp.nip = '".$nip."'
                 ");
             $is_spt = (count($cek_spt) > 0) ? 1 : 0;
-            KehadiranPti::create([
-                'pti_id' => $request->id,
-                'nip' => $peg->nip,
-                'nama' => $peg->nama,
-                'bidang' => $peg->bidang,
-                'sub' => $peg->sub_bidang,
-                'hadir' => $is_hadir,
-                'is_spt' => $is_spt
-            ]);
+            $cek_inputted = KehadiranPti::where('nip',$nip)->where('pti_id',$request->id)->first();
+            if(!isset($cek_inputted)):
+                KehadiranPti::create([
+                    'pti_id' => $request->id,
+                    'nip' => $peg->nip,
+                    'nama' => $peg->nama,
+                    'bidang' => $peg->bidang,
+                    'sub' => $peg->sub_bidang,
+                    'hadir' => $is_hadir,
+                    'is_spt' => $is_spt
+                ]);
+            else:
+                $cek_inputted->hadir = $is_hadir;
+                $cek_inputted->save();
+            endif;
         endforeach;
-        else:
-            $absen = KehadiranPti::where('bidang',$request->bidang)->where('pti_id',$request->id)->delete();
-        endif;
         return redirect('pti/absen/'.$request->id)->with('success', 'ABSEN BERHASIL TERSIMPAN');
     }
 
