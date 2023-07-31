@@ -118,7 +118,7 @@ class LaporanKejadianController extends Controller
             $i = 0;
             $len = count($objek);
             $str = "";
-            if (isset($k->objek)):
+            if (isset($i->objek)):
                 foreach($objek as $a):
                     if ($i == $len - 1) {
                         $str .= $a;
