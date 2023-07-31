@@ -116,9 +116,9 @@ class LaporanKejadianController extends Controller
         ->editColumn('objek',function($i){
             $objek = json_decode($i->objek);
             $i = 0;
-            $len = count($objek);
             $str = "";
             if (isset($i->objek)):
+            $len = count($objek);
                 foreach($objek as $a):
                     if ($i == $len - 1) {
                         $str .= $a;
