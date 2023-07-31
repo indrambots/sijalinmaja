@@ -118,16 +118,18 @@ class LaporanKejadianController extends Controller
             $i = 0;
             $len = count($objek);
             $str = "";
-            foreach($objek as $a):
-                if ($i == $len - 1) {
-                    $str .= $a;
-                }
-                else{
+            if (isset($k->objek)):
+                foreach($objek as $a):
+                    if ($i == $len - 1) {
+                        $str .= $a;
+                    }
+                    else{
 
-                    $str .= $a.", ";
-                }
-                $i++;
-            endforeach;
+                        $str .= $a.", ";
+                    }
+                    $i++;
+                endforeach;
+            endif;
             return $str;
         })
         ->editColumn('waktu_kejadian',function($i){
