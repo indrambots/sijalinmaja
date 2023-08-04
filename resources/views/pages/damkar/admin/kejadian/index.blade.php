@@ -189,7 +189,7 @@
                     dataType: "string",
                 },
                 {
-                    caption: "Jumlah Armada",
+                    caption: "Jumlah Personel",
                     dataField: "jumlah_personel",
                     dataType: "string",
                 },
