@@ -95,13 +95,13 @@
     		</tr>
     	</table>
 
-        <p class="s3" style="text-indent: -2pt;line-height: 125%;text-align: center;">
+        <p class="s3" style="text-indent: -2pt;line-height: 90%;text-align: center;">
             SURAT PERINTAH TUGAS</p>
         </p>
             <p class="s3" style="margin-bottom:5px; line-height: 125%;text-align: center; text-decoration:none;">
                 Nomor : {{$keg->spt}}
             </p>
-    	<table cellspacing="0" style="border-collapse:collapse; margin-bottom:-10px;">
+    	<table cellspacing="0" style="border-collapse:collapse; margin-bottom:-15px;">
             <tr style="height:43pt">
                 <td style="width:61pt">
                     <p class="s4" style="font-weight:bold; padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
@@ -142,7 +142,7 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;line-height: 14pt;text-align: justify;">
-                        Peraturan Gubernur Jawa Timur Nomor  66 Tahun 2022 tentang Pedoman Kerja dan Pelaksanaan Tugas Pemerintah Provinsi Jawa Timur Tahun 2023;
+                        Peraturan Gubernur Jawa Timur Nomor 25 Tahun 2023 tentang Perubahan atas Peraturan Gubernur Jawa Timur Nomor 66 Tahun 2022 tentang Pedoman Kerja dan Pelaksanaan Tugas Pemerintah Provinsi Jawa Timur Tahun 2023;
 
                     </p>
                 </td>
@@ -432,7 +432,7 @@
                     </p>
                 </td>
                 <td colspan="4" style="width:445pt">
-                    <p class="s6" style="padding-top: 6pt;/* padding-left: 14pt; */text-indent: 30pt;line-height: 14pt;text-align: left;letter-spacing: -0.3px;">
+                    <p class="s6" style="padding-top: 2pt;/* padding-left: 14pt; */text-indent: 30pt;line-height: 14pt;text-align: left;letter-spacing: -0.3px;">
                         Demikian Surat Perintah Tugas ini untuk dilaksanakan dengan sebaik- baiknya dengan penuh rasa tanggung jawab.
                     </p>
                 </td>
@@ -749,7 +749,7 @@
         </table>
         @endif
         <br>
-         <table cellspacing="0" style="border-collapse:collapse;margin-left:274.075pt; margin-top: -10px;">
+         <table cellspacing="0" style="border-collapse:collapse;margin-left:274.075pt; margin-top: -22px;">
             
         <tr style="height:13pt">
             

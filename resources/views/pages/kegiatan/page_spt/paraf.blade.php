@@ -1,5 +1,5 @@
 @if(strtolower($keg->bidang) == 'sekretariat')
-<table cellspacing="0" style="border-collapse:collapse;margin-left:60.075pt; margin-top: -10px;">
+<table cellspacing="0" style="border-collapse:collapse;margin-left:60.075pt; margin-top: -12px;">
     <tbody>
         <tr style="height:10pt">
             <td style="width:96pt;border-bottom-style:solid;border-bottom-width:1pt">
@@ -78,7 +78,7 @@
     </tbody>
 </table>
 @else
-<table cellspacing="0" style="border-collapse:collapse;margin-left:60.075pt; margin-top: -10px;">
+<table cellspacing="0" style="border-collapse:collapse;margin-left:60.075pt; margin-top: -12px;">
     <tbody>
         <tr style="height:10pt">
             <td style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt">
