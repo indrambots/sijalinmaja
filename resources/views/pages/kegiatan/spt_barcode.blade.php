@@ -143,7 +143,7 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;line-height: 14pt;text-align: justify;">
-                        Peraturan Gubernur Jawa Timur Nomor 25 Tahun 2023 tentang Perubahan atas Peraturan Gubernur Jawa Timur Nomor 66 Tahun 2022 tentang Pedoman Kerja dan Pelaksanaan Tugas Pemerintah Provinsi Jawa Timur Tahun 2023;
+                        Peraturan Gubernur Jawa Timur Nomor  66 Tahun 2022 tentang Pedoman Kerja dan Pelaksanaan Tugas Pemerintah Provinsi Jawa Timur Tahun 2023;
 
                     </p>
                 </td>
