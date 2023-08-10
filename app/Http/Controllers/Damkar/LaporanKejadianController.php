@@ -81,10 +81,10 @@ class LaporanKejadianController extends Controller
         $kejadian->nama_kota = $region->kota;
         $kejadian->save();
         if($request->dokumentasi !== null):
-            $dok = $this->uploadDokumentasi($request->dokumentasi,1,$request->id);
+            $dok = $this->uploadDokumentasi($request->dokumentasi,1,$kejadian->id);
         endif;
         if($request->dokumentasi_2 !== null):
-            $dok2 = $this->uploadDokumentasi($request->dokumentasi_2,2,$request->id);
+            $dok2 = $this->uploadDokumentasi($request->dokumentasi_2,2,$kejadian->id);
         endif;
         LaporanKejadian::find($kejadian->id)->update([
             "dokumentasi" => $dok,
