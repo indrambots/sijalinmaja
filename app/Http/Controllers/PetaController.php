@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\OporDetail;
 use App\Opor;
 use App\Kasus;
+use App\LaporanKejadian;
 use DB;
 
 class PetaController extends Controller
@@ -24,6 +25,9 @@ class PetaController extends Controller
         $opor = json_encode($opor);
         $cased = Kasus::where('id','>',0)->get()->toArray();
         $cased = json_encode($cased);
-        return view('pages.peta.index',compact('opor','cased'));
+        $kebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Kebakaran')->where('id','>',0)->get());
+        $nonkebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Non Kebakaran')->where('id','>',0)->get());
+        
+        return view('pages.peta.index',compact('opor','cased','kebakaran','nonkebakaran'));
     }
 }

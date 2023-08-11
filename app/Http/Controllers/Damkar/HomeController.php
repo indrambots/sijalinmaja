@@ -8,7 +8,8 @@ use Auth;
 use App\ProfilDamkar;
 use App\SarprasDamkar;
 use App\SdmDamkar;
-use DB;
+use App\LaporanKejadian;
+use App\Kota;
 
 class HomeController extends Controller
 {
@@ -38,6 +39,14 @@ class HomeController extends Controller
         else:
             return view('pages.damkar.admin.index');
         endif;  
+    }
+
+    public function peta()
+    {
+        $kebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Kebakaran')->where('user_id',Auth::user()->id)->get());
+        $nonkebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Non Kebakaran')->where('user_id',Auth::user()->id)->get());
+        $kota = Kota::find(Auth::user()->kota);
+        return view('pages.damkar.peta.index',compact('kebakaran','nonkebakaran','kota'));
     }
 
     public function sdm_update(Request $request)

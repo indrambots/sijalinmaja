@@ -120,9 +120,6 @@
   var opors = [];
   var kebakarans = []; var btnkebakaran;
   var nonkebakarans = []; var btnnonkebakaran;
-  var cases_aktif = []; var btnaktif;
-  var cases_proses = []; var btnproses;
-  var cases_selesai = []; var btnselesai;
   function initMap() 
 {
         btnjatim = document.getElementById("jawa_timur")
@@ -135,20 +132,6 @@
             baselayer.setMap(null);
           }
         });
-        // btnopor = document.getElementById("opor")
-        // btnopor.addEventListener("click",function(){
-        //   if (btnopor.checked){
-        //     for(var i = 0; i < opors.length; i++){
-        //       opors[i].setVisible(true);
-        //     }
-        //   }
-        //   else
-        //   {
-        //     for(var i = 0; i < opors.length; i++){
-        //       opors[i].setVisible(false);
-        //     }
-        //   }
-        // });
 
         btnkebakaran = document.getElementById("kebakaran")
         btnkebakaran.addEventListener("click",function(){
@@ -185,16 +168,16 @@
         menubtn.setAttribute("id", "kt_demo_panel_toggle");
         menubtn.type = 'button';
         var infowindow = new google.maps.InfoWindow();
-        var myLatLng = new google.maps.LatLng(-7.9666200, 112.6326600);
+        var myLatLng = new google.maps.LatLng({{ $kota->lat }}, {{ $kota->long}});
         var mapOptions = {
-          zoom: 8,
+          zoom: 11,
           center: myLatLng,
   				mapTypeId: 'hybrid'
         };
         map = new google.maps.Map(document.getElementById("map"), mapOptions);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(menubtn); 
       baselayer = new google.maps.Data();
-      baselayer.loadGeoJson('{{ asset('js/kota_all.json') }}')
+      baselayer.loadGeoJson('{{ asset('js/batas_kota/'.$kota->batas.'.geojson') }}')
       baselayer.setStyle({
     fillColor: 'yellow',
     opacity: 0.1,
@@ -208,85 +191,6 @@
           map: map,
           // icon:'{{asset('js/icon/mylock.gif')}}'
         });
-
-       var cased;
-        var array_cased = {!!$cased!!};
-       for(var i = 0; i < array_cased.length; i++){
-        var koordinat = JSON.parse(array_cased[i].koordinat);
-          if(array_cased[i].status <= 1){
-            console.log(array_cased[i])
-            cased = new google.maps.Marker({
-              position: { lat: koordinat[0], lng: koordinat[1] },
-              map: map,
-              icon:'{{ asset('js/icon/red.png')}}',
-              draggable: false,
-            });
-            cases_aktif.push(cased)
-          }
-          else if(array_cased[i].status > 1 && array_cased[i].status < 5){
-            cased = new google.maps.Marker({
-              position: { lat: koordinat[0], lng: koordinat[1] },
-              map: map,
-              icon:'{{ asset('js/icon/yellow.png')}}',
-              draggable: false,
-            });
-            cases_proses.push(cased)
-          }
-          else if(array_cased[i].status == 5){
-            cased = new google.maps.Marker({
-              position: { lat: koordinat[0], lng: koordinat[1] },
-              map: map,
-              icon:'{{ asset('js/icon/green.png')}}',
-              draggable: false,
-            });
-            cases_selesai.push(cased)
-          }
-          google.maps.event.addListener(cased, 'click', (function(marker, i) {
-            return function() {
-            console.log(array_cased[i])
-              infowindow.setContent(`<strong>`+array_cased[i].judul+`</strong>
-                <table id="tabel_peta">
-                  <tr> 
-                    <td><strong>Lokasi</strong></td>
-                    <td>`+array_cased[i].lokasi_kejadian+`,`+array_cased[i].lokasi_kejadian+`, `+array_cased[i].kota_nama+`, `+array_cased[i].kec_nama +`, `+array_cased[i].kel_nama+`</td>
-                  </tr>
-                  <tr> 
-                    <td><strong>Pelanggar</strong></td>
-                    <td>`+array_cased[i].nama_pelanggar+`</td>
-                  </tr>
-                  <tr> 
-                    <td><strong>Urusan</strong></td>
-                    <td>`+array_cased[i].urusan+`</td>
-                  </tr>
-                  <tr> 
-                    <td><strong>Jenis Trantibum</strong></td>
-                    <td>`+array_cased[i].jenis_trantib+`</td>
-                  </tr>
-                  <tr> 
-                    <td><strong>Potensi PAD</strong></td>
-                    <td class="rupiah">`+formatRupiah(array_cased[i].potensi_pad)+`</td>
-                  </tr>
-                  <tr> 
-                    <td><strong>Waktu Kejadian</strong></td>
-                    <td>`+array_cased[i].waktu_kejadian+`</td>
-                  </tr>
-                  <tr> 
-                    <td><strong>Pelapor</strong></td>
-                    <td>`+array_cased[i].pelapor+` (`+array_cased[i].no_telp_pelapor+`)</td>
-                  </tr>
-                  <tr> 
-                    <td><strong>Sumber Informasi</strong></td>
-                    <td>`+array_cased[i].sumber_informasi+`</td>
-                  </tr>
-                  <tr> 
-                    <td><strong>Tanggal Informasi</strong></td>
-                    <td>`+array_cased[i].tanggal_informasi+`</td>
-                  </tr>
-                 </table>`);
-              infowindow.open(map, marker);
-            }
-          })(cased, i));
-       }
 
         var kebakaran; var array_kebakaran = {!!$kebakaran!!}
         for(var i = 0; i < array_kebakaran.length; i++){
@@ -422,26 +326,6 @@
           })(nonkebakaran, i));
        }
        console.log(nonkebakarans.length)
-       // var opor; var array_opor = {!!$opor!!}
-       // for(var i = 0; i < array_opor.length; i++){
-       //  var koordinat = JSON.parse(array_opor[i].koordinat_fix);
-       //    opor = new google.maps.Marker({
-       //      position: { lat: koordinat[0], lng: koordinat[1] },
-       //      map: map,
-       //      draggable: false,
-       //      icon:'{{ asset('js/icon/blue.png') }}', // anchor
-       //      scaledSize: new google.maps.Size(22, 27), // scaled size
-       //      origin: new google.maps.Point(0,0), // origin
-       //      anchor: new google.maps.Point(0, 0)
-       //    });
-       //    google.maps.event.addListener(opor, 'click', (function(marker, i) {
-       //      return function() {
-       //        infowindow.setContent(array_opor[i].nama_tempat);
-       //        infowindow.open(map, marker);
-       //      }
-       //    })(opor, i));
-       //    opors.push(opor)
-       // }
 
 }
 

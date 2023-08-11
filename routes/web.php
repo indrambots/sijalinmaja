@@ -74,6 +74,7 @@ Route::prefix('peta')->group(function () {
 
 Route::prefix('damkar')->group(function () {
     Route::get('','Damkar\HomeController@index');
+    Route::get('peta','Damkar\HomeController@peta');
     Route::post('update-sarpras','Damkar\HomeController@sarpras_update');
     Route::post('update-sdm','Damkar\HomeController@sdm_update');
     Route::prefix('report')->group(function () {
