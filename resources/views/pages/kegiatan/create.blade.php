@@ -297,6 +297,8 @@
 					<option value="PETUGAS TUM">PETUGAS TUM</option> 
 					<option value="PESERTA">PESERTA</option>
 					<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
+					<option value="SHIFT PAGI">SHIFT PAGI</option> 
+					<option value="SHIFT MALAM">SHIFT MALAM</option> 
 				</select>
 			</div>
 				<button type="button" class="btn btn-sm btn-danger" class="delete_attributs" id="delete_attribut1"><i class="far fa-trash-alt"></i></button>
