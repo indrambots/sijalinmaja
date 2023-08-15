@@ -23,26 +23,27 @@
 											p.nama,
 											p.nip,
 											k.spt,
-											k.judul_kegiatan,
+											k.bentuk_kegiatan,
 											k.tanggal_mulai,
 											k.tanggal_selesai,
+											k.jam_mulai,
 											k.id
 											FROM
 											pegawai p
 											INNER JOIN kegiatan_personel kp ON p.nip = kp.nip
 											INNER JOIN kegiatan k ON kp.kegiatan_id = k.id
-											WHERE '".$pti->tanggal."' BETWEEN tanggal_mulai AND tanggal_selesai AND p.nip = '".$k->nip."' ");
+											WHERE '".$pti->tanggal."' BETWEEN tanggal_mulai AND tanggal_selesai AND p.nip = '".$k->nip."' AND k.bentuk_kegiatan <> 'PUSKOGAP' ");
 						?>
 					@if(!empty($keg))
 						@foreach($keg as $kk)
-							<a href=".{{url('download/spt/'.$kk->id)}}" target="_blank">{{$kk->spt}}</a>&nbsp; {{$kk->judul_kegiatan}} 
+							<a href=".{{url('download/spt/'.$kk->id)}}" target="_blank">{{$kk->spt}}</a>&nbsp; {{$kk->bentuk_kegiatan}} 
 						(	@if($kk->tanggal_mulai == $kk->tanggal_selesai) 
 	                {{date("d F Y", strtotime($kk->tanggal_mulai))}}
 	            	@else
 	                {{date("d F Y", strtotime($kk->tanggal_mulai))." s/d ".date("d F Y", strtotime($kk->tanggal_selesai))}}
 	                @endif
 	                )
-							<br>
+							 <strong> => JAM MULAI {{$kk->jam_mulai}}</strong> <br>
 						@endforeach
 					@else
 						-
