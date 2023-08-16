@@ -117,6 +117,10 @@ Route::prefix('rekap')->group(function(){
     });
     Route::get('datatable-rekap-kegiatan','Rekap\KegiatanController@datatable_rekap_kegiatan');
     Route::post('kegiatan-bidang','Rekap\KegiatanController@kegiatan_bidang');
+    Route::prefix('kasus')->group(function(){
+        Route::get('','Rekap\KasusController@index');
+        Route::post('kasus-grid','Rekap\KasusController@kasus_grid');
+    });
 });
 Route::prefix('report')->group(function(){
     Route::prefix('kegiatan')->group(function(){
