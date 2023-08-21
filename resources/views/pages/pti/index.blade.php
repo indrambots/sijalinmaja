@@ -110,6 +110,7 @@
                                 <option value="GLAGAPAN RABU">GLAGAPAN RABU</option>
                                 <option value="SIDAK RUANGAN">SIDAK RUANGAN</option>
                                 <option value="SENAM">SENAM</option>
+                                <option value="KEJAR SIROMA">KEJAR SIROMA</option>
                                 <option value="UPACARA HARI BESAR">UPACARA HARI BESAR</option>
                             </select>
                         </div>
