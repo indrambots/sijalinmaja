@@ -291,7 +291,7 @@ tr.details td.details-control {
         </div>
 
         <div style="position: fixed; width:100%;height:100%; top:0px; left:0px;z-index:200000;background-color:rgba(0,0,0,0.6);" class="d-none" id="loading">
-            <img src="{{asset('GSA/img/loading.gif')}}" style="position: absolute;z-index:10; top:0; bottom:0;left:0;right:0; margin:auto; width:5%;">
+            <img src="{{asset('js/icon/load.gif')}}" style="position: absolute;z-index:10; top:0; bottom:0;left:0;right:0; margin:auto; width:5%;">
         </div>
         <!--end::Scrolltop-->
         <!--begin::Sticky Toolbar-->

@@ -109,6 +109,19 @@ FROM
 
     public function sarpras_grid(Request $request)
     {
-        $sarpras = DB::SELECT("SELECT s.*,u.`name` FROM `sarpras_damkar` s INNER JOIN users u ON s.user_id = u.id ");
+        $sarpras = DB::SELECT("SELECT s.*,m.nama FROM `sarpras_damkar` s INNER JOIN users u ON s.user_id = u.id RIGHT JOIN master_kota m ON u.kota = m.id WHERE m.nama <> 'LUAR JAWA TIMUR'");
+        return response()->json($sarpras);
+    }
+
+    public function sdm()
+    {
+        return view('pages.damkar.admin.sdm.index');
+    }
+
+
+    public function sdm_grid(Request $request)
+    {
+        $sdm = DB::SELECT("SELECT s.*,m.nama FROM `sdm_damkar` s INNER JOIN users u ON s.user_id = u.id RIGHT JOIN master_kota m ON u.kota = m.id WHERE m.nama <> 'LUAR JAWA TIMUR'");
+        return response()->json($sdm);
     }
 }
