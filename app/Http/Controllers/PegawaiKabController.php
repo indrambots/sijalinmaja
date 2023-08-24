@@ -19,7 +19,7 @@ class PegawaiKabController extends Controller
         $query->select('pegawai_kab.*', 'kab.nama as kab_kota');
         $query->join('master_kota as kab', 'kab.id', '=', 'pegawai_kab.kab_kota_id');
         //Jika level dinas, kabupaten atau kota
-        if(auth()->user()->level == 5){
+        if(auth()->user()->level == 11){
             $query->where('pegawai_kab.kab_kota_id', auth()->user()->kota);
         }
         $query->orderBy('id', 'desc');

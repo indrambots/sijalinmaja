@@ -8,87 +8,93 @@
     <li class="breadcrumb-item px-3 text-muted">Anggaran Kab/Kota</li>
 </ol>
 <div class="row justify-content-center">
-    @if($profil)
-        <div class="col-12 col-md-4">
-            <div class="card mb-4">
-                <div class="card-body pt-9 pb-0">
-                    <div class="d-flex flex-wrap flex-sm-nowrap">
-                        <div class="flex-grow-1">
-                            <div class="d-flex row-auto justify-content-center">
-                                <div class="d-flex flex-column">
-                                    <div class="text-center mb-10">
-                                        <div class="symbol symbol-60 symbol-circle symbol-xl-90">
-                                            <div class="symbol-label"
-                                                style="background-image:url('{{ asset('assets/logo/damkar.png') }}')"></div>
-                                        </div>
-                                        <div class="text-muted mb-2">Nomenlaktur Lembaga</div>
-                                        <h4 class="font-weight-bold my-2">{{$profil->nomenlaktur}}</h4>
-                                        <div class="col mt-2">
-                                            <div class="font-size-sm text-muted font-weight-bold">Nama Kepala Satuan</div>
-                                            <div class="font-size-h4 font-weight-bolder">{{$profil->nama_kepala_satuan}}</div>
-                                            <div class="font-size-sm font-weight-bolder" style="text-decoration:underline;">
-                                                {{$profil->golongan}}
+    {{--Jika level dinas, kabupaten atau kota, admin--}}
+    @if(auth()->user()->level == 11 || auth()->user()->level == 7)
+        @if($profil)
+            <div class="col-12 col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body pt-9 pb-0">
+                        <div class="d-flex flex-wrap flex-sm-nowrap">
+                            <div class="flex-grow-1">
+                                <div class="d-flex row-auto justify-content-center">
+                                    <div class="d-flex flex-column">
+                                        <div class="text-center mb-10">
+                                            <div class="symbol symbol-60 symbol-circle symbol-xl-90">
+                                                <div class="symbol-label"
+                                                    style="background-image:url('{{ asset('assets/logo/damkar.png') }}')"></div>
                                             </div>
-                                        </div>
-                                        <div class="col mt-4">
-                                            <div class="font-size-sm text-muted font-weight-bold">Alamat Kantor</div>
-                                            <div class="font-size-h4 font-weight-bolder">{{$profil->alamat_kantor}}</div>
-                                        </div>
-                                        <div class="col mt-4">
-                                            <div class="font-size-sm text-muted font-weight-bold">Kab / Kota</div>
-                                            <div class="font-size-h4 font-weight-bolder">{{$profil->kabKOta->nama}}</div>
-                                        </div>
-                                        <div class="col mt-2 mb-4">
-                                            <div class="font-size-sm text-muted font-weight-bold">Anggaran</div>
-                                            <div class="font-size-h4 font-weight-bolder">
-                                                Rp. {{number_format($profil->anggaran,2,',','.')}}
+                                            <div class="text-muted mb-2">Nomenlaktur Lembaga</div>
+                                            <h4 class="font-weight-bold my-2">{{$profil->nomenlaktur}}</h4>
+                                            <div class="col mt-2">
+                                                <div class="font-size-sm text-muted font-weight-bold">Nama Kepala Satuan</div>
+                                                <div class="font-size-h4 font-weight-bolder">{{$profil->nama_kepala_satuan}}</div>
+                                                <div class="font-size-sm font-weight-bolder" style="text-decoration:underline;">
+                                                    {{$profil->golongan}}
+                                                </div>
                                             </div>
+                                            <div class="col mt-4">
+                                                <div class="font-size-sm text-muted font-weight-bold">Alamat Kantor</div>
+                                                <div class="font-size-h4 font-weight-bolder">{{$profil->alamat_kantor}}</div>
+                                            </div>
+                                            <div class="col mt-4">
+                                                <div class="font-size-sm text-muted font-weight-bold">Kab / Kota</div>
+                                                <div class="font-size-h4 font-weight-bolder">{{$profil->kabKOta->nama}}</div>
+                                            </div>
+                                            <div class="col mt-2 mb-4">
+                                                <div class="font-size-sm text-muted font-weight-bold">Anggaran</div>
+                                                <div class="font-size-h4 font-weight-bolder">
+                                                    Rp. {{number_format($profil->anggaran,2,',','.')}}
+                                                </div>
+                                            </div>
+                                            <button href="#" class="btn btn-sm btn-primary me-3" data-toggle="modal" data-target="#modal-profil">
+                                                <i class="flaticon2-edit"></i> &nbsp; Update Profil Kelembagaan
+                                            </button>
                                         </div>
-                                        <button href="#" class="btn btn-sm btn-primary me-3" data-toggle="modal" data-target="#modal-profil">
-                                            <i class="flaticon2-edit"></i> &nbsp; Update Profil Kelembagaan
-                                        </button>
+                                        <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2"></div>
                                     </div>
-                                    <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @else
-    <div class="col-12 col-md-4">
-        <div class="alert alert-custom alert-dark" role="alert">
-            <div class="alert-icon">
-                <i class="flaticon-warning"></i>
-            </div>
-            <div class="alert-text">
-                Anda Belum Mengisi Kelengkapaan Profil Kelembagaan Silahkan
-                <button data-toggle="modal" data-target="#modal-profil" class="btn btn-lg btn-primary">
-                    Klik Disini
-                </button>
-                untuk mengisi profil kelembagaan
-            </div>
-        </div>
-    </div>
-    @endif
-    <div class="col-12 col-md-8 mb-2">
-        <div class="row">
-            <div class="col-12 col-md-6 mb-3">
-                <div class="card card-custom wave wave-animate-fast wave-primary">
-                    <div class="card-body text-center">
-                        <a href="{{ url('anggaran/report/kelembagaan') }}">
-                            <span class="svg-icon svg-icon-primary svg-icon-6x">
-                                <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-school"></i>
-                            </span>
-                        </a>
-                        <br>
-                        <a href="{{ url('anggaran/report/kelembagaan') }}"
-                            class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">PROFIL KELEMBAGAAN
-                        </a>
+        @else
+            <div class="col-12 col-md-4">
+                <div class="alert alert-custom alert-dark" role="alert">
+                    <div class="alert-icon">
+                        <i class="flaticon-warning"></i>
+                    </div>
+                    <div class="alert-text">
+                        Anda Belum Mengisi Kelengkapaan Profil Kelembagaan Silahkan
+                        <button data-toggle="modal" data-target="#modal-profil" class="btn btn-lg btn-primary">
+                            Klik Disini
+                        </button>
+                        untuk mengisi profil kelembagaan
                     </div>
                 </div>
             </div>
+        @endif
+    @endif
+    <div class="col-12 {!! auth()->user()->level != 5 ? 'col-md-8' : 'col-md-12' !!} mb-2">
+        <div class="row">
+            {{--Jika level provinsi, admin--}}
+            @if(auth()->user()->level == 5 || auth()->user()->level == 7)
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card card-custom wave wave-animate-fast wave-primary">
+                        <div class="card-body text-center">
+                            <a href="{{ url('anggaran/report/kelembagaan') }}">
+                                <span class="svg-icon svg-icon-primary svg-icon-6x">
+                                    <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-school"></i>
+                                </span>
+                            </a>
+                            <br>
+                            <a href="{{ url('anggaran/report/kelembagaan') }}"
+                                class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">PROFIL KELEMBAGAAN
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="col-12 col-md-6 mb-3">
                 <div class="card card-custom wave wave-animate-fast wave-primary">
@@ -122,160 +128,168 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-12">
-                <br>
-                <div class="card card-custom gutter-b">
-                    <div class="card-header card-header-tabs-line">
-                        <div class="card-toolbar">
-                            <ul class="nav nav-tabs nav-bold nav-tabs-line">
-                                <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#anggaran-bidang">
-                                        <span class="nav-text">Data Anggaran</span>
-                                    </a>
-                                </li>
-                            </ul>
+            {{--Jika level dinas, kabupaten atau kota, admin--}}
+            @if(auth()->user()->level == 11 || auth()->user()->level == 7)
+                <div class="col-12 col-md-12">
+                    <br>
+                    <div class="card card-custom gutter-b">
+                        <div class="card-header card-header-tabs-line">
+                            <div class="card-toolbar">
+                                <ul class="nav nav-tabs nav-bold nav-tabs-line">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#anggaran-bidang">
+                                            <span class="nav-text">Data Anggaran</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="anggaran-bidang" role="tabpanel">
-                                <div class="row justify-content-between">
-                                    <div class="col-12">
-                                        @if($profil)
-                                            <div class="d-flex justify-content-end">
-                                                <button type="button" onclick="anggaranManage()" class="btn btn-outline-primary m-b-xs">
-                                                    <i class="fas fa-plus-circle"></i> Buat Anggaran
-                                                </button>
-                                            </div>
-                                        @else
-                                            <div class="alert alert-custom alert-dark" role="alert">
-                                                <div class="alert-icon">
-                                                    <i class="flaticon-warning"></i>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="anggaran-bidang" role="tabpanel">
+                                    <div class="row justify-content-between">
+                                        <div class="col-12">
+                                            @if($profil)
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="button" onclick="anggaranManage()" class="btn btn-outline-primary m-b-xs">
+                                                        <i class="fas fa-plus-circle"></i> Buat Anggaran
+                                                    </button>
                                                 </div>
-                                                <div class="alert-text">
-                                                    Anda Belum Mengisi Kelengkapaan Profil Kelembagaan Silahkan
+                                            @else
+                                                <div class="alert alert-custom alert-dark" role="alert">
+                                                    <div class="alert-icon">
+                                                        <i class="flaticon-warning"></i>
+                                                    </div>
+                                                    <div class="alert-text">
+                                                        Anda Belum Mengisi Kelengkapaan Profil Kelembagaan Silahkan
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="table-responsive">
-                                    <table id="datatable" class="table table-striped table-hover table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Unit Kerja</th>
-                                                <th>Anggaran</th>
-                                                <th>Tahun</th>
-                                                <th width="80px">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    <hr>
+                                    <div class="table-responsive">
+                                        <table id="datatable" class="table table-striped table-hover table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Unit Kerja</th>
+                                                    <th>Anggaran</th>
+                                                    <th>Tahun</th>
+                                                    <th width="80px">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
 
-<div id="modal-profil" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-left">{{isset($profil->id) ? 'UPDATE PROFIL' : 'LENGKAPI PROFIL'}}</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form" method="POST" action="{{url('anggaran/profil-lembaga/store')}}">
-                    @csrf
-                    <input type="hidden" name="profileid" value="{{isset($profil->id) ? $profil->id : ''}}">
-                    <input type="hidden" name="userid" value="{{auth()->user()->id}}">
-                    <div class="form-group">
-                        <label>Nama Kepala Satuan <span class="text-danger">*</span> :</label>
-                        <input type="text" name="nama_kepala_satuan" value="{{@$profil->nama_kepala_satuan}}" placeholder="Nama Kepala Satuan" required class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Nomenlaktur Lembaga <span class="text-danger">*</span> :</label>
-                        <input type="text" name="nomenlaktur" value="{{@$profil->nomenlaktur}}" placeholder="Nomenlaktur Lembaga" required class="form-control">
-                        <span class="form-text text-danger">Isi Sesuai Nomenlaktur.</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Golongan <span class="text-danger">*</span> :</label>
-                        <select class="form-control" name="golongan" required>
-                            <option value="">--Pilih Golongan--</option>
-                            @foreach($golongan as $gol)
-                                <option value="{{$gol->nama}}" {{$gol->nama == @$profil->golongan ? 'selected' : ''}}>{{$gol->nama}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Alamat Kantor <span class="text-danger">*</span> :</label>
-                        <textarea name="alamat_kantor" required placeholder="isikan alamat kantor" rows="2" class="form-control">{{@$profil->alamat_kantor}}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Kabupaten / Kota <span class="text-danger">*</span> :</label>
-                        <select class="form-control" name="kab_kota_id" required>
-                            <option value="">--Pilih Kabupaten / Kota--</option>
-                            @foreach($kota as $kot)
-                                <option value="{{$kot->id}}" {{$kot->id == @$profil->kab_kota_id ? 'selected' : ''}}>{{$kot->nama}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Anggaran <span class="text-danger">*</span> :</label>
-                        <input type="text" name="anggaran" value="{{@$profil->anggaran}}" placeholder="isikan anggaran lembaga" required class="form-control rupiah">
-                    </div>
-                    <button type='submit' class="btn btn-primary mr-2">SIMPAN</button>
-                </form>
+{{--Jika level dinas, kabupaten atau kota, admin--}}
+@if(auth()->user()->level == 11 || auth()->user()->level == 7)
+    <div id="modal-profil" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-left">{{isset($profil->id) ? 'UPDATE PROFIL' : 'LENGKAPI PROFIL'}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form" method="POST" action="{{url('anggaran/profil-lembaga/store')}}">
+                        @csrf
+                        <input type="hidden" name="profileid" value="{{isset($profil->id) ? $profil->id : ''}}">
+                        <input type="hidden" name="userid" value="{{auth()->user()->id}}">
+                        <div class="form-group">
+                            <label>Nama Kepala Satuan <span class="text-danger">*</span> :</label>
+                            <input type="text" name="nama_kepala_satuan" value="{{@$profil->nama_kepala_satuan}}" placeholder="Nama Kepala Satuan" required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Nomenlaktur Lembaga <span class="text-danger">*</span> :</label>
+                            <input type="text" name="nomenlaktur" value="{{@$profil->nomenlaktur}}" placeholder="Nomenlaktur Lembaga" required class="form-control">
+                            <span class="form-text text-danger">Isi Sesuai Nomenlaktur.</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Golongan <span class="text-danger">*</span> :</label>
+                            <select class="form-control" name="golongan" required>
+                                <option value="">--Pilih Golongan--</option>
+                                @foreach($golongan as $gol)
+                                    <option value="{{$gol->nama}}" {{$gol->nama == @$profil->golongan ? 'selected' : ''}}>{{$gol->nama}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Alamat Kantor <span class="text-danger">*</span> :</label>
+                            <textarea name="alamat_kantor" required placeholder="isikan alamat kantor" rows="2" class="form-control">{{@$profil->alamat_kantor}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Kabupaten / Kota <span class="text-danger">*</span> :</label>
+                            <select class="form-control" name="kab_kota_id" required>
+                                <option value="">--Pilih Kabupaten / Kota--</option>
+                                @foreach($kota as $kot)
+                                    <option value="{{$kot->id}}" {{$kot->id == @$profil->kab_kota_id ? 'selected' : ''}}>{{$kot->nama}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Anggaran <span class="text-danger">*</span> :</label>
+                            <input type="text" name="anggaran" value="{{@$profil->anggaran}}" placeholder="isikan anggaran lembaga" required class="form-control rupiah">
+                        </div>
+                        <button type='submit' class="btn btn-primary mr-2">SIMPAN</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="modal-manage-anggaran" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" onclick="closeModal()">&times;</button>
-                <h4 class="modal-title text-left text-title"></h4>
-            </div>
-            <div class="modal-body">
-                <form class="form" method="POST" action="{{ url('anggaran/bidang/store') }}" id="form-anggaran">
-                    {{csrf_field()}}
-                    <input type="hidden" name="lembagaid" value="{{@$profil->id}}">
-                    <input type="hidden" name="anggaranid" id="anggaranid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Unit Kerja / Bidang <span class="text-danger">*</span> :</label>
-                                <input type="text" name="unit_kerja" id="unit_kerja" placeholder="Unit Kerja / Bidang" required class="form-control">
+    <div id="modal-manage-anggaran" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="closeModal()">&times;</button>
+                    <h4 class="modal-title text-left text-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form" method="POST" action="{{ url('anggaran/bidang/store') }}" id="form-anggaran">
+                        {{csrf_field()}}
+                        <input type="hidden" name="lembagaid" value="{{@$profil->id}}">
+                        <input type="hidden" name="anggaranid" id="anggaranid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Unit Kerja / Bidang <span class="text-danger">*</span> :</label>
+                                    <input type="text" name="unit_kerja" id="unit_kerja" placeholder="Unit Kerja / Bidang" required class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Anggaran <span class="text-danger">*</span> :</label>
+                                    <input type="text" name="anggaran" id="anggaran" placeholder="Anggaran" required class="form-control rupiah">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Tahun <span class="text-danger">*</span> :</label>
+                                    <input type="number" name="tahun_anggaran" id="tahun_anggaran" placeholder="Tahun" required class="form-control">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Anggaran <span class="text-danger">*</span> :</label>
-                                <input type="text" name="anggaran" id="anggaran" placeholder="Anggaran" required class="form-control rupiah">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Tahun <span class="text-danger">*</span> :</label>
-                                <input type="number" name="tahun_anggaran" id="tahun_anggaran" placeholder="Tahun" required class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <button type='submit' class="btn btn-primary mr-2">SIMPAN</button>
-                </form>
+                        <button type='submit' class="btn btn-primary mr-2">SIMPAN</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+@endif
 @endsection
 
 @section('script')
+{{--Jika level dinas, kabupaten atau kota, admin--}}
+@if(auth()->user()->level == 11 || auth()->user()->level == 7)
 <script>
     var datatable = $('#datatable').DataTable({
         processing: true,
@@ -311,4 +325,5 @@
         $('#form-anggaran')[0].reset();
     }
 </script>
+@endif
 @endsection
