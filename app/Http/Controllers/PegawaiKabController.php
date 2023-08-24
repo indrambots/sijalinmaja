@@ -38,9 +38,9 @@ class PegawaiKabController extends Controller
             //Jika level dinas, kabupaten atau kota, admin
             if(auth()->user()->level == 5 || auth()->user()->level == 7){
                 $html = '
-                    <form action="'.route('pegawai-kab.destroy', $data->id).'" method="post" id="form-delete'.$data->id.'">
+                    <form action="'.url('pegawai-kab/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'
-                        <a href="'.route('pegawai-kab.edit', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
+                        <a href="'.url('pegawai-kab/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
                         <button type="button" onclick="deleteData('.$data->id.')" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>
                     </form>
                 ';
@@ -57,35 +57,7 @@ class PegawaiKabController extends Controller
         return view('pages.pegawai-kab.index');
     }
 
-    public function create(){
-
-        $jenis = MasterJenisJabatan::orderBy('nama', 'asc')->get();
-        $status = MasterStatusPegawai::orderBy('nama', 'asc')->get();
-        $tingkat = MasterTingkatJabatan::orderBy('nama', 'asc')->get();
-        $golongan = MasterGolonganLembaga::orderBy('nama', 'asc')->get();
-        $kota = Kota::query();
-        //Jika level dinas, kabupaten atau kota
-        if(auth()->user()->level == 5){
-            $kota->where('id', auth()->user()->kota);
-        }
-        $kota = $kota->orderBy('nama', 'asc')->get();
-
-        return view('pages.pegawai-kab.create', compact('jenis', 'status', 'tingkat', 'golongan', 'kota'));
-    }
-
-    public function store(Request $request){
-
-        $request->request->remove('_token');
-        $request->request->remove('_method');
-        $request->merge([
-            'is_ppns' => $request->is_ppns ? 1 : null
-        ]);
-        $data = PegawaiKab::updateOrCreate($request->all());
-
-        return redirect()->route('pegawai-kab.index')->with('msg_success', 'Berhasil disimpan.');
-    }
-
-    public function edit($id){
+    public function createOrEdit($id){
 
         $data = PegawaiKab::find($id);
         $jenis = MasterJenisJabatan::orderBy('nama', 'asc')->get();
@@ -99,19 +71,25 @@ class PegawaiKabController extends Controller
         }
         $kota = $kota->orderBy('nama', 'asc')->get();
 
-        return view('pages.pegawai-kab.edit', compact('data', 'jenis', 'status', 'tingkat', 'golongan', 'kota'));
+        return view('pages.pegawai-kab.create-edit', compact('data', 'jenis', 'status', 'tingkat', 'golongan', 'kota'));
     }
 
-    public function update(Request $request, $id){
+    public function storeOrUpdate(Request $request){
 
         $request->request->remove('_token');
         $request->request->remove('_method');
         $request->merge([
-            'is_ppns' => $request->is_ppns ? 1 : null
+            'is_ppns' => $request->is_ppns ? 1 : null,
+            'userid' => auth()->user()->id
         ]);
-        $data = PegawaiKab::where('id', $id)->update($request->all());
+        $data = $request->dataid ? PegawaiKab::find($request->dataid) : new PegawaiKab();
+        $request->request->remove('dataid');
+        foreach($request->all() as $field => $val){
+            $data->$field = $val;
+        }
+        $data->save();
 
-        return redirect()->route('pegawai-kab.index')->with('msg_success', 'Berhasil diperbaharui.');
+        return redirect('pegawai-kab')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
     }
 
     public function destroy($id){
@@ -119,6 +97,6 @@ class PegawaiKabController extends Controller
         $data = PegawaiKab::find($id);
         $data->delete();
 
-        return redirect()->route('pegawai-kab.index')->with('msg_success', 'Berhasil dihapus.');
+        return redirect('pegawai-kab')->with('msg_success', 'Berhasil dihapus.');
     }
 }

@@ -74,7 +74,7 @@
     @endif
     <div class="col-12 col-md-8 mb-2">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-md-6 mb-3">
                 <div class="card card-custom wave wave-animate-fast wave-primary">
                     <div class="card-body text-center">
                         <a href="{{ url('anggaran/report/kelembagaan') }}">
@@ -90,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-12 col-md-6 mb-3">
                 <div class="card card-custom wave wave-animate-fast wave-primary">
                     <div class="card-body text-center">
                         <a href="{{ url('anggaran/report') }}">
@@ -101,6 +101,22 @@
                         <br>
                         <a href="{{ url('anggaran/report') }}"
                             class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">LAPORAN ANGGARAN
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+                <div class="card card-custom wave wave-animate-fast wave-primary">
+                    <div class="card-body text-center">
+                        <a href="{{url('pegawai-kab')}}">
+                            <span class="svg-icon-6x">
+                                <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-users-line"></i>
+                            </span>
+                        </a>
+                        <br>
+                        <a href="{{url('pegawai-kab')}}"
+                            class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">DATA PEGAWAI
                         </a>
                     </div>
                 </div>

@@ -178,7 +178,10 @@ Route::prefix('anggaran')->group(function(){
 });
 
 Route::get('pegawai-kab/datatable','PegawaiKabController@datatable');
-Route::resource('pegawai-kab','PegawaiKabController');
+Route::get('pegawai-kab','PegawaiKabController@index');
+Route::get('pegawai-kab/create/{id}','PegawaiKabController@createOrEdit');
+Route::post('pegawai-kab/store','PegawaiKabController@storeOrUpdate');
+Route::delete('pegawai-kab/delete/{id}','PegawaiKabController@destroy');
 
 
 // Route::get('/foo', function () {

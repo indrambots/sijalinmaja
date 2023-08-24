@@ -5,6 +5,9 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
+    <li class="breadcrumb-item pe-3">
+        <a href="{{url('anggaran')}}" class="pe-3">Anggaran Kab/Kota</a>
+    </li>
     <li class="breadcrumb-item px-3 text-muted">Data Pegawai Kabupaten atau Kota</li>
 </ol>
 <div class="card">
@@ -19,7 +22,7 @@
                     </a>&nbsp;
                     {{--Jika level dinas, kabupaten atau kota, admin--}}
                     @if(auth()->user()->level == 5 || auth()->user()->level == 7)
-                        <a href="{{route('pegawai-kab.create')}}" class="btn btn-outline-primary m-b-xs">
+                        <a href="{{url('pegawai-kab/create/0')}}" class="btn btn-outline-primary m-b-xs">
                             <i class="fas fa-plus-circle"></i> Tambah Pegawai
                         </a>
                     @endif
