@@ -85,4 +85,23 @@ class HomeController extends Controller
         ->rawColumns(['raw_anggaran', 'aksi'])
         ->make(true);
     }
+
+    public function SpmStore(Request $request){
+        $data = AnggaranProfilLembaga::find($request->profileid);
+        $files = $request->spm;
+        $fileName = 'spm_kab_'.date('YmdHis').'.'.$files->getClientOriginalExtension();
+        $path = public_path('berkas');
+        if($data->spm){
+            unlink($path.'/'.$data->spm);
+        }
+        if(file_exists($path) == false){
+            mkdir($path, 0755, true);
+        }
+        $data->nilai_spm = $request->nilai_spm;
+        $data->spm = $fileName;
+        $files->move($path, $fileName);
+        $data->save();
+
+        return redirect('anggaran')->with('msg_success', 'Berhasil disimpan.');
+    }
 }

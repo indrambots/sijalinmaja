@@ -10,8 +10,8 @@
 <div class="row justify-content-center">
     {{--Jika level dinas, kabupaten atau kota, admin--}}
     @if(auth()->user()->level == 11 || auth()->user()->level == 7)
-        @if($profil)
-            <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4">
+            @if($profil)
                 <div class="card mb-4">
                     <div class="card-body pt-9 pb-0">
                         <div class="d-flex flex-wrap flex-sm-nowrap">
@@ -57,9 +57,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        @else
-            <div class="col-12 col-md-4">
+            @else
                 <div class="alert alert-custom alert-dark" role="alert">
                     <div class="alert-icon">
                         <i class="flaticon-warning"></i>
@@ -72,9 +70,56 @@
                         untuk mengisi profil kelembagaan
                     </div>
                 </div>
+            @endif
+
+            <div class="card card-custom mb-4">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">
+                            <i class="flaticon2-graph-1 text-primary"></i>
+                        </span>
+                        <h3 class="card-label">
+                            <small style="color: black;">Nilai SPM Urusan Kebakaran dan Penyelamatan</small>
+                        </h3>
+                    </div>
+                    <div class="card-toolbar">
+                        @if($profil)
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success font-weight-bold" data-toggle="modal" data-target="#modal-spm">
+                                <i class="flaticon2-pen"></i> Perbaharui Nilai
+                            </a>
+                        @else
+                            <div class="alert alert-custom alert-dark" role="alert">
+                                <div class="alert-icon">
+                                    <i class="flaticon-warning"></i>
+                                </div>
+                                <div class="alert-text">
+                                    Anda Belum Mengisi Kelengkapaan Profil Kelembagaan
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex row-auto justify-content-center">
+                        <div class="d-flex flex-column">
+                            <div class="text-center">
+                                <div class="text-muted mb-2">Nilai SPM</div>
+                                <h4 class="font-weight-bold my-2">{{$profil->nilai_spm}}</h4>
+                                @if($profil->spm !== null)
+                                    <a href="{{asset('berkas/'.$profil->spm.'')}}" target="_blank" class="btn btn-outline-primary btn-md">
+                                        <i class="flaticon-doc"></i>Dokumen Pendukung
+                                    </a>
+                                @else
+                                <div class="alert alert-secondary" role="alert">Anda belum memperbaharui NILAI SPM</div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endif
+        </div>
     @endif
+
     <div class="col-12 {!! auth()->user()->level != 5 ? 'col-md-8' : 'col-md-12' !!} mb-2">
         <div class="row">
             {{--Jika level provinsi, admin--}}
@@ -277,6 +322,33 @@
                                     <input type="number" name="tahun_anggaran" id="tahun_anggaran" placeholder="Tahun" required class="form-control">
                                 </div>
                             </div>
+                        </div>
+                        <button type='submit' class="btn btn-primary mr-2">SIMPAN</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-spm" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-left">FORM PERBAHARUI NILAI SPM</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form" method="POST" action="{{url('anggaran/profil/spm-save')}}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="profileid" value="{{@$profil->id}}">
+                        <div class="form-group">
+                            <label>Nilai SPM :</label>
+                            <input class="form-control" type="number" name="nilai_spm" value="{{@$profil->nilai_spm}}" step="any" id="nilai_spm" required placeholder="isikan nilai spm">
+                        </div>
+                        <div class="form-group">
+                            <label>Bukti Nilai SPM :</label>
+                            <input class="form-control" type="file" name="spm" id="spm" accept="application/pdf,application/vnd.ms-excel" required>
+                            <span>Mohon upload bukti nilai SPM yang telah ditandatangani Pejabat terkait</span>
                         </div>
                         <button type='submit' class="btn btn-primary mr-2">SIMPAN</button>
                     </form>

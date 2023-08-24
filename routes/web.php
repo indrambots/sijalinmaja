@@ -167,6 +167,7 @@ Route::prefix('anggaran')->group(function(){
     Route::post('profil-lembaga/store','AnggaranLembaga\HomeController@ProfilStore');
     Route::post('bidang/store','AnggaranLembaga\HomeController@AnggaranStore');
     Route::delete('bidang/delete/{id}','AnggaranLembaga\HomeController@AnggaranDelete');
+    Route::post('profil/spm-save','AnggaranLembaga\HomeController@SpmStore');
 
     Route::prefix('report')->group(function () {
         Route::get('','AnggaranLembaga\ReportController@anggaran');
