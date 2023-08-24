@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,7 @@ Route::prefix('kegiatan')->group(function () {
     Route::post('filter-bidang','KegiatanController@filter_bidang');
     Route::post('filter-kegiatan','KegiatanController@filter_kegiatan');
     Route::post('batalkan','KegiatanController@batalkan');
-});            
+});
 
 Route::prefix('kasus')->group(function () {
     Route::get('/', 'KasusController@index');
@@ -158,6 +159,26 @@ Route::prefix('download')->group(function(){
     Route::get('kasus-ba/{id}','DownloadController@kasus_ba');
     Route::get('kasus-history/{id}','DownloadController@kasus_history');
 });
+
+Route::prefix('anggaran')->group(function(){
+    Route::get('','AnggaranLembaga\HomeController@index');
+    Route::get('datatable','AnggaranLembaga\HomeController@anggaranDatatable');
+
+    Route::post('profil-lembaga/store','AnggaranLembaga\HomeController@ProfilStore');
+    Route::post('bidang/store','AnggaranLembaga\HomeController@AnggaranStore');
+    Route::delete('bidang/delete/{id}','AnggaranLembaga\HomeController@AnggaranDelete');
+
+    Route::prefix('report')->group(function () {
+        Route::get('','AnggaranLembaga\ReportController@anggaran');
+        Route::post('anggaran-grid','AnggaranLembaga\ReportController@anggaranGrid');
+
+        Route::get('kelembagaan','AnggaranLembaga\ReportController@kelembagaanIndex');
+        Route::post('kelembagaan-grid','AnggaranLembaga\ReportController@kelembagaanGrid');
+    });
+});
+
+Route::get('pegawai-kab/datatable','PegawaiKabController@datatable');
+Route::resource('pegawai-kab','PegawaiKabController');
 
 
 // Route::get('/foo', function () {

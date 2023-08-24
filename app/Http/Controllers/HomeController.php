@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Pegawai;
 use Yajra\Datatables\Datatables;
-use DB;
 use App\Kegiatan;
 
 class HomeController extends Controller
@@ -198,10 +198,51 @@ class HomeController extends Controller
                 </div>
             </div>
         </div>';
+        $page['anggaran_lembaga'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
+            <div class="card card-custom wave wave-animate-fast wave-primary">
+                <div class="card-body text-center">
+                    <a href="'.url('anggaran').'">
+                        <span class="svg-icon svg-icon-primary svg-icon-6x">
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-wallet" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <br>
+                    <a href="'.url('anggaran').'"
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">ANGGARAN KAB/KOTA
+                    </a>
+                </div>
+            </div>
+        </div>';
+        $page['pegawai_kab'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
+            <div class="card card-custom wave wave-animate-fast wave-primary">
+                <div class="card-body text-center">
+                    <a href="'.route('pegawai-kab.index').'">
+                        <span class="svg-icon svg-icon-primary svg-icon-6x">
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-users-line" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <br>
+                    <a href="'.route('pegawai-kab.index').'"
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">PEGAWAI KAB/KOTA
+                    </a>
+                </div>
+            </div>
+        </div>';
         $data = array();
         // dd(Auth::user()->pegawai);
         if(Auth::user()->level == 7 || Auth::user()->level == 5):
-            array_push($data,$page['kegiatan'],$page['peta'],$page['kasus'],$page['damkarmat'],$page['rekap_kegiatan'],$page['user_setting'],$page['pti'],$page['rekap_kasus']);
+            array_push($data,
+                $page['kegiatan'],
+                $page['peta'],
+                $page['kasus'],
+                $page['damkarmat'],
+                $page['rekap_kegiatan'],
+                $page['user_setting'],
+                $page['pti'],
+                $page['rekap_kasus'],
+                $page['anggaran_lembaga'],
+                $page['pegawai_kab']
+            );
         elseif(Auth::user()->level == 12):
             array_push($data,$page['damkarmat']);
         elseif(Auth::user()->level == 11):
@@ -209,7 +250,7 @@ class HomeController extends Controller
             if(count($damkar_check)  > 1 ):
                 array_push($data,$page['kasus']);
             else:
-                array_push($data,$page['kasus'],$page['damkarmat']);
+                array_push($data,$page['kasus'],$page['damkarmat'], $page['anggaran_lembaga'], $page['pegawai_kab']);
             endif;
         elseif(Auth::user()->level == 6):
                 array_push($data,$page['kegiatan'],$page['report_kegiatan']);
@@ -242,7 +283,7 @@ class HomeController extends Controller
 
     public function kegiatan_datatable()
     {
-        $kegiatan = DB::Select("SELECT k.*, p.ket, p.nip FROM `kegiatan` k INNER JOIN kegiatan_personel p ON k.id = p.kegiatan_id 
+        $kegiatan = DB::Select("SELECT k.*, p.ket, p.nip FROM `kegiatan` k INNER JOIN kegiatan_personel p ON k.id = p.kegiatan_id
                                 WHERE p.nip = '".Auth::user()->username."' AND k.deleted_at IS NULL");
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){

@@ -439,6 +439,12 @@ var loadPanel = $(".loadpanel").dxLoadPanel({
     toastr.success("Password berhasil dirubah!");
 </script>
 @endif
+
+@if(Session::get('msg_success'))
+<script type="text/javascript">
+    toastr.success("{{Session::get('msg_success')}}");
+</script>
+@endif
     <!--end::Body-->
 @stack('scriptTambahan')
 {{-- <script src = "{{ asset('js/default/alpinejs.js') }}"></script> --}}
