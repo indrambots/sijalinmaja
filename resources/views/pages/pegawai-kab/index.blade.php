@@ -14,6 +14,9 @@
         <div class="row justify-content-between">
             <div class="col-12">
                 <div class="d-flex justify-content-end">
+                    <a href="javascript:;" class="btn btn-outline-primary m-b-xs">
+                        <i class="fa-regular fa-file-excel"></i> Unduh Excel
+                    </a>&nbsp;
                     <a href="{{route('pegawai-kab.create')}}" class="btn btn-outline-primary m-b-xs">
                         <i class="fas fa-plus-circle"></i> Tambah Pegawai
                     </a>
@@ -35,7 +38,7 @@
                             <th>Unit Kerja</th>
                             <th>Jenis Kelamin</th>
                             <th>Alamat</th>
-                            <th>Aksi</th>
+                            <th width="70px">Aksi</th>
                         </tr>
                     </thead>
                 </table>
@@ -66,5 +69,11 @@
             { data: 'aksi', name: 'aksi' },
         ]
     });
+
+    function deleteData(id){
+        if(confirm('Apakah anda yakin ingin menghapus data ini ?') == true){
+            $('#form-delete'+id).submit();
+        }
+    }
 </script>
 @endsection

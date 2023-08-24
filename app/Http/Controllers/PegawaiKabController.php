@@ -7,6 +7,7 @@ use App\PegawaiKab;
 use App\MasterJenisJabatan;
 use App\MasterStatusPegawai;
 use App\MasterTingkatJabatan;
+use App\MasterGolonganLembaga;
 use Yajra\Datatables\Datatables;
 
 class PegawaiKabController extends Controller
@@ -21,7 +22,7 @@ class PegawaiKabController extends Controller
             $html = '
                 <form action="'.route('pegawai-kab.destroy', $data->id).'" method="post" id="form-delete'.$data->id.'">
                     '.csrf_field().' '.method_field('DELETE').'
-                    <a href="'.route('pegawai-kab.edit', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></button>
+                    <a href="'.route('pegawai-kab.edit', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
                     <button type="button" onclick="deleteData('.$data->id.')" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>
                 </form>
             ';
@@ -42,12 +43,15 @@ class PegawaiKabController extends Controller
         $jenis = MasterJenisJabatan::orderBy('nama', 'asc')->get();
         $status = MasterStatusPegawai::orderBy('nama', 'asc')->get();
         $tingkat = MasterTingkatJabatan::orderBy('nama', 'asc')->get();
+        $golongan = MasterGolonganLembaga::orderBy('nama', 'asc')->get();
 
-        return view('pages.pegawai-kab.create', compact('jenis', 'status', 'tingkat'));
+        return view('pages.pegawai-kab.create', compact('jenis', 'status', 'tingkat', 'golongan'));
     }
 
     public function store(Request $request){
 
+        $request->request->remove('_token');
+        $request->request->remove('_method');
         $data = PegawaiKab::updateOrCreate($request->all());
 
         return redirect()->route('pegawai-kab.index')->with('msg_success', 'Berhasil disimpan.');
@@ -59,12 +63,15 @@ class PegawaiKabController extends Controller
         $jenis = MasterJenisJabatan::orderBy('nama', 'asc')->get();
         $status = MasterStatusPegawai::orderBy('nama', 'asc')->get();
         $tingkat = MasterTingkatJabatan::orderBy('nama', 'asc')->get();
+        $golongan = MasterGolonganLembaga::orderBy('nama', 'asc')->get();
 
-        return view('pages.pegawai-kab.edit', compact('data', 'jenis', 'status', 'tingkat'));
+        return view('pages.pegawai-kab.edit', compact('data', 'jenis', 'status', 'tingkat', 'golongan'));
     }
 
     public function update(Request $request, $id){
 
+        $request->request->remove('_token');
+        $request->request->remove('_method');
         $data = PegawaiKab::where('id', $id)->update($request->all());
 
         return redirect()->route('pegawai-kab.index')->with('msg_success', 'Berhasil diperbaharui.');
