@@ -79,7 +79,7 @@
                             <i class="flaticon2-graph-1 text-primary"></i>
                         </span>
                         <h3 class="card-label">
-                            <small style="color: black;">Nilai SPM Urusan Kebakaran dan Penyelamatan</small>
+                            <small style="color: black;">Nilai SPM </small>
                         </h3>
                     </div>
                     <div class="card-toolbar">
