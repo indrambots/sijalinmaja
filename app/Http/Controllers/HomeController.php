@@ -232,9 +232,9 @@ class HomeController extends Controller
         elseif(Auth::user()->level == 11):
             $damkar_check = User::where('kota',Auth::user()->kota)->get();
             if(count($damkar_check)  > 1 ):
-                array_push($data,$page['kasus']);
+                array_push($data,$page['kasus'], $page['anggaran_lembaga']);
             else:
-                array_push($data,$page['kasus'],$page['damkarmat'], $page['anggaran_lembaga']);
+                array_push($data,$page['kasus'],$page['damkarmat']);
             endif;
         elseif(Auth::user()->level == 6):
                 array_push($data,$page['kegiatan'],$page['report_kegiatan']);
