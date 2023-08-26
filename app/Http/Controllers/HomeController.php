@@ -3,30 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Pegawai;
 use Yajra\Datatables\Datatables;
 use App\Kegiatan;
+use App\Helpers\AliasName;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function indexs()
     {
        return redirect('login');
@@ -214,8 +204,8 @@ class HomeController extends Controller
             </div>
         </div>';
         $data = array();
-        // dd(Auth::user()->pegawai);
-        if(Auth::user()->level == 7 || Auth::user()->level == 5):
+        // dd(auth()->user()->pegawai);
+        if(auth()->user()->level == AliasName::level_admin || auth()->user()->level == AliasName::level_satpolpp):
             array_push($data,
                 $page['kegiatan'],
                 $page['peta'],
@@ -227,29 +217,29 @@ class HomeController extends Controller
                 $page['rekap_kasus'],
                 $page['anggaran_lembaga']
             );
-        elseif(Auth::user()->level == 12):
+        elseif(auth()->user()->level == AliasName::level_damkar):
             array_push($data,$page['damkarmat']);
-        elseif(Auth::user()->level == 11):
-            $damkar_check = User::where('kota',Auth::user()->kota)->get();
+        elseif(auth()->user()->level == AliasName::level_dinas):
+            $damkar_check = User::where('kota',auth()->user()->kota)->get();
             if(count($damkar_check)  > 1 ):
                 array_push($data,$page['kasus'], $page['anggaran_lembaga']);
             else:
                 array_push($data,$page['kasus'],$page['damkarmat']);
             endif;
-        elseif(Auth::user()->level == 6):
+        elseif(auth()->user()->level == AliasName::level_aspri):
                 array_push($data,$page['kegiatan'],$page['report_kegiatan']);
-        elseif(Auth::user()->level == 8):
+        elseif(auth()->user()->level == AliasName::level_operator):
                 array_push($data,$page['kegiatan_operator'],$page['report_kegiatan']);
-        elseif(Auth::user()->level <= 2):
+        elseif(auth()->user()->level <= AliasName::level_kabid):
                 array_push($data,$page['rekap_kegiatan'],$page['report_kegiatan'],$page['kasus'],$page['peta']);
-        elseif(Auth::user()->level == 3):
+        elseif(auth()->user()->level == AliasName::level_kasi):
                 array_push($data,$page['rekap_kegiatan'],$page['report_kegiatan'],$page['penugasan_staff']);
-        elseif(Auth::user()->level == 9):
+        elseif(auth()->user()->level == AliasName::level_staff):
                 array_push($data,$page['report_kegiatan']);
-        elseif(Auth::user()->level == 10):
+        elseif(auth()->user()->level == AliasName::level_tim_kasus):
                 array_push($data,$page['kasus'],$page['report_kegiatan'],$page['peta'],$page['rekap_kasus']);
         endif;
-        if(Auth::user()->is_pti == 1):
+        if(auth()->user()->is_pti == 1):
                 array_push($data,$page['pti']);
         endif;
         return view('home',compact('data'));
@@ -268,7 +258,7 @@ class HomeController extends Controller
     public function kegiatan_datatable()
     {
         $kegiatan = DB::Select("SELECT k.*, p.ket, p.nip FROM `kegiatan` k INNER JOIN kegiatan_personel p ON k.id = p.kegiatan_id
-                                WHERE p.nip = '".Auth::user()->username."' AND k.deleted_at IS NULL");
+                                WHERE p.nip = '".auth()->user()->username."' AND k.deleted_at IS NULL");
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
             if($i->ket == 'PELAPORAN' || $i->ket == 'PESERTA + PELAPORAN' || $i->ket == 'KAOPSGAP'):

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\AliasName;
 use App\PegawaiKab;
 use App\MasterJenisJabatan;
 use App\MasterStatusPegawai;
@@ -18,8 +19,7 @@ class PegawaiKabController extends Controller
         $query = PegawaiKab::query();
         $query->select('pegawai_kab.*', 'kab.nama as kab_kota');
         $query->join('master_kota as kab', 'kab.id', '=', 'pegawai_kab.kab_kota_id');
-        //Jika level dinas, kabupaten atau kota
-        if(auth()->user()->level == 11){
+        if(auth()->user()->level == AliasName::level_dinas){
             $query->where('pegawai_kab.kab_kota_id', auth()->user()->kota);
         }
         $query->orderBy('id', 'desc');
@@ -35,8 +35,7 @@ class PegawaiKabController extends Controller
         })
         ->addColumn('aksi', function ($data) {
             $html = '';
-            //Jika level dinas, kabupaten atau kota, admin
-            if(auth()->user()->level == 5 || auth()->user()->level == 7){
+            if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin){
                 $html = '
                     <form action="'.url('pegawai-kab/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'
@@ -65,8 +64,7 @@ class PegawaiKabController extends Controller
         $tingkat = MasterTingkatJabatan::orderBy('nama', 'asc')->get();
         $golongan = MasterGolonganLembaga::orderBy('nama', 'asc')->get();
         $kota = Kota::query();
-        //Jika level dinas, kabupaten atau kota
-        if(auth()->user()->level == 5){
+        if(auth()->user()->level == AliasName::level_dinas){
             $kota->where('id', auth()->user()->kota);
         }
         $kota = $kota->orderBy('nama', 'asc')->get();

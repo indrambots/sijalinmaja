@@ -20,8 +20,7 @@
                     <a href="javascript:;" class="btn btn-outline-primary m-b-xs">
                         <i class="fa-regular fa-file-excel"></i> Unduh Excel
                     </a>&nbsp;
-                    {{--Jika level dinas, kabupaten atau kota, admin--}}
-                    @if(auth()->user()->level == 11 || auth()->user()->level == 7)
+                    @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin)
                         <a href="{{url('pegawai-kab/create/0')}}" class="btn btn-outline-primary m-b-xs">
                             <i class="fas fa-plus-circle"></i> Tambah Pegawai
                         </a>

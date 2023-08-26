@@ -8,8 +8,7 @@
     <li class="breadcrumb-item px-3 text-muted">Anggaran Kab/Kota</li>
 </ol>
 <div class="row justify-content-center">
-    {{--Jika level dinas, kabupaten atau kota--}}
-    @if(auth()->user()->level == 11)
+    @if(auth()->user()->level == AliasName::level_dinas)
         <div class="col-12 col-md-4">
             @if($profil)
                 <div class="card mb-4">
@@ -120,10 +119,9 @@
         </div>
     @endif
 
-    <div class="col-12 {!! auth()->user()->level == 11 ? 'col-md-8' : 'col-md-12' !!} mb-2">
+    <div class="col-12 {!! auth()->user()->level == AliasName::level_dinas ? 'col-md-8' : 'col-md-12' !!} mb-2">
         <div class="row">
-            {{--Jika level provinsi, admin--}}
-            @if(auth()->user()->level == 5 || auth()->user()->level == 7)
+            @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
                 <div class="col-12 col-md-6 mb-3">
                     <div class="card card-custom wave wave-animate-fast wave-primary">
                         <div class="card-body text-center">
@@ -173,8 +171,7 @@
                 </div>
             </div>
 
-            {{--Jika level dinas, kabupaten atau kota--}}
-            @if(auth()->user()->level == 11)
+            @if(auth()->user()->level == AliasName::level_dinas)
                 <div class="col-12 col-md-12">
                     <br>
                     <div class="card card-custom gutter-b">
@@ -235,8 +232,7 @@
     </div>
 </div>
 
-{{--Jika level dinas, kabupaten atau kota--}}
-@if(auth()->user()->level == 11)
+@if(auth()->user()->level == AliasName::level_dinas)
     <div id="modal-profil" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -360,8 +356,7 @@
 @endsection
 
 @section('script')
-{{--Jika level dinas, kabupaten atau kota--}}
-@if(auth()->user()->level == 11)
+@if(auth()->user()->level == AliasName::level_dinas)
 <script>
     var datatable = $('#datatable').DataTable({
         processing: true,
