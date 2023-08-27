@@ -176,13 +176,31 @@ Route::prefix('anggaran')->group(function(){
         Route::get('kelembagaan','AnggaranLembaga\ReportController@kelembagaanIndex');
         Route::post('kelembagaan-grid','AnggaranLembaga\ReportController@kelembagaanGrid');
     });
-});
 
-Route::get('pegawai-kab/datatable','PegawaiKabController@datatable');
-Route::get('pegawai-kab','PegawaiKabController@index');
-Route::get('pegawai-kab/create/{id}','PegawaiKabController@createOrEdit');
-Route::post('pegawai-kab/store','PegawaiKabController@storeOrUpdate');
-Route::delete('pegawai-kab/delete/{id}','PegawaiKabController@destroy');
+    Route::get('pegawai-kab/datatable','AnggaranLembaga\PegawaiKabController@datatable');
+    Route::get('pegawai-kab','AnggaranLembaga\PegawaiKabController@index');
+    Route::get('pegawai-kab/create/{id}','AnggaranLembaga\PegawaiKabController@createOrEdit');
+    Route::post('pegawai-kab/store','AnggaranLembaga\PegawaiKabController@storeOrUpdate');
+    Route::delete('pegawai-kab/delete/{id}','AnggaranLembaga\PegawaiKabController@destroy');
+
+    Route::get('anggota-satlinmas/datatable','AnggaranLembaga\AnggotaSatlinmasController@datatable');
+    Route::get('anggota-satlinmas','AnggaranLembaga\AnggotaSatlinmasController@index');
+    Route::get('anggota-satlinmas/create/{id}','AnggaranLembaga\AnggotaSatlinmasController@createOrEdit');
+    Route::post('anggota-satlinmas/store','AnggaranLembaga\AnggotaSatlinmasController@storeOrUpdate');
+    Route::delete('anggota-satlinmas/delete/{id}','AnggaranLembaga\AnggotaSatlinmasController@destroy');
+
+    Route::get('sarpras/datatable','AnggaranLembaga\SarprasController@datatable');
+    Route::get('sarpras','AnggaranLembaga\SarprasController@index');
+    Route::get('sarpras/create/{id}','AnggaranLembaga\SarprasController@createOrEdit');
+    Route::post('sarpras/store','AnggaranLembaga\SarprasController@storeOrUpdate');
+    Route::delete('sarpras/delete/{id}','AnggaranLembaga\SarprasController@destroy');
+
+    Route::get('posko-satlinmas/datatable','AnggaranLembaga\PoskoSatlinmasController@datatable');
+    Route::get('posko-satlinmas','AnggaranLembaga\PoskoSatlinmasController@index');
+    Route::get('posko-satlinmas/create/{id}','AnggaranLembaga\PoskoSatlinmasController@createOrEdit');
+    Route::post('posko-satlinmas/store','AnggaranLembaga\PoskoSatlinmasController@storeOrUpdate');
+    Route::delete('posko-satlinmas/delete/{id}','AnggaranLembaga\PoskoSatlinmasController@destroy');
+});
 
 
 // Route::get('/foo', function () {

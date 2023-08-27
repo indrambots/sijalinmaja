@@ -8,7 +8,7 @@
         <a href="{{url('anggaran')}}" class="pe-3">Anggaran Kab/Kota</a>
     </li>
     <li class="breadcrumb-item pe-3">
-        <a href="{{url('pegawai-kab')}}" class="pe-3">Data Pegawai Kab/Kota</a>
+        <a href="{{url('anggaran/pegawai-kab')}}" class="pe-3">Data Pegawai</a>
     </li>
     @if($data)
         <li class="breadcrumb-item px-3 text-muted">Edit ({{$data->nip}} - {{$data->nama_lengkap}})</li>
@@ -16,7 +16,7 @@
         <li class="breadcrumb-item px-3 text-muted">Tambah</li>
     @endif
 </ol>
-<form class="form" method="POST" action="{{url('pegawai-kab/store')}}">
+<form class="form" method="POST" action="{{url('anggaran/pegawai-kab/store')}}">
     @csrf
     @method('post')
     <input type="hidden" name="dataid" value="{{@$data->id}}">
