@@ -68,15 +68,16 @@
             { data: 'aksi', name: 'aksi' },
             { data: 'nik', name: 'nik', className: 'text-center'},
             { data: 'nama_lengkap', name: 'nama_lengkap'},
-            { data: 'kota', name: 'kota'},
-            { data: 'kecamatan', name: 'kecamatan'},
-            { data: 'kelurahan', name: 'kelurahan'},
-            { data: 'pendidikan_terakhir', name: 'pendidikan_terakhir'},
-            { data: 'no_sk_pengukuhan', name: 'no_sk_pengukuhan'},
-            { data: 'tanggal_sk_pengukuhan', name: 'tanggal_sk_pengukuhan'},
+            { data: 'nama_kota', name: 'kot.nama'},
+            { data: 'nama_kecamatan', name: 'kec.nama'},
+            { data: 'nama_kelurahan', name: 'kel.nama_desa'},
+            { data: 'pendidikan_terakhir', name: 'pendidikan_terakhir', className: 'text-center'},
+            { data: 'no_sk_pengukuhan', name: 'no_sk_pengukuhan', className: 'text-center'},
+            { data: 'tanggal_sk_pengukuhan', name: 'tanggal_sk_pengukuhan', className: 'text-center'},
+            { data: 'tempat_pengukuhan', name: 'tempat_pengukuhan'},
             { data: 'sertifikat_bimtek', name: 'sertifikat_bimtek'},
             { data: 'tanggal_sertifikat_bimtek', name: 'tanggal_sertifikat_bimtek', className: 'text-center'},
-            { data: 'jumlah_jp', name: 'jumlah_jp'}
+            { data: 'jumlah_jp', name: 'jumlah_jp', className: 'text-center'}
         ]
     });
 

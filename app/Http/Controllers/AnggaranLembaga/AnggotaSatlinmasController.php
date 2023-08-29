@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AnggaranLembaga;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\AliasName;
+use App\Helpers\Helpers;
 use App\AnggotaLinmas;
 use App\Kota;
 use App\Kecamatan;
@@ -16,6 +17,10 @@ class AnggotaSatlinmasController extends Controller
     public function datatable(){
 
         $query = AnggotaLinmas::query();
+        $query->select('anggota_satlinmas.*', 'kot.nama as nama_kota', 'kec.nama as nama_kecamatan', 'kel.nama_desa as nama_kelurahan');
+        $query->join('master_kota as kot', 'kot.id', '=', 'anggota_satlinmas.kotaid');
+        $query->join('master_kecamatan as kec', 'kec.id', '=', 'anggota_satlinmas.kecamatanid');
+        $query->join('master_kelurahan as kel', 'kel.id', '=', 'anggota_satlinmas.kelurahanid');
         $query->orderBy('id', 'desc');
 
         return Datatables::of($query)
@@ -50,8 +55,17 @@ class AnggotaSatlinmasController extends Controller
             $kota->where('id', auth()->user()->kota);
         }
         $kota = $kota->orderBy('nama', 'asc')->get();
+        $kecamatan = [];
+        $kelurahan = [];
+        if($data){
+            $kecamatanData = Kecamatan::find($data->kecamatanid);
+            $kecamatan = Helpers::getKecamatan($data->kotaid);
+            if($kecamatanData){
+                $kelurahan = Helpers::getKelurahan($kecamatanData->kode_kec, $kecamatanData->kode_kab);
+            }
+        }
 
-        return view('pages.anggaran-lembaga.anggota-satlinmas.create-edit', compact('data', 'kota'));
+        return view('pages.anggaran-lembaga.anggota-satlinmas.create-edit', compact('data', 'kota', 'kecamatan', 'kelurahan'));
     }
 
     public function storeOrUpdate(Request $request){
@@ -77,5 +91,22 @@ class AnggotaSatlinmasController extends Controller
         $data->delete();
 
         return redirect('anggaran/anggota-satlinmas')->with('msg_success', 'Berhasil dihapus.');
+    }
+
+    public function getLocation(Request $request){
+        $data['kecamatanid'] = null;
+        $data['kelurahanid'] = null;
+        if($request->type == 'kotaid'){
+            $data['kecamatanid'] = Helpers::getKecamatan($request->kotaid)->toArray();
+        }
+
+        if($request->type == 'kecamatanid'){
+            $kecamatanData = Kecamatan::find($request->kecamatanid);
+            if($kecamatanData){
+                $data['kelurahanid'] = Helpers::getKelurahan($kecamatanData->kode_kec, $kecamatanData->kode_kab)->toArray();
+            }
+        }
+
+        return response()->json($data);
     }
 }

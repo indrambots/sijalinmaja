@@ -188,6 +188,7 @@ Route::prefix('anggaran')->group(function(){
     Route::get('anggota-satlinmas/create/{id}','AnggaranLembaga\AnggotaSatlinmasController@createOrEdit');
     Route::post('anggota-satlinmas/store','AnggaranLembaga\AnggotaSatlinmasController@storeOrUpdate');
     Route::delete('anggota-satlinmas/delete/{id}','AnggaranLembaga\AnggotaSatlinmasController@destroy');
+    Route::post('anggota-satlinmas/utility/getLocation','AnggaranLembaga\AnggotaSatlinmasController@getLocation');
 
     Route::get('sarpras/datatable','AnggaranLembaga\SarprasController@datatable');
     Route::get('sarpras','AnggaranLembaga\SarprasController@index');

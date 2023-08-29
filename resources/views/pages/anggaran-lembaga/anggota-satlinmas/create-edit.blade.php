@@ -47,10 +47,10 @@
                 <div class="col-12 col-md-4">
                     <div class="form-group">
                         <label>Kota <span class="text-danger">*</span> :</label>
-                        <select name="kota" id="kota" required class="form-control select2">
+                        <select name="kotaid" id="kotaid" onchange="getLocation('kotaid')" required class="form-control select2">
                             <option value="">--Pilih Kota</option>
                             @foreach ($kota as $k)
-                                <option value="{{$k->id}}" {{$k->nama == @$data->kota ? 'selected' : ''}}>{{$k->nama}}</option>
+                                <option value="{{$k->id}}" {{$k->id == @$data->kotaid ? 'selected' : ''}}>{{$k->nama}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -58,16 +58,26 @@
                 <div class="col-12 col-md-4">
                     <div class="form-group">
                         <label>Kecamatan <span class="text-danger">*</span> :</label>
-                        <select name="kecamatan" id="kecamatan" required class="form-control select2">
+                        <select name="kecamatanid" id="kecamatanid" onchange="getLocation('kecamatanid')" required class="form-control select2">
                             <option value="">--Pilih Kecamatan</option>
+                            @if($kecamatan)
+                                @foreach ($kecamatan as $kec)
+                                    <option value="{{$kec->id}}" {{$kec->id == @$data->kecamatanid ? 'selected' : ''}}>{{$kec->nama}}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="form-group">
-                        <label>Kelurahan :</label>
-                        <select name="kelurahan" id="kelurahan" class="form-control select2">
+                        <label>Kelurahan <span class="text-danger">*</span> :</label>
+                        <select name="kelurahanid" id="kelurahanid" required class="form-control select2">
                             <option value="">--Pilih Kelurahan</option>
+                            @if($kelurahan)
+                                @foreach ($kelurahan as $kel)
+                                    <option value="{{$kel->id}}" {{$kel->id == @$data->kelurahanid ? 'selected' : ''}}>{{$kel->nama}}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>
@@ -122,5 +132,41 @@
 @section('script')
 <script>
     $('.select2').select2();
+    function getLocation(type){
+        $.ajax({
+            url: "{{url('anggaran/anggota-satlinmas/utility/getLocation')}}",
+            method: 'post',
+            data: {
+                type: type,
+                kotaid: $('#kotaid').val(),
+                kecamatanid: $('#kecamatanid').val(),
+                kelurahanid: $('#kelurahanid').val(),
+            },
+            success: function(res){
+                if(type == 'kecamatanid'){
+                    $("#kelurahanid option").each(function(){
+                        if($(this).val()){
+                            $(this).remove();
+                        }
+                    });
+                }
+                $.each(res, function(field, r){
+                    if(type == 'kotaid'){
+                        $("#"+field+" option").each(function(){
+                            if($(this).val()){
+                                $(this).remove();
+                            }
+                        });
+                    }
+                    if(r){
+                        $.each(r, function(i, data){
+                            $('#'+field).append('<option value="'+data.id+'">'+data.nama+'</option>');
+                        });
+                    }
+                    $('#'+field).select2('destroy').select2();
+                });
+            }
+        });
+    }
 </script>
 @endsection
