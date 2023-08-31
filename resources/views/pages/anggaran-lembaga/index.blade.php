@@ -103,8 +103,13 @@
                         <div class="d-flex flex-column">
                             <div class="text-center">
                                 <div class="text-muted mb-2">Nilai SPM</div>
-                                <h4 class="font-weight-bold my-2">{{$profil->nilai_spm}}</h4>
-                                @if($profil->spm !== null)
+                                <h4 class="font-weight-bold my-2">
+                                    @if(!empty($profil->nilai_spm))
+                                    {{$profil->nilai_spm}}
+                                    @else 
+                                    Belum Mengisi
+                                    @endif</h4>
+                                @if(!empty($profil->spm))
                                     <a href="{{asset('berkas/'.$profil->spm.'')}}" target="_blank" class="btn btn-outline-primary btn-md">
                                         <i class="flaticon-doc"></i>Dokumen Pendukung
                                     </a>
