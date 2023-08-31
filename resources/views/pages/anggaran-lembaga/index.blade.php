@@ -5,7 +5,9 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
+    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
     <li class="breadcrumb-item px-3 text-muted">Anggaran Kab/Kota</li>
+    @endif
 </ol>
 <div class="row justify-content-center">
     @if(auth()->user()->level == AliasName::level_dinas)
@@ -106,7 +108,7 @@
                                 <h4 class="font-weight-bold my-2">
                                     @if(!empty($profil->nilai_spm))
                                     {{$profil->nilai_spm}}
-                                    @else 
+                                    @else
                                     Belum Mengisi
                                     @endif</h4>
                                 @if(!empty($profil->spm))
@@ -126,6 +128,22 @@
 
     <div class="col-12 {!! auth()->user()->level == AliasName::level_dinas ? 'col-md-8' : 'col-md-12' !!} mb-2">
         <div class="row">
+            @if(auth()->user()->level == AliasName::level_dinas)
+            <div class="col-6 col-lg-6 col-xl-6 mb-5">
+                <div class="card card-custom wave wave-animate-fast wave-primary">
+                    <div class="card-body text-center">
+                        <a href="{{url('kasus')}}">
+                            <span class="svg-icon svg-icon-primary svg-icon-6x">
+                                <i class="icon-6x text-info mb-10 mt-10 fa-solid flaticon2-warning" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <br>
+                        <a href="{{url('kasus')}}" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">KASUS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endif
             @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
                 <div class="col-12 col-md-6 mb-3">
                     <div class="card card-custom wave wave-animate-fast wave-primary">

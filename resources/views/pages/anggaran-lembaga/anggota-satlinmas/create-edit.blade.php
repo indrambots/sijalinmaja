@@ -4,9 +4,11 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
+    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
     <li class="breadcrumb-item pe-3">
         <a href="{{url('anggaran')}}" class="pe-3">Anggaran Kab/Kota</a>
     </li>
+    @endif
     <li class="breadcrumb-item pe-3">
         <a href="{{url('anggaran/anggota-satlinmas')}}" class="pe-3">Data Anggota Satlinmas</a>
     </li>

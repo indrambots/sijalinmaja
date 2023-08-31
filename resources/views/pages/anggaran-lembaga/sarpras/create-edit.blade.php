@@ -4,9 +4,11 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
+    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
     <li class="breadcrumb-item pe-3">
         <a href="{{url('anggaran')}}" class="pe-3">Anggaran Kab/Kota</a>
     </li>
+    @endif
     <li class="breadcrumb-item pe-3">
         <a href="{{url('anggaran/sarpras')}}" class="pe-3">Data Sarpras</a>
     </li>
@@ -26,16 +28,26 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                     <div class="form-group">
                         <label>Nomor Sarpras <span class="text-danger">*</span> :</label>
                         <input type="text" name="nomor_sarpras" value="{{@$data->nomor_sarpras}}" placeholder="Nomor Sarpras" required class="form-control">
                     </div>
                 </div>
-                <div class="col-12 col-md-8">
+                <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label>Nama <span class="text-danger">*</span> :</label>
                         <input type="text" name="nama" value="{{@$data->nama}}" placeholder="Nama" required class="form-control">
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label>Kondisi :</label>
+                        <select name="kondisi" class="form-control select2">
+                            <option value="">--Pilih Kondisi--</option>
+                            <option value="Layak" {{@$data->kondisi == 'Layak' ? 'selected' : ''}}>Layak</option>
+                            <option value="Tidak Layak" {{@$data->kondisi == 'Tidak Layak' ? 'selected' : ''}}>Tidak Layak</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-12 col-md-12">

@@ -9,6 +9,9 @@ use App\Pegawai;
 use Yajra\Datatables\Datatables;
 use App\Kegiatan;
 use App\Helpers\AliasName;
+use App\MasterGolonganLembaga;
+use App\AnggaranProfilLembaga;
+use App\Kota;
 
 class HomeController extends Controller
 {
@@ -222,7 +225,11 @@ class HomeController extends Controller
         elseif(auth()->user()->level == AliasName::level_dinas):
             $damkar_check = User::where('kota',auth()->user()->kota)->get();
             if(count($damkar_check)  > 1 ):
-                array_push($data,$page['kasus'], $page['anggaran_lembaga']);
+                $profil = AnggaranProfilLembaga::where('userid', auth()->user()->id)->first();
+                $golongan = MasterGolonganLembaga::all();
+                $kota = Kota::orderBy('nama', 'asc')->get();
+
+                return view('pages.anggaran-lembaga.index', compact('profil', 'golongan', 'kota'));
             else:
                 array_push($data,$page['kasus'],$page['damkarmat']);
             endif;

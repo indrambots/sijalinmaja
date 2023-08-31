@@ -5,9 +5,11 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
+    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
     <li class="breadcrumb-item pe-3">
         <a href="{{url('anggaran')}}" class="pe-3">Anggaran Kab/Kota</a>
     </li>
+    @endif
     <li class="breadcrumb-item px-3 text-muted">Data Sarpras</li>
 </ol>
 <div class="card">
@@ -37,6 +39,7 @@
                             <th width="100px">Aksi</th>
                             <th width="100px">Nomor Sapras</th>
                             <th>Nama</th>
+                            <th width="100px">Kondisi</th>
                         </tr>
                     </thead>
                 </table>
@@ -57,7 +60,8 @@
         columns: [
             { data: 'aksi', name: 'aksi' },
             { data: 'nomor_sarpras', name: 'nomor_sarpras', className: 'text-center'},
-            { data: 'nama', name: 'nama'}
+            { data: 'nama', name: 'nama'},
+            { data: 'kondisi', name: 'kondisi', className: 'text-center'}
         ]
     });
 
