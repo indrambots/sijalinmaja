@@ -1,6 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+@if(auth()->user()->level == AliasName::level_dinas)
+    <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold">
+        <li class="breadcrumb-item pe-3">
+            <a href="{{url('home')}}" class="pe-3">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item pe-3">
+            <a href="{{url('anggaran/trantibum')}}" class="pe-3">
+                Penyelenggaraan Trantibum dan Penegakan Perda/Perkada
+            </a>
+        </li>
+        <li class="breadcrumb-item pe-3">
+            <a href="{{url('kasus')}}" class="pe-3">
+                Data kasus
+            </a>
+        </li>
+        <li class="breadcrumb-item px-3 text-muted">Rekam Jejak</li>
+    </ol>
+@endif
 <div class="col-3 mb-2">
   <div class="card">
     <div class="card-body" style="padding-left: 0; padding-right: 0;">
@@ -35,7 +53,7 @@
             </div>
 
             <div class="timeline-label">
-                <span class="text-primary font-weight-bolder">Data terakam pada tanggal {{date('d F Y, H.i',strtotime($h->created_at))}}</span> 
+                <span class="text-primary font-weight-bolder">Data terakam pada tanggal {{date('d F Y, H.i',strtotime($h->created_at))}}</span>
                 @if($h->data_pendukung !== null)
                   Lampiran/ data pendukung dapat didownload pada <a class="btn btn-primary" href="{{url('download/kasus-history/'.$h->id)}}"> <i class="fas fa-file-download"></i> LINK INI </a>
                 @endif
@@ -110,7 +128,7 @@
                 }
               })
   }
-  
+
 </script>
 
 @if(Session::get('success'))

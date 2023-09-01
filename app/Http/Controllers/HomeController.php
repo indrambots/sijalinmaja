@@ -229,7 +229,7 @@ class HomeController extends Controller
                 $golongan = MasterGolonganLembaga::all();
                 $kota = Kota::orderBy('nama', 'asc')->get();
 
-                return view('pages.anggaran-lembaga.index', compact('profil', 'golongan', 'kota'));
+                return view('pages.anggaran-lembaga.dashboard-dinas', compact('profil', 'golongan', 'kota'));
             else:
                 array_push($data,$page['kasus'],$page['damkarmat']);
             endif;

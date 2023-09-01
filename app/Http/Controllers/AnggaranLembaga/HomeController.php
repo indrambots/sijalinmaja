@@ -34,7 +34,7 @@ class HomeController extends Controller
         }
         $data->save();
 
-        return redirect('anggaran')->with('msg_success', $request->profileid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
+        return redirect('home')->with('msg_success', $request->profileid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
     }
 
     public function AnggaranStore(Request $request){
@@ -50,7 +50,7 @@ class HomeController extends Controller
         }
         $data->save();
 
-        return redirect('anggaran')->with('msg_success', $request->anggaranid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
+        return redirect('home')->with('msg_success', $request->anggaranid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
     }
 
     public function AnggaranDelete($id){
@@ -58,7 +58,7 @@ class HomeController extends Controller
         $data = AnggaranBidang::find($id);
         $data->delete();
 
-        return redirect('anggaran')->with('msg_success', 'Berhasil dihapus.');
+        return redirect('home')->with('msg_success', 'Berhasil dihapus.');
     }
 
     public function anggaranDatatable(){
@@ -102,6 +102,21 @@ class HomeController extends Controller
         $files->move($path, $fileName);
         $data->save();
 
-        return redirect('anggaran')->with('msg_success', 'Berhasil disimpan.');
+        return redirect('home')->with('msg_success', 'Berhasil disimpan.');
+    }
+
+    public function kelembagaan(){
+
+        return view('pages.anggaran-lembaga.kelembagaan.index');
+    }
+
+    public function perlindungan(){
+
+        return view('pages.anggaran-lembaga.perlindungan.index');
+    }
+
+    public function trantibum(){
+
+        return view('pages.anggaran-lembaga.trantibum.index');
     }
 }

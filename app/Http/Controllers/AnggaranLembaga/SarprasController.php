@@ -20,10 +20,10 @@ class SarprasController extends Controller
             $html = '';
             if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin){
                 $html = '
-                    <form action="'.url('anggaran/sarpras/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
+                    <form action="'.url('anggaran/kelembagaan/sarpras/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'
                         <a href="'.asset('berkas/'.$data->berkas.'').'" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-doc"></i></a>
-                        <a href="'.url('anggaran/sarpras/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
+                        <a href="'.url('anggaran/kelembagaan/sarpras/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
                         <button type="button" onclick="deleteData('.$data->id.')" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>
                     </form>
                 ';
@@ -37,14 +37,14 @@ class SarprasController extends Controller
 
     public function index(){
 
-        return view('pages.anggaran-lembaga.sarpras.index');
+        return view('pages.anggaran-lembaga.kelembagaan.sarpras.index');
     }
 
     public function createOrEdit($id){
 
         $data = MasterSarpras::find($id);
 
-        return view('pages.anggaran-lembaga.sarpras.create-edit', compact('data'));
+        return view('pages.anggaran-lembaga.kelembagaan.sarpras.create-edit', compact('data'));
     }
 
     public function storeOrUpdate(Request $request){
@@ -72,7 +72,7 @@ class SarprasController extends Controller
         $files->move($path, $fileName);
         $data->save();
 
-        return redirect('anggaran/sarpras')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
+        return redirect('anggaran/kelembagaan/sarpras')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
     }
 
     public function destroy($id){
@@ -83,6 +83,6 @@ class SarprasController extends Controller
         }
         $data->delete();
 
-        return redirect('anggaran/sarpras')->with('msg_success', 'Berhasil dihapus.');
+        return redirect('anggaran/kelembagaan/sarpras')->with('msg_success', 'Berhasil dihapus.');
     }
 }

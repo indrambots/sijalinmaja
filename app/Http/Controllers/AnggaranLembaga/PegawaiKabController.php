@@ -38,9 +38,9 @@ class PegawaiKabController extends Controller
             $html = '';
             if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin){
                 $html = '
-                    <form action="'.url('anggaran/pegawai-kab/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
+                    <form action="'.url('anggaran/kelembagaan/pegawai-kab/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'
-                        <a href="'.url('anggaran/pegawai-kab/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
+                        <a href="'.url('anggaran/kelembagaan/pegawai-kab/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
                         <button type="button" onclick="deleteData('.$data->id.')" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>
                     </form>
                 ';
@@ -54,7 +54,7 @@ class PegawaiKabController extends Controller
 
     public function index(){
 
-        return view('pages.anggaran-lembaga.pegawai-kab.index');
+        return view('pages.anggaran-lembaga.kelembagaan.pegawai-kab.index');
     }
 
     public function createOrEdit($id){
@@ -70,7 +70,7 @@ class PegawaiKabController extends Controller
         }
         $kota = $kota->orderBy('nama', 'asc')->get();
 
-        return view('pages.anggaran-lembaga.pegawai-kab.create-edit', compact('data', 'jenis', 'status', 'tingkat', 'golongan', 'kota'));
+        return view('pages.anggaran-lembaga.kelembagaan.pegawai-kab.create-edit', compact('data', 'jenis', 'status', 'tingkat', 'golongan', 'kota'));
     }
 
     public function storeOrUpdate(Request $request){
@@ -88,7 +88,7 @@ class PegawaiKabController extends Controller
         }
         $data->save();
 
-        return redirect('anggaran/pegawai-kab')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
+        return redirect('anggaran/kelembagaan/pegawai-kab')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
     }
 
     public function destroy($id){
@@ -96,6 +96,6 @@ class PegawaiKabController extends Controller
         $data = PegawaiKab::find($id);
         $data->delete();
 
-        return redirect('anggaran/pegawai-kab')->with('msg_success', 'Berhasil dihapus.');
+        return redirect('anggaran/kelembagaan/pegawai-kab')->with('msg_success', 'Berhasil dihapus.');
     }
 }

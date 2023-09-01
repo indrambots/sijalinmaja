@@ -4,13 +4,13 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
-    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
     <li class="breadcrumb-item pe-3">
-        <a href="{{url('anggaran')}}" class="pe-3">Anggaran Kab/Kota</a>
+        <a href="{{url(auth()->user()->level == AliasName::level_dinas ? 'anggaran/kelembagaan' : 'anggaran')}}" class="pe-3">
+            {{auth()->user()->level == AliasName::level_dinas ? 'Kelembagaan' : 'Anggaran Kab/Kota'}}
+        </a>
     </li>
-    @endif
     <li class="breadcrumb-item pe-3">
-        <a href="{{url('anggaran/pegawai-kab')}}" class="pe-3">Data Pegawai</a>
+        <a href="{{url('anggaran/kelembagaan/pegawai-kab')}}" class="pe-3">Data Pegawai</a>
     </li>
     @if($data)
         <li class="breadcrumb-item px-3 text-muted">Edit ({{$data->nip}} - {{$data->nama_lengkap}})</li>
@@ -18,7 +18,7 @@
         <li class="breadcrumb-item px-3 text-muted">Tambah</li>
     @endif
 </ol>
-<form class="form" method="POST" action="{{url('anggaran/pegawai-kab/store')}}">
+<form class="form" method="POST" action="{{url('anggaran/kelembagaan/pegawai-kab/store')}}">
     @csrf
     @method('post')
     <input type="hidden" name="dataid" value="{{@$data->id}}">

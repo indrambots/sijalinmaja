@@ -28,9 +28,9 @@ class AnggotaSatlinmasController extends Controller
             $html = '';
             if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin){
                 $html = '
-                    <form action="'.url('anggaran/anggota-satlinmas/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
+                    <form action="'.url('anggaran/perlindungan/anggota-satlinmas/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'
-                        <a href="'.url('anggaran/anggota-satlinmas/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
+                        <a href="'.url('anggaran/perlindungan/anggota-satlinmas/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
                         <button type="button" onclick="deleteData('.$data->id.')" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>
                     </form>
                 ';
@@ -44,7 +44,7 @@ class AnggotaSatlinmasController extends Controller
 
     public function index(){
 
-        return view('pages.anggaran-lembaga.anggota-satlinmas.index');
+        return view('pages.anggaran-lembaga.perlindungan.anggota-satlinmas.index');
     }
 
     public function createOrEdit($id){
@@ -65,7 +65,7 @@ class AnggotaSatlinmasController extends Controller
             }
         }
 
-        return view('pages.anggaran-lembaga.anggota-satlinmas.create-edit', compact('data', 'kota', 'kecamatan', 'kelurahan'));
+        return view('pages.anggaran-lembaga.perlindungan.anggota-satlinmas.create-edit', compact('data', 'kota', 'kecamatan', 'kelurahan'));
     }
 
     public function storeOrUpdate(Request $request){
@@ -82,7 +82,7 @@ class AnggotaSatlinmasController extends Controller
         }
         $data->save();
 
-        return redirect('anggaran/anggota-satlinmas')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
+        return redirect('anggaran/perlindungan/anggota-satlinmas')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
     }
 
     public function destroy($id){
@@ -90,7 +90,7 @@ class AnggotaSatlinmasController extends Controller
         $data = AnggotaLinmas::find($id);
         $data->delete();
 
-        return redirect('anggaran/anggota-satlinmas')->with('msg_success', 'Berhasil dihapus.');
+        return redirect('anggaran/perlindungan/anggota-satlinmas')->with('msg_success', 'Berhasil dihapus.');
     }
 
     public function getLocation(Request $request){

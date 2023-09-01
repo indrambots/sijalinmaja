@@ -5,11 +5,11 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
-    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
     <li class="breadcrumb-item pe-3">
-        <a href="{{url('anggaran')}}" class="pe-3">Anggaran Kab/Kota</a>
+        <a href="{{url(auth()->user()->level == AliasName::level_dinas ? 'anggaran/kelembagaan' : 'anggaran')}}" class="pe-3">
+            {{auth()->user()->level == AliasName::level_dinas ? 'Kelembagaan' : 'Anggaran Kab/Kota'}}
+        </a>
     </li>
-    @endif
     <li class="breadcrumb-item px-3 text-muted">Data Pegawai Kabupaten atau Kota</li>
 </ol>
 <div class="card">
@@ -23,7 +23,7 @@
                         <i class="fa-regular fa-file-excel"></i> Unduh Excel
                     </a>&nbsp;
                     @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin)
-                        <a href="{{url('anggaran/pegawai-kab/create/0')}}" class="btn btn-outline-primary m-b-xs">
+                        <a href="{{url('anggaran/kelembagaan/pegawai-kab/create/0')}}" class="btn btn-outline-primary m-b-xs">
                             <i class="fas fa-plus-circle"></i> Tambah Pegawai
                         </a>
                     @endif
@@ -73,7 +73,7 @@
         serverSide: true,
         paging: true,
         ajax: {
-            "url": '{{url('anggaran/pegawai-kab/datatable')}}',
+            "url": '{{url('anggaran/kelembagaan/pegawai-kab/datatable')}}',
         },
         columns: [
             { data: 'aksi', name: 'aksi' },

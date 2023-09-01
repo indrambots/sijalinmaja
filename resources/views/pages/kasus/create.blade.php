@@ -1,10 +1,28 @@
 @extends('layouts.app')
 @section('content')
+@if(auth()->user()->level == AliasName::level_dinas)
+    <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold">
+        <li class="breadcrumb-item pe-3">
+            <a href="{{url('home')}}" class="pe-3">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item pe-3">
+            <a href="{{url('anggaran/trantibum')}}" class="pe-3">
+                Penyelenggaraan Trantibum dan Penegakan Perda/Perkada
+            </a>
+        </li>
+        <li class="breadcrumb-item pe-3">
+            <a href="{{url('kasus')}}" class="pe-3">
+                Data kasus
+            </a>
+        </li>
+        <li class="breadcrumb-item px-3 text-muted">Kasus Baru</li>
+    </ol>
+@endif
 <form class="form" id="frm_create_kasus" enctype="multipart/form-data" method="POST" action="{{ url('kasus/save') }}">
 	{{csrf_field()}}
 <input type="hidden" id="id" name="id" value="{{ $id }}">
 @if((int)$id !== 0)
-	
+
 @endif
 <div class="card card-custom gutter-b example example-compact">
 <div class="card-header">
@@ -188,7 +206,7 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-	
+
     $(".readonly").on('keydown paste focus mousedown', function(e){
         if(e.keyCode != 9) // ignore tab
             e.preventDefault();
@@ -203,7 +221,7 @@
           center: myLatLng,
   				mapTypeId: 'hybrid'
         };
-        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions); 
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
       var baselayer = new google.maps.Data();
       baselayer.loadGeoJson('{{ asset('js/jawa_timur.json') }}')
@@ -373,7 +391,7 @@ $(document).ready(function(){
   'alignright alignjustify | bullist numlist outdent indent | ' +
   'removeformat',
   content_style: 'body { font-family:Arial,sans-serif; font-size:12px }',
-  ignore: []  
+  ignore: []
 });
 
 })

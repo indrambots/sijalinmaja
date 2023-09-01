@@ -5,16 +5,16 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
-    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
     <li class="breadcrumb-item pe-3">
-        <a href="{{url('anggaran')}}" class="pe-3">Anggaran Kab/Kota</a>
+        <a href="{{url(auth()->user()->level == AliasName::level_dinas ? 'anggaran/perlindungan' : 'anggaran')}}" class="pe-3">
+            {{auth()->user()->level == AliasName::level_dinas ? 'Perlindungan Masyarakat' : 'Anggaran Kab/Kota'}}
+        </a>
     </li>
-    @endif
-    <li class="breadcrumb-item px-3 text-muted">Data Sarpras</li>
+    <li class="breadcrumb-item px-3 text-muted">Posko Satlinmas</li>
 </ol>
 <div class="card">
     <div class="card-body">
-        <div class="card-label"><h4>Data Sarpras</h4></div>
+        <div class="card-label"><h4>Posko Satlinmas</h4></div>
         <hr>
         <div class="row justify-content-between">
             <div class="col-12">
@@ -23,8 +23,8 @@
                         <i class="fa-regular fa-file-excel"></i> Unduh Excel
                     </a>&nbsp;
                     @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin)
-                        <a href="{{url('anggaran/sarpras/create/0')}}" class="btn btn-outline-primary m-b-xs">
-                            <i class="fas fa-plus-circle"></i> Tambah Sarpras
+                        <a href="{{url('anggaran/perlindungan/posko-satlinmas/create/0')}}" class="btn btn-outline-primary m-b-xs">
+                            <i class="fas fa-plus-circle"></i> Tambah Posko
                         </a>
                     @endif
                 </div>
@@ -34,13 +34,6 @@
         <div class="row mt-2">
             <div class="table-responsive">
                 <table id="datatable" class="table table-striped table-hover table-sm nowrap" style="width:100% !important">
-                    <thead>
-                        <tr>
-                            <th width="100px">Aksi</th>
-                            <th width="100px">Nomor Sapras</th>
-                            <th>Nama</th>
-                        </tr>
-                    </thead>
                 </table>
             </div>
         </div>
@@ -54,7 +47,7 @@
         serverSide: true,
         paging: true,
         ajax: {
-            "url": '{{url('anggaran/sarpras/datatable')}}',
+            "url": '{{url('anggaran/perlindungan/posko-satlinmas/datatable')}}',
         },
         columns: [
             { data: 'aksi', name: 'aksi' },

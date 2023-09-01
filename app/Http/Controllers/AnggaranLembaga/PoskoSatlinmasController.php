@@ -20,9 +20,9 @@ class PoskoSatlinmasController extends Controller
             $html = '';
             if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin){
                 $html = '
-                    <form action="'.url('anggaran/posko-satlinmas/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
+                    <form action="'.url('anggaran/perlindungan/posko-satlinmas/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'
-                        <a href="'.url('anggaran/posko-satlinmas/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
+                        <a href="'.url('anggaran/perlindungan/posko-satlinmas/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>
                         <button type="button" onclick="deleteData('.$data->id.')" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>
                     </form>
                 ';
@@ -36,14 +36,14 @@ class PoskoSatlinmasController extends Controller
 
     public function index(){
 
-        return view('pages.anggaran-lembaga.posko-satlinmas.index');
+        return view('pages.anggaran-lembaga.perlindungan.posko-satlinmas.index');
     }
 
     public function createOrEdit($id){
 
         $data = PoskoSatlinmas::find($id);
 
-        return view('pages.anggaran-lembaga.posko-satlinmas.create-edit', compact('data', 'kota'));
+        return view('pages.anggaran-lembaga.perlindungan.posko-satlinmas.create-edit', compact('data', 'kota'));
     }
 
     public function storeOrUpdate(Request $request){
@@ -60,7 +60,7 @@ class PoskoSatlinmasController extends Controller
         }
         $data->save();
 
-        return redirect('anggaran/posko-satlinmas')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
+        return redirect('anggaran/perlindungan/posko-satlinmas')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
     }
 
     public function destroy($id){
@@ -68,6 +68,6 @@ class PoskoSatlinmasController extends Controller
         $data = PoskoSatlinmas::find($id);
         $data->delete();
 
-        return redirect('anggaran/posko-satlinmas')->with('msg_success', 'Berhasil dihapus.');
+        return redirect('anggaran/perlindungan/posko-satlinmas')->with('msg_success', 'Berhasil dihapus.');
     }
 }

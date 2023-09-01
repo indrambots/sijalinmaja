@@ -4,13 +4,13 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
-    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
     <li class="breadcrumb-item pe-3">
-        <a href="{{url('anggaran')}}" class="pe-3">Anggaran Kab/Kota</a>
+        <a href="{{url(auth()->user()->level == AliasName::level_dinas ? 'anggaran/perlindungan' : 'anggaran')}}" class="pe-3">
+            {{auth()->user()->level == AliasName::level_dinas ? 'Perlindungan Masyarakat' : 'Anggaran Kab/Kota'}}
+        </a>
     </li>
-    @endif
     <li class="breadcrumb-item pe-3">
-        <a href="{{url('anggaran/anggota-satlinmas')}}" class="pe-3">Data Anggota Satlinmas</a>
+        <a href="{{url('anggaran/perlindungan/anggota-satlinmas')}}" class="pe-3">Data Anggota Satlinmas</a>
     </li>
     @if($data)
         <li class="breadcrumb-item px-3 text-muted">Edit ({{$data->nik}} - {{$data->nama_lengkap}})</li>
@@ -18,7 +18,7 @@
         <li class="breadcrumb-item px-3 text-muted">Tambah</li>
     @endif
 </ol>
-<form class="form" method="POST" action="{{url('anggaran/anggota-satlinmas/store')}}">
+<form class="form" method="POST" action="{{url('anggaran/perlindungan/anggota-satlinmas/store')}}">
     @csrf
     @method('post')
     <input type="hidden" name="dataid" value="{{@$data->id}}">
@@ -136,7 +136,7 @@
     $('.select2').select2();
     function getLocation(type){
         $.ajax({
-            url: "{{url('anggaran/anggota-satlinmas/utility/getLocation')}}",
+            url: "{{url('anggaran/perlindungan/anggota-satlinmas/utility/getLocation')}}",
             method: 'post',
             data: {
                 type: type,
