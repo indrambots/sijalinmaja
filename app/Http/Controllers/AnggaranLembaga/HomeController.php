@@ -119,4 +119,9 @@ class HomeController extends Controller
 
         return view('pages.anggaran-lembaga.trantibum.index');
     }
+
+    public function penegakan(){
+
+        return view('pages.anggaran-lembaga.penegakan.index');
+    }
 }

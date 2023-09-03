@@ -9,7 +9,6 @@ use App\Helpers\Helpers;
 use App\AnggotaLinmas;
 use App\Kota;
 use App\Kecamatan;
-use App\Kelurahan;
 use Yajra\Datatables\Datatables;
 
 class AnggotaSatlinmasController extends Controller

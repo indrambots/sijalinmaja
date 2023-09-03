@@ -205,6 +205,21 @@ Route::prefix('anggaran')->group(function(){
         Route::get('','AnggaranLembaga\HomeController@trantibum');
     });
 
+    Route::prefix('penegakan')->group(function () {
+        Route::get('','AnggaranLembaga\HomeController@penegakan');
+        Route::get('perda/datatable','AnggaranLembaga\PenegekanPerdaController@datatable');
+        Route::get('perda','AnggaranLembaga\PenegekanPerdaController@index');
+        Route::get('perda/create/{id}','AnggaranLembaga\PenegekanPerdaController@createOrEdit');
+        Route::post('perda/store','AnggaranLembaga\PenegekanPerdaController@storeOrUpdate');
+        Route::delete('perda/delete/{id}','AnggaranLembaga\PenegekanPerdaController@destroy');
+
+        Route::get('kasandra/datatable','AnggaranLembaga\KasandraController@datatable');
+        Route::get('kasandra','AnggaranLembaga\KasandraController@index');
+        Route::get('kasandra/create/{id}','AnggaranLembaga\KasandraController@createOrEdit');
+        Route::post('kasandra/store','AnggaranLembaga\KasandraController@storeOrUpdate');
+        Route::delete('kasandra/delete/{id}','AnggaranLembaga\KasandraController@destroy');
+    });
+
     Route::prefix('report')->group(function () {
         Route::get('','AnggaranLembaga\ReportController@anggaran');
         Route::post('anggaran-grid','AnggaranLembaga\ReportController@anggaranGrid');
