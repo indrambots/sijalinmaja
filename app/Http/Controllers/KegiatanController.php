@@ -238,14 +238,14 @@ class KegiatanController extends Controller
                 $no = Kegiatan::orderBy('no_urut_spt','desc')->first();
                 // dd($no);
                 $fix_no = $no->no_urut_spt+1;
-                $spt = "094/".$fix_no."/".$bidang->nomor_bidang."/2023";
+                $spt = "100.3.5.4/".$fix_no."/".$bidang->nomor_bidang."/2023";
             $kegiatan = new Kegiatan();
         else:
             $kegiatan = Kegiatan::where('id',$request->id)->first();
             $bidang = MasterKegiatan::where('bidang',$request->bidang)->first();
             // dd($no);
             $fix_no = $kegiatan->no_urut_spt;
-            $spt = "094/".$fix_no."/".$bidang->nomor_bidang."/2023";
+            $spt = "100.3.5.4/".$fix_no."/".$bidang->nomor_bidang."/2023";
         endif;
             $kegiatan->jenis_kegiatan = $request->jenis_kegiatan;
             $kegiatan->bidang         = $request->bidang;
