@@ -8,6 +8,7 @@ use App\Helpers\AliasName;
 use App\Helpers\Helpers;
 use App\AnggotaLinmas;
 use App\Kota;
+use App\MasterPendidikan as Pendidikan;
 use App\Kecamatan;
 use Yajra\Datatables\Datatables;
 
@@ -54,6 +55,7 @@ class AnggotaSatlinmasController extends Controller
             $kota->where('id', auth()->user()->kota);
         }
         $kota = $kota->orderBy('nama', 'asc')->get();
+        $pendidikan = Pendidikan::all();
         $kecamatan = [];
         $kelurahan = [];
         if($data){
@@ -64,7 +66,7 @@ class AnggotaSatlinmasController extends Controller
             }
         }
 
-        return view('pages.anggaran-lembaga.perlindungan.anggota-satlinmas.create-edit', compact('data', 'kota', 'kecamatan', 'kelurahan'));
+        return view('pages.anggaran-lembaga.perlindungan.anggota-satlinmas.create-edit', compact('data', 'kota', 'kecamatan', 'kelurahan','pendidikan'));
     }
 
     public function storeOrUpdate(Request $request){

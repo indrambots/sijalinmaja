@@ -42,8 +42,8 @@
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="form-group">
-                        <label>Kondisi :</label>
-                        <select name="kondisi" class="form-control select2">
+                        <label>Kondisi <span class="text-danger">*</span> :</label>
+                        <select name="kondisi" class="form-control select2" required>
                             <option value="">--Pilih Kondisi--</option>
                             <option value="Layak" {{@$data->kondisi == 'Layak' ? 'selected' : ''}}>Layak</option>
                             <option value="Tidak Layak" {{@$data->kondisi == 'Tidak Layak' ? 'selected' : ''}}>Tidak Layak</option>
@@ -53,14 +53,14 @@
                 <div class="col-12 col-md-12">
                     <div class="form-group">
                         <label>
-                            Berkas <span class="text-danger">*</span> :
+                            Berkas :
                             @if(isset($data->berkas))
                                 <a href="{{asset('berkas/'.$data->berkas.'')}}" target="_blank">
                                     <i>{{$data->berkas}}</i>
                                 </a>
                             @endif
                         </label>
-                        <input type="file" name="berkas" accept="application/pdf,application/vnd.ms-excel" required class="form-control">
+                        <input type="file" name="berkas" accept="application/pdf,application/vnd.ms-excel" class="form-control">
                         <small>Format berkas : pdf, xls, xlsx</small>
                     </div>
                 </div>

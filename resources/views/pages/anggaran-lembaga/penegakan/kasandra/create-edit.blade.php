@@ -45,7 +45,7 @@
                         <input type="text" id="jenis_tertib" value="{{@$data->jenis_tertib}}" placeholder="Otomatis isi dari pilihan urusan" readonly required class="form-control">
                     </div>
                 </div>
-                <div class="col-12 col-md-4">
+                {{-- <div class="col-12 col-md-4">
                     <div class="form-group">
                         <label>Jenis Pelanggaran <span class="text-danger">*</span> :</label>
                         <select name="jenis_pelanggaran" id="jenis_pelanggaran" required class="form-control select2">
@@ -55,7 +55,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-12 col-md-12">
                     <div class="form-group">
                         <label>Perda <span class="text-danger">*</span> :</label>
@@ -64,44 +64,44 @@
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="form-group">
-                        <label>Pasal Kewajiban <span class="text-danger">*</span> :</label>
-                        <input type="text" name="pasal_kewajiban" value="{{@$data->pasal_kewajiban}}" placeholder="Pasal Kewajiban" required class="form-control">
+                        <label>Pasal Kewajiban :</label>
+                        <input type="text" name="pasal_kewajiban" value="{{@$data->pasal_kewajiban}}" placeholder="Pasal Kewajiban" class="form-control">
                     </div>
                 </div>
                 <div class="col-12 col-md-9">
                     <div class="form-group">
-                        <label>Kewajiban <span class="text-danger">*</span> :</label>
-                        <input type="text" name="kewajiban" value="{{@$data->kewajiban}}" placeholder="Kewajiban" required class="form-control">
+                        <label>Kewajiban :</label>
+                        <input type="text" name="kewajiban" value="{{@$data->kewajiban}}" placeholder="Kewajiban" class="form-control">
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="form-group">
-                        <label>Pasal Sanksi Administrasi <span class="text-danger">*</span> :</label>
-                        <input type="text" name="pasal_sanksi_adm" value="{{@$data->pasal_sanksi_adm}}" placeholder="Pasal Sanksi Administrasi" required class="form-control">
+                        <label>Pasal Sanksi Administrasi :</label>
+                        <input type="text" name="pasal_sanksi_adm" value="{{@$data->pasal_sanksi_adm}}" placeholder="Pasal Sanksi Administrasi" class="form-control">
                     </div>
                 </div>
                 <div class="col-12 col-md-9">
                     <div class="form-group">
-                        <label>Sanksi Administrasi <span class="text-danger">*</span> :</label>
-                        <input type="text" name="sanksi_adm" value="{{@$data->sanksi_adm}}" placeholder="Sanksi Administrasi" required class="form-control">
+                        <label>Sanksi Administrasi :</label>
+                        <input type="text" name="sanksi_adm" value="{{@$data->sanksi_adm}}" placeholder="Sanksi Administrasi" class="form-control">
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="form-group">
-                        <label>Pasal Sanksi Pidana <span class="text-danger">*</span> :</label>
-                        <input type="text" name="pasal_sanksi_pidana" value="{{@$data->pasal_sanksi_pidana}}" placeholder="Pasal Sanksi Pidana" required class="form-control">
+                        <label>Pasal Sanksi Pidana :</label>
+                        <input type="text" name="pasal_sanksi_pidana" value="{{@$data->pasal_sanksi_pidana}}" placeholder="Pasal Sanksi Pidana" class="form-control">
                     </div>
                 </div>
                 <div class="col-12 col-md-9">
                     <div class="form-group">
-                        <label>Sanksi Pidana <span class="text-danger">*</span> :</label>
-                        <input type="text" name="sanksi_pidana" value="{{@$data->sanksi_pidana}}" placeholder="Sanksi Pidana" required class="form-control">
+                        <label>Sanksi Pidana :</label>
+                        <input type="text" name="sanksi_pidana" value="{{@$data->sanksi_pidana}}" placeholder="Sanksi Pidana" class="form-control">
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
-                        <label>Status <span class="text-danger">*</span> :</label>
-                        <input type="text" name="status" value="{{@$data->status}}" placeholder="Status" required class="form-control">
+                        <label>Status :</label>
+                        <input type="text" name="status" value="{{@$data->status}}" placeholder="Status" class="form-control">
                     </div>
                 </div>
             </div>

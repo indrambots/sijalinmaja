@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="form-group">
+                    <div class="form-group angka_kredit">
                         <label>Angka Kredit :</label>
                         <input type="text" name="angka_kredit" value="{{@$data->angka_kredit}}" placeholder="Angka Kredit" class="form-control">
                     </div>
@@ -204,8 +204,13 @@
         $('.is_ppns').hide();
     @endif
 
+    @if(@$data->jenis_jabatan != 'Jabatan Fungsional')
+        $('.angka_kredit').hide();
+        $('.angka_kredit').prop('required', false);
+    @endif
     $(document).ready(function(){
         $('#status_pegawai').change();
+        $('#jenis_jabatan').change();
     });
 
     $('#jenis_jabatan').change(function(){
@@ -214,6 +219,8 @@
         $('#tingkat_jabatan').prop('required', status);
         $('#tingkat_jabatan').val('');
         $('#tingkat_jabatan').select2('destroy').select2();
+        $(this).val() == 'Jabatan Fungsional' ? $('.angka_kredit').show() : $('.angka_kredit').hide();
+        $('.angka_kredit').prop('required', status);
     });
 
     $('#status_pegawai').change(function(){

@@ -43,7 +43,12 @@
                 <div class="col-12 col-md-4">
                     <div class="form-group">
                         <label>Pendidikan Terakhir <span class="text-danger">*</span> :</label>
-                        <input type="text" name="pendidikan_terakhir" value="{{@$data->pendidikan_terakhir}}" placeholder="Pendidikan Terakhir" required class="form-control">
+                        <select name="pendidikan_terakhir" id="pendidikan_terakhir" required class="form-control select2">
+                            <option value="">--Pilih Pendidikan Terakhir</option>
+                            @foreach ($pendidikan as $k)
+                                <option value="{{$k->nama}}" {{$k->nama == @$data->pendidikan_terakhir ? 'selected' : ''}}>{{$k->nama}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
@@ -92,7 +97,7 @@
                 <div class="col-12 col-md-4">
                     <div class="form-group">
                         <label>Tanggal SK <span class="text-danger">*</span> :</label>
-                        <input type="date" name="tanggal_sk_pengukuhan" value="{{@$data->tanggal_sk_pengukuhan}}" placeholder="Tanggal SK" required class="form-control">
+                        <input type="text" name="tanggal_sk_pengukuhan" value="{{@$data->tanggal_sk_pengukuhan}}" placeholder="Tanggal SK" required class="form-control datepicker">
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
@@ -103,20 +108,20 @@
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="form-group">
-                        <label>Sertifikat BIMTEK <span class="text-danger">*</span> :</label>
-                        <input type="text" name="sertifikat_bimtek" value="{{@$data->sertifikat_bimtek}}" placeholder="Sertifikat BIMTEK" required class="form-control">
+                        <label>No Sertifikat BIMTEK <span class="text-muted">(jika ada)</span> :</label>
+                        <input type="text" name="sertifikat_bimtek" value="{{@$data->sertifikat_bimtek}}" placeholder="Sertifikat BIMTEK" class="form-control">
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="form-group">
-                        <label>Tanggal Sertifikat BIMTEK <span class="text-danger">*</span> :</label>
-                        <input type="date" name="tanggal_sertifikat_bimtek" value="{{@$data->tanggal_sertifikat_bimtek}}" placeholder="Tanggal Sertifikat BIMTEK" required class="form-control">
+                        <label>Tanggal Sertifikat BIMTEK <span class="text-muted">(jika ada)</span> :</label>
+                        <input type="text" name="tanggal_sertifikat_bimtek" value="{{@$data->tanggal_sertifikat_bimtek}}" placeholder="Tanggal Sertifikat BIMTEK" class="form-control datepicker">
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="form-group">
-                        <label>Jumlah JP <span class="text-danger">*</span> :</label>
-                        <input type="number" name="jumlah_jp" value="{{@$data->jumlah_jp}}" placeholder="Jumlah JP" required class="form-control">
+                        <label>Jumlah JP <span class="text-muted">(jika ada)</span> :</label>
+                        <input type="number" name="jumlah_jp" value="{{@$data->jumlah_jp}}" placeholder="Jumlah JP" class="form-control">
                     </div>
                 </div>
         </div>

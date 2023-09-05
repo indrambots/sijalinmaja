@@ -201,7 +201,7 @@ class HomeController extends Controller
                     </a>
                     <br>
                     <a href="'.url('anggaran').'"
-                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">ANGGARAN KAB/KOTA
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">DATA KAB/KOTA
                     </a>
                 </div>
             </div>

@@ -256,18 +256,18 @@
                 <h4 class="modal-title text-left">{{isset($profil->id) ? 'UPDATE PROFIL' : 'LENGKAPI PROFIL'}}</h4>
             </div>
             <div class="modal-body">
-                <form class="form" method="POST" action="{{url('anggaran/profil-lembaga/store')}}">
+                <form class="form" method="POST" action="{{url('anggaran/kelembagaan/profil-lembaga/store')}}">
                     @csrf
                     <input type="hidden" name="profileid" value="{{isset($profil->id) ? $profil->id : ''}}">
                     <input type="hidden" name="userid" value="{{auth()->user()->id}}">
                     <div class="form-group">
-                        <label>Nama Kepala Satuan <span class="text-danger">*</span> :</label>
-                        <input type="text" name="nama_kepala_satuan" value="{{@$profil->nama_kepala_satuan}}" placeholder="Nama Kepala Satuan" required class="form-control">
-                    </div>
-                    <div class="form-group">
                         <label>Nomenlaktur Lembaga <span class="text-danger">*</span> :</label>
                         <input type="text" name="nomenlaktur" value="{{@$profil->nomenlaktur}}" placeholder="Nomenlaktur Lembaga" required class="form-control">
                         <span class="form-text text-danger">Isi Sesuai Nomenlaktur.</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Kepala Satuan <span class="text-danger">*</span> :</label>
+                        <input type="text" name="nama_kepala_satuan" value="{{@$profil->nama_kepala_satuan}}" placeholder="Nama Kepala Satuan" required class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Golongan <span class="text-danger">*</span> :</label>
@@ -310,7 +310,7 @@
                 <h4 class="modal-title text-left text-title"></h4>
             </div>
             <div class="modal-body">
-                <form class="form" method="POST" action="{{ url('anggaran/bidang/store') }}" id="form-anggaran">
+                <form class="form" method="POST" action="{{ url('anggaran/kelembagaan/bidang/store') }}" id="form-anggaran">
                     {{csrf_field()}}
                     <input type="hidden" name="lembagaid" value="{{@$profil->id}}">
                     <input type="hidden" name="anggaranid" id="anggaranid">
@@ -349,7 +349,7 @@
                 <h4 class="modal-title text-left">FORM PERBAHARUI NILAI SPM</h4>
             </div>
             <div class="modal-body">
-                <form class="form" method="POST" action="{{url('anggaran/profil/spm-save')}}" enctype="multipart/form-data">
+                <form class="form" method="POST" action="{{url('anggaran/kelembagaan/profil/spm-save')}}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="profileid" value="{{@$profil->id}}">
                     <div class="form-group">
