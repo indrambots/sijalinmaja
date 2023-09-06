@@ -12,6 +12,8 @@ use App\Helpers\AliasName;
 use App\MasterGolonganLembaga;
 use App\AnggaranProfilLembaga;
 use App\Kota;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmail;
 
 class HomeController extends Controller
 {
@@ -287,5 +289,16 @@ class HomeController extends Controller
             endif;
         })->rawColumns(['aksi','waktu_kegiatan','link_spt','aksi'])
         ->make(true);
+    }
+
+    public function tes_mail()
+    {
+        $data = array('name' => "Joi die");
+        $data = [
+        'name' => 'Syahrizal As',
+        'body' => 'Testing Kirim Email di Santri Koding'
+    ];
+   
+        Mail::to('indra.prasetya.hening@gmail.com')->send(new SendEmail($data));
     }
 }

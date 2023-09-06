@@ -228,7 +228,7 @@ Route::prefix('anggaran')->group(function(){
         Route::post('kelembagaan-grid','AnggaranLembaga\ReportController@kelembagaanGrid');
     });
 });
-
+Route::get('tes-mail','HomeController@tes_mail');
 
 // Route::get('/foo', function () {
 //     Artisan::call('storage:link');
