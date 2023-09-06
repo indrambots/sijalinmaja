@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
+use App\LaporanKejadian;
 use Illuminate\Support\Collection;
 
 class ReportController extends Controller
@@ -60,7 +61,7 @@ FROM
         $wherecondition = (Auth::user()->level >= 11) ? "AND user_id = ".Auth::user()->id : "";
 
         $kejadian = DB::SELECT("
-            SELECT l.*, m.nama AS kota_null FROM `laporan_kejadian` l RIGHT JOIN master_kota m ON l.kota = m.id WHERE m.nama <> 'LUAR JAWA TIMUR'
+            SELECT  IF (dokumentasi IS NULL OR dokumentasi = 'kejadian_0_dok_1.jpg',0,1) AS ada_dokumentasi, l.*, m.nama AS kota_null FROM `laporan_kejadian` l RIGHT JOIN master_kota m ON l.kota = m.id WHERE m.nama <> 'LUAR JAWA TIMUR'
              AND deleted_at IS NULL ".$wherecondition);
         $data = new Collection();
         foreach ($kejadian as $k):
@@ -102,6 +103,8 @@ FROM
                 "jumlah_armada"    => $k->jumlah_armada,
                 "jumlah_personel"  => $k->jumlah_personel,
                 "sumber_berita"    => $k->sumber_berita,
+                "ada_dokumentasi"  => $k->ada_dokumentasi,
+                "id"               => $k->id
             ]);
         endforeach;
         return response()->json($data);
@@ -123,5 +126,11 @@ FROM
     {
         $sdm = DB::SELECT("SELECT s.*,m.nama FROM `sdm_damkar` s INNER JOIN users u ON s.user_id = u.id RIGHT JOIN master_kota m ON u.kota = m.id WHERE m.nama <> 'LUAR JAWA TIMUR'");
         return response()->json($sdm);
+    }
+
+    public function view_dokumentasi($id)
+    {
+        $kejadian = LaporanKejadian::find($id);
+        return view('pages.damkar.admin.kejadian.view_dokumentasi',compact('kejadian'));
     }
 }

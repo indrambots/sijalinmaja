@@ -87,6 +87,7 @@ Route::prefix('damkar')->group(function () {
         Route::post('sarpras-grid','Damkar\ReportController@sarpras_grid');
         Route::get('sdm','Damkar\ReportController@sdm');
         Route::post('sdm-grid','Damkar\ReportController@sdm_grid');
+        Route::get('kejadian/dokumentasi/{id}','Damkar\ReportController@view_dokumentasi');
     });
 
     Route::prefix('profil')->group(function () {

@@ -106,7 +106,10 @@
             showBorders: true,
             wordWrapEnabled:true,
             columns: [
-
+                {
+                    caption:"dokumentasi",
+                    dataField:"ada_dokumentasi",
+                },
                 {
                     caption: "Jenis Kejadian",
                     dataField: "jenis_kejadian",
@@ -200,6 +203,21 @@
                 },
                 
             ],
+            customizeColumns: function(columns) {
+            columns[0].cellTemplate = function(container, options) {
+                console.log(options.data.id)
+                var text = '';
+                if(options.data.ada_dokumentasi == 1){
+                               $('<a>Link</a>')  
+                               .attr('href', 'kejadian/dokumentasi/'+options.data.id)  
+                               .attr('target', '_blank')  
+                               .appendTo(container);  
+                }
+                else{
+                    return '-';
+                }
+            }
+            } 
         }).dxDataGrid("instance");
     return dataGrid;
   }
