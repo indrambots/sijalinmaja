@@ -1,5 +1,6 @@
 /node_modules
 /public/hot
+/public/berkas
 /public/storage
 /storage/*.key
 /vendor

@@ -56,7 +56,7 @@
                             Berkas :
                             @if(isset($data->berkas))
                                 <a href="{{asset('berkas/'.$data->berkas.'')}}" target="_blank">
-                                    <i>{{$data->berkas}}</i>
+                                    <u>{{$data->berkas}}</u>
                                 </a>
                             @endif
                         </label>
