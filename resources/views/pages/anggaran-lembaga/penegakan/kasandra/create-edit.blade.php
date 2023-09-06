@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label>Urusan <span class="text-danger">*</span> :</label>
                         <select name="urusan_pemerintahan" id="urusan_pemerintahan" required class="form-control select2">
@@ -39,10 +39,17 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label>Jenis Tertib <span class="text-danger">*</span> :</label>
-                        <input type="text" id="jenis_tertib" value="{{@$data->jenis_tertib}}" placeholder="Otomatis isi dari pilihan urusan" readonly required class="form-control">
+                        <select name="jenis_tertib" id="jenis_tertib" required class="form-control select2">
+                            <option value="">--Pilih Jenis Tertib--</option>
+                            @if($jenis_tertib)
+                                @foreach ($jenis_tertib as $tertib)
+                                    <option value="{{$tertib->nama}}" {{$tertib->nama == @$data->jenis_tertib ? 'selected' : ''}}>{{$tertib->nama}}</option>
+                                @endforeach
+                            @endif
+                        </select>
                     </div>
                 </div>
                 {{-- <div class="col-12 col-md-4">
@@ -122,7 +129,26 @@
     $('.select2').select2();
 
     $('#urusan_pemerintahan').change(function(){
-        $('#jenis_tertib').val($(this).val());
+        $.ajax({
+            url: "{{url('anggaran/penegakan/kasandra/utility/getUraian')}}",
+            method: 'post',
+            data: {
+                uraian: $(this).find(":selected").text()
+            },
+            success: function(res){
+                $("#jenis_tertib option").each(function(){
+                    if($(this).val()){
+                        $(this).remove();
+                    }
+                });
+                if(res.length > 0){
+                    $.each(res, function(i, data){
+                        $('#jenis_tertib').append('<option value="'+data.nama+'">'+data.nama+'</option>');
+                    });
+                }
+                $('#jenis_tertib').select2('destroy').select2();
+            }
+        });
     });
 </script>
 @endsection

@@ -219,6 +219,7 @@ Route::prefix('anggaran')->group(function(){
         Route::get('kasandra/create/{id}','AnggaranLembaga\KasandraController@createOrEdit');
         Route::post('kasandra/store','AnggaranLembaga\KasandraController@storeOrUpdate');
         Route::delete('kasandra/delete/{id}','AnggaranLembaga\KasandraController@destroy');
+        Route::post('kasandra/utility/getUraian','AnggaranLembaga\KasandraController@getUraian');
     });
 
     Route::prefix('report')->group(function () {

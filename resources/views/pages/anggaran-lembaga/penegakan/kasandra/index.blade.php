@@ -40,7 +40,7 @@
                             <th>Status</th>
                             <th>Urusan</th>
                             <th>Jenis Tertib</th>
-                            <th>Jenis Pelanggaran</th>
+                            {{-- <th>Jenis Pelanggaran</th> --}}
                             <th>Perda</th>
                             <th>Pasal Kewajiban</th>
                             <th>Kewajiban</th>
@@ -70,7 +70,7 @@
             { data: 'status', name: 'status', className: 'text-center'},
             { data: 'urusan_pemerintahan', name: 'urusan_pemerintahan'},
             { data: 'jenis_tertib', name: 'jenis_tertib'},
-            { data: 'jenis_pelanggaran', name: 'jenis_pelanggaran'},
+            // { data: 'jenis_pelanggaran', name: 'jenis_pelanggaran'},
             { data: 'perda', name: 'perda'},
             { data: 'pasal_kewajiban', name: 'pasal_kewajiban'},
             { data: 'kewajiban', name: 'kewajiban'},

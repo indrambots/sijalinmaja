@@ -6,6 +6,7 @@ use App\Kelurahan;
 use App\Urusan;
 use App\JenisPelanggaran;
 use App\Kasandra;
+use App\MasterJenisTertib;
 
 class Helpers{
 
@@ -73,5 +74,10 @@ class Helpers{
             'SP-3',
             'Dalam Proses (Belum P-21/SP-3)'
         ];
+    }
+
+    public static function getJenisTertib($urusan){
+
+        return MasterJenisTertib::where('urusan', $urusan)->orderBy('nama', 'asc')->get();
     }
 }
