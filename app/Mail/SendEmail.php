@@ -29,7 +29,7 @@ class SendEmail extends Mailable
     public function build()
     {
         // return $this->view('view.name');
-        return $this->subject('Testing Kirim Email')
+        return $this->subject('PARTISIPASI GEMA SANG BUNDA')
                     ->view('email.test');
     }
 }

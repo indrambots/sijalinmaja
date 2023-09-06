@@ -293,12 +293,11 @@ class HomeController extends Controller
 
     public function tes_mail()
     {
-        $data = array('name' => "Joi die");
+        $data = array('name' => "Galih Wibisana");
         $data = [
-        'name' => 'Syahrizal As',
-        'body' => 'Testing Kirim Email di Santri Koding'
+        'name' => $data['name']
     ];
    
-        Mail::to('indra.prasetya.hening@gmail.com')->send(new SendEmail($data));
+        Mail::to('chaidhargalihwibisana@gmail.com')->send(new SendEmail($data));
     }
 }
