@@ -14,6 +14,9 @@ class PenegekanPerdaController extends Controller
     public function datatable(){
 
         $query = PenegakanPerda::query();
+        if(auth()->user()->level == AliasName::level_dinas){
+            $query->where('created_by', auth()->user()->id);
+        }
         $query->orderBy('id', 'desc');
 
         return Datatables::of($query)

@@ -21,6 +21,9 @@ class AnggotaSatlinmasController extends Controller
         $query->join('master_kota as kot', 'kot.id', '=', 'anggota_satlinmas.kotaid');
         $query->join('master_kecamatan as kec', 'kec.id', '=', 'anggota_satlinmas.kecamatanid');
         $query->join('master_kelurahan as kel', 'kel.id', '=', 'anggota_satlinmas.kelurahanid');
+        if(auth()->user()->level == AliasName::level_dinas){
+            $query->where('anggota_satlinmas.created_by', auth()->user()->id);
+        }
         $query->orderBy('id', 'desc');
 
         return Datatables::of($query)

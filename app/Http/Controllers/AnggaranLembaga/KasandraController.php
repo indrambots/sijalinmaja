@@ -14,6 +14,9 @@ class KasandraController extends Controller
     public function datatable(){
 
         $query = Kasandra::query();
+        if(auth()->user()->level == AliasName::level_dinas){
+            $query->where('user_id', auth()->user()->id);
+        }
         $query->orderBy('id', 'desc');
 
         return Datatables::of($query)
