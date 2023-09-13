@@ -21,7 +21,7 @@ class PegawaiKabController extends Controller
         $query->select('pegawai_kab.*', 'kab.nama as kab_kota');
         $query->join('master_kota as kab', 'kab.id', '=', 'pegawai_kab.kab_kota_id');
         if(auth()->user()->level == AliasName::level_dinas){
-            $query->where('pegawai_kab.kab_kota_id', auth()->user()->kota);
+            $query->where('pegawai_kab.userid', auth()->user()->id);
         }
         $query->orderBy('id', 'desc');
 

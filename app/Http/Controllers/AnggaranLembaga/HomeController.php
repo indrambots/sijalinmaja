@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AnggaranLembaga;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Helpers\AliasName;
 use App\MasterGolonganLembaga;
 use App\AnggaranProfilLembaga;
 use App\Kota;
@@ -41,6 +42,7 @@ class HomeController extends Controller
 
         $request->merge([
             'anggaran' => str_replace(',', '', $request->anggaran),
+            'created_by' => auth()->user()->id
         ]);
         $data = $request->anggaranid ? AnggaranBidang::find($request->anggaranid): new AnggaranBidang();
         foreach($request->all() as $field => $val){
@@ -64,6 +66,9 @@ class HomeController extends Controller
     public function anggaranDatatable(){
 
         $query = AnggaranBidang::query();
+        if(auth()->user()->level == AliasName::level_dinas){
+            $query->where('created_by', auth()->user()->id);
+        }
         $query->orderBy('id', 'desc');
 
         return Datatables::of($query)
