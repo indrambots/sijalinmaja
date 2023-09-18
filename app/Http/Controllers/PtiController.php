@@ -100,7 +100,7 @@ class PtiController extends Controller
             $is_hadir = substr($a, -1);
             $peg = Pegawai::where('nip',$nip)->first();
             $cek_spt = DB::SELECT("SELECT k.spt FROM kegiatan_personel kp INNER JOIN kegiatan k ON kp.kegiatan_id = k.id WHERE
-                '".$pti->tanggal."' BETWEEN tanggal_mulai AND tanggal_selesai AND kp.nip = '".$nip."'
+                '".$pti->tanggal."' BETWEEN tanggal_mulai AND tanggal_selesai AND kp.nip = '".$nip."' AND k.bentuk_kegiatan <> 'PUSKOGAP'
                 ");
             $is_spt = (count($cek_spt) > 0) ? 1 : 0;
             $cek_inputted = KehadiranPti::where('nip',$nip)->where('pti_id',$request->id)->first();
