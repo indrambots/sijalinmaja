@@ -13,5 +13,6 @@ class AliasName{
     const level_staff = 9;
     const level_tim_kasus = 10; //TIM KASUS / KASANDRA
     const level_dinas = 11; //bisa untuk SATPOLPP tingkat kabupaten/kota
-    const level_damkar = 12;
+    const level_dinas_dan_damkar = 12; //bisa untuk SATPOLPP tingkat kabupaten/kota yang mengampu juga bidang damkar
+    const level_damkar = 13; //bisa untuk tingkat kabupaten/kota dengan CATATAN dinas damkar sudah berdiri sendiri
 }

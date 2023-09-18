@@ -7,7 +7,7 @@
     </li>
 </ol>
 <div class="row justify-content-center">
-    @if(auth()->user()->level == AliasName::level_dinas)
+    @if(auth()->user()->level == AliasName::level_dinas || Auth()->user()->level == AliasName::level_dinas_dan_damkar)
         <div class="col-12 col-md-4">
             @if($profil)
                 <div class="card mb-4">
@@ -141,6 +141,24 @@
                 </div>
             </div>
 
+            @if(Auth()->user()->level == AliasName::level_dinas_dan_damkar)
+            <div class="col-12 col-md-6 mb-3">
+                <div class="card card-custom wave wave-animate-fast wave-primary">
+                    <div class="card-body text-center">
+                        <a href="{{ url('damkar') }}">
+                            <span class="svg-icon-6x">
+                                <i class="icon-6x text-info mb-10 mt-10 fa-solid flaticon-security"></i>
+                            </span>
+                        </a>
+                        <br>
+                        <a href="{{ url('damkar') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">
+                            SiDandiKeren
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endif
+            
             <div class="col-12 col-md-6 mb-3">
                 <div class="card card-custom wave wave-animate-fast wave-primary">
                     <div class="card-body text-center">

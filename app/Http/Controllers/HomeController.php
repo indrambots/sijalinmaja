@@ -224,17 +224,11 @@ class HomeController extends Controller
             );
         elseif(auth()->user()->level == AliasName::level_damkar):
             array_push($data,$page['damkarmat']);
-        elseif(auth()->user()->level == AliasName::level_dinas):
-            $damkar_check = User::where('kota',auth()->user()->kota)->get();
-            if(count($damkar_check)  > 1 ):
-                $profil = AnggaranProfilLembaga::where('userid', auth()->user()->id)->first();
-                $golongan = MasterGolonganLembaga::all();
-                $kota = Kota::orderBy('nama', 'asc')->get();
-
-                return view('pages.anggaran-lembaga.dashboard-dinas', compact('profil', 'golongan', 'kota'));
-            else:
-                array_push($data,$page['kasus'],$page['damkarmat']);
-            endif;
+        elseif(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar):
+            $profil     = AnggaranProfilLembaga::where('userid', auth()->user()->id)->first();
+            $golongan   = MasterGolonganLembaga::all();
+            $kota       = Kota::orderBy('nama', 'asc')->get();
+            return view('pages.anggaran-lembaga.dashboard-dinas', compact('profil', 'golongan', 'kota'));
         elseif(auth()->user()->level == AliasName::level_aspri):
                 array_push($data,$page['kegiatan'],$page['report_kegiatan']);
         elseif(auth()->user()->level == AliasName::level_operator):
