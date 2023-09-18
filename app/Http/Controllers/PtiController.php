@@ -116,6 +116,7 @@ class PtiController extends Controller
                 ]);
             else:
                 $cek_inputted->hadir = $is_hadir;
+                $cek_inputted->is_spt = $is_spt;
                 $cek_inputted->save();
             endif;
         endforeach;
