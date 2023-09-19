@@ -40,25 +40,63 @@ class KegiatanController extends Controller
     public function datatable_rekap_kegiatan(Request $request)
     {
         $bulancondition = ($request->bulan == '-') ? "" : "AND EXTRACT( MONTH FROM tanggal_mulai ) = '".$request->bulan."' ";
-        $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bidang, sub_bidang FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bulancondition." GROUP BY bidang, sub_bidang ORDER BY bidang ASC");
+        $kegiatan = DB::SELECT("SELECT COUNT(id) AS total, bidang, sub_bidang FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bulancondition." AND bidang <> 'Ketentraman dan Ketertiban Umum' GROUP BY bidang, sub_bidang ORDER BY bidang ASC");
         $data = new Collection;
         foreach($kegiatan as $k):
-            $blm = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->whereNull('hasil_kegiatan')->where('is_batal',0)->get();
-            $batal = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->where('is_batal',1)->get();
-            if($request->bulan !== '-'):
-                $blm = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->whereNull('hasil_kegiatan')->where('is_batal',0)->whereMonth('tanggal_mulai',$request->bulan)->get();
-                $batal = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->where('is_batal',1)->whereMonth('tanggal_mulai',$request->bulan)->get();
-            endif;
-            $btn_blm = "<button class='btn btn-warning' data-toggle='modal' data-target='#modal-laporan-seksi' onclick='belumLaporan(`".$k->bidang."`,`".$k->sub_bidang."`)'>".count($blm)."</button>";
-            $btn_batal = "<button class='btn btn-danger' data-toggle='modal' data-target='#modal-batal-seksi' onclick='modalBatalSeksi(`".$k->sub_bidang."`)'>".count($batal)."</button>";
-            $data->push([
-                "bulancondition" => $request->bulan,
-                "total" => $k->total,
-                "bidang" => $k->bidang,
-                "sub_bidang" => $k->sub_bidang,
-                "belum_laporan" => $btn_blm,
-                "batal" => $btn_batal,
-            ]);
+                $blm = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->whereNull('hasil_kegiatan')->where('is_batal',0)->get();
+                $batal = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->where('is_batal',1)->get();
+                if($request->bulan !== '-'):
+                    $blm = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->whereNull('hasil_kegiatan')->where('is_batal',0)->whereMonth('tanggal_mulai',$request->bulan)->get();
+                    $batal = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->where('is_batal',1)->whereMonth('tanggal_mulai',$request->bulan)->get();
+                endif;
+                $btn_blm = "<button class='btn btn-warning' data-toggle='modal' data-target='#modal-laporan-seksi' onclick='belumLaporan(`".$k->bidang."`,`".$k->sub_bidang."`)'>".count($blm)."</button>";
+                $btn_batal = "<button class='btn btn-danger' data-toggle='modal' data-target='#modal-batal-seksi' onclick='modalBatalSeksi(`".$k->sub_bidang."`)'>".count($batal)."</button>";
+                $data->push([
+                    "bulancondition" => $request->bulan,
+                    "total" => $k->total,
+                    "bidang" => $k->bidang,
+                    "sub_bidang" => $k->sub_bidang,
+                    "belum_laporan" => $btn_blm,
+                    "batal" => $btn_batal,
+                ]);
+        endforeach;
+        $giat_tibum = DB::SELECT("SELECT COUNT(id) AS total, bidang, sub_bidang FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bulancondition." AND bidang = 'Ketentraman dan Ketertiban Umum' AND bentuk_kegiatan <> 'PUSKOGAP' GROUP BY bidang, sub_bidang ORDER BY bidang ASC");
+        foreach($giat_tibum as $k):
+                $blm = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->where('bentuk_kegiatan','<>','PUSKOGAP')->whereNull('hasil_kegiatan')->where('is_batal',0)->get();
+                $batal = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->where('bentuk_kegiatan','<>','PUSKOGAP')->where('is_batal',1)->get();
+                if($request->bulan !== '-'):
+                    $blm = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->whereNull('hasil_kegiatan')->where('is_batal',0)->where('bentuk_kegiatan','<>','PUSKOGAP')->whereMonth('tanggal_mulai',$request->bulan);
+                    $batal = Kegiatan::select('id')->where('bidang',$k->bidang)->where('sub_bidang',$k->sub_bidang)->where('is_batal',1)->whereMonth('tanggal_mulai',$request->bulan)->get();
+                endif;
+                $btn_blm = "<button class='btn btn-warning' data-toggle='modal' data-target='#modal-laporan-seksi' onclick='belumLaporan(`".$k->bidang."`,`".$k->sub_bidang."`)'>".count($blm)."</button>";
+                $btn_batal = "<button class='btn btn-danger' data-toggle='modal' data-target='#modal-batal-seksi' onclick='modalBatalSeksi(`".$k->sub_bidang."`)'>".count($batal)."</button>";
+                $data->push([
+                    "bulancondition" => $request->bulan,
+                    "total" => $k->total,
+                    "bidang" => $k->bidang,
+                    "sub_bidang" => $k->sub_bidang,
+                    "belum_laporan" => $btn_blm,
+                    "batal" => $btn_batal,
+                ]);
+        endforeach;
+        $puskogap = DB::SELECT("SELECT COUNT(id) AS total FROM kegiatan WHERE deleted_at IS NULL AND id >0 ".$bulancondition." AND bentuk_kegiatan = 'PUSKOGAP' GROUP BY bentuk_kegiatan ");
+        foreach($puskogap as $k):
+                $blm = Kegiatan::select('id')->where('bentuk_kegiatan','=','PUSKOGAP')->whereNull('hasil_kegiatan')->where('is_batal',0)->get();
+                $batal = Kegiatan::select('id')->where('bentuk_kegiatan','=','PUSKOGAP')->where('is_batal',1)->get();
+                if($request->bulan !== '-'):
+                    $blm = Kegiatan::select('id')->whereNull('hasil_kegiatan')->where('is_batal',0)->where('bentuk_kegiatan','=','PUSKOGAP')->whereMonth('tanggal_mulai',$request->bulan);
+                    $batal = Kegiatan::select('id')->where('is_batal',1)->where('bentuk_kegiatan','=','PUSKOGAP')->whereMonth('tanggal_mulai',$request->bulan)->get();
+                endif;
+                $btn_blm = "<button class='btn btn-warning' data-toggle='modal' data-target='#modal-laporan-seksi' onclick='belumLaporan(`PUSKOGAP`,`PUSKOGAP`)'>".count($blm)."</button>";
+                $btn_batal = "<button class='btn btn-danger' data-toggle='modal' data-target='#modal-batal-seksi' onclick='modalBatalSeksi(`PUSKOGAP`)'>".count($batal)."</button>";
+                $data->push([
+                    "bulancondition" => $request->bulan,
+                    "total" => $k->total,
+                    "bidang" => 'PUSKOGAP',
+                    "sub_bidang" => 'PUSKOGAP',
+                    "belum_laporan" => $btn_blm,
+                    "batal" => $btn_batal,
+                ]);
         endforeach;
         return Datatables::of($data)
         ->rawColumns(['belum_laporan','batal'])
@@ -125,9 +163,17 @@ WHERE
 
     public function laporan_seksi(Request $request)
     {
-        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('sub_bidang',$request->sub_bidang)->whereNull('hasil_kegiatan')->where('id','>',0)->whereNull('deleted_at')->get();
-        if($request->bulan !== '-'):
-        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->whereMonth('tanggal_mulai',$request->bulan)->where('sub_bidang',$request->sub_bidang)->whereNull('hasil_kegiatan')->where('id','>',0)->whereNull('deleted_at')->get();
+        if($request->sub_bidang <> 'PUSKOGAP'):
+            $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('sub_bidang',$request->sub_bidang)->whereNull('hasil_kegiatan')->where('id','>',0)->whereNull('deleted_at')->where('bentuk_kegiatan','<>','PUSKOGAP')->where('is_batal',0)->get();
+            if($request->bulan !== '-'):
+                $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->whereMonth('tanggal_mulai',$request->bulan)->where('sub_bidang',$request->sub_bidang)->whereNull('hasil_kegiatan')->where('bentuk_kegiatan','<>','PUSKOGAP')->where('id','>',0)->whereNull('deleted_at')->where('is_batal',0)->get();
+            endif;
+        else:
+            $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->whereNull('hasil_kegiatan')->where('id','>',0)->whereNull('deleted_at')->where('bentuk_kegiatan','=','PUSKOGAP')->where('is_batal',0)->get();
+            // dd($kegiatan);
+            if($request->bulan !== '-'):
+                $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->whereMonth('tanggal_mulai',$request->bulan)->whereNull('hasil_kegiatan')->where('bentuk_kegiatan','=','PUSKOGAP')->where('is_batal',0)->where('id','>',0)->whereNull('deleted_at')->get();
+            endif;
         endif;
         $view = (String) view('pages.rekap.kegiatan.ajax.modal_seksi', compact('kegiatan'));
         return response()->json(array('view' => $view));
