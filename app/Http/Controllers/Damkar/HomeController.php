@@ -20,7 +20,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        if(Auth::user()->level == 11 || Auth::user()->level == 12):
+        if(Auth::user()->level == 11 || Auth::user()->level == 12 || Auth::user()->level == 13):
             $profil = ProfilDamkar::where('user_id',Auth::user()->id)->first();
             $sarpras = SarprasDamkar::where('user_id',Auth::user()->id)->first();
             $sdm = SdmDamkar::where('user_id',Auth::user()->id)->first();
