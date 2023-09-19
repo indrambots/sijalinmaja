@@ -7,6 +7,7 @@ use App\Urusan;
 use App\JenisPelanggaran;
 use App\Kasandra;
 use App\MasterJenisTertib;
+use App\Helpers\AliasName;
 
 class Helpers{
 
@@ -38,7 +39,14 @@ class Helpers{
 
     public static function getKasandra(){
 
-        return Kasandra::orderBy('perda', 'asc')->get();
+        $data = Kasandra::query();
+        if(auth()->user()->level == AliasName::level_dinas){
+            $data->where('user_id', auth()->user()->id);
+        }
+        $data->orderBy('perda', 'asc');
+        $data = $data->get();
+
+        return $data;
     }
 
     public static function listTindakLanjut(){

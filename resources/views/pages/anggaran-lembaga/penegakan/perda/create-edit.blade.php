@@ -24,14 +24,14 @@
     <input type="hidden" name="dataid" value="{{@$data->id}}">
     <div class="card card-custom gutter-b example example-compact">
         <div class="card-header">
-            <h3 class="card-title">FORM KASANDRA</h3>
+            <h3 class="card-title">FORM PERDA</h3>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-md-3">
                     <div class="form-group">
                         <label>Tanggal Kegiatan <span class="text-danger">*</span> :</label>
-                        <input type="date" name="tanggal_kegiatan" value="{{@$data->tanggal_kegiatan}}" required class="form-control">
+                        <input type="text" name="tanggal_kegiatan" value="{{@$data->tanggal_kegiatan}}" placeholder="Tanggal Kegiatan" required class="form-control datepicker">
                     </div>
                 </div>
                 <div class="col-12 col-md-9">
@@ -92,7 +92,7 @@
                 <div class="col-12 col-md-3">
                     <div class="form-group">
                         <label>Tanggal Sidang Tipiring <span class="text-danger">*</span> :</label>
-                        <input type="datetime-local" name="tanggal_sidang_tipiring" value="{{@$data->tanggal_sidang_tipiring}}" required class="form-control">
+                        <input type="text" name="tanggal_sidang_tipiring" value="{{@$data->tanggal_sidang_tipiring}}" placeholder="Tanggal Sidang Tipiring" required class="form-control datepicker">
                     </div>
                 </div>
                 <div class="col-12 col-md-9">
