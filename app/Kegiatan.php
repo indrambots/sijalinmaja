@@ -71,7 +71,7 @@ class Kegiatan extends Model
         // variabel pecahkan 1 = bulan
         // variabel pecahkan 2 = tahun
 
-        return $pecahkan1[2] . ' - ' .$pecahkan2[2]. ' '. $bulan[(int) $pecahkan1[1]] . ' ' . $pecahkan1[0];
+        return $pecahkan1[2] . ' - ' .$pecahkan2[2]. ' '. $bulan[(int) $pecahkan2[1]] . ' ' . $pecahkan1[0];
     }
 
     public function hari($tanggal)
