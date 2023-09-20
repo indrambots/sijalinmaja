@@ -275,8 +275,12 @@
                            {{$keg->hari($keg->tanggal_mulai)}} 
                            Tanggal {{$keg->tgl_indo($keg->tanggal_mulai)}} 
                        @else
-                           {{$keg->hari($keg->tanggal_mulai)}} s/d  {{$keg->hari($keg->tanggal_selesai)}}
-                           Tanggal {{$keg->tgl_indo_2($keg->tanggal_mulai,$keg->tanggal_selesai)}} 
+                           @if(date("m",strtotime($keg->tanggal_mulai)) !== date("m",strtotime($keg->tanggal_selesai)))
+                                {{$keg->hari($keg->tanggal_mulai)}} {{$keg->tgl_indo($keg->tanggal_mulai)}} s/d {{$keg->hari($keg->tanggal_selesai)}} {{$keg->tgl_indo($keg->tanggal_selesai)}} 
+                            @else
+                               {{$keg->hari($keg->tanggal_mulai)}} s/d  {{$keg->hari($keg->tanggal_selesai)}}
+                               Tanggal {{$keg->tgl_indo_2($keg->tanggal_mulai,$keg->tanggal_selesai)}} 
+                            @endif
                        @endif
                        di {{$keg->lokasi}}, Pukul {{date('H.i', strtotime($keg->jam_mulai))}} WIB;
                     </p>
@@ -583,8 +587,12 @@
                            {{$keg->hari($keg->tanggal_mulai)}} 
                            Tanggal {{$keg->tgl_indo($keg->tanggal_mulai)}} 
                        @else
-                           {{$keg->hari($keg->tanggal_mulai)}} s/d  {{$keg->hari($keg->tanggal_selesai)}}
-                           Tanggal {{$keg->tgl_indo_2($keg->tanggal_mulai,$keg->tanggal_selesai)}} 
+                           @if(date("m",strtotime($keg->tanggal_mulai)) !== date("m",strtotime($keg->tanggal_selesai)))
+                                {{$keg->hari($keg->tanggal_mulai)}} {{$keg->tgl_indo($keg->tanggal_mulai)}} s/d {{$keg->hari($keg->tanggal_selesai)}} {{$keg->tgl_indo($keg->tanggal_selesai)}} 
+                            @else
+                               {{$keg->hari($keg->tanggal_mulai)}} s/d  {{$keg->hari($keg->tanggal_selesai)}}
+                               Tanggal {{$keg->tgl_indo_2($keg->tanggal_mulai,$keg->tanggal_selesai)}} 
+                            @endif
                        @endif
                        di {{$keg->lokasi}}, Pukul {{date('H.i', strtotime($keg->jam_mulai))}} WIB;
                     </p>
