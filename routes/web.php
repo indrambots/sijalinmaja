@@ -179,11 +179,8 @@ Route::prefix('anggaran')->group(function(){
         Route::post('pegawai-kab/store','AnggaranLembaga\PegawaiKabController@storeOrUpdate');
         Route::delete('pegawai-kab/delete/{id}','AnggaranLembaga\PegawaiKabController@destroy');
 
-        Route::get('sarpras/datatable','AnggaranLembaga\SarprasController@datatable');
-        Route::get('sarpras','AnggaranLembaga\SarprasController@index');
-        Route::get('sarpras/create/{id}','AnggaranLembaga\SarprasController@createOrEdit');
-        Route::post('sarpras/store','AnggaranLembaga\SarprasController@storeOrUpdate');
-        Route::delete('sarpras/delete/{id}','AnggaranLembaga\SarprasController@destroy');
+        Route::get('sarpras','AnggaranLembaga\FormSarprasController@index');
+        Route::post('sarpras/store','AnggaranLembaga\FormSarprasController@storeOrUpdate');
     });
 
     Route::prefix('perlindungan')->group(function () {
