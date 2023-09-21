@@ -100,9 +100,10 @@ class KasusController extends Controller
         endif;
         return Datatables::of($kasus)
         ->addColumn('aksi',function($i){
+            $btn_kasandra = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-kasandra" onclick="kasandra('.$i->id.')"><i class="fas fa-book"></i></button>';
             $btn_verif = '<button class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" data-toggle="modal" data-target="#modal-verif" onclick="verifKasus('.$i->id.')"><i class="far fa-check-circle"></i></button>';
             $btn_aksi = '<a href="'.url('kasus/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a><button onclick="deleteKasus('.$i->id.')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>';
-            return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_aksi.$btn_verif.'</div>';
+            return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_kasandra.$btn_aksi.$btn_verif.'</div>';
         })
         ->editColumn('tanggal_informasi',function($i){
             return date("d F Y", strtotime($i->tanggal_informasi));
@@ -195,7 +196,10 @@ class KasusController extends Controller
 
     public function kasandra_list($id){
         $id = $id;
-        $kasandra = Kasandra::all();
+        $kasandra = Kasandra::where('user_id',5)->get();
+        if(Auth::user()->level > 10 ):
+            $kasandra = Kasandra::where('user_id',Auth::user()->id)->get();
+        endif;
         return view('pages.kasus.popup.kasandra',compact('id','kasandra'));
     }
 
