@@ -7,6 +7,7 @@ use App\Urusan;
 use App\JenisPelanggaran;
 use App\Kasandra;
 use App\MasterJenisTertib;
+use App\MasterFormSarpras;
 use App\Helpers\AliasName;
 
 class Helpers{
@@ -87,5 +88,14 @@ class Helpers{
     public static function getJenisTertib($urusan){
 
         return MasterJenisTertib::where('urusan', $urusan)->orderBy('nama', 'asc')->get();
+    }
+
+    public static function formSarpras(){
+
+        $query = MasterFormSarpras::orderBy('nama', 'asc')->get()->toArray();
+        $data = [];
+        foreach($query as $que){
+            $data[$que['group1']][$que['group2']][$que['group3']][] = $que->nama;
+        }
     }
 }
