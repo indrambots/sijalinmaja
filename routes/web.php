@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // URL::forceScheme('https');
-Route::get('', 'HomeController@indexs')->name('home');
+// Route::get('', 'LandingController@indexs')->name('home');
+Route::get('', 'HomeController@index')->name('home');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('profil/save','HomeController@save_profil');
@@ -220,6 +221,10 @@ Route::prefix('anggaran')->group(function(){
         Route::post('kasandra/store','AnggaranLembaga\KasandraController@storeOrUpdate');
         Route::delete('kasandra/delete/{id}','AnggaranLembaga\KasandraController@destroy');
         Route::post('kasandra/utility/getUraian','AnggaranLembaga\KasandraController@getUraian');
+
+        Route::prefix('instrumen')->group(function () {
+            Route::get('','AnggaranLembaga\InstrumenPerdaController@index');
+        });
     });
 
     Route::prefix('report')->group(function () {
