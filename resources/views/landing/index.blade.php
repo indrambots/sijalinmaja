@@ -930,27 +930,7 @@
     <script src="{{ asset('assets/landing/js/testimonial.js') }}"></script>
     <!-- Contact Form js -->
     <script src="{{ asset('assets/landing/js/contact_form.js') }}"></script>
-    <script src="{{ asset('assets/landing/js/custom.js') }}"></script>
-    <script>
-        function initMap() {
-            var uluru = {
-                lat: -36.742775,
-                lng: 174.731559
-            };
-            var map = new google.maps.Map(document.getElementById('map_trantibum'), {
-                zoom: 15,
-                scrollwheel: false,
-                center: uluru
-            });
-            var marker = new google.maps.Marker({
-                position: uluru,
-                map: map
-            });
-        }
-    </script>
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB6fouhBbFhJmgiFuFNFuYAtfF7Sy_VxDg&libraries=places&callback=initMap"></script>
-    </script>
-    <script>
+    <script src="{{ asset('assets/landing/js/custom.js') }}"></script> <script>
 	var map; 
   var baselayer;
   var mylocation;  
@@ -970,7 +950,7 @@
           center: myLatLng,
   				mapTypeId: 'hybrid'
         };
-        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        map = new google.maps.Map(document.getElementById("map_trantibum"), mapOptions);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(menubtn); 
       baselayer = new google.maps.Data();
       baselayer.loadGeoJson('{{ asset('js/kota_all.json') }}')
@@ -1272,6 +1252,8 @@ $(document).ready(function(){
 	// getLocation()
 })
 </script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB6fouhBbFhJmgiFuFNFuYAtfF7Sy_VxDg&libraries=places&callback=initMap"></script>
+   
 </body>
 
 </html>
