@@ -11,7 +11,8 @@
     <meta name="description" content="Sistem Integrasi Jaga Lindungi Masyarakat Jawa Timur" />
     <meta name="keywords" content="Sistem Integrasi Jaga Lindungi Masyarakat Jawa Timur SIJALINMAJA" />
     <meta name="author" content="Satpol PP Provinsi Jawa Timur" />
-    <!-- Animation Css -->
+    
+
     <link href="{{ asset('assets/landing/css/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/landing/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- font-awesome -->
@@ -29,7 +30,7 @@
     <link href="{{ asset('assets/landing/css/responsive.css')}}" rel="stylesheet">
 </head>
 
-<body>
+<body style="">
 
     <a href="javascript:" id="return-to-top"><i class="fas fa-arrow-up"></i> <br>top</a>
 
@@ -74,10 +75,8 @@
                             <nav class="menu_scroll">
                                 <ul>
                                     <li><a href="0">Home</a></li>
-                                    <li><a href="1">Services</a></li>
-                                    <li><a href="2">About Us</a></li>
-                                    <li><a href="3">pricing</a></li>
-                                    <li><a href="4">Contact</a></li>
+                                    <li><a href="0">Peta</a></li>
+                                    <li><a href="1">Kab/Kota</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -100,10 +99,8 @@
             <div id='cssmenu' class="menu_scroll">
                 <ul class="sidebb">
                     <li><a href="0">Home</a></li>
-                    <li><a href="1">Services</a></li>
-                    <li><a href="2">About Us</a></li>
-                    <li><a href="3">blog</a></li>
-                    <li><a href="4">Contact</a></li>
+                    <li><a href="0">Peta</a></li>
+                    <li><a href="1">Kab/Kota</a></li>
                 </ul>
             </div>
         </div>
@@ -169,7 +166,7 @@
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                         <div class="slider_main_img_wrapper">
-                                            {{-- <img src="images/agency_01/banner.png" alt="slider_img"> --}}
+                                            <img src="{{ asset('assets/landing/images/ibu.png')}}" alt="slider_img" style="width:746px;">
                                         </div>
                                     </div>
                                 </div>
@@ -182,100 +179,20 @@
         <!-- slider wrapper end-->
     </div>
     <div data-scroll='1' class="full_width">
-        <div class="sp_counter_wrapper full_width">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                <div class="sp_couter_years full_width">
-                                    <span>10</span>
-                                    <h2>Years in the Field</h2>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                <div class="sp_counter_box_shape">
-                                    <h3><span class="timer">23</span>k+</h3>
-                                    <h4>happy customer</h4>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                <div class="sp_counter_box_shape">
-                                    <h3><span class="timer">1024 </span> +</h3>
-                                    <h4>complete work</h4>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                <div class="sp_counter_box_shape">
-                                    <h3><span class="timer">10</span>k</h3>
-                                    <h4>total envest</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <!-- services wrapper start-->
         <div class="sp_category_wrapper full_width animated-row">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1 col-md-12 col-sm-12 animate" data-animate="fadeInUp">
                         <div class="sp_heading_wraper">
 
-                            <h3>Our Services</h3>
-
-                            <p>Web design encompasses many different encompasses many
-                                <br> different skills and in the disciplines </p>
+                            <h3>Peta Rawan Gangguan Ketentraman dan Ketertiban Umum serta Kebakaran dan Non Kebakaran</h3>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12">
-                        <div class="sp_services_box full_width">
-                            <div class="sp_service_left_shape">
-                                <img src="images/agency_01/line1.png" alt="img">
-                            </div>
-                            <div class="service_box_icon">
-                                <i class="flaticon-earth-globe"></i></div>
-                            <h1>Project Management</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim
-                            </p>
-                            <a href="#">Learn More</a>
-                            <div class="sp_service_bottm_shape">
-                                <img src="images/agency_01/line2.png" alt="img">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12">
-                        <div class="sp_services_box full_width">
-                            <div class="sp_service_left_shape">
-                                <img src="images/agency_01/line1.png" alt="img">
-                            </div>
-                            <div class="service_box_icon service_box_icon2">
-                                <i class="flaticon-technical-support"></i></div>
-                            <h1>live support</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim
-                            </p>
-                            <a href="#">Learn More</a>
-                            <div class="sp_service_bottm_shape">
-                                <img src="images/agency_01/line2.png" alt="img">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12">
-                        <div class="sp_services_box full_width">
-                            <div class="sp_service_left_shape">
-                                <img src="images/agency_01/line1.png" alt="img">
-                            </div>
-                            <div class="service_box_icon service_box_icon3">
-                                <i class="flaticon-edit"></i></div>
-                            <h1>creative project</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim
-                            </p>
-                            <a href="#">Learn More</a>
-                            <div class="sp_service_bottm_shape">
-                                <img src="images/agency_01/line2.png" alt="img">
-                            </div>
-                        </div>
+                   
+                    <div class="col-lg-12 col-md-12 col-sm-12 animate" data-animate="fadeInUp">
+                    	<div id="map_trantibum" style="width:100%; height:700px;"></div>
                     </div>
                 </div>
             </div>
@@ -416,7 +333,7 @@
                         <div class="work_tabs_wrapper">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#home"> <span><i class="flaticon-layers"></i></span>
+                                    <a class="nav-link" data-toggle="tab" href="#home"> <span><i class="flaticon-layers"></i></span>
                                         <br> design</a>
                                 </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#menu1"><span><i class="flaticon-paper-plane"></i></span> <br> planning</a>
@@ -1020,7 +937,7 @@
                 lat: -36.742775,
                 lng: 174.731559
             };
-            var map = new google.maps.Map(document.getElementById('map'), {
+            var map = new google.maps.Map(document.getElementById('map_trantibum'), {
                 zoom: 15,
                 scrollwheel: false,
                 center: uluru
@@ -1031,8 +948,330 @@
             });
         }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBctr8WYTfFDi_oGbPEolSDzn4VZaAKVK0&callback=initMap">
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB6fouhBbFhJmgiFuFNFuYAtfF7Sy_VxDg&libraries=places&callback=initMap"></script>
     </script>
+    <script>
+	var map; 
+  var baselayer;
+  var mylocation;  
+  var menubtn; 
+  var opors = [];
+  var kebakarans = []; var btnkebakaran;
+  var nonkebakarans = []; var btnnonkebakaran;
+  var cases_aktif = []; var btnaktif;
+  var cases_proses = []; var btnproses;
+  var cases_selesai = []; var btnselesai;
+  function initMap() 
+{
+        var infowindow = new google.maps.InfoWindow();
+        var myLatLng = new google.maps.LatLng(-7.9666200, 112.6326600);
+        var mapOptions = {
+          zoom: 8,
+          center: myLatLng,
+  				mapTypeId: 'hybrid'
+        };
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(menubtn); 
+      baselayer = new google.maps.Data();
+      baselayer.loadGeoJson('{{ asset('js/kota_all.json') }}')
+      baselayer.setStyle({
+    fillColor: 'yellow',
+    opacity: 0.1,
+    strokeWeight: 0.5,
+    strokeColor:'red',
+    clickable: false
+  });
+      baselayer.setMap(map);
+       mylocation = new google.maps.Marker({
+          // position: { lat: -7.9666200, lng: 112.6326600 },
+          map: map,
+          // icon:'{{asset('js/icon/mylock.gif')}}'
+        });
+
+       var cased;
+        var array_cased = {!!$cased!!};
+       for(var i = 0; i < array_cased.length; i++){
+        var koordinat = JSON.parse(array_cased[i].koordinat);
+          if(array_cased[i].status <= 1){
+            console.log(array_cased[i])
+            cased = new google.maps.Marker({
+              position: { lat: koordinat[0], lng: koordinat[1] },
+              map: map,
+              icon:'{{ asset('js/icon/red.png')}}',
+              draggable: false,
+            });
+            cases_aktif.push(cased)
+          }
+          else if(array_cased[i].status > 1 && array_cased[i].status < 5){
+            cased = new google.maps.Marker({
+              position: { lat: koordinat[0], lng: koordinat[1] },
+              map: map,
+              icon:'{{ asset('js/icon/yellow.png')}}',
+              draggable: false,
+            });
+            cases_proses.push(cased)
+          }
+          else if(array_cased[i].status == 5){
+            cased = new google.maps.Marker({
+              position: { lat: koordinat[0], lng: koordinat[1] },
+              map: map,
+              icon:'{{ asset('js/icon/green.png')}}',
+              draggable: false,
+            });
+            cases_selesai.push(cased)
+          }
+          google.maps.event.addListener(cased, 'click', (function(marker, i) {
+            return function() {
+            console.log(array_cased[i])
+              infowindow.setContent(`<strong>`+array_cased[i].judul+`</strong>
+                <table id="tabel_peta">
+                  <tr> 
+                    <td><strong>Lokasi</strong></td>
+                    <td>`+array_cased[i].lokasi_kejadian+`,`+array_cased[i].lokasi_kejadian+`, `+array_cased[i].kota_nama+`, `+array_cased[i].kec_nama +`, `+array_cased[i].kel_nama+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Pelanggar</strong></td>
+                    <td>`+array_cased[i].nama_pelanggar+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Urusan</strong></td>
+                    <td>`+array_cased[i].urusan+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Jenis Trantibum</strong></td>
+                    <td>`+array_cased[i].jenis_trantib+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Potensi PAD</strong></td>
+                    <td class="rupiah">`+formatRupiah(array_cased[i].potensi_pad)+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Waktu Kejadian</strong></td>
+                    <td>`+array_cased[i].waktu_kejadian+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Pelapor</strong></td>
+                    <td>`+array_cased[i].pelapor+` (`+array_cased[i].no_telp_pelapor+`)</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Sumber Informasi</strong></td>
+                    <td>`+array_cased[i].sumber_informasi+`</td>
+                  </tr>
+                  <tr> 
+                    <td><strong>Tanggal Informasi</strong></td>
+                    <td>`+array_cased[i].tanggal_informasi+`</td>
+                  </tr>
+                 </table>`);
+              infowindow.open(map, marker);
+            }
+          })(cased, i));
+       }
+
+        var kebakaran; var array_kebakaran = {!!$kebakaran!!}
+        for(var i = 0; i < array_kebakaran.length; i++){
+        var koordinat = JSON.parse(array_kebakaran[i].koordinat);
+            kebakaran = new google.maps.Marker({
+              position: { lat: koordinat[0], lng: koordinat[1] },
+              map: map,
+              icon:'{{ asset('js/icon/flame.png')}}',
+              draggable: false,
+            });
+            kebakarans.push(kebakaran)
+          
+          google.maps.event.addListener(kebakaran, 'click', (function(marker, i) {
+            return function() {
+            console.log(array_kebakaran[i])
+              infowindow.setContent(`<strong>Kejadian `+array_kebakaran[i].jenis_kejadian+`</strong> <br>
+                <table>
+                  <tr>
+                  <th>Tanggal Kejadian</th>
+                  <td>`+array_kebakaran[i].tanggal_kejadian+`</td>
+                  </tr>
+                  <tr>
+                  <th>Tanggal Kejadian</th>
+                  <td>`+array_kebakaran[i].lokasi_kejadian+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jenis Objek</th>
+                  <td>`+array_kebakaran[i].jenis_objek+`</td>
+                  </tr>
+                  <tr>
+                  <th>Objek</th>
+                  <td>`+array_kebakaran[i].objek+`</td>
+                  </tr>
+                  <tr>
+                  <th>Sumber Kebakaran</th>
+                  <td>`+array_kebakaran[i].sumber+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jumlah Korban</th>
+                  <td>`+array_kebakaran[i].korban+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jumlah Armada</th>
+                  <td>`+array_kebakaran[i].jumlah_armada+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jumlah Personel</th>
+                  <td>`+array_kebakaran[i].jumlah_personel+`</td>
+                  </tr>
+                  <tr>
+                  <th>Sumber Berita</th>
+                  <td>`+array_kebakaran[i].sumber_berita+`</td>
+                  </tr>
+                  <tr>
+                  <th>Kendala</th>
+                  <td>`+array_kebakaran[i].kendala+`</td>
+                  </tr>
+                  <tr>
+                  <th>Keterangan lain</th>
+                  <td>`+array_kebakaran[i].keterangan+`</td>
+                  </tr>
+                </table>`);
+              infowindow.open(map, marker);
+              array_kebakaran[i].objek
+            }
+          })(kebakaran, i));
+       }
+
+       var nonkebakaran; var array_nonkebakaran = {!!$nonkebakaran!!}
+       console.log(array_nonkebakaran.length)
+        for(var i = 0; i < array_nonkebakaran.length; i++){
+        var koordinat = JSON.parse(array_nonkebakaran[i].koordinat);
+            nonkebakaran = new google.maps.Marker({
+              position: { lat: koordinat[0], lng: koordinat[1] },
+              map: map,
+              icon:'{{ asset('js/icon/nonflame.png')}}',
+              draggable: false,
+            });
+            nonkebakarans.push(nonkebakaran)
+          
+          google.maps.event.addListener(nonkebakaran, 'click', (function(marker, i) {
+            return function() {
+              infowindow.setContent(`<strong>Kejadian `+array_nonkebakaran[i].jenis_kejadian+`</strong> <br>
+                <table>
+                  <tr>
+                  <th>Tanggal Kejadian</th>
+                  <td>`+array_nonkebakaran[i].tanggal_kejadian+`</td>
+                  </tr>
+                  <tr>
+                  <th>Tanggal Kejadian</th>
+                  <td>`+array_nonkebakaran[i].lokasi_kejadian+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jenis Objek</th>
+                  <td>`+array_nonkebakaran[i].jenis_objek+`</td>
+                  </tr>
+                  <tr>
+                  <th>Objek</th>
+                  <td>`+array_nonkebakaran[i].objek+`</td>
+                  </tr>
+                  <tr>
+                  <th>Sumber Kejadian</th>
+                  <td>`+array_nonkebakaran[i].sumber+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jumlah Korban</th>
+                  <td>`+array_nonkebakaran[i].korban+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jumlah Armada</th>
+                  <td>`+array_nonkebakaran[i].jumlah_armada+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jumlah Personel</th>
+                  <td>`+array_nonkebakaran[i].jumlah_personel+`</td>
+                  </tr>
+                  <tr>
+                  <th>Sumber Berita</th>
+                  <td>`+array_nonkebakaran[i].sumber_berita+`</td>
+                  </tr>
+                  <tr>
+                  <th>Kendala</th>
+                  <td>`+array_nonkebakaran[i].kendala+`</td>
+                  </tr>
+                  <tr>
+                  <th>Keterangan lain</th>
+                  <td>`+array_nonkebakaran[i].keterangan+`</td>
+                  </tr>
+                </table>`);
+              infowindow.open(map, marker);
+              array_nonkebakaran[i].objek
+            }
+          })(nonkebakaran, i));
+       }
+       console.log(nonkebakarans.length)
+       // 
+       // for(var i = 0; i < array_opor.length; i++){
+       //  var koordinat = JSON.parse(array_opor[i].koordinat_fix);
+       //    opor = new google.maps.Marker({
+       //      position: { lat: koordinat[0], lng: koordinat[1] },
+       //      map: map,
+       //      draggable: false,
+       //      icon:'{{ asset('js/icon/blue.png') }}', // anchor
+       //      scaledSize: new google.maps.Size(22, 27), // scaled size
+       //      origin: new google.maps.Point(0,0), // origin
+       //      anchor: new google.maps.Point(0, 0)
+       //    });
+       //    google.maps.event.addListener(opor, 'click', (function(marker, i) {
+       //      return function() {
+       //        infowindow.setContent(array_opor[i].nama_tempat);
+       //        infowindow.open(map, marker);
+       //      }
+       //    })(opor, i));
+       //    opors.push(opor)
+       // }
+
+}
+
+
+       function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+              mylocation.setPosition(pos);
+              map.setCenter(pos);
+            },
+            function () {
+              handleLocationError(true, mylocation, map.getCenter());
+            }
+          );
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, mylocation, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, mylocation, pos) {
+        mylocation.setPosition(pos);
+        mylocation.setContent(
+          browserHasGeolocation
+            ? "Error: The Geolocation service failed."
+            : "Error: Your browser doesn't support geolocation."
+        );
+      }
+
+  function formatRupiah(bilangan){
+    var number_string = bilangan.toString()
+    console.log(number_string)
+      sisa  = number_string.length % 3,
+      rupiah  = number_string.substr(0, sisa),
+      ribuan  = number_string.substr(sisa).match(/\d{3}/g);
+        
+    if (ribuan) {
+      separator = sisa ? '.' : '';
+      rupiah += separator + ribuan.join('.');
+    }
+    return rupiah;
+  }
+$(document).ready(function(){
+	// getLocation()
+})
+</script>
 </body>
 
 </html>

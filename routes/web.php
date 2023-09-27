@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // URL::forceScheme('https');
-// Route::get('', 'LandingController@indexs')->name('home');
-Route::get('', 'HomeController@index')->name('home');
+Route::get('', 'LandingController@indexs')->name('home');
+// Route::get('', 'HomeController@index')->name('home');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('profil/save','HomeController@save_profil');

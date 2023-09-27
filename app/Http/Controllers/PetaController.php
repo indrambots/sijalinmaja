@@ -21,7 +21,7 @@ class PetaController extends Controller
         $opor = DB::SELECT("SELECT * FROM`opor_detail` WHERE
     koordinat_fix LIKE '%[%' 
     OR koordinat_fix LIKE '%]%'");
-        // dd($opor);
+        dd($opor);
         $opor = json_encode($opor);
         $cased = Kasus::where('id','>',0)->get()->toArray();
         $cased = json_encode($cased);
