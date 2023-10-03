@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // URL::forceScheme('https');
+
 Route::get('', 'LandingController@indexs')->name('home');
 // Route::get('', 'HomeController@index')->name('home');
 
