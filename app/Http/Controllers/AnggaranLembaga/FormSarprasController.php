@@ -30,7 +30,8 @@ class FormSarprasController extends Controller
             $data->formid = $id;
             $data->nama = $nama;
             $data->jumlah = $request->jumlah[$id];
-            $data->status_layak = $request->layak[$id];
+            $data->jumlah_layak = $request->jumlah_layak[$id];
+            $data->jumlah_tidak_layak = $request->jumlah_tidak_layak[$id];
             $data->save();
         }
 

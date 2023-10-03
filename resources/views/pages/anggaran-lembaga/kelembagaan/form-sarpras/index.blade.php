@@ -114,11 +114,15 @@
                                                     <td class="text-center {!! $ss == 'Peralatan Komunikasi' ? 'bg-header' : '' !!}">{{$grp22 ? '' : $no2.'.'}}</td>
                                                     <td {!! $ss == 'Peralatan Komunikasi' ? 'class="bg-header"' : '' !!}>{{$ss}}</td>
                                                     @if($ss != 'Peralatan Komunikasi')
-                                                        <td><input type="number" name="jumlah[{{$ids}}]" value="{{@$data[$ids]['jumlah']}}" min="0" class="input-custom"></td>
-                                                        <td class="text-center"><input type="radio" name="layak[{{$ids}}]" value="layak" {{@$data[$ids]['status_layak'] == 'layak' ? 'checked' : ''}} id="layak{{$ids}}" required></td>
-                                                        <td class="text-center">
+                                                        <td>
+                                                            <input type="number" name="jumlah[{{$ids}}]" value="{{@$data[$ids]['jumlah']}}" min="0" class="input-custom">
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" name="jumlah_layak[{{$ids}}]" value="{{@$data[$ids]['jumlah_layak']}}" class="input-custom">
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" name="jumlah_tidak_layak[{{$ids}}]" value="{{@$data[$ids]['jumlah_tidak_layak']}}" class="input-custom">
                                                             <input type="hidden" name="nama[{{$ids}}]" value="{{$ss}}">
-                                                            <input type="radio" name="layak[{{$ids}}]" value="tidak layak" {{@$data[$ids]['status_layak'] == 'tidak layak' ? 'checked' : ''}}  id="tidak_layak{{$ids}}" required>
                                                         </td>
                                                     @else
                                                         @for($i=1;$i<=3;$i++)
@@ -145,11 +149,15 @@
                                                         <tr>
                                                             <td class="text-center">{{$no}}.</td>
                                                             <td>{{$d}}</td>
-                                                            <td><input type="number" name="jumlah[{{$key}}]" value="{{@$data[$key]['jumlah']}}" min="0" class="input-custom"></td>
-                                                            <td class="text-center"><input type="radio" name="layak[{{$key}}]" value="layak" {{@$data[$key]['status_layak'] == 'layak' ? 'checked' : ''}} id="layak{{$key}}" required></td>
-                                                            <td class="text-center">
+                                                            <td>
+                                                                <input type="number" name="jumlah[{{$key}}]" value="{{@$data[$key]['jumlah']}}" min="0" class="input-custom">
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" name="jumlah_layak[{{$key}}]" value="{{@$data[$key]['jumlah_layak']}}" class="input-custom">
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" name="jumlah_tidak_layak[{{$key}}]" value="{{@$data[$key]['jumlah_tidak_layak']}}" class="input-custom">
                                                                 <input type="hidden" name="nama[{{$key}}]" value="{{$d}}">
-                                                                <input type="radio" name="layak[{{$key}}]" value="tidak layak" {{@$data[$key]['status_layak'] == 'tidak layak' ? 'checked' : ''}} id="tidak_layak{{$key}}" required>
                                                             </td>
                                                         </tr>
                                                         @php $no++ @endphp
