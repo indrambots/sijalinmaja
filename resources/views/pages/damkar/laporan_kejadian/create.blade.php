@@ -92,7 +92,7 @@
 	  	<div class="row">
 		  <div class="form-group col-md-6 pb-4" style="background-color: #ffffc9;">
 		  	<label>Response Time (menit)</label>
-		  	<input type="number" readonly class="form-control" value="{{$kejadian->respon_time}}" name="respon_time" id="respon_time" placeholder="respon time dalam menit. . ." required>
+		  	<input type="number" class="form-control" value="{{$kejadian->respon_time}}" name="respon_time" id="respon_time" placeholder="respon time dalam menit. . ." required>
 		  </div>
 		  <div class="form-group col-md-6 mb-4">
 		  	<label>Kembali ke Mako/Pos</label>
@@ -581,7 +581,7 @@ function responTime()
 	var timeOfCall = $('#terima_berita').val(),
         timeOfResponse = $('#tiba').val(),
 
-     hours = timeOfResponse.split(':')[0] - timeOfCall.split(':')[0],
+     hours = timeOfResponse.split(':')[0] - timeOfCall.split(':')[0];
         minutes = timeOfResponse.split(':')[1] - timeOfCall.split(':')[1];
 
     minutes = minutes.toString().length<2?'0'+minutes:minutes;
@@ -592,7 +592,12 @@ function responTime()
     hours = hours.toString().length<2?'0'+hours:hours;
     console.log(hours);
     console.log(minutes);
-    $('#respon_time').val(parseInt(hours)*60+parseInt(minutes))
+    if(hours < 0){
+    	$('#respon_time').val(parseInt(hours)*60+parseInt(minutes))
+    }
+    else {
+    	$('#respon_time').val(parseInt(hours)*60+parseInt(minutes))
+    }
 }
 </script>
 @endsection
