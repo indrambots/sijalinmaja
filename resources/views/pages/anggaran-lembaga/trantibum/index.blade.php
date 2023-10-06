@@ -5,7 +5,7 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
-    <li class="breadcrumb-item px-3 text-muted">Penyelenggaraan Trantibum dan Penegakan Perda/Perkada</li>
+    <li class="breadcrumb-item px-3 text-muted">Penyelenggaraan Ketentraman dan Ketertiban Umum</li>
 </ol>
 <div class="row justify-content-center">
     <div class="col-12 mb-2">

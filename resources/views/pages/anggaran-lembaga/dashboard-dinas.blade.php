@@ -169,7 +169,7 @@
                         </a>
                         <br>
                         <a href="{{ url('anggaran/perlindungan') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">
-                            PERLINDUNGAN MASYARAKAT
+                            PELINDUNGAN MASYARAKAT
                         </a>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
                         </a>
                         <br>
                         <a href="{{ url('anggaran/trantibum') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">
-                            PENYELENGGARA TRANTIBUM DAN PENEGAKAN PERDA/PERKADA
+                            PENYELENGGARAAN KETENTRAMAN DAN KETERTIBAN UMUM
                         </a>
                     </div>
                 </div>
@@ -201,7 +201,7 @@
                         </a>
                         <br>
                         <a href="{{ url('anggaran/penegakan') }}" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">
-                            PENYELENGGARAAN DAN PENEGAKAN
+                            PENEGAKAN PERDA PERKADA
                         </a>
                     </div>
                 </div>
