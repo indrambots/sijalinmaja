@@ -9,6 +9,7 @@ use App\Kasandra;
 use App\MasterJenisTertib;
 use App\MasterFormSarpras;
 use App\Helpers\AliasName;
+use App\JenisKegiatan;
 
 class Helpers{
 
@@ -88,6 +89,11 @@ class Helpers{
     public static function getJenisTertib($urusan){
 
         return MasterJenisTertib::where('urusan', $urusan)->orderBy('nama', 'asc')->get();
+    }
+
+    public static function getJenisKegiatan(){
+
+        return JenisKegiatan::orderBy('nama', 'asc')->get();
     }
 
     public static function formSarpras(){

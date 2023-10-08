@@ -203,6 +203,11 @@ Route::prefix('anggaran')->group(function(){
 
     Route::prefix('trantibum')->group(function () {
         Route::get('','AnggaranLembaga\HomeController@trantibum');
+        Route::get('kegiatan/datatable','AnggaranLembaga\FormKegiatanController@datatable');
+        Route::get('kegiatan','AnggaranLembaga\FormKegiatanController@index');
+        Route::get('kegiatan/create/{id}','AnggaranLembaga\FormKegiatanController@createOrEdit');
+        Route::post('kegiatan/store','AnggaranLembaga\FormKegiatanController@storeOrUpdate');
+        Route::delete('kegiatan/delete/{id}','AnggaranLembaga\FormKegiatanController@destroy');
     });
 
     Route::prefix('penegakan')->group(function () {
