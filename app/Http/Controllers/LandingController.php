@@ -7,6 +7,7 @@ use App\OporDetail;
 use App\Opor;
 use App\Kasus;
 use App\LaporanKejadian;
+use App\Kasandra;
 use DB;
 
 
@@ -74,5 +75,19 @@ ORDER BY COUNT(*) DESC");
         $sumber_nama = json_encode($sumber_nama);
         $sumber_jumlah = json_encode($sumber_jumlah);
        return view('landing.index',compact('cased','kebakaran','nonkebakaran','urusan_kasus','urusan_jumlah_kasus','kota_nama','kab_jumlah','kebakaran_nama_kab','kebakaran_jumlah','sumber_nama','sumber_jumlah'));
+    }
+
+    public function kasandra()
+    {
+        return view('landing.kasandra');
+    }
+
+    public function kasandra_search(Request $request)
+    {
+
+        $kasandra = DB::SELECT("SELECT * FROM kasandra WHERE LOWER(urusan_pemerintahan) LIKE '%".strtolower($request->keyword)."%' OR LOWER(jenis_tertib) LIKE '%".strtolower($request->keyword)."%' OR LOWER(perda) LIKE '%".strtolower($request->keyword)."%' OR LOWER(pasal_kewajiban) LIKE '%".strtolower($request->keyword)."%' OR LOWER(kewajiban) LIKE '%".strtolower($request->keyword)."%' OR LOWER(pasal_sanksi_adm) LIKE '%".strtolower($request->keyword)."%' OR LOWER(sanksi_adm) LIKE '%".strtolower($request->keyword)."%' OR LOWER(pasal_sanksi_pidana) LIKE '%".strtolower($request->keyword)."%' OR LOWER(sanksi_pidana) LIKE '%".strtolower($request->keyword)."%' OR LOWER(opd) LIKE '%".strtolower($request->keyword)."%' ");
+        $keyword = $request->keyword;
+        $view = (String) view('landing.kasandra.search', compact('kasandra','keyword'));
+        return response()->json(array('html' => $view), 200);
     }
 }

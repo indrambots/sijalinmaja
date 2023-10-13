@@ -94,6 +94,7 @@
                                 <ul>
                                     <li><a href="{{ url('') }}">Home</a></li>
                                     <li><a target="_blank" href="{{ url('peta') }}">Peta</a></li>
+                                    <li><a target="_blank" href="{{ url('kasandra') }}">Kasandra</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -117,6 +118,7 @@
                 <ul class="sidebb">
                     <li><a href="{{ url('') }}">Home</a></li>
                     <li><a target="_blank" href="{{ url('peta') }}">Peta</a></li>
+                    <li><a target="_blank" href="{{ url('kasandra') }}">Kasandra</a></li>
                     <li><a target="_blank" href="{{ url('login') }}">Login</a></li>
                 </ul>
             </div>
@@ -138,7 +140,7 @@ background: linear-gradient(90deg, rgba(32,201,151,1) 0%, rgba(32,201,151,1) 38%
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="sub-footer">
-                            <p>Copyright © 2021 | Biro Organisasi Pemerintah Provinsi Jawa Timur</p>
+                            <p>Copyright © 2021 | Satuan Polisi Pamong Praja Pemerintah Provinsi Jawa Timur</p>
                         </div>
                     </div>
                 </div>

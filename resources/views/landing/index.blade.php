@@ -222,7 +222,7 @@
         </div>
     </div>
 
-     <div data-scroll='4' class="full_width" >
+     <div data-scroll='3' class="full_width" >
         <!--about us wrapper end-->
         <div class="testimonial_wrapper full_width">
             <div class="testi_shape2">
@@ -287,7 +287,7 @@
         </div>
     </div>
 
-    <div data-scroll='3' class="full_width">
+    <div data-scroll='4' class="full_width">
         <!--about us wrapper end-->
         <div class="testimonial_wrapper full_width">
             <div class="testi_shape1">
@@ -350,6 +350,70 @@
         </div>
     </div>
 
+     <div data-scroll='5' class="full_width" >
+        <!--about us wrapper end-->
+        <div class="testimonial_wrapper full_width">
+            <div class="testi_shape2">
+
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="892.992px" height="804.02px" viewBox="0 0 892.992 804.02" enable-background="new 0 0 892.992 804.02" xml:space="preserve">
+                    <g id="BACKGROUND2">
+                    </g>
+                    <g id="BACKGROUND1">
+                    </g>
+                    <g id="DGPIK">
+                        <path fill-rule="evenodd" clip-rule="evenodd" fill="#cbfff0" d="M53.5,748.734c0,0-117.32-93.501-4.494-169.878
+        c30.723-23.512,156.328,5.582,172.296-214.713c2.489-67.333,70.367-130.004,172.56-123.863
+        c102.191,6.143,135.133-136.453,204.627-181.97c69.495-45.517,144.484-76.552,294.504-46.258c-0.467,150.038,0,676.46,0,676.46
+        S508.023,822.896,281.799,801.765C86.444,783.518,53.5,748.734,53.5,748.734z" />
+                    </g>
+                </svg>
+
+            </div>
+
+            <div id="testimonial-section" class="testimonial-bg" >
+
+                <div id="container-general" class="ready anim-section-features anim-section-desc anim-section-quote">
+
+                    <div id="section-quote">
+                        <!--Center Testimonials-->
+                        <div class="container-quote" style="margin-top: 0px; height:auto;">
+                            <h3>Standar Operasional Prosedur (SOP) Satpol PP Provinsi Jawa Timur</h3>
+                            <div class="row mt-2">
+                                <div class="col-md-8 offset-md-2">
+                                    <iframe src="https://drive.google.com/file/d/1NJ9H_k6GTglHFg_7eI_wOo8wm_Wv4bMc/preview" width="80%" height="480" allow="autoplay"></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Right Bubble Images-->
+                        <div class="container-pe-quote right">
+                            <div class="pp-quote li-quote-7" style="height: 100px; width: 100px;" >
+                                <div class="img animated bounce"></div>
+                            </div>
+
+                            <div class="pp-quote li-quote-8" style="height: 100px; width: 100px;">
+                                <div class="img animated bounce"></div>
+                            </div>
+
+                            <div class="pp-quote li-quote-9" style="height: 100px; width: 100px;">
+                                <div class="img animated bounce"></div>
+                            </div>
+
+                            <div class="pp-quote li-quote-10" style="height: 100px; width: 100px;">
+                                <div class="img animated bounce"></div>
+                            </div>
+
+                            <div class="pp-quote li-quote-13" style="height: 100px; width: 100px;">
+                                <div class="img animated bounce"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- newsletter wrapper start-->
 @endsection
 @section('script')

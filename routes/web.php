@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 // URL::forceScheme('https');
 
 Route::get('', 'LandingController@indexs')->name('home');
+Route::get('kasandra', 'LandingController@kasandra')->name('kasandra');
+Route::post('kasandra/search', 'LandingController@kasandra_search');
 // Route::get('', 'HomeController@index')->name('home');
 
 Route::get('/home', 'HomeController@index')->name('home');
