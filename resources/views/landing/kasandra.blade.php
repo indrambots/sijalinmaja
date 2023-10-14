@@ -53,6 +53,14 @@
                                             <h2 data-animation="animated bounceInUp">KASANDRA</h2>
 
                                             <p data-animation="animated bounceInUp">Kamus Penegakan Peraturan Daerah dan Penegakan Kepala Daerah.</p>
+                                              <div class="header_btn slider_btn full_width">
+                                                <ul>
+                                                    <li data-animation="animated bounceInLeft">
+                                                        <a href="https://drive.google.com/file/d/1FdrQKQWOKzWhlBIXH0pMhpBA8vti8Y8X/view?usp=sharing">DOWNLOAD FILE KASANDRA</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
                                             <div class="clear"></div>
                                         </div>
                                     </div>
