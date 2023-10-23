@@ -14,6 +14,15 @@
         </div>
         </div>
       </div>
+      <div class="row justify-content-between">
+        <div class="col-12">
+            <select id='jenis' class="form-control col-6 col-md-3 select2">
+                <option value='-'>Tampilkan Semua</option>
+                <option value="Kebakaran">Kebakaran</option>
+                <option value="Non Kebakaran">Non Kebakaran</option>
+              </select> 
+        </div>
+    </div>
       <div class="row mt-2">
         <div class="table-responsive">
           <table id="datatable" class="table table-striped table-hover">
@@ -29,7 +38,7 @@
                 <th>Tiba di Lokasi Kejadian</th>
                 <th>Respon Time</th>
                 <th>Kembali ke Pos</th>
-                <th>Korban</th>
+                <th>Foto</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -48,7 +57,12 @@
         processing: true,
         serverSide: false,
         paging:true,
-        ajax:'{{ url('damkar/laporan-kejadian/datatable') }}',
+        ajax:  {
+            "url": '{{ url('damkar/laporan-kejadian/datatable') }}',
+            data: function(d){
+                d.jenis = $('#jenis').val();
+            }
+        },
          columns: [
         {data: 'id', name:'id'},
         {data: 'jenis_kejadian', name:'jenis_kejadian'},
@@ -60,7 +74,7 @@
         {data: 'tiba', name:'tiba'},
         {data: 'respon_time', name:'respon_time'},
         {data: 'kembali', name:'kembali'},
-        {data: 'korban', name:'korban'},
+        {data: 'foto', name:'foto'},
         {data: 'aksi', name:'aksi'},
         ],
         "order": [[ 0, "desc" ]],
@@ -72,9 +86,9 @@
             },
           ],
       })
-    function personel(id){
-
-    }
+    $('#jenis').on('change',function(e){
+        datatable.ajax.reload()
+    })
     function deleteKejadian(id){
         Swal.fire({   
                       title: "Anda Yakin?",   

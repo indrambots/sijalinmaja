@@ -30,6 +30,7 @@
                                         <th>Seragam</th>
                                         <th>Penugasan</th>
                                         <th>SPT</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -208,6 +209,7 @@
         {data: 'seragam', name:'seragam'},
         {data: 'ket', name:'ket'},
         {data: 'link_spt', name:'link_spt'},
+        {data: 'status', name:'status'},
         {data: 'aksi', name:'aksi'}
         ],
         "order": [[ 0, "desc" ]],

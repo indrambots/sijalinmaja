@@ -171,7 +171,7 @@
                                 </a>
                                 <br>
                                 <a href="{{ url('damkar/report/kejadian') }}"
-                                    class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">LAPORAN KEJADIAN
+                                    class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">REPORT KEJADIAN KEBAKARAN
                                 </a>
                             </div>
                         </div>
@@ -193,6 +193,23 @@
                         </div>
                     </div>
                 </div>
+
+                
+                    <div class="col-6 col-lg-6 col-xl-6 mb-5">
+                        <div class="card card-custom wave wave-animate-fast wave-primary">
+                            <div class="card-body text-center">
+                                <a href="{{ url('damkar/report/kejadian-non-kebakaran') }}">
+                                    <span class="svg-icon svg-icon-primary svg-icon-6x">
+                                        <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-fire-alt" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                                <br>
+                                <a href="{{ url('damkar/report/kejadian-non-kebakaran') }}"
+                                    class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">REPORT KEJADIAN NON KEBAKARAN
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 <div class="col-md-12">
                      <div class="card card-custom gutter-b">
                         <div class="card-header card-header-tabs-line">

@@ -8,6 +8,7 @@ use Auth;
 use App\LaporanKejadian;
 use App\Kecamatan;
 use App\Kelurahan;
+use App\Kota;
 use Yajra\Datatables\Datatables;
 use Intervention\Image\ImageManagerStatic as Image;
 use DB;
@@ -29,7 +30,8 @@ class LaporanKejadianController extends Controller
         $kejadian = LaporanKejadian::find($id);
         $kecamatan = Kecamatan::where('kode_kab',Auth::user()->kota)->get();
         $kelurahan = Kelurahan::where('kode_kab',Auth::user()->kota)->get();
-        return view('pages.damkar.laporan_kejadian.create',compact('kejadian','id','kecamatan','kelurahan'));
+        $kota = Kota::find(Auth::user()->kota);
+        return view('pages.damkar.laporan_kejadian.create',compact('kejadian','id','kecamatan','kelurahan','kota'));
     }
 
     public function delete(Request $request)
@@ -93,9 +95,13 @@ class LaporanKejadianController extends Controller
         return redirect('damkar/laporan-kejadian')->with('success', 'SUKSES');
     }
 
-    public function datatable()
+    public function datatable(Request $request)
     {
-        $kejadian = LaporanKejadian::where('user_id',Auth::user()->id)->get();
+        if($request->jenis == "-"):
+            $kejadian = LaporanKejadian::where('user_id',Auth::user()->id)->get();
+        else:
+            $kejadian = LaporanKejadian::where('user_id',Auth::user()->id)->where('jenis_kejadian',$request->jenis)->get();
+        endif;
         return Datatables::of($kejadian)
         ->addColumn('aksi',function($i){
             $btn_aksi = '<a href="'.url('damkar/laporan-kejadian/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a><button onclick="deleteKejadian('.$i->id.')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>';
@@ -138,7 +144,14 @@ class LaporanKejadianController extends Controller
         ->editColumn('respon_time',function($i){
             return $i->respon_time." menit";
         })
-        ->rawColumns(['aksi'])
+        ->addColumn('foto',function($i){
+            if($i->dokumentasi == null || $i->dokumentasi == 'kejadian_0_dok_1.jpg' || $i->dokumentasi == 'kejadian_0_dok_1.png' ):
+                return '<span class="label label-dark label-inline mr-2">Tidak Ada</span>';
+            else:
+                return '<a href="'.url('damkar/report/kejadian/dokumentasi/'.$i->id).'" target="_blank" class="btn btn-outline-primary">Download</a>';
+            endif;
+        })
+        ->rawColumns(['aksi','foto'])
         ->make(true);
     }
 

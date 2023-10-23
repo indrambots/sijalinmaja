@@ -125,7 +125,7 @@ class KegiatanController extends Controller
             'dokumentasi_2' => $dokumentasi_2,
             'dokumentasi_3' => $dokumentasi_3,
         ]);
-        return redirect('')->with('success_laporan', 'LAPORAN BERHASIL DIBUAT');
+        return redirect('home')->with('success_laporan', 'LAPORAN BERHASIL DIBUAT');
 
     }
 

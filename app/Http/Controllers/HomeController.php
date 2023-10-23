@@ -281,7 +281,13 @@ class HomeController extends Controller
             else:
                 return '<a href="'.url('kegiatan/print/'.$i->id.'/no').'" type="button" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-print"></i></a>';
             endif;
-        })->rawColumns(['aksi','waktu_kegiatan','link_spt','aksi'])
+        })->addColumn('status',function($i){
+            if($i->hasil_kegiatan == null):
+                return '<span class="label label-lg font-weight-bolder label-rounded label-danger" style="height:50px; width:80px; padding-left:10px;">BELUM LAPORAN</span>';
+            else:
+                return '<span class="label label-lg font-weight-bolder label-rounded label-success" style="height:50px; width:80px; padding-left:10px;">SELESAI LAPORAN</span>';
+            endif;
+        })->rawColumns(['aksi','waktu_kegiatan','link_spt','aksi','status'])
         ->make(true);
     }
 

@@ -84,10 +84,12 @@ Route::prefix('damkar')->group(function () {
     Route::post('update-sdm','Damkar\HomeController@sdm_update');
     Route::prefix('report')->group(function () {
         Route::get('kejadian','Damkar\ReportController@kejadian');
+        Route::get('kejadian-non-kebakaran','Damkar\ReportController@kejadian_non_kebakaran');
         Route::get('kelembagaan','Damkar\ReportController@kelembagaan');
         Route::get('sarpras','Damkar\ReportController@sarpras');
         Route::post('kelembagaan-grid','Damkar\ReportController@kelembagaan_grid');
         Route::post('kejadian-grid','Damkar\ReportController@kejadian_grid');
+        Route::post('kejadian-non-grid','Damkar\ReportController@kejadian_non_grid');
         Route::post('sarpras-grid','Damkar\ReportController@sarpras_grid');
         Route::get('sdm','Damkar\ReportController@sdm');
         Route::post('sdm-grid','Damkar\ReportController@sdm_grid');

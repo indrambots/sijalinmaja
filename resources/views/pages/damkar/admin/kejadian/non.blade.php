@@ -6,7 +6,7 @@
       <div class="card">
         <div class="card-header border-0" style="padding-bottom:0px; padding-top:10px;">
           <div class="card-title font-weight-bolder">
-            <div class="card-label">Data Kejadian Kebakaran</div>
+            <div class="card-label">Data Kejadian Non Kebakaran</div>
           </div>
         </div>
         <div class="card-body">
@@ -27,7 +27,7 @@
     $(document).ready(function(){
         $.ajax({
                 type : "POST",
-                url : "{{ url('damkar/report/kejadian-grid') }}",
+                url : "{{ url('damkar/report/kejadian-non-grid') }}",
                 dataType : "json",
                 data :  $("#form").serialize(),
                 success : function(response) {
@@ -111,19 +111,9 @@
                     dataField:"ada_dokumentasi",
                 },
                 {
-                    caption: "Jenis Objek",
-                    dataField: "jenis_objek",
-                    dataType: "string",
-                },
-                {
                     caption: "Objek",
                     dataField: "objek",
                     dataType: "string", 
-                },
-                {
-                    caption: "Sumber",
-                    dataField: "sumber",
-                    dataType: "string",
                 },
                 {
                     caption: "Kota/Kab",

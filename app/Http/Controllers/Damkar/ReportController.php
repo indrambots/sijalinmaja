@@ -24,8 +24,12 @@ class ReportController extends Controller
 
     public function kejadian()
     {
-
         return view('pages.damkar.admin.kejadian.index');
+    }
+
+    public function kejadian_non_kebakaran()
+    {
+        return view('pages.damkar.admin.kejadian.non');
     }
 
     public function sarpras()
@@ -62,7 +66,7 @@ FROM
 
         $kejadian = DB::SELECT("
             SELECT  IF (dokumentasi IS NULL OR dokumentasi = 'kejadian_0_dok_1.jpg',0,1) AS ada_dokumentasi, l.*, m.nama AS kota_null FROM `laporan_kejadian` l RIGHT JOIN master_kota m ON l.kota = m.id WHERE m.nama <> 'LUAR JAWA TIMUR'
-             AND deleted_at IS NULL ".$wherecondition);
+             AND deleted_at IS NULL AND jenis_kejadian = 'Kebakaran' ".$wherecondition);
         $data = new Collection();
         foreach ($kejadian as $k):
             $objek = "";
@@ -90,6 +94,58 @@ FROM
                 "jenis_objek"      => $k->jenis_objek,
                 "objek"            => $objek,
                 "sumber"           => $k->sumber,
+                "kota"             => $k->kota_null,
+                "kecamatan"        => $k->nama_kecamatan,
+                "kelurahan"        => $k->nama_kelurahan,
+                "alamat"           => $k->lokasi_kejadian,
+                "tanggal_kejadian" => ($k->tanggal_kejadian !== null) ? date('d F Y', strtotime($k->tanggal_kejadian)) : null,
+                "jam"              => ($k->jam_kejadian !== null) ? date('H.i', strtotime($k->jam_kejadian)) : null,
+                "respon_time"      => ($k->respon_time !== null) ? $k->respon_time . " menit" : null,
+                "korban"           => $k->korban,
+                "kerugian"         => $k->nilai_kerugian,
+                "kendala"          => $k->kendala,
+                "jumlah_armada"    => $k->jumlah_armada,
+                "jumlah_personel"  => $k->jumlah_personel,
+                "sumber_berita"    => $k->sumber_berita,
+                "ada_dokumentasi"  => $k->ada_dokumentasi,
+                "id"               => $k->id
+            ]);
+        endforeach;
+        return response()->json($data);
+    }
+
+    public function kejadian_non_grid(Request $request)
+    {
+        $wherecondition = (Auth::user()->level >= 11) ? "AND user_id = ".Auth::user()->id : "";
+
+        $kejadian = DB::SELECT("
+            SELECT  IF (dokumentasi IS NULL OR dokumentasi = 'kejadian_0_dok_1.jpg',0,1) AS ada_dokumentasi, l.*, m.nama AS kota_null FROM `laporan_kejadian` l RIGHT JOIN master_kota m ON l.kota = m.id WHERE m.nama <> 'LUAR JAWA TIMUR'
+             AND deleted_at IS NULL AND jenis_kejadian = 'Non Kebakaran' ".$wherecondition);
+        $data = new Collection();
+        foreach ($kejadian as $k):
+            $objek = "";
+            if (isset($k->objek)):
+                if($k->objek !== 'null'):
+                $countobjek = count(json_decode($k->objek));
+                    $i = 0;
+                    foreach (json_decode($k->objek) as $o):
+                        if ($countobjek == 1) {
+                            $objek = $o;
+                        } else {
+                            if ($i !== $countobjek) {
+                                $objek .= $o . ", ";
+                            } else {
+                                $objek .= $o;
+                            }
+                            $i++;
+                        }
+                    endforeach;
+                endif;
+            endif;
+            // dd($k);
+            $data->push([
+                "jenis_kejadian"   => $k->jenis_kejadian,
+                "objek"            => $objek,
                 "kota"             => $k->kota_null,
                 "kecamatan"        => $k->nama_kecamatan,
                 "kelurahan"        => $k->nama_kelurahan,

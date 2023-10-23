@@ -181,6 +181,9 @@
 						<input type="checkbox" class="nonbangunan" name="objek[]" value="Lahan Kosong">
 						<span></span>Lahan Kosong</label>
 						<label class="checkbox">
+						<input type="checkbox" class="nonbangunan" name="objek[]" value="Lahan Pertanian/Perkebunan">
+						<span></span>Lahan Pertanian/Perkebunan</label>
+						<label class="checkbox">
 						<input type="checkbox" class="nonbangunan" name="objek[]" value="Alang- alang">
 						<span></span>Alang- alang</label>
 						<label class="checkbox">
@@ -318,19 +321,19 @@
    var map;var mylocation;
       var marker;
       function initMap() {
-        var myLatLng = new google.maps.LatLng(-7.9666200, 112.6326600);
+        var myLatLng = new google.maps.LatLng({{ $kota->lat }}, {{ $kota->long}});
         var mapOptions = {
-          zoom: 8,
+          zoom: 11,
           center: myLatLng,
   				mapTypeId: 'hybrid'
         };
         map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions); 
 
       var baselayer = new google.maps.Data();
-      baselayer.loadGeoJson('{{ asset('js/jawa_timur.json') }}')
+      baselayer.loadGeoJson('{{ asset('js/batas_kota/'.$kota->batas.'.geojson') }}')
       baselayer.setStyle({
-    fillColor: 'green',
-    fillOpacity:0.0,
+    fillColor: 'yellow',
+    fillOpacity:0.3,
     opacity: 0.1,
     strokeColor:'red',
     strokeWeight: 1,
