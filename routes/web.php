@@ -151,6 +151,7 @@ Route::prefix('pti')->group(function(){
     Route::post('absen-save','PtiController@absen_save');
     Route::get('absen/{id}','PtiController@absen');
     Route::post('laporan-personel','PtiController@laporan_personel');
+    Route::get('laporan/{id}','PtiController@laporan');
 });
 
 Route::prefix('user')->group(function(){
