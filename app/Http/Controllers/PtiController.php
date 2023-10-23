@@ -33,8 +33,12 @@ class PtiController extends Controller
         return Datatables::of($pti)
         ->addColumn('aksi',function($i){
             $btn_absen = '<button onclick="absen('.$i->id.')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-book"></i></button>';
+            $btn_print = '<a href="'.url('pti/laporan/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon2-printer"></i></a>';
             $btn_aksi = '<button data-toggle="modal" data-target="#modal-create" onclick="create('.$i->id.')" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a>';
             $btn_delete = '<button onclick="deleteKeg('.$i->id.')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>';
+            if($i->spt !== null):
+                return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_absen.$btn_print.$btn_aksi.$btn_delete.'</div>';
+            endif;
             return '<div class="btn-group mr-2" role="group" aria-label="First group">'.$btn_absen.$btn_aksi.$btn_delete.'</div>';
         })
         ->addColumn('kehadiran',function($i){
@@ -99,10 +103,14 @@ class PtiController extends Controller
             $nip = substr_replace($a ,"", -1);
             $is_hadir = substr($a, -1);
             $peg = Pegawai::where('nip',$nip)->first();
-            $cek_spt = DB::SELECT("SELECT k.spt FROM kegiatan_personel kp INNER JOIN kegiatan k ON kp.kegiatan_id = k.id WHERE
-                '".$pti->tanggal."' BETWEEN tanggal_mulai AND tanggal_selesai AND kp.nip = '".$nip."' AND k.bentuk_kegiatan <> 'PUSKOGAP'
-                ");
-            $is_spt = (count($cek_spt) > 0) ? 1 : 0;
+            if($pti->spt == null):
+                $cek_spt = DB::SELECT("SELECT k.spt FROM kegiatan_personel kp INNER JOIN kegiatan k ON kp.kegiatan_id = k.id WHERE
+                    '".$pti->tanggal."' BETWEEN tanggal_mulai AND tanggal_selesai AND kp.nip = '".$nip."' AND k.bentuk_kegiatan <> 'PUSKOGAP'
+                    ");
+                $is_spt = (count($cek_spt) > 0) ? 1 : 0;
+            else:
+                $is_spt = 0;
+            endif;
             $cek_inputted = KehadiranPti::where('nip',$nip)->where('pti_id',$request->id)->first();
             if(!isset($cek_inputted)):
                 KehadiranPti::create([
@@ -129,7 +137,7 @@ class PtiController extends Controller
     }
 
     public function laporan_personel(Request $request){
-        $pti = Pti::select('nama_kegiatan')->whereBetween('tanggal',[$request->tanggal_mulai,$request->tanggal_selesai])->distinct()->get();
+        $pti = Pti::select('nama_kegiatan')->whereBetween('tanggal',[$request->tanggal_mulai,$request->tanggal_selesai])->whereNull('spt')->distinct()->get();
         // dd($pti);
         $tanggal_mulai = $request->tanggal_mulai;
         $tanggal_selesai = $request->tanggal_selesai;
@@ -170,6 +178,24 @@ class PtiController extends Controller
                 "%y Years %m Months %d Days"
             )'),'desc')->get();
         return view('pages.pti.laporan_personel.index',compact('pti','sekret','tanggal_mulai','tanggal_selesai','gakda','tibum','damkar','linmas'));
+    }
+
+    public function laporan($id)
+    {
+        $pti = Pti::find($id);
+        $kegiatan = Kegiatan::where('spt',$pti->spt)->pluck('id');
+        $kegiatan_personel = DB::SELECT('SELECT
+    p.*,k.ket
+FROM
+    pegawai p
+    INNER JOIN kegiatan_personel k ON p.nip = k.nip 
+WHERE
+    kegiatan_id = '.$kegiatan[0].' 
+ORDER BY tingkat DESC,
+    DATE_FORMAT( FROM_DAYS( DATEDIFF( CURRENT_DATE, CAST( SUBSTRING( p.nip, 1, 8 ) AS date )) ), "%y Years %m Months %d Days" )
+DESC');
+        $kegiatan_personel = collect($kegiatan_personel);
+        return view('pages.pti.laporan_spt.index',compact('kegiatan_personel','pti'));
     }
 
 }
