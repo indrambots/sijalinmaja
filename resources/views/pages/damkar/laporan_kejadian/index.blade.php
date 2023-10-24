@@ -1,6 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="col mb-4">
+      <div class="card">
+            <div class="card-body">
+              <div class="row justify-content-between">
+                <div class="col-4">
+                  <h5 class="card-title">PRESENTASE RESPON TIME ANDA</h5>
+                </div>
+                </div>
+                <div class="row mt-2">
+                    <table class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th>Jumlah Seluruh Kejadian </th>
+                            <th>Jumlah Kejadian Dengan Respon Time <= 15 menit</th>
+                            <th>Jumlah Kejadian Dengan Respon Time Lebih Dari 15 menit</th>
+                            <th>PRESENTASE</th>
+                        </tr>
+                        <tr>
+                            <td>{{$spm->semua}}</td>
+                            <td style="background-color:">{{$spm->spm}}</td>
+                            <td>{{$spm->tidak}}</td>
+                            <td style="background-color:#fff93e">{{$presentase}} %</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>
 <div class="col">
   <div class="card">
     <div class="card-body">
@@ -14,15 +41,24 @@
         </div>
         </div>
       </div>
-      <div class="row justify-content-between">
-        <div class="col-12">
-            <select id='jenis' class="form-control col-6 col-md-3 select2">
-                <option value='-'>Tampilkan Semua</option>
-                <option value="Kebakaran">Kebakaran</option>
-                <option value="Non Kebakaran">Non Kebakaran</option>
-              </select> 
-        </div>
-    </div>
+        <form id="filter-kejadian" class="row">
+            <div class="col-2">
+                <select id='jenis' class="form-control col-12 col-md-12 select2">
+                    <option value='-'>Tampilkan Semua</option>
+                    <option value="Kebakaran">Kebakaran</option>
+                    <option value="Non Kebakaran">Non Kebakaran</option>
+                  </select> 
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control col-12 datepicker" id="tanggal_awal" placeholder="tanggal awal. . ." >
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control col-12 datepicker" id="tanggal_akhir" placeholder="tanggal akhir. . ." > 
+            </div>
+            <div class="col-1">
+                <button type="submit" class="btn btn-outline-primary"><i class="flaticon2-magnifier-tool"></i> FILTER</button>
+            </div>
+        </form>
       <div class="row mt-2">
         <div class="table-responsive">
           <table id="datatable" class="table table-striped table-hover">
@@ -61,6 +97,8 @@
             "url": '{{ url('damkar/laporan-kejadian/datatable') }}',
             data: function(d){
                 d.jenis = $('#jenis').val();
+                d.tanggal_awal = $('#tanggal_awal').val();
+                d.tanggal_akhir = $('#tanggal_akhir').val();
             }
         },
          columns: [
@@ -86,7 +124,8 @@
             },
           ],
       })
-    $('#jenis').on('change',function(e){
+    $('#filter-kejadian').on('submit',function(e){
+        e.preventDefault();
         datatable.ajax.reload()
     })
     function deleteKejadian(id){

@@ -22,7 +22,12 @@ class LaporanKejadianController extends Controller
 
     public function index()
     {
-        return view('pages.damkar.laporan_kejadian.index');
+        $spm = DB::SELECT("SELECT
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time <= 15 AND user_id = 1002 AND deleted_at IS NULL ) AS spm,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE user_id = 1002 AND deleted_at IS NULL ) AS semua,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time > 15 AND user_id = 1002 AND deleted_at IS NULL ) AS tidak")[0];
+        $presentase = round($spm->spm/$spm->semua*100,2); 
+        return view('pages.damkar.laporan_kejadian.index',compact('spm','presentase'));
     }
 
     public function create($id)
@@ -97,11 +102,18 @@ class LaporanKejadianController extends Controller
 
     public function datatable(Request $request)
     {
-        if($request->jenis == "-"):
-            $kejadian = LaporanKejadian::where('user_id',Auth::user()->id)->get();
-        else:
-            $kejadian = LaporanKejadian::where('user_id',Auth::user()->id)->where('jenis_kejadian',$request->jenis)->get();
-        endif;
+        // if($request->jenis == "-"):
+        //     $kejadian = LaporanKejadian::where('user_id',Auth::user()->id)->get();
+        // else:
+        //     $kejadian = LaporanKejadian::where('user_id',Auth::user()->id)->where('jenis_kejadian',$request->jenis)->get();
+        // endif;
+            $query = LaporanKejadian::query();
+            $query->when(request('jenis') !== '-', function ($q) {
+                return $q->where('jenis_kejadian',request('jenis'));
+            })->when(request('tanggal_awal') !== null, function ($q) {
+                return $q->whereDate('tanggal_kejadian','>=',request('tanggal_awal'))->whereDate('tanggal_kejadian','<=',request('tanggal_akhir'));
+            });
+            $kejadian = $query->where('user_id',Auth::user()->id)->get();
         return Datatables::of($kejadian)
         ->addColumn('aksi',function($i){
             $btn_aksi = '<a href="'.url('damkar/laporan-kejadian/create/'.$i->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-edit-1"></i></a><button onclick="deleteKejadian('.$i->id.')" type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="fas fa-trash-alt"></i></button>';
@@ -123,7 +135,7 @@ class LaporanKejadianController extends Controller
             $objek = json_decode($i->objek);
             $i = 0;
             $str = "";
-            if (isset($i->objek)):
+            if (!empty($objek)):
             $len = count($objek);
                 foreach($objek as $a):
                     if ($i == $len - 1) {
@@ -151,7 +163,7 @@ class LaporanKejadianController extends Controller
                 return '<a href="'.url('damkar/report/kejadian/dokumentasi/'.$i->id).'" target="_blank" class="btn btn-outline-primary">Download</a>';
             endif;
         })
-        ->rawColumns(['aksi','foto'])
+        ->rawColumns(['aksi','foto','objek'])
         ->make(true);
     }
 
