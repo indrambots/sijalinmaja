@@ -260,7 +260,7 @@ class HomeController extends Controller
 
     public function kegiatan_datatable()
     {
-        $kegiatan = DB::Select("SELECT k.*, p.ket, p.nip FROM `kegiatan` k INNER JOIN kegiatan_personel p ON k.id = p.kegiatan_id
+        $kegiatan = DB::Select("SELECT k.id, k.bentuk_kegiatan,k.judul_kegiatan,k.tanggal_mulai,k.jam_mulai,k.hasil_kegiatan,k.is_batal,k.is_barcode,k.lokasi,k.seragam, p.ket, p.nip FROM `kegiatan` k INNER JOIN kegiatan_personel p ON k.id = p.kegiatan_id
                                 WHERE p.nip = '".auth()->user()->username."' AND k.deleted_at IS NULL");
         return Datatables::of($kegiatan)
         ->addColumn('aksi',function($i){
@@ -283,7 +283,11 @@ class HomeController extends Controller
             endif;
         })->addColumn('status',function($i){
             if($i->hasil_kegiatan == null):
-                return '<span class="label label-lg font-weight-bolder label-rounded label-danger" style="height:50px; width:80px; padding-left:10px;">BELUM LAPORAN</span>';
+                if($i->is_batal == 1):
+                    return '<span class="label label-lg font-weight-bolder label-rounded label-default" style="height:50px; width:80px; padding-left:10px;">BATAL</span>';
+                else:
+                    return '<span class="label label-lg font-weight-bolder label-rounded label-danger" style="height:50px; width:80px; padding-left:10px;">BELUM LAPORAN</span>';
+                endif;
             else:
                 return '<span class="label label-lg font-weight-bolder label-rounded label-success" style="height:50px; width:80px; padding-left:10px;">SELESAI LAPORAN</span>';
             endif;
