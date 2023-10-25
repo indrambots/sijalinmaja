@@ -56,7 +56,7 @@
                                               <div class="header_btn slider_btn full_width">
                                                 <ul>
                                                     <li data-animation="animated bounceInLeft">
-                                                        <a href="https://drive.google.com/file/d/1FdrQKQWOKzWhlBIXH0pMhpBA8vti8Y8X/view?usp=sharing">DOWNLOAD FILE KASANDRA</a>
+                                                        <a href="https://drive.google.com/file/d/1B7bO20OBgmIQgvqa2laZ9hYd4pSHjX7v/view?usp=sharing">DOWNLOAD FILE KASANDRA</a>
                                                     </li>
 
                                                 </ul>
