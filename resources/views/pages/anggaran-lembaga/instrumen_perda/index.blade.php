@@ -26,22 +26,23 @@ evaluasi. Penilaian Instrumen ini berdasarkan kepada Keputusan Menteri Dalam Neg
     <div class="card-body">
         <div class="card-label"><h4>Penilaian Instrumen Penegakan Perda dan Perkada</h4></div><div class="row mt-2">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover table-sm nowrap" style="width:100% !important">
+                <table class="table table-bordered table-hover table-sm nowrap" style="width:100% !important; font-size: 12pt !important;">
                     <thead>
                         <tr>
                             <th colspan="4">Indikator dan Kelas Interval</th>
                             <th >Penjelasan</th>
                             <th >Bukti/Data Dukung</th>
-                            <th >Skala</th>
-                            <th >Bobot</th>
-                            <th></th>
+                            <th > Skala</th>
+                            <th > Bobot</th>
+                            <th > Nilai </th>
                             <th >Aksi</th>
+                            <th >Hasil</th>
                         </tr>
                     </thead>
                     <tbody>
                     	@foreach($indikator_jenis as $i)
                     	<tr>
-                    		<td colspan="10" style="background-color:#1ff3f3;">A. {{$i->indikator_jenis}}</td>
+                    		<td colspan="11" style="background-color:#1ff3f3;">{{$i->indikator_jenis}}</td>
                     	</tr>
 
 <?php $indikator_variabel = DB::SELECT("SELECT DISTINCT(variabel_jenis) FROM master_instrumen_perda_keterangan WHERE indikator_jenis = '".$i->indikator_jenis."' ");
@@ -49,7 +50,7 @@ evaluasi. Penilaian Instrumen ini berdasarkan kepada Keputusan Menteri Dalam Neg
 							@foreach($indikator_variabel as $v)
 		                    	<tr>
 		                    		<td style="background-color:#afafaf;"></td>
-		                    		<td colspan="9" style="background-color:#49ffff;">I. {{$v->variabel_jenis}}</td>
+		                    		<td colspan="10" style="background-color:#49ffff;">{{$loop->iteration}}. {{$v->variabel_jenis}}</td>
 		                    	</tr>
 <?php $indikator_judul = DB::SELECT("SELECT * FROM master_instrumen_perda_keterangan WHERE variabel_jenis = '".$v->variabel_jenis."' ");
 ?>
@@ -60,11 +61,26 @@ evaluasi. Penilaian Instrumen ini berdasarkan kepada Keputusan Menteri Dalam Neg
 								<td>{{$loop->iteration}}.</td>
 								<td>{{$j->indikator_judul}}</td>
 								<td>{{$j->penjelasan}}</td>
-								<td>{{$j->keterangan_bukti}}</td>
-								<td>Skala</td>
-								<td>bobot</td>
-								<td>Skor</td>
-								<td>Aksi</td>
+								<td>{{$j->keterangan_bukti}}
+<?php $skala = DB::SELECT("SELECT * FROM master_instrumen_perda_nilai WHERE keterangan_id = ".$j->id." "); ?>
+                                    <ol>
+                                        @foreach($skala as $s)
+                                        <li>{{$s->keterangan_skala}}</li>
+                                        @endforeach
+                                    </ol>
+                                </td>
+								<td> <br> <center>
+                                    @foreach($skala as $s)
+                                    {{$s->nilai_skala}}<br>
+                                    @endforeach
+                                </center></td>
+								<td style="text-align: center;  vertical-align: middle;">{{$j->bobot}}</td>
+								<td > <br> <center>
+                                    @foreach($skala as $s)
+                                    {{$s->skor}}<br>
+                                    @endforeach</td>
+								<td style="text-align: center;  vertical-align: middle;"><a href="{{url('anggaran/penegakan/instrumen/upload-form/'.$j->id)}}" class="btn btn-outline-primary"><i class="fas fa-file-upload"></i></a> </td>
+                                <td style="text-align: center;  vertical-align: middle;"> 6</td>
 							</tr>
 								@endforeach
 							@endforeach
