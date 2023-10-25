@@ -6,9 +6,15 @@
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
     <li class="breadcrumb-item pe-3">
-        <a href="{{url(auth()->user()->level == AliasName::level_dinas ? 'anggaran/perlindungan' : 'anggaran')}}" class="pe-3">
-            {{auth()->user()->level == AliasName::level_dinas ? 'Perlindungan Masyarakat' : 'Anggaran Kab/Kota'}}
-        </a>
+        @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus)
+            <a href="{{url('anggaran/perlindungan')}}" class="pe-3">
+                Perlindungan Masyarakat
+            </a>
+        @else
+            <a href="{{url('anggaran')}}" class="pe-3">
+                Anggaran Kab/Kota
+            </a>
+        @endif
     </li>
     <li class="breadcrumb-item px-3 text-muted">Posko Satlinmas</li>
 </ol>
@@ -22,7 +28,7 @@
                     <a href="javascript:;" class="btn btn-outline-primary m-b-xs">
                         <i class="fa-regular fa-file-excel"></i> Unduh Excel
                     </a>&nbsp;
-                    @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin)
+                    @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus || auth()->user()->level == AliasName::level_admin)
                         <a href="{{url('anggaran/perlindungan/posko-satlinmas/create/0')}}" class="btn btn-outline-primary m-b-xs">
                             <i class="fas fa-plus-circle"></i> Tambah Posko
                         </a>

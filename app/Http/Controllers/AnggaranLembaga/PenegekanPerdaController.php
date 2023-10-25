@@ -14,7 +14,7 @@ class PenegekanPerdaController extends Controller
     public function datatable(){
 
         $query = PenegakanPerda::query();
-        if(auth()->user()->level == AliasName::level_dinas){
+        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus){
             $query->where('created_by', auth()->user()->id);
         }
         $query->orderBy('id', 'desc');
@@ -22,7 +22,7 @@ class PenegekanPerdaController extends Controller
         return Datatables::of($query)
         ->addColumn('aksi', function ($data) {
             $html = '';
-            if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin){
+            if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus || auth()->user()->level == AliasName::level_admin){
                 $html = '
                     <form action="'.url('anggaran/penegakan/perda/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'

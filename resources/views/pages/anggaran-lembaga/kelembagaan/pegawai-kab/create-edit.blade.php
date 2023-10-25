@@ -5,9 +5,15 @@
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
     <li class="breadcrumb-item pe-3">
-        <a href="{{url(auth()->user()->level == AliasName::level_dinas ? 'anggaran/kelembagaan' : 'anggaran')}}" class="pe-3">
-            {{auth()->user()->level == AliasName::level_dinas ? 'Kelembagaan' : 'Anggaran Kab/Kota'}}
-        </a>
+        @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus)
+            <a href="{{url('anggaran/kelembagaan')}}" class="pe-3">
+                Kelembagaan
+            </a>
+        @else
+            <a href="{{url('anggaran')}}" class="pe-3">
+                Anggaran Kab/Kota
+            </a>
+        @endif
     </li>
     <li class="breadcrumb-item pe-3">
         <a href="{{url('anggaran/kelembagaan/pegawai-kab')}}" class="pe-3">Data Pegawai</a>

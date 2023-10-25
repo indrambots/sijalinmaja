@@ -21,7 +21,7 @@ class AnggotaSatlinmasController extends Controller
         $query->join('master_kota as kot', 'kot.id', '=', 'anggota_satlinmas.kotaid');
         $query->join('master_kecamatan as kec', 'kec.id', '=', 'anggota_satlinmas.kecamatanid');
         $query->join('master_kelurahan as kel', 'kel.id', '=', 'anggota_satlinmas.kelurahanid');
-        if(auth()->user()->level == AliasName::level_dinas){
+        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus){
             $query->where('anggota_satlinmas.created_by', auth()->user()->id);
         }
         $query->orderBy('id', 'desc');
@@ -29,7 +29,7 @@ class AnggotaSatlinmasController extends Controller
         return Datatables::of($query)
         ->addColumn('aksi', function ($data) {
             $html = '';
-            if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin){
+            if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus || auth()->user()->level == AliasName::level_admin){
                 $html = '
                     <form action="'.url('anggaran/perlindungan/anggota-satlinmas/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'
@@ -54,7 +54,7 @@ class AnggotaSatlinmasController extends Controller
 
         $data = AnggotaLinmas::find($id);
         $kota = Kota::query();
-        if(auth()->user()->level == AliasName::level_dinas){
+        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus){
             $kota->where('id', auth()->user()->kota);
         }
         $kota = $kota->orderBy('nama', 'asc')->get();

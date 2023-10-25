@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\AnggaranProfilLembaga;
 use App\AnggaranBidang;
 use Yajra\Datatables\Datatables;
+use App\Helpers\AliasName;
 
 class ReportController extends Controller
 {
@@ -36,8 +37,7 @@ class ReportController extends Controller
         $query->select('anggaran_bidang.*', 'profil.nama_kepala_satuan', 'profil.golongan', 'profil.nomenlaktur', 'kab.nama as kab_kota');
         $query->join('anggaran_profil_lembaga as profil', 'profil.id', '=', 'anggaran_bidang.lembagaid');
         $query->join('master_kota as kab', 'kab.id', '=', 'profil.kab_kota_id');
-        //Jika level dinas, kabupaten atau kota
-        if(auth()->user()->level == 11){
+        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus){
             $query->where('profil.userid', auth()->user()->id);
         }
         $query = $query->get()->toArray();
