@@ -6,7 +6,7 @@
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
     <li class="breadcrumb-item pe-3">
-        @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus)
+        @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar)
             <a href="{{url('anggaran/perlindungan')}}" class="pe-3">
                 Perlindungan Masyarakat
             </a>
@@ -28,7 +28,7 @@
                     <a href="javascript:;" class="btn btn-outline-primary m-b-xs">
                         <i class="fa-regular fa-file-excel"></i> Unduh Excel
                     </a>&nbsp;
-                    @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus || auth()->user()->level == AliasName::level_admin)
+                    @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar || auth()->user()->level == AliasName::level_admin)
                         <a href="{{url('anggaran/perlindungan/anggota-satlinmas/create/0')}}" class="btn btn-outline-primary m-b-xs">
                             <i class="fas fa-plus-circle"></i> Tambah Anggota
                         </a>

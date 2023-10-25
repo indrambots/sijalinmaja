@@ -37,7 +37,7 @@ class ReportController extends Controller
         $query->select('anggaran_bidang.*', 'profil.nama_kepala_satuan', 'profil.golongan', 'profil.nomenlaktur', 'kab.nama as kab_kota');
         $query->join('anggaran_profil_lembaga as profil', 'profil.id', '=', 'anggaran_bidang.lembagaid');
         $query->join('master_kota as kab', 'kab.id', '=', 'profil.kab_kota_id');
-        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus){
+        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar){
             $query->where('profil.userid', auth()->user()->id);
         }
         $query = $query->get()->toArray();

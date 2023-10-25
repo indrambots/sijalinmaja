@@ -13,7 +13,7 @@ class FormKegiatanController extends Controller
     public function datatable(){
 
         $query = FormKegiatan::query();
-        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus){
+        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar){
             $query->where('created_by', auth()->user()->id);
         }
         $query->orderBy('id', 'desc');
@@ -21,7 +21,7 @@ class FormKegiatanController extends Controller
         return Datatables::of($query)
         ->addColumn('aksi', function ($data) {
             $html = '';
-            if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus || auth()->user()->level == AliasName::level_admin){
+            if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar || auth()->user()->level == AliasName::level_admin){
                 $getFiles = '';
                 if($data->photo){
                     $getFiles = '<a href="'.asset('berkas/'.$data->photo.'').'" target="_blank" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary"><i class="flaticon-doc"></i></a>';

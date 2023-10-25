@@ -5,7 +5,7 @@
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
     <li class="breadcrumb-item pe-3">
-        @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus)
+        @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar)
             <a href="{{url('anggaran/trantibum')}}" class="pe-3">
                 Penyelenggaraan Ketentraman dan Ketertiban Umum
             </a>

@@ -20,7 +20,7 @@ class PegawaiKabController extends Controller
         $query = PegawaiKab::query();
         $query->select('pegawai_kab.*', 'kab.nama as kab_kota');
         $query->join('master_kota as kab', 'kab.id', '=', 'pegawai_kab.kab_kota_id');
-        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_tim_kasus){
+        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar){
             $query->where('pegawai_kab.userid', auth()->user()->id);
         }
         $query->orderBy('id', 'desc');
@@ -36,7 +36,7 @@ class PegawaiKabController extends Controller
         })
         ->addColumn('aksi', function ($data) {
             $html = '';
-            if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_admin){
+            if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar || auth()->user()->level == AliasName::level_admin){
                 $html = '
                     <form action="'.url('anggaran/kelembagaan/pegawai-kab/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'
@@ -65,7 +65,7 @@ class PegawaiKabController extends Controller
         $tingkat = MasterTingkatJabatan::orderBy('nama', 'asc')->get();
         $golongan = MasterGolonganLembaga::orderBy('nama', 'asc')->get();
         $kota = Kota::query();
-        if(auth()->user()->level == AliasName::level_dinas){
+        if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar){
             $kota->where('id', auth()->user()->kota);
         }
         $kota = $kota->orderBy('nama', 'asc')->get();
