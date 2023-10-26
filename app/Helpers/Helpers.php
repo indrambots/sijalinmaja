@@ -121,4 +121,40 @@ class Helpers{
         }
         return $returnValue;
     }
+
+    public static function listAlokasiAnggaran(){
+
+        return [
+            [
+                'no' => '1',
+                'kode' => 'A001',
+                'nama' => 'Total APBD Daerah'
+            ],
+            [
+                'no' => '2',
+                'kode' => 'A002',
+                'nama' => 'Total Alokasi Anggaran SKPD'
+            ],
+            [
+                'no' => '2.1',
+                'kode' => 'A003',
+                'nama' => 'Alokasi Anggaran SPM'
+            ],
+            [
+                'no' => '2.2',
+                'kode' => 'A004',
+                'nama' => 'Alokasi Anggaran Diluar SPM'
+            ],
+            [
+                'no' => '3',
+                'kode' => 'A005',
+                'nama' => 'Total Anggaran APBN'
+            ],
+            [
+                'no' => '4',
+                'kode' => 'A006',
+                'nama' => 'Sumber Dana Lainnya'
+            ]
+        ];
+    }
 }

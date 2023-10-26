@@ -188,6 +188,9 @@ Route::prefix('anggaran')->group(function(){
 
         Route::get('sarpras','AnggaranLembaga\FormSarprasController@index');
         Route::post('sarpras/store','AnggaranLembaga\FormSarprasController@storeOrUpdate');
+
+        Route::get('alokasi-anggaran','AnggaranLembaga\FormAlokasiAnggaranController@index');
+        Route::post('alokasi-anggaran/store','AnggaranLembaga\FormAlokasiAnggaranController@storeOrUpdate');
     });
 
     Route::prefix('perlindungan')->group(function () {

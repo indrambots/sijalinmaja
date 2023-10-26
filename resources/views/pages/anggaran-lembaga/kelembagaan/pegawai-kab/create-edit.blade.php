@@ -68,7 +68,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 golongan">
                     <div class="form-group">
                         <label>Golongan :</label>
                         <select name="golongan" class="form-control select2">
@@ -106,6 +106,20 @@
                     <div class="form-group angka_kredit">
                         <label>Angka Kredit :</label>
                         <input type="text" name="angka_kredit" value="{{@$data->angka_kredit}}" placeholder="Angka Kredit" class="form-control">
+                    </div>
+                </div>
+                <div class="col-12 is_pns">
+                    <div class="form-group">
+                        <input type="checkbox" name="is_fungsional" {!! @$data->is_fungsional ? 'checked' : '' !!} class="check_is_pns"> Telah Diklat Fungsional Pol PP
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="is_struktural" {!! @$data->is_struktural ? 'checked' : '' !!} class="check_is_pns"> Telah Diklat Struktural
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="is_dasar_pp" {!! @$data->is_dasar_pp ? 'checked' : '' !!} class="check_is_pns"> Telah Diklat Dasar Pol PP
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="is_teknis" {!! @$data->is_teknis ? 'checked' : '' !!} class="check_is_pns"> Telah Diklat Teknis
                     </div>
                 </div>
                 <div class="col-12">
@@ -231,10 +245,31 @@
 
     $('#status_pegawai').change(function(){
         let status = $(this).val() ? false : true;
+        let jenis_jabatan = null;
+        if($(this).val() == 'PNS'){
+            $(".is_pns").show();
+        }else{
+            $(".is_pns").hide();
+            $(".check_is_pns").prop('checked', false);
+        }
+        if($(this).val() == 'P3K' || $(this).val() == 'PTT-PK' || $(this).val() == 'THL'){
+            jenis_jabatan = $(this).val() == 'P3K' ? 'Jabatan Fungsional' : 'Jabatan Pelaksana';
+            $("#jenis_jabatan").val(jenis_jabatan).change();
+            $(".golongan").hide();
+        }else{
+            $(".golongan").show();
+            $("#jenis_jabatan").val('').change();
+            status = $(this).val() ? false : true;
+        }
         $("#jenis_jabatan option").each(function(index, item) {
-            if($(item).val()){
-                if($(item).val() != 'Jabatan Pelaksana'){
-                    $(item).attr('disabled', status);
+            $(item).attr('disabled', false);
+            if($("#status_pegawai").val() == 'P3K' || $("#status_pegawai").val() == 'PTT-PK' || $("#status_pegawai").val() == 'THL'){
+                $(item).attr('disabled', $(item).val() != jenis_jabatan ? true : false);
+            }else{
+                if($(item).val()){
+                    if($(item).val() != 'Jabatan Pelaksana'){
+                        $(item).attr('disabled', status);
+                    }
                 }
             }
         });

@@ -78,6 +78,10 @@ class PegawaiKabController extends Controller
         $request->request->remove('_token');
         $request->request->remove('_method');
         $request->merge([
+            'is_fungsional' => $request->is_fungsional ? 1 : null,
+            'is_struktural' => $request->is_struktural ? 1 : null,
+            'is_dasar_pp' => $request->is_dasar_pp ? 1 : null,
+            'is_teknis' => $request->is_teknis ? 1 : null,
             'is_ppns' => $request->is_ppns ? 1 : null,
             'userid' => auth()->user()->id
         ]);
