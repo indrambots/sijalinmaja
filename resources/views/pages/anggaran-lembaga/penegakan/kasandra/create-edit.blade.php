@@ -113,8 +113,12 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
-                        <label>Status :</label>
-                        <input type="text" name="status" value="{{@$data->status}}" placeholder="Status" class="form-control">
+                        <label>Status <span class="text-danger">*</span> :</label>
+                        <select name="status" class="form-control select2">
+                            <option value="">--Pilih Status--</option>
+                            <option value="Aktif" {{@$data->status == 'Aktif' ? 'selected' : ''}}>Aktif</option>
+                            <option value="Tidak Aktif" {{@$data->status == 'Tidak Aktif' ? 'selected' : ''}}>Tidak Aktif</option>
+                        </select>
                     </div>
                 </div>
             </div>

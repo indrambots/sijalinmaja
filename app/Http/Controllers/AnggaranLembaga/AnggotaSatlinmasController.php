@@ -80,6 +80,16 @@ class AnggotaSatlinmasController extends Controller
             'created_by' => auth()->user()->id
         ]);
         $data = $request->dataid ? AnggotaLinmas::find($request->dataid) : new AnggotaLinmas();
+        $checkNik = AnggotaLinmas::query();
+        $checkNik->where('nik', $request->nik);
+        if($request->dataid){
+            $checkNik->where('id', '<>', $request->dataid);
+        }
+        $checkNik = $checkNik->first();
+        if($checkNik){
+            $getId = $request->dataid ? $request->dataid : '0';
+            return redirect('anggaran/perlindungan/anggota-satlinmas/create/'.$getId.'')->with('msg_failed', 'NIK : '.$request->nik.' sudah digunakan.');
+        }
         $request->request->remove('dataid');
         foreach($request->all() as $field => $val){
             $data->$field = $val;

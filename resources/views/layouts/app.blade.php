@@ -445,6 +445,12 @@ var loadPanel = $(".loadpanel").dxLoadPanel({
     toastr.success("{{Session::get('msg_success')}}");
 </script>
 @endif
+
+@if(Session::get('msg_failed'))
+<script type="text/javascript">
+    toastr.warning("{{Session::get('msg_failed')}}");
+</script>
+@endif
     <!--end::Body-->
 @stack('scriptTambahan')
 {{-- <script src = "{{ asset('js/default/alpinejs.js') }}"></script> --}}

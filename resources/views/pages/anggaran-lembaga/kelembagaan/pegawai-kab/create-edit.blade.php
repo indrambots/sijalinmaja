@@ -237,7 +237,7 @@
         let status = $(this).val() == 'Jabatan Fungsional' ? true : false;
         $(this).val() == 'Jabatan Fungsional' ? $('.tingkat_jabatan').show() : $('.tingkat_jabatan').hide();
         $('#tingkat_jabatan').prop('required', status);
-        $('#tingkat_jabatan').val('');
+        $('#tingkat_jabatan').val('{{isset($data->tingkat_jabatan) ? $data->tingkat_jabatan : ''}}');
         $('#tingkat_jabatan').select2('destroy').select2();
         $(this).val() == 'Jabatan Fungsional' ? $('.angka_kredit').show() : $('.angka_kredit').hide();
         $('.angka_kredit').prop('required', status);
@@ -258,7 +258,7 @@
             $(".golongan").hide();
         }else{
             $(".golongan").show();
-            $("#jenis_jabatan").val('').change();
+            $("#jenis_jabatan").val('{{isset($data->jenis_jabatan) ? $data->jenis_jabatan : ''}}').change();
             status = $(this).val() ? false : true;
         }
         $("#jenis_jabatan option").each(function(index, item) {

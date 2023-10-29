@@ -86,6 +86,16 @@ class PegawaiKabController extends Controller
             'userid' => auth()->user()->id
         ]);
         $data = $request->dataid ? PegawaiKab::find($request->dataid) : new PegawaiKab();
+        $checkNip = PegawaiKab::query();
+        $checkNip->where('nip', $request->nip);
+        if($request->dataid){
+            $checkNip->where('id', '<>', $request->dataid);
+        }
+        $checkNip = $checkNip->first();
+        if($checkNip){
+            $getId = $request->dataid ? $request->dataid : '0';
+            return redirect('anggaran/kelembagaan/pegawai-kab/create/'.$getId.'')->with('msg_failed', 'NIP : '.$request->nip.' sudah digunakan.');
+        }
         $request->request->remove('dataid');
         foreach($request->all() as $field => $val){
             $data->$field = $val;

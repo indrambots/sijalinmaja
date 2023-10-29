@@ -25,9 +25,6 @@
         <div class="row justify-content-between">
             <div class="col-12">
                 <div class="d-flex justify-content-end">
-                    <a href="javascript:;" class="btn btn-outline-primary m-b-xs">
-                        <i class="fa-regular fa-file-excel"></i> Unduh Excel
-                    </a>&nbsp;
                     @if(auth()->user()->level == AliasName::level_dinas || auth()->user()->level == AliasName::level_dinas_dan_damkar || auth()->user()->level == AliasName::level_admin)
                         <a href="{{url('anggaran/trantibum/kegiatan/create/0')}}" class="btn btn-outline-primary m-b-xs">
                             <i class="fas fa-plus-circle"></i> Tambah
