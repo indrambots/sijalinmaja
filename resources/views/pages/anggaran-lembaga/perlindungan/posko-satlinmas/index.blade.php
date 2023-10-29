@@ -37,6 +37,18 @@
         <div class="row mt-2">
             <div class="table-responsive">
                 <table id="datatable" class="table table-striped table-hover table-sm nowrap" style="width:100% !important">
+                    <thead>
+                        <tr>
+                            <th width="70px">Aksi</th>
+                            <th>Lokasi</th>
+                            <th>Koordinat</th>
+                            <th>Kota</th>
+                            <th>Kecamatan</th>
+                            <th>Kelurahan</th>
+                            <th>Bentuk Bangunan</th>
+                            <th>Luas Bangunan (M2)</th>
+                        </tr>
+                    </thead>
                 </table>
             </div>
         </div>
@@ -53,9 +65,14 @@
             "url": '{{url('anggaran/perlindungan/posko-satlinmas/datatable')}}',
         },
         columns: [
-            { data: 'aksi', name: 'aksi' },
-            { data: 'nomor_sarpras', name: 'nomor_sarpras', className: 'text-center'},
-            { data: 'nama', name: 'nama'}
+            { data: 'aksi', name: 'aksi', className: 'text-center'},
+            { data: 'lokasi', name: 'lokasi'},
+            { data: 'koordinat', name: 'koordinat',  className: 'text-center'},
+            { data: 'nama_kota', name: 'kota.nama'},
+            { data: 'nama_kecamatan', name: 'kec.nama'},
+            { data: 'nama_kelurahan', name: 'kel.nama_desa'},
+            { data: 'bentuk_bangunan', name: 'bentuk_bangunan'},
+            { data: 'luas_bangunan', name: 'luas_bangunan'}
         ]
     });
 

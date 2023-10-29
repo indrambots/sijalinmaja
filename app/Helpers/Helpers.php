@@ -157,4 +157,48 @@ class Helpers{
             ]
         ];
     }
+
+    public static function listSarpasPosko(){
+
+        return [
+            'fasilitas' => [
+                'Kamar Mandi',
+                'Jaringan Wifi',
+                'HT & Ponsel',
+                'Papan Nama Posko',
+                'Logo Linmas',
+                'Lambang Garuda',
+                'Pigora Foto Presiden&Wakil',
+                'Struktur Organisasi Satlinmas',
+                'SOP Gangguan Tramtib',
+                'Meja Kursi',
+                'Daftar Piket & Jadwal Jaga',
+                'Daftar No. Tlp Penting',
+                'Peta Wilayah',
+                'Sandi Morse',
+                'Kentongan',
+                'Kotak P3K',
+                'AC',
+                'Televisi',
+                'Dispenser',
+                'Jm Dinding',
+                'Alat Kebersihan',
+                'Lemari / Loker',
+                'APAR',
+                'Megaphone',
+            ],
+            'sarpras' => [
+                'Mobil/Sepeda Motor Patroli',
+                'Sepeda Motor Patroli',
+                'Sepeda Angin',
+                'Senter',
+                'Jas Hujan',
+                'Payung ',
+                'Sepatru Booth',
+                'Borgoil / Kabel tis',
+                'Pentiungan / Tongkat',
+                'Ban Kamling'
+            ]
+        ];
+    }
 }
