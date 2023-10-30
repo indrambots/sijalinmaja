@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\AliasName;
 use App\PoskoSatlinmas;
+use App\PoskoSatlinmasDetail;
+use App\PoskoSatlinmasKategori;
 use App\Helpers\Helpers;
 use App\Kota;
 use App\Kecamatan;
@@ -32,10 +34,10 @@ class PoskoSatlinmasController extends Controller
                 $html = '
                     <form action="'.url('anggaran/perlindungan/posko-satlinmas/delete', $data->id).'" method="post" id="form-delete'.$data->id.'">
                         '.csrf_field().' '.method_field('DELETE').'
-                        <button type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" title="Sarpras">
+                        <button type="button" onclick="getPosko('.'`sarpras`'.', '.'`'.$data->id.'`'.')" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" title="Sarpras">
                             <i class="fa-solid fa-layer-group"></i>
                         </button>
-                        <button type="button" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" title="Fasilitas">
+                        <button type="button" onclick="getPosko('.'`fasilitas`'.', '.'`'.$data->id.'`'.')" class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" title="Fasilitas">
                             <i class="fa-solid fa-house-signal"></i>
                         </button>
                         <a href="'.url('anggaran/perlindungan/posko-satlinmas/create', $data->id).'" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" title="Edit"><i class="flaticon-edit-1"></i></a>
@@ -91,6 +93,19 @@ class PoskoSatlinmasController extends Controller
         $data->save();
 
         return redirect('anggaran/perlindungan/posko-satlinmas')->with('msg_success', $request->dataid ? 'Berhasil diperbaharui.' : 'Berhasil disimpan.');
+    }
+
+    public function getPosko(Request $request){
+
+        $data = PoskoSatlinmasDetail::where('poskoid', $request->dataid)->get()->toArray();
+
+        dd($request->all());
+
+        return view('pages.anggaran-lembaga.perlindungan.posko-satlinmas.get-posko', compact('data'));
+    }
+
+    public function getPoskoStoreOrUpdate(Request $request){
+
     }
 
     public function destroy($id){

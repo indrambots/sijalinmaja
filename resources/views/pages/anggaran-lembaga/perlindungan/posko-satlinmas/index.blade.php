@@ -54,6 +54,19 @@
         </div>
     </div>
 </div>
+
+<div id="modal-posko" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-left">FORM <span class="set-title"></span></h4>
+            </div>
+            <div class="modal-body" id="set-data"></div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('script')
 <script>
@@ -75,6 +88,22 @@
             { data: 'luas_bangunan', name: 'luas_bangunan'}
         ]
     });
+
+    function getPosko(type, id){
+        $('.set-title').html(type == 'sarpras' ? 'Sarpras' : 'Fasilitas');
+        $.ajax({
+            url: "{{url('anggaran/perlindungan/posko-satlinmas/get-posko')}}",
+            method: 'post',
+            data: {
+                type: type,
+                dataid: id
+            },
+            success: function(res){
+                $('#set-data').html(res);
+                $('#modal-posko').modal('show');
+            }
+        });
+    }
 
     function deleteData(id){
         if(confirm('Apakah anda yakin ingin menghapus data ini ?') == true){

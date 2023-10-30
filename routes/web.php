@@ -207,6 +207,7 @@ Route::prefix('anggaran')->group(function(){
         Route::get('posko-satlinmas/create/{id}','AnggaranLembaga\PoskoSatlinmasController@createOrEdit');
         Route::post('posko-satlinmas/store','AnggaranLembaga\PoskoSatlinmasController@storeOrUpdate');
         Route::delete('posko-satlinmas/delete/{id}','AnggaranLembaga\PoskoSatlinmasController@destroy');
+        Route::delete('posko-satlinmas/get-posko','AnggaranLembaga\PoskoSatlinmasController@getPosko');
     });
 
     Route::prefix('trantibum')->group(function () {
