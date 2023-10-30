@@ -97,15 +97,27 @@ class PoskoSatlinmasController extends Controller
 
     public function getPosko(Request $request){
 
-        $data = PoskoSatlinmasDetail::where('poskoid', $request->dataid)->get()->toArray();
+        $data = [];
+        $dataid = $request->dataid;
+        $query = PoskoSatlinmasDetail::where('poskoid', $request->dataid)->get()->toArray();
+        foreach($query as $q){
+            $data[$q['kode']] = $q;
+        }
+        $kategori = PoskoSatlinmasKategori::where('kategori', $request->type)->get()->toArray();
 
-        dd($request->all());
-
-        return view('pages.anggaran-lembaga.perlindungan.posko-satlinmas.get-posko', compact('data'));
+        return view('pages.anggaran-lembaga.perlindungan.posko-satlinmas.get-posko', compact('data', 'kategori', 'dataid'));
     }
 
     public function getPoskoStoreOrUpdate(Request $request){
-
+        foreach($request->nama as $kode => $nama){
+            $checkData = PoskoSatlinmasDetail::where('poskoid', $request->dataid)->where('kode', $kode)->first();
+            $data = $checkData ? PoskoSatlinmasDetail::find($checkData->id) : new PoskoSatlinmasDetail();
+            $data->poskoid = $request->dataid;
+            $data->kode = $kode;
+            $data->nama = $nama;
+            $data->status = isset($request->status[$kode]) ? 1 : null;
+            $data->save();
+        }
     }
 
     public function destroy($id){

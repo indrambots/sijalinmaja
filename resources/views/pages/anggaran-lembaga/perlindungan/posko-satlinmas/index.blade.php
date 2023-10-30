@@ -62,7 +62,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title text-left">FORM <span class="set-title"></span></h4>
             </div>
-            <div class="modal-body" id="set-data"></div>
+            <div class="modal-body" id="set-data" style="padding:0px;max-height:80vh;overflow-y:scroll"></div>
         </div>
     </div>
 </div>
@@ -90,7 +90,7 @@
     });
 
     function getPosko(type, id){
-        $('.set-title').html(type == 'sarpras' ? 'Sarpras' : 'Fasilitas');
+        $('.set-title').html(type == 'sarpras' ? 'SARPRAS' : 'FASILITAS');
         $.ajax({
             url: "{{url('anggaran/perlindungan/posko-satlinmas/get-posko')}}",
             method: 'post',
@@ -101,6 +101,18 @@
             success: function(res){
                 $('#set-data').html(res);
                 $('#modal-posko').modal('show');
+            }
+        });
+    }
+
+    function savePosko(){
+        let getData = $("#form-posko").serializeArray();
+        $.ajax({
+            url: "{{url('anggaran/perlindungan/posko-satlinmas/posko-store')}}",
+            method: 'post',
+            data: getData,
+            success: function(res){
+                toastr.success("Data berhasil disimpan.")
             }
         });
     }
