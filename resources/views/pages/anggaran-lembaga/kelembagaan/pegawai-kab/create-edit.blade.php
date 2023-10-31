@@ -246,14 +246,14 @@
     $('#status_pegawai').change(function(){
         let status = $(this).val() ? false : true;
         let jenis_jabatan = null;
-        if($(this).val() == 'PNS'){
+        if($(this).val() == 'Pegawai Negeri Sipil (PNS)'){
             $(".is_pns").show();
         }else{
             $(".is_pns").hide();
             $(".check_is_pns").prop('checked', false);
         }
-        if($(this).val() == 'P3K' || $(this).val() == 'PTT-PK' || $(this).val() == 'THL'){
-            jenis_jabatan = $(this).val() == 'P3K' ? 'Jabatan Fungsional' : 'Jabatan Pelaksana';
+        if($(this).val() == 'Pegawai Pemerintah dengan Perjanjian Kerja (PPPK)' || $(this).val() == 'Pegawai Tidak Tetap dengan Perjanjian Kerja (PTT-PK)' || $(this).val() == 'Tenaga Harian Lepas (THL)'){
+            jenis_jabatan = $(this).val() == 'Pegawai Pemerintah dengan Perjanjian Kerja (PPPK)' ? 'Jabatan Fungsional' : 'Jabatan Pelaksana';
             $("#jenis_jabatan").val(jenis_jabatan).change();
             $(".golongan").hide();
         }else{
@@ -263,7 +263,7 @@
         }
         $("#jenis_jabatan option").each(function(index, item) {
             $(item).attr('disabled', false);
-            if($("#status_pegawai").val() == 'P3K' || $("#status_pegawai").val() == 'PTT-PK' || $("#status_pegawai").val() == 'THL'){
+            if($("#status_pegawai").val() == 'Pegawai Pemerintah dengan Perjanjian Kerja (PPPK)' || $("#status_pegawai").val() == 'Pegawai Tidak Tetap dengan Perjanjian Kerja (PTT-PK)' || $("#status_pegawai").val() == 'THL'){
                 $(item).attr('disabled', $(item).val() != jenis_jabatan ? true : false);
             }else{
                 if($(item).val()){
