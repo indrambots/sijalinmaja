@@ -237,6 +237,18 @@
 						<input type="radio" name="sumber" value="Dalam Penyelidikan">
 						<span></span>Dalam Penyelidikan</label>
 						<label class="radio">
+						<input type="radio" name="sumber" value="Dibakar Orang Tak Dikenal">
+						<span></span>Dibakar Orang Tak Dikenal</label>
+						<label class="radio">
+						<input type="radio" name="sumber" value="Kelalaian">
+						<span></span>Kelalaian</label>
+						<label class="radio">
+						<input type="radio" name="sumber" value="Api Bediang">
+						<span></span>Api Bediang</label>
+						<label class="radio">
+						<input type="radio" name="sumber" value="Pembakaran Sampah">
+						<span></span>Pembakaran Sampah</label>
+						<label class="radio">
 						<input type="radio" name="sumber" value="Lainnya">
 						<span></span>Lainnya</label>
 					</div>
@@ -244,7 +256,7 @@
 			</div>
 		</div>
 		<div id="jenis_non_kebakaran">
-		  <div class="form-group row" id="checkbox_nonbangunan">
+		  <div class="form-group row" >
 				<label class="col-12 col-form-label">Objek Evakuasi</label>
 				<div class="col-9 col-form-label">
 					<div class="checkbox-inline">
