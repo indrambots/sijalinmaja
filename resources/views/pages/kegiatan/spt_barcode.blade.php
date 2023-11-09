@@ -524,7 +524,9 @@
                     </p>
                     <p class="s6" style="padding-left: 10pt;text-indent: 0pt;text-align: left;">
                         @if($a->jenis_pegawai == 'PNS')
-                        NIP<br>  
+                        NIP<br>
+                        @elseif($a->jenis_pegawai = 'PPPK')
+                        NIPPPK<br>
                         @else
                         NIPTT-PK<br>
                         @endif  Pangkat / Golongan

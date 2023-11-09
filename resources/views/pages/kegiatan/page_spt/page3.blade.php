@@ -32,7 +32,7 @@
                 </td>
                 <td bgcolor="#BDBDBD" style="width:100pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s8" style="padding-top: 6pt;padding-left: 5pt;padding-right: 4pt;text-indent: 0pt;text-align: center;">
-                        NIP/NIP PTT-PK <br>
+                        NIP/NIPPPK/NIP PTT-PK <br>
                         GOL/PANGKAT
                     </p>
                 </td>
