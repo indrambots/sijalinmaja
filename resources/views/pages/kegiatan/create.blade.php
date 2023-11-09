@@ -500,7 +500,6 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="POLTIK" selected>POLTIK</option>
-							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
