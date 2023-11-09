@@ -295,6 +295,7 @@
 					<option value="PTI">PTI</option>
 					<option value="PAMWAL">PAMWAL</option>
 					<option value="WALSUS">WALSUS</option>
+					<option value="POLTIK">POLTIK</option>
 					<option value="DRIVER">DRIVER</option>
 					<option value="PETUGAS TUM">PETUGAS TUM</option> 
 					<option value="PESERTA">PESERTA</option>
@@ -334,6 +335,7 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option>  
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
@@ -348,6 +350,7 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
@@ -362,6 +365,7 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
@@ -376,6 +380,7 @@
 							<option value="PTI" selected>PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
@@ -390,6 +395,7 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER" selected>DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
@@ -404,6 +410,7 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
@@ -418,6 +425,7 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM" selected>PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
@@ -432,6 +440,7 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA" selected>PESERTA</option>
@@ -446,6 +455,7 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
@@ -460,6 +470,7 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL" selected>PAMWAL</option>
 							<option value="WALSUS">WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
@@ -474,12 +485,29 @@
 							<option value="PTI">PTI</option>
 							<option value="PAMWAL">PAMWAL</option>
 							<option value="WALSUS" selected>WALSUS</option>
+							<option value="POLTIK">POLTIK</option> 
 							<option value="DRIVER">DRIVER</option>
 							<option value="PETUGAS TUM">PETUGAS TUM</option> 
 							<option value="PESERTA">PESERTA</option>
 							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
 							<option value="SHIFT PAGI">SHIFT PAGI</option> 
 							<option value="SHIFT MALAM">SHIFT MALAM</option>
+							@elseif($k->ket == "POLTIK")
+							<option value="KAOPSGAP">KAOPSGAP</option>
+							<option value="ANGGOTA">ANGGOTA</option>
+							<option value="DOKUMENTASI">DOKUMENTASI</option>
+							<option value="PELAPORAN">PELAPORAN</option>
+							<option value="PTI">PTI</option>
+							<option value="PAMWAL">PAMWAL</option>
+							<option value="POLTIK" selected>POLTIK</option>
+							<option value="POLTIK">POLTIK</option> 
+							<option value="DRIVER">DRIVER</option>
+							<option value="PETUGAS TUM">PETUGAS TUM</option> 
+							<option value="PESERTA">PESERTA</option>
+							<option value="PESERTA + PELAPORAN">PESERTA + PELAPORAN</option> 
+							<option value="SHIFT PAGI">SHIFT PAGI</option> 
+							<option value="SHIFT MALAM">SHIFT MALAM</option>
+							@endif
 							@endif
 						</select>
 					</div>
