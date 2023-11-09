@@ -508,7 +508,6 @@
 							<option value="SHIFT PAGI">SHIFT PAGI</option> 
 							<option value="SHIFT MALAM">SHIFT MALAM</option>
 							@endif
-							@endif
 						</select>
 					</div>
 						<button type="button" class="btn btn-sm btn-danger" onclick="removeAttribut('#frmpersonel{{$loop->iteration}}')" class="delete_attributs" id="delete_attribut{{$loop->iteration}}"><i class="far fa-trash-alt"></i></button>
