@@ -142,7 +142,7 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;line-height: 14pt;text-align: justify;">
-                        Peraturan Gubernur Jawa Timur Nomor 25 Tahun 2023 tentang Perubahan atas Peraturan Gubernur Jawa Timur Nomor 66 Tahun 2022 tentang Pedoman Kerja dan Pelaksanaan Tugas Pemerintah Provinsi Jawa Timur Tahun 2023;
+                        Peraturan Gubernur Jawa Timur Nomor 76 Tahun 2023 tentang Perubahan Ketiga atas Peraturan Gubernur Jawa Timur Nomor 66 Tahun 2022 tentang Pedoman Kerja dan Pelaksanaan Tugas Pemerintah Provinsi Jawa Timur Tahun 2023;
 
                     </p>
                 </td>
@@ -193,9 +193,9 @@
                         
 
             @if($keg->dasar_surat !== null)
-            Dokumen Pelaksanaan Pergeseran Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/A.2/1.05.0.00.0.00.01.0000/001/2023;
+            Dokumen Pelaksanaan Pergeseran Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/B.1/1.05.0.00.0.00.01.0000/001/2023;
             @else
-            Dokumen Pelaksanaan Pergeseran Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/A.2/1.05.0.00.0.00.01.0000/001/2023.
+            Dokumen Pelaksanaan Pergeseran Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/B.1/1.05.0.00.0.00.01.0000/001/2023.
             @endif
                     </p>
                 </td>
