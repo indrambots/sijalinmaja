@@ -194,9 +194,9 @@
                         
 
             @if($keg->dasar_surat !== null)
-            Dokumen Pelaksanaan Pergeseran Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/B.1/1.05.0.00.0.00.01.0000/001/2023;
+            Dokumen Pelaksanaan Perubahan Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/B.1/1.05.0.00.0.00.01.0000/001/2023;
             @else
-            Dokumen Pelaksanaan Pergeseran Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/B.1/1.05.0.00.0.00.01.0000/001/2023.
+            Dokumen Pelaksanaan Perubahan Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/B.1/1.05.0.00.0.00.01.0000/001/2023.
             @endif
                     </p>
                 </td>
