@@ -23,9 +23,9 @@ class LaporanKejadianController extends Controller
     public function index()
     {
         $spm = DB::SELECT("SELECT
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time <= 15 AND user_id = 1002 AND deleted_at IS NULL ) AS spm,
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE user_id = 1002 AND deleted_at IS NULL ) AS semua,
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time > 15 AND user_id = 1002 AND deleted_at IS NULL ) AS tidak")[0];
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time <= 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL ) AS spm,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE user_id = ".Auth::user()->id." AND deleted_at IS NULL ) AS semua,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time > 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL ) AS tidak")[0];
         $presentase = round($spm->spm/$spm->semua*100,2); 
         return view('pages.damkar.laporan_kejadian.index',compact('spm','presentase'));
     }
