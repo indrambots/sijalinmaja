@@ -1,7 +1,7 @@
 <div class="pagebreak"></div>
     <div class="page">
 
-         <p class="s9" style="padding-top: 3pt;padding-left: 297pt;text-indent: -56pt;text-align: justify;">
+          <p class="s9" style="padding-top: 3pt;padding-left: 297pt;text-indent: -56pt;text-align: justify;">
             LAMPIRAN : &nbsp;SURAT PERINTAH TUGAS <br> &nbsp;&nbsp;&nbsp;KASATPOL PP PROV. JATIM <br> &nbsp;&nbsp;&nbsp;TANGGAL : {{$keg->tgl_indo(date('Y-m-d', strtotime($keg->created_at)))}}
         </p>
         <p class="s9" style="padding-left: 297pt;text-indent: 0pt;text-align: justify; ">
@@ -43,11 +43,11 @@
                 </td>
             </tr>
             @inject('nip', 'App\KegiatanPersonel')
-            @foreach($anggota3 as $p)
+            @foreach($anggota4 as $p)
             <tr style="height:26pt">
                 <td style="width:20pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-right: 8pt;text-indent: 0pt;text-align: right;">
-                      {{$loop->iteration+15}}.
+                      {{$loop->iteration+45}}.
                     </p>
                 </td>
                 <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -68,8 +68,6 @@
             </tr>
             @endforeach
         </table>
-
-        @if(count($keg->personel) < 46)
         <table cellspacing="0" style="border-collapse:collapse;margin-left:274.075pt; margin-top: 10px;">
             
         <tr style="height:13pt">
@@ -149,7 +147,6 @@
 </table>
 @else
 @include('pages.kegiatan.page_spt.paraf')
-@endif
 @endif
         <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: 20px" />
     </div>

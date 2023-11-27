@@ -65,6 +65,12 @@ class KegiatanController extends Controller
         '%y Years %m Months %d Days'
     ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 45 OFFSET 29");
 
+        $anggota4 = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+        FROM_DAYS(
+            DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+        ),
+        '%y Years %m Months %d Days'
+    ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 60 OFFSET 30");
         $bentuk_kegiatan = MasterBentukKegiatan::where('bentuk_kegiatan',$keg->bentuk_kegiatan)->first();
 
         if($katim == null):
@@ -95,11 +101,17 @@ class KegiatanController extends Controller
                 ),
                 '%y Years %m Months %d Days'
             ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 15 OFFSET 30");
+                $anggota4 = DB::SELECT("SELECT k.*,p.jenis_pegawai,p.nama_jabatan , DATE_FORMAT(
+                FROM_DAYS(
+                    DATEDIFF(CURRENT_DATE, CAST(SUBSTRING(k.nip, 1, 8) as date))
+                ),
+                '%y Years %m Months %d Days'
+            ) AS age  FROM kegiatan_personel k INNER JOIN pegawai p ON k.nip = p.nip WHERE kegiatan_id = ".$id." AND ket <> 'KAOPSGAP' ORDER BY tingkat DESC, age DESC LIMIT 15 OFFSET 45");
         endif;
         if($barcode == "yes"):
-            return view('pages.kegiatan.spt_barcode',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3','barcode'));
+            return view('pages.kegiatan.spt_barcode',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3','anggota4','barcode'));
         endif;
-        return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3','barcode'));
+        return view('pages.kegiatan.spt_new',compact('keg','bentuk_kegiatan','katim','anggota','anggota1','anggota2','anggota3','anggota4','barcode'));
     }
 
     public function create($id)

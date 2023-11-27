@@ -799,6 +799,9 @@
         @include('pages.kegiatan.page_spt.page3')
             @if(count($keg->personel) > 30)
             @include('pages.kegiatan.page_spt.page4')
+                @if(count($keg->personel) > 45)
+                @include('pages.kegiatan.page_spt.page5')
+                @endif
             @endif
         @endif
     @endif

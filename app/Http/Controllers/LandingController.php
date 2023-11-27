@@ -65,7 +65,7 @@ LIMIT 10");
 
         $sumber_kebakaran = DB::SELECT("SELECT COUNT(*) AS jum, sumber FROM laporan_kejadian WHERE id > 0 AND jenis_kejadian = 'Kebakaran'
 GROUP BY sumber 
-ORDER BY COUNT(*) DESC");
+ORDER BY COUNT(*) DESC LIMIT 10");
         $sumber_nama = array();
         $sumber_jumlah = array();
         foreach($sumber_kebakaran as $k):

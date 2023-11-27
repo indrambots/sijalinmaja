@@ -315,7 +315,7 @@
                             <h3>Statistik Sumber Penyebab Kebakaran di Jawa Timur</h3>
                             <div class="row">
                                 <div class="col-md-8 offset-md-2">
-                                    <div id="sumber_kebakaran"></div>
+                                    <div id="sumber_kebakarans"></div>
                                 </div>
                             </div>
                         </div>
@@ -857,7 +857,7 @@ $(document).ready(function(){
 
 
 
-        var options_sumber_kebakaran = {
+        var options_sumber_kebakarans = {
           series: [{
           data: {!! $sumber_jumlah !!}
         }],
@@ -890,12 +890,14 @@ $(document).ready(function(){
           categories: {!! $sumber_nama !!}
         },
         yaxis: {
-            reversed: false
+            reversed: true
         }
         };
 
-        var chart_sumber_kebakaran = new ApexCharts(document.querySelector("#sumber_kebakaran"), options_sumber_kebakaran);
-        chart_sumber_kebakaran.render();
+        console.log({!! $sumber_nama !!})
+        console.log({!! $sumber_jumlah !!})
+        var chart_sumber_kebakarans = new ApexCharts(document.querySelector("#sumber_kebakarans"), options_sumber_kebakarans);
+        chart_sumber_kebakarans.render();
 })
 </script>
 @endsection
