@@ -48,6 +48,24 @@
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="form-group">
+                        <label>Jenis Kelamin<span class="text-danger">*</span> :</label>
+                        <select class="form-control" required name="jenis_kelamin">
+                            @if($data->jenis_kelamin == "L")
+                            <option value="L" selected>Laki- laki</option>
+                            <option value="P">Perempuan</option>
+                            @elseif($data->jenis_kelamin == "P")
+                            <option value="L">Laki- laki</option>
+                            <option value="P" selected>Perempuan</option>
+                            @else
+                            <option value="">--Pilih Jenis Kelamin--</option>
+                            <option value="L">Laki- laki</option>
+                            <option value="P">Perempuan</option>
+                            @endif
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
                         <label>Pendidikan Terakhir <span class="text-danger">*</span> :</label>
                         <select name="pendidikan_terakhir" id="pendidikan_terakhir" required class="form-control select2">
                             <option value="">--Pilih Pendidikan Terakhir</option>
