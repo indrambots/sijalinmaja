@@ -42,6 +42,10 @@ class User extends Authenticatable
         return $this->hasOne('App\Pegawai', 'nip', 'username');
     }
 
+    public function kotaku(){
+        return $this->hasOne('App\Kota','id','kota');
+    }
+
     public function getLevel($value)
     {
         if($value == 1):

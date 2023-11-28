@@ -224,15 +224,19 @@
         map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
       var baselayer = new google.maps.Data();
-      baselayer.loadGeoJson('{{ asset('js/jawa_timur.json') }}')
+      @if(Auth::user()->level >= 11)
+      baselayer.loadGeoJson('{{ asset('js/batas_kota/'.$kotaku->batas.'.geojson') }}')
       baselayer.setStyle({
-    fillColor: 'green',
-    fillOpacity:0.0,
-    opacity: 0.1,
-    strokeColor:'red',
-    strokeWeight: 1,
-    clickable: false
-  });
+	    fillColor: 'yellow',
+	    opacity: 0.1,
+	    opacity: 0.1,
+	    strokeColor:'red',
+	    strokeWeight: 1,
+	    clickable: false
+	  });
+      @else
+      baselayer.loadGeoJson('{{ asset('js/jawa_timur.json') }}')
+      @endif
       baselayer.setMap(map);
         @if($id == 0)
         marker = new google.maps.Marker({

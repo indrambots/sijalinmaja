@@ -39,12 +39,14 @@ class KasusController extends Controller
         $kota = Kota::orderBy('nama','asc')->get();
         $kecamatan = Kecamatan::where('kode_kab',$kasus->kota)->get();
         $kelurahan = Kelurahan::where('kode_kab',$kasus->kota)->where('kode_kec',$kasus->kecamatan)->get();
+        $kotaku = 0;
         if(Auth::user()->kota > 0):
             $kota = Kota::orderBy('nama','asc')->where('id',Auth::user()->kota)->get();
+            $kotaku = Kota::find(Auth::user()->kota);
         endif;
         $pd = Pd::orderBy('nama','asc')->get();
         $jenis_trantib = JenisTrantib::where('urusan',$kasus->urusan)->get();
-        return view('pages.kasus.create',compact('sumber','urusan','kota','pd','id','kasus','kecamatan','kelurahan','jenis_trantib'));
+        return view('pages.kasus.create',compact('sumber','urusan','kota','pd','id','kasus','kecamatan','kelurahan','jenis_trantib','kotaku'));
     }
 
     public function save(Request $request){
@@ -93,7 +95,7 @@ class KasusController extends Controller
 
     public function datatable()
     {
-        if(Auth::user()->level == 11):
+        if(Auth::user()->level >= 11):
             $kasus = Kasus::where('id','>',0)->where('user_id',Auth::user()->id)->get();
         else:
             $kasus = Kasus::select('id','tanggal_informasi','pelapor','no_telp_pelapor','nama_pelanggar','nik_pelanggar','alamat_pelanggar','lokasi_kejadian','kel_nama','kec_nama','status','judul','tanggal_informasi','deskripsi_kasus')->where('id','>',0)->get();

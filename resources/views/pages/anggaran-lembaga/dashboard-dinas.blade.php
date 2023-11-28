@@ -17,10 +17,8 @@
                                 <div class="d-flex row-auto justify-content-center">
                                     <div class="d-flex flex-column">
                                         <div class="text-center mb-10">
-                                            <div class="symbol symbol-60 symbol-circle symbol-xl-90">
-                                                <div class="symbol-label"
-                                                    style="background-image:url('{{ asset('assets/logo/damkar.png') }}')"></div>
-                                            </div>
+                                            <img src="{{ asset('assets/logo/kota/'.Auth::user()->kotaku->logo) }}" width="100px" height="100px">
+                                            
                                             <div class="text-muted mb-2">Nomenlaktur Lembaga</div>
                                             <h4 class="font-weight-bold my-2">{{$profil->nomenlaktur}}</h4>
                                             <div class="col mt-2">

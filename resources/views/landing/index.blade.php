@@ -51,13 +51,12 @@
 
                                             <h2 data-animation="animated bounceInUp">SIJALINMAJA</h2>
 
-                                            <p data-animation="animated bounceInUp">Sistem Integrasi Jaga Lindungi Masyarakat. <br>Sajian data Ketentraman dan Ketertiban Umum serta Pemadam Kebakaran dan Penyelamatan Se-Jawa Timur.</p>
+                                            <p data-animation="animated bounceInUp">Sistem Integrasi Jaga Lindungi Masyarakat Jawa Timur. <br>Sajian data Ketentraman dan Ketertiban Umum serta Pemadam Kebakaran dan Penyelamatan Se-Jawa Timur.</p>
                                             <div class="header_btn slider_btn full_width">
                                                 <ul>
                                                     <li data-animation="animated bounceInLeft">
                                                         <a href="{{ url('login') }}">LOGIN</a>
                                                     </li>
-
                                                 </ul>
                                             </div>
                                             <div class="clear"></div>
