@@ -126,7 +126,59 @@
         </tr>
         </table>
         @if($barcode == "yes")
-        <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -10px;">
+        <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -17.5px;">
+    <tbody>
+        <tr style="height:10pt">
+            <td colspan="4" style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt; border-color:white;">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+        </tr>
+        <tr style="height:26pt">
+            <td colspan="3" style="width:192pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt; border-color: white;">
+                <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: left;">
+                </p>
+            </td>
+            <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
+                <p class="s4" style="padding-left: 95pt;text-indent: -50pt;line-height: 13pt;text-align: left;">
+                    Plh. KEPALA SATUAN POLISI PAMONG PRAJA PROVINSI JAWA TIMUR 
+                </p>
+            </td>
+        </tr>
+        <tr style="height:3pt">
+            <td colspan="3" style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt; border-color: white;">
+                <p class="s7" style="padding-left: 0pt;text-indent: 0pt;text-align: left;">
+                </p>
+                <br><br>
+            </td>
+            <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
+                <p class="s4" style="padding-left: 85pt;text-indent: -50pt;line-height: 6pt;text-align: left;">
+                    Kepala Bidang Ketentraman dan Ketertiban Umum
+                </p>
+            </td>
+        </tr>
+        <tr style="height:10pt">
+            <td colspan="3" style="width:64pt;border-left-width:1pt;border-right-width:1pt;border-bottom:1.25pt solid white;" >
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br/>
+                </p>
+            </td>
+            <td colspan="2" style="width: 285pt;border-left-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;">
+                    <br> <br>
+                </p>
+                <p class="s8" style="font-weight:normal; text-decoration:underline;  padding-left: 75pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    MUHAMMAD TABRANI, S.H.,M.H
+                </p>
+                <p class="s4" style="padding-left: 35pt;/* padding-right: 49pt; *//* text-indent: 14pt; */line-height: 13pt;text-align: CENTER;">
+                    Pembina Tingkat I <br>NIP. 19680209 199103 1 007
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+        {{-- <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -10px;">
     <tbody>
         <tr style="height:10pt">
             <td colspan="4" style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt; border-color:white;">
@@ -172,10 +224,10 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table> --}}
 @else
-@include('pages.kegiatan.page_spt.paraf')
+@include('pages.kegiatan.page_spt.paraf_alternate')
 @endif
 @endif
-        <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: 20px" />
+        {{-- <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: 20px" /> --}}
     </div>
