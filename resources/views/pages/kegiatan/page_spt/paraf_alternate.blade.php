@@ -25,8 +25,8 @@
         </tr>
         <tr style="height:26pt">
             <td colspan="2" style="width:192pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: center;">
-                    Konsep Naskah Dinas ini diajukan untuk mendapatkan tanda tangan eletronik
+                <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: center; color: white;">
+                    Konsep Naskah Dinas ini diajukan untuk mendapatkan tanda tangan
                 </p>
             </td>
             <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
@@ -113,12 +113,15 @@
         <tr style="height:26pt">
             <td colspan="3" style="width:192pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                 <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: center;">
-                    Konsep Naskah Dinas ini diajukan untuk mendapatkan tanda tangan eletronik
+                    Konsep Naskah Dinas ini diajukan untuk mendapatkan tanda tangan
                 </p>
             </td>
             <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
                 <p class="s4" style="padding-left: 75pt;text-indent: -50pt;line-height: 13pt;text-align: left;">
                     Plh. KEPALA SATUAN POLISI PAMONG PRAJA PROVINSI JAWA TIMUR
+                </p>
+                <p class="s4" style="padding-left: 60pt;text-indent: -50pt;line-height: 13pt;text-align: left;">
+                    Kepala Bidang Ketentraman dan Ketertiban Umum
                 </p>
             </td>
         </tr>

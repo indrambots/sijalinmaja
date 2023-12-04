@@ -889,7 +889,7 @@
     </tbody>
 </table> --}}
 
-                <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:fixed; bottom: 25px;" />
+                {{-- <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:fixed; bottom: 25px;" /> --}}
         {{-- <p style="padding-top: 4pt;padding-left: 322pt;text-indent: 0pt;text-align: left;">
             Ditetapkan di : Surabaya<br>
             <b style="border-bottom:2px solid black">
