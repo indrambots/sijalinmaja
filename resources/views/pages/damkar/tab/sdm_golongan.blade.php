@@ -16,6 +16,12 @@
         </div>
         <div class="col-lg-3"> 
                 <span class="form-text">
+                    Jumlah SDM P3K
+                </span>
+                <input class="form-control" name="pppk" value="{{ $sdm->pppk}}" type="number"/>
+        </div>
+        <div class="col-lg-3"> 
+                <span class="form-text">
                     Jumlah SDM Kebakaran NON-PNS
                 </span>
                 <input class="form-control" name="non_pns" value="{{ $sdm->non_pns}}" type="number"/>
