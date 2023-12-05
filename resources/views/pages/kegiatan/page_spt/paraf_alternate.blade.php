@@ -25,7 +25,7 @@
         </tr>
         <tr style="height:26pt">
             <td colspan="2" style="width:192pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: center; color: white;">
+                <p class="s7" style="padding-left: 15pt;text-indent: -10pt;line-height: 13pt;text-align: center;">
                     Konsep Naskah Dinas ini diajukan untuk mendapatkan tanda tangan
                 </p>
             </td>
