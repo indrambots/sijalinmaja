@@ -43,11 +43,11 @@
                 </td>
             </tr>
             @inject('nip', 'App\KegiatanPersonel')
-            @foreach($anggota4 as $p)
+            @foreach($anggota6 as $p)
             <tr style="height:26pt">
                 <td style="width:20pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s9" style="padding-top: 6pt;padding-right: 8pt;text-indent: 0pt;text-align: right;">
-                      {{$loop->iteration+45}}.
+                      {{$loop->iteration+75}}.
                     </p>
                 </td>
                 <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -69,7 +69,7 @@
             @endforeach
         </table>
 
-        @if(count($keg->personel) < 61)
+        @if(count($keg->personel) < 91)
         <table cellspacing="0" style="border-collapse:collapse;margin-left:274.075pt; margin-top: 10px;">
             
         <tr style="height:13pt">
