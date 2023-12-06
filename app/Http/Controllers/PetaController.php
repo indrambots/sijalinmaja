@@ -25,9 +25,8 @@ class PetaController extends Controller
         $opor = json_encode($opor);
         $cased = Kasus::where('id','>',0)->get()->toArray();
         $cased = json_encode($cased);
-        $kebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Kebakaran')->where('id','>',0)->get());
-        $nonkebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Non Kebakaran')->where('id','>',0)->get());
-        
+        $kebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Kebakaran')->where('id','>',0)->whereNotNull('koordinat')->get());
+        $nonkebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Non Kebakaran')->where('id','>',0)->whereNotNull('koordinat')->get());
         return view('pages.peta.index',compact('opor','cased','kebakaran','nonkebakaran'));
     }
 }

@@ -43,8 +43,8 @@ class HomeController extends Controller
 
     public function peta()
     {
-        $kebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Kebakaran')->where('user_id',Auth::user()->id)->get());
-        $nonkebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Non Kebakaran')->where('user_id',Auth::user()->id)->get());
+        $kebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Kebakaran')->where('user_id',Auth::user()->id)->whereNotNull('koordinat')->get());
+        $nonkebakaran = json_encode(LaporanKejadian::where('jenis_kejadian','Non Kebakaran')->where('user_id',Auth::user()->id)->whereNotNull('koordinat')->get());
         $kota = Kota::find(Auth::user()->kota);
         return view('pages.damkar.peta.index',compact('kebakaran','nonkebakaran','kota'));
     }

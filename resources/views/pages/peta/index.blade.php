@@ -289,6 +289,72 @@
        }
 
         var kebakaran; var array_kebakaran = {!!$kebakaran!!}
+       var nonkebakaran; var array_nonkebakaran = {!!$nonkebakaran!!}
+        for(var i = 0; i < array_nonkebakaran.length; i++){
+        var koordinat = JSON.parse(array_nonkebakaran[i].koordinat);
+            nonkebakaran = new google.maps.Marker({
+              position: { lat: koordinat[0], lng: koordinat[1] },
+              map: map,
+              icon:'{{ asset('js/icon/nonflame.png')}}',
+              draggable: false,
+            });
+            nonkebakarans.push(nonkebakaran)
+          google.maps.event.addListener(nonkebakaran, 'click', (function(marker, i) {
+            return function() {
+              infowindow.setContent(`<strong>Kejadian `+array_nonkebakaran[i].jenis_kejadian+`</strong> <br>
+                <table>
+                  <tr>
+                  <th>Tanggal Kejadian</th>
+                  <td>`+array_nonkebakaran[i].tanggal_kejadian+`</td>
+                  </tr>
+                  <tr>
+                  <th>Tanggal Kejadian</th>
+                  <td>`+array_nonkebakaran[i].lokasi_kejadian+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jenis Objek</th>
+                  <td>`+array_nonkebakaran[i].jenis_objek+`</td>
+                  </tr>
+                  <tr>
+                  <th>Objek</th>
+                  <td>`+array_nonkebakaran[i].objek+`</td>
+                  </tr>
+                  <tr>
+                  <th>Sumber Kejadian</th>
+                  <td>`+array_nonkebakaran[i].sumber+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jumlah Korban</th>
+                  <td>`+array_nonkebakaran[i].korban+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jumlah Armada</th>
+                  <td>`+array_nonkebakaran[i].jumlah_armada+`</td>
+                  </tr>
+                  <tr>
+                  <th>Jumlah Personel</th>
+                  <td>`+array_nonkebakaran[i].jumlah_personel+`</td>
+                  </tr>
+                  <tr>
+                  <th>Sumber Berita</th>
+                  <td>`+array_nonkebakaran[i].sumber_berita+`</td>
+                  </tr>
+                  <tr>
+                  <th>Kendala</th>
+                  <td>`+array_nonkebakaran[i].kendala+`</td>
+                  </tr>
+                  <tr>
+                  <th>Keterangan lain</th>
+                  <td>`+array_nonkebakaran[i].keterangan+`</td>
+                  </tr>
+                </table>`);
+              infowindow.open(map, marker);
+              array_nonkebakaran[i].objek
+            }
+          })(nonkebakaran, i));
+       }
+       console.log(array_kebakaran)
+       var reg = new RegExp("^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}");
         for(var i = 0; i < array_kebakaran.length; i++){
         var koordinat = JSON.parse(array_kebakaran[i].koordinat);
             kebakaran = new google.maps.Marker({
@@ -298,7 +364,6 @@
               draggable: false,
             });
             kebakarans.push(kebakaran)
-          
           google.maps.event.addListener(kebakaran, 'click', (function(marker, i) {
             return function() {
             console.log(array_kebakaran[i])
@@ -355,93 +420,6 @@
           })(kebakaran, i));
        }
 
-       var nonkebakaran; var array_nonkebakaran = {!!$nonkebakaran!!}
-       console.log(array_nonkebakaran.length)
-        for(var i = 0; i < array_nonkebakaran.length; i++){
-        var koordinat = JSON.parse(array_nonkebakaran[i].koordinat);
-            nonkebakaran = new google.maps.Marker({
-              position: { lat: koordinat[0], lng: koordinat[1] },
-              map: map,
-              icon:'{{ asset('js/icon/nonflame.png')}}',
-              draggable: false,
-            });
-            nonkebakarans.push(nonkebakaran)
-          
-          google.maps.event.addListener(nonkebakaran, 'click', (function(marker, i) {
-            return function() {
-              infowindow.setContent(`<strong>Kejadian `+array_nonkebakaran[i].jenis_kejadian+`</strong> <br>
-                <table>
-                  <tr>
-                  <th>Tanggal Kejadian</th>
-                  <td>`+array_nonkebakaran[i].tanggal_kejadian+`</td>
-                  </tr>
-                  <tr>
-                  <th>Tanggal Kejadian</th>
-                  <td>`+array_nonkebakaran[i].lokasi_kejadian+`</td>
-                  </tr>
-                  <tr>
-                  <th>Jenis Objek</th>
-                  <td>`+array_nonkebakaran[i].jenis_objek+`</td>
-                  </tr>
-                  <tr>
-                  <th>Objek</th>
-                  <td>`+array_nonkebakaran[i].objek+`</td>
-                  </tr>
-                  <tr>
-                  <th>Sumber Kejadian</th>
-                  <td>`+array_nonkebakaran[i].sumber+`</td>
-                  </tr>
-                  <tr>
-                  <th>Jumlah Korban</th>
-                  <td>`+array_nonkebakaran[i].korban+`</td>
-                  </tr>
-                  <tr>
-                  <th>Jumlah Armada</th>
-                  <td>`+array_nonkebakaran[i].jumlah_armada+`</td>
-                  </tr>
-                  <tr>
-                  <th>Jumlah Personel</th>
-                  <td>`+array_nonkebakaran[i].jumlah_personel+`</td>
-                  </tr>
-                  <tr>
-                  <th>Sumber Berita</th>
-                  <td>`+array_nonkebakaran[i].sumber_berita+`</td>
-                  </tr>
-                  <tr>
-                  <th>Kendala</th>
-                  <td>`+array_nonkebakaran[i].kendala+`</td>
-                  </tr>
-                  <tr>
-                  <th>Keterangan lain</th>
-                  <td>`+array_nonkebakaran[i].keterangan+`</td>
-                  </tr>
-                </table>`);
-              infowindow.open(map, marker);
-              array_nonkebakaran[i].objek
-            }
-          })(nonkebakaran, i));
-       }
-       console.log(nonkebakarans.length)
-       // var opor; var array_opor = {!!$opor!!}
-       // for(var i = 0; i < array_opor.length; i++){
-       //  var koordinat = JSON.parse(array_opor[i].koordinat_fix);
-       //    opor = new google.maps.Marker({
-       //      position: { lat: koordinat[0], lng: koordinat[1] },
-       //      map: map,
-       //      draggable: false,
-       //      icon:'{{ asset('js/icon/blue.png') }}', // anchor
-       //      scaledSize: new google.maps.Size(22, 27), // scaled size
-       //      origin: new google.maps.Point(0,0), // origin
-       //      anchor: new google.maps.Point(0, 0)
-       //    });
-       //    google.maps.event.addListener(opor, 'click', (function(marker, i) {
-       //      return function() {
-       //        infowindow.setContent(array_opor[i].nama_tempat);
-       //        infowindow.open(map, marker);
-       //      }
-       //    })(opor, i));
-       //    opors.push(opor)
-       // }
 
 }
 
