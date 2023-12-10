@@ -12,7 +12,7 @@
             </a>
         @else
             <a href="{{url('anggaran')}}" class="pe-3">
-                Anggaran Kab/Kota
+                Data Kab/Kota
             </a>
         @endif
     </li>

@@ -157,4 +157,70 @@ class Helpers{
             ]
         ];
     }
+
+    public static function listMonth(){
+
+        return [
+            [
+                'number' => '01',
+                'code' => 'Jan',
+                'name' => 'Januari'
+            ],
+            [
+                'number' => '02',
+                'code' => 'Feb',
+                'name' => 'Februari'
+            ],
+            [
+                'number' => '03',
+                'code' => 'Mar',
+                'name' => 'Maret'
+            ],
+            [
+                'number' => '04',
+                'code' => 'Apr',
+                'name' => 'April'
+            ],
+            [
+                'number' => '05',
+                'code' => 'Mei',
+                'name' => 'Mei'
+            ],
+            [
+                'number' => '06',
+                'code' => 'Jun',
+                'name' => 'Juni'
+            ],
+            [
+                'number' => '07',
+                'code' => 'Jul',
+                'name' => 'Juli'
+            ],
+            [
+                'number' => '08',
+                'code' => 'Agu',
+                'name' => 'Agustus'
+            ],
+            [
+                'number' => '09',
+                'code' => 'Sep',
+                'name' => 'September'
+            ],
+            [
+                'number' => '10',
+                'code' => 'Okt',
+                'name' => 'Oktober'
+            ],
+            [
+                'number' => '11',
+                'code' => 'Nov',
+                'name' => 'November'
+            ],
+            [
+                'number' => '12',
+                'code' => 'Des',
+                'name' => 'Desember'
+            ]
+        ];
+    }
 }

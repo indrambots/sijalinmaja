@@ -241,11 +241,30 @@ Route::prefix('anggaran')->group(function(){
     });
 
     Route::prefix('report')->group(function () {
-        Route::get('','AnggaranLembaga\ReportController@anggaran');
-        Route::post('anggaran-grid','AnggaranLembaga\ReportController@anggaranGrid');
+        /*===================UNTUK DINAS=======================*/
+            Route::get('','AnggaranLembaga\ReportController@anggaran');
+            Route::post('anggaran-grid','AnggaranLembaga\ReportController@anggaranGrid');
 
-        Route::get('kelembagaan','AnggaranLembaga\ReportController@kelembagaanIndex');
-        Route::post('kelembagaan-grid','AnggaranLembaga\ReportController@kelembagaanGrid');
+            Route::get('kelembagaan','AnggaranLembaga\ReportController@kelembagaanIndex');
+            Route::post('kelembagaan-grid','AnggaranLembaga\ReportController@kelembagaanGrid');
+        /*===================END=======================*/
+
+        /*===================UNTUK ADMIN & PROVINSI=======================*/
+            Route::get('profil-kelembagaan','AnggaranLembaga\ReportController@profilKelembagaanIndex');
+            Route::post('profil-kelembagaan-grid','AnggaranLembaga\ReportController@profilKelembagaanGrid');
+
+            Route::get('satlinmas','AnggaranLembaga\ReportController@satlinmasIndex');
+            Route::post('satlinmas-grid','AnggaranLembaga\ReportController@satlinmasGrid');
+
+            Route::get('penegekan','AnggaranLembaga\ReportController@penegekanIndex');
+            Route::post('penegekan-grid','AnggaranLembaga\ReportController@penegekanGrid');
+
+            Route::get('sarpras','AnggaranLembaga\ReportController@sarprasIndex');
+            Route::post('sarpras-grid','AnggaranLembaga\ReportController@sarprasGrid');
+
+            Route::get('trantibum','AnggaranLembaga\ReportController@trantibumIndex');
+            Route::post('trantibum-grid','AnggaranLembaga\ReportController@trantibumGrid');
+        /*===================END=======================*/
     });
 });
 Route::get('tes-mail','HomeController@tes_mail');

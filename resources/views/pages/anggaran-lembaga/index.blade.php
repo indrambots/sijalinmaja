@@ -5,7 +5,7 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
-    <li class="breadcrumb-item px-3 text-muted">Anggaran Kab/Kota</li>
+    <li class="breadcrumb-item px-3 text-muted">Data Kab/Kota</li>
 </ol>
 <div class="row justify-content-center">
     <div class="col-12 mb-2">
@@ -13,13 +13,13 @@
             <div class="col-12 col-md-6 mb-3">
                 <div class="card card-custom wave wave-animate-fast wave-primary">
                     <div class="card-body text-center">
-                        <a href="{{ url('anggaran/report/kelembagaan') }}">
+                        <a href="{{ url('anggaran/report/profil-kelembagaan') }}">
                             <span class="svg-icon svg-icon-primary svg-icon-6x">
                                 <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-school"></i>
                             </span>
                         </a>
                         <br>
-                        <a href="{{ url('anggaran/report/kelembagaan') }}"
+                        <a href="{{ url('anggaran/report/profil-kelembagaan') }}"
                             class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">PROFIL KELEMBAGAAN
                         </a>
                     </div>
@@ -37,6 +37,22 @@
                         <br>
                         <a href="{{ url('anggaran/report') }}"
                             class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">LAPORAN ANGGARAN
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+                <div class="card card-custom wave wave-animate-fast wave-primary">
+                    <div class="card-body text-center">
+                        <a href="{{ url('anggaran/report/trantibum') }}">
+                            <span class="svg-icon-6x">
+                                <i class="icon-6x text-info mb-10 mt-10 fa-solid fa-file-shield"></i>
+                            </span>
+                        </a>
+                        <br>
+                        <a href="{{ url('anggaran/report/trantibum') }}"
+                            class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">LAPORAN PENYELENGGARAAN TRANTIBUM
                         </a>
                     </div>
                 </div>

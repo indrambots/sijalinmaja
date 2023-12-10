@@ -5,11 +5,9 @@
     <li class="breadcrumb-item pe-3">
         <a href="{{url('home')}}" class="pe-3">Dashboard</a>
     </li>
-    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
-        <li class="breadcrumb-item pe-3">
-            <a href="{{url('anggaran')}}" class="pe-3">Data Kab/Kota</a>
-        </li>
-    @endif
+    <li class="breadcrumb-item pe-3">
+        <a href="{{url('anggaran')}}" class="pe-3">Data Kab/Kota</a>
+    </li>
     <li class="breadcrumb-item px-3 text-muted">Laporan Profil Kelembagaan</li>
 </ol>
 <div class="row">
@@ -34,7 +32,7 @@
     $(document).ready(function () {
         $.ajax({
             type: "POST",
-            url: "{{ url('anggaran/report/kelembagaan-grid') }}",
+            url: "{{ url('anggaran/report/profil-kelembagaan-grid') }}",
             dataType: "json",
             data: $("#form").serialize(),
             success: function (response) {
@@ -110,6 +108,16 @@
             wordWrapEnabled: true,
             columns: [
                 {
+                    caption: "SPM",
+                    dataField: "spm"
+                },
+                {
+                    caption: "Kab/Kota",
+                    dataField: "nama_kota",
+                    dataType: "string",
+                    width: 200,
+                },
+                {
                     caption: "Nomenlaktur Lembaga",
                     dataField: "nomenlaktur",
                     dataType: "string",
@@ -131,11 +139,6 @@
                     dataType: "string",
                 },
                 {
-                    caption: "Kab / Kota",
-                    dataField: "kab_kota",
-                    dataType: "string",
-                },
-                {
                     caption: "Anggaran",
                     dataField: "anggaran",
                     dataType: "number",
@@ -143,6 +146,24 @@
                 },
 
             ],
+            customizeColumns: function(columns) {
+                columns[0].cellTemplate = function(callback, res) {
+                    let html = '';
+                    if(res.data.spm){
+                        let url = $('meta[name=base_url]').attr('content');
+                        url = url+'berkas/'+res.data.spm;
+                        html = `
+                            <center>
+                                <a href="`+url+`" class="popover_edit btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-primary" target="_blank">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </a>
+                            </center>
+                        `;
+                    }
+                    $(callback).html(html);
+                }
+            }
+
         }).dxDataGrid("instance");
         return dataGrid;
     }

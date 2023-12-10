@@ -10,16 +10,30 @@
             <a href="{{url('anggaran')}}" class="pe-3">Data Kab/Kota</a>
         </li>
     @endif
-    <li class="breadcrumb-item px-3 text-muted">Laporan Profil Kelembagaan</li>
+    <li class="breadcrumb-item px-3 text-muted">Laporan Penyelenggaraan Trantibum</li>
 </ol>
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="card-label"><h4>Data Kelembagaan Kabupaten / Kota</h4></div>
+                <div class="card-label"><h4>Laporan Penyelenggaraan Trantibum</h4></div>
                 <hr>
+                <input type="hidden" id="dataColumn" value="{{$dataColumn}}">
                 <form class="form" id="form">
                     {{ csrf_field() }}
+                    TOTAL TERBANYAK : {{$total->nama_kota}} ( {{$total->jenis_kegiatan}} : {{$total->total}} Kegiatan )
+                    <div class="row">
+                        <div class="col-12 col-md-3">
+                            <div class="form-group">
+                                <select name="kotaid" class="form-control select2" onchange="requestData()">
+                                    <option value="">Semua Kabupaten/Kota</option>
+                                    @foreach ($kota as $k)
+                                        <option value="{{$k->id}}">{{$k->nama}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <div class="row mt-2">
                     <div id="initGrid"></div>
@@ -32,21 +46,26 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
+        requestData();
+    })
+
+    function requestData(){
         $.ajax({
             type: "POST",
-            url: "{{ url('anggaran/report/kelembagaan-grid') }}",
+            url: "{{ url('anggaran/report/trantibum-grid') }}",
             dataType: "json",
             data: $("#form").serialize(),
             success: function (response) {
-                console.log(response.data)
                 show_grid(response)
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(errorThrown)
             }
         });
-    })
+    }
+
     function show_grid(data) {
+        let dataColumn = JSON.parse($("#dataColumn").val());
         var dataGrid = $("#initGrid").dxDataGrid({
             dataSource: data,
             height: 600,
@@ -80,7 +99,7 @@
             columnAutoWidth: true,
             export: {
                 enabled: false,
-                fileName: "Data Kelembagaan Kabupaten atau Kota",
+                fileName: "Laporan Penyelenggaraan Trantibum",
                 allowExportSelectedData: true
             },
             summary: {
@@ -108,41 +127,7 @@
             allowColumnResizing: true,
             showBorders: true,
             wordWrapEnabled: true,
-            columns: [
-                {
-                    caption: "Nomenlaktur Lembaga",
-                    dataField: "nomenlaktur",
-                    dataType: "string",
-                    width: 200,
-                },
-                {
-                    caption: "Nama Kepala Satuan",
-                    dataField: "nama_kepala_satuan",
-                    dataType: "string",
-                },
-                {
-                    caption: "Golongan",
-                    dataField: "golongan",
-                    dataType: "string",
-                },
-                {
-                    caption: "Alamat",
-                    dataField: "alamat_kantor",
-                    dataType: "string",
-                },
-                {
-                    caption: "Kab / Kota",
-                    dataField: "kab_kota",
-                    dataType: "string",
-                },
-                {
-                    caption: "Anggaran",
-                    dataField: "anggaran",
-                    dataType: "number",
-                    format: "#,##0",
-                },
-
-            ],
+            columns: dataColumn,
         }).dxDataGrid("instance");
         return dataGrid;
     }

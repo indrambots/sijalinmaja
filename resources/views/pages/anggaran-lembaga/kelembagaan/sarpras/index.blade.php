@@ -7,7 +7,7 @@
     </li>
     <li class="breadcrumb-item pe-3">
         <a href="{{url(auth()->user()->level == AliasName::level_dinas ? 'anggaran/kelembagaan' : 'anggaran')}}" class="pe-3">
-            {{auth()->user()->level == AliasName::level_dinas ? 'Kelembagaan' : 'Anggaran Kab/Kota'}}
+            {{auth()->user()->level == AliasName::level_dinas ? 'Kelembagaan' : 'Data Kab/Kota'}}
         </a>
     </li>
     <li class="breadcrumb-item px-3 text-muted">Data Sarpras</li>

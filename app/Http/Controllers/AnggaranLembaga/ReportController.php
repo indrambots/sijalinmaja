@@ -4,18 +4,26 @@ namespace App\Http\Controllers\AnggaranLembaga;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\Helpers;
+use App\Kota;
 use App\AnggaranProfilLembaga;
 use App\AnggaranBidang;
+use App\FormKegiatan;
+use App\MasterKegiatan;
+use App\Kota as MasterKota;
 use Yajra\Datatables\Datatables;
 use App\Helpers\AliasName;
 
 class ReportController extends Controller
 {
+    /* khusus dinas */
     public function kelembagaanIndex(){
 
         return view('pages.anggaran-lembaga.report.kelembagaan');
     }
 
+    /* khusus dinas */
     public function kelembagaanGrid(Request $request){
 
         $profil = AnggaranProfilLembaga::query();
@@ -26,11 +34,13 @@ class ReportController extends Controller
         return response()->json($profil);
     }
 
+    /* khusus dinas */
     public function anggaran(){
 
         return view('pages.anggaran-lembaga.report.anggaran');
     }
 
+    /* khusus dinas */
     public function anggaranGrid(){
 
         $query = AnggaranBidang::query();
@@ -43,5 +53,139 @@ class ReportController extends Controller
         $query = $query->get()->toArray();
 
         return response()->json($query);
+    }
+
+    /* khusus Admin & Provinsi */
+    public function profilKelembagaanIndex(){
+
+        return view('pages.anggaran-lembaga.report.profil-kelembagaan');
+
+    }
+
+    /* khusus Admin & Provinsi */
+    public function profilKelembagaanGrid(){
+
+        $query = MasterKota::select('master_kota.nama as nama_kota', 'p.*')
+            ->leftJoin('anggaran_profil_lembaga as p', 'p.kab_kota_id', '=', 'master_kota.id')
+            ->orderBy('master_kota.nama', 'ASC')
+            ->get()
+            ->toArray();
+
+        return response()->json($query);
+    }
+
+    /* khusus Admin & Provinsi */
+    public function satlinmasIndex(){
+
+    }
+
+    /* khusus Admin & Provinsi */
+    public function satlinmasGrid(){
+
+    }
+
+    /* khusus Admin & Provinsi */
+    public function penegekanIndex(){
+
+    }
+
+    /* khusus Admin & Provinsi */
+    public function penegekanGrid(){
+
+    }
+
+    /* khusus Admin & Provinsi */
+    public function sarprasIndex(){
+
+    }
+
+    /* khusus Admin & Provinsi */
+    public function sarprasGrid(){
+
+    }
+
+    /* khusus Admin & Provinsi */
+    public function trantibumIndex(){
+
+        $dataColumn = [
+            [
+                'caption' => "Jenis Kegiatan",
+                'dataField' => "nama_kegiatan",
+                'dataType' => "string",
+                'width' => 400
+            ]
+        ];
+        foreach(Helpers::listMonth() as $month){
+            $month = [
+                'caption' => $month['name'],
+                'dataField' => $month['number'],
+                'dataType' => "string",
+            ];
+            array_push($dataColumn, $month);
+        }
+        $dataColumn = json_encode($dataColumn);
+
+        $total = FormKegiatan::queryReport()
+        ->groupBy('form_kegiatan.jenis_kegiatan')
+        ->orderBy('total', 'desc')
+        ->first();
+
+        $kota = Kota::orderBy('nama','asc')->get();
+
+        return view('pages.anggaran-lembaga.report.trantibum', compact('dataColumn', 'total', 'kota'));
+    }
+
+    /* khusus Admin & Provinsi */
+    public function trantibumGrid(Request $request){
+
+        $query = FormKegiatan::queryReport();
+        if($request->kotaid){
+            $query->where('u.kota', $request->kotaid);
+        }
+        $query->groupBy('form_kegiatan.jenis_kegiatan', 'tanggal');
+        $query->orderBy('form_kegiatan.jenis_kegiatan');
+        $query->orderBy('form_kegiatan.tanggal_kegiatan', 'DESC');
+        $query = $query->get()->toArray();
+
+        $jenisKegiatan = [];
+        foreach($this->getListJenisKegiatan() as $jenis){
+            $jenis['nama_kegiatan'] = ucwords($jenis['nama_kegiatan']);
+            foreach(Helpers::listMonth() as $month){
+                $jenis[$month['number']] = '';
+            }
+            $jenisKegiatan[$jenis['nama_kegiatan']] = $jenis;
+        }
+
+        $tempData = [];
+        foreach($query as $que){
+            $que['jenis_kegiatan'] = ucwords($que['jenis_kegiatan']);
+            $monthOnly = date_format(date_create($que['tanggal']), 'm');
+            $tempData[$que['jenis_kegiatan']][$monthOnly] = $que['total'];
+        }
+
+        $data = [];
+        foreach($jenisKegiatan as $k_jenis => $j){
+            if(isset($tempData[$k_jenis])){
+                foreach($j as $k_j => $j_val){
+                    if(isset($tempData[$k_jenis][$k_j])){
+                        $j[$k_j] = $tempData[$k_jenis][$k_j];
+                    }
+                }
+            }
+            $data[] = $j;
+        }
+
+        return response()->json($data);
+    }
+
+    public function getListJenisKegiatan(){
+
+        $data = MasterKegiatan::select('nama_kegiatan')
+            ->groupBy('nama_kegiatan')
+            ->orderBy('nama_kegiatan', 'asc')
+            ->get()
+            ->toArray();
+
+        return $data;
     }
 }

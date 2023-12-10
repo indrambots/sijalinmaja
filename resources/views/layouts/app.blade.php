@@ -6,8 +6,9 @@
         <title>SIJALINMAJA</title>
         <meta name="description" content="Updates and statistics" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name       = "csrf-token" content="{{ csrf_token() }}">
-        <meta name       = "base_url" content="{{ url('/') }}">
+        <meta name= "csrf-token" content="{{ csrf_token() }}">
+        <meta name= "base_url" content="{{ url('/') }}">
+        <meta name= "asset_url" content="{{asset('')}}">
   <link rel        = "shortcut icon" href="{{ asset('images/logo/logo-sby.png') }}">
   <link rel="canonical" href="https://keenthemes.com/metronic" />
         <!--begin::Fonts-->
