@@ -229,5 +229,5 @@
 @include('pages.kegiatan.page_spt.paraf')
 @endif
 @endif
-        <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: 20px" />
+        {{-- <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: 20px" /> --}}
     </div>
