@@ -100,7 +100,7 @@
         </tr>
         </table>
         @if($barcode == "yes")
-        <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -17.5px;">
+       {{--  <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -17.5px;">
     <tbody>
         <tr style="height:10pt">
             <td colspan="4" style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt; border-color:white;">
@@ -151,8 +151,8 @@
             </td>
         </tr>
     </tbody>
-</table>
-        {{-- <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -10px;">
+</table> --}}
+        <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -10px;">
     <tbody>
         <tr style="height:10pt">
             <td colspan="4" style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt; border-color:white;">
@@ -198,10 +198,10 @@
             </td>
         </tr>
     </tbody>
-</table> --}}
+</table>
 @else
-@include('pages.kegiatan.page_spt.paraf_alternate')
+@include('pages.kegiatan.page_spt.paraf')
 @endif
 @endif
-        {{-- <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: 20px" /> --}}
+        <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:absolute; bottom: 20px" />
     </div>

@@ -788,7 +788,7 @@
             </td>
         </tr>
         </table>
-@include('pages.kegiatan.page_spt.paraf_alternate')
+@include('pages.kegiatan.page_spt.paraf')
                 {{-- <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:fixed; bottom: 20px;" /> --}}
     </div>
     @if(count($keg->personel) > 2)
