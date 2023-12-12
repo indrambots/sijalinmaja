@@ -916,7 +916,7 @@
                 <img alt="image" height="55" src="{{asset('media/bg/image_003.jpg')}}" width="700"/>
             </span>
         </p>
-    </div>
+    </div> --}}
     @if(count($keg->personel) > 2)
 
     @include('pages.kegiatan.page_spt.page2')
