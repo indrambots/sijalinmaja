@@ -11,6 +11,7 @@ use App\AnggaranProfilLembaga;
 use App\AnggaranBidang;
 use App\FormKegiatan;
 use App\MasterKegiatan;
+use App\FormSarpras;
 use App\Kota as MasterKota;
 use Yajra\Datatables\Datatables;
 use App\Helpers\AliasName;
@@ -97,11 +98,52 @@ class ReportController extends Controller
     /* khusus Admin & Provinsi */
     public function sarprasIndex(){
 
+        return view('pages.anggaran-lembaga.report.sarpras');
     }
 
     /* khusus Admin & Provinsi */
     public function sarprasGrid(){
 
+        $data = Kota::select(
+            'master_kota.id as kotaid', 'master_kota.nama as nama_kota',
+            'dat.layak', 'dat.tidak_layak', 'dat.total'
+        )->leftJoin(DB::raw('
+            (
+                SELECT
+                    kota.id AS kotaid, kota.nama AS nama_kota,
+                    sum(jumlah_layak) AS layak, sum(jumlah_tidak_layak) AS tidak_layak, sum(jumlah) AS total
+                FROM
+                    form_sarpras AS s
+                INNER JOIN
+                    users AS u ON u.id = s.user_id
+                INNER JOIN
+                    master_kota AS kota ON kota.id = u.kota
+                GROUP BY kota.id
+            ) as dat
+        '), function($query){
+            $query->on('dat.kotaid', '=', 'master_kota.id');
+        })
+        ->orderBy('master_kota.nama', 'asc')
+        ->get()
+        ->toArray();
+
+        return response()->json($data);
+    }
+
+    public function sarprasDetail(Request $request){
+
+        $query = FormSarpras::select('form_sarpras.*')
+        ->join('users as u', 'u.id', '=', 'form_sarpras.user_id')
+        ->where('u.kota', $request->kotaid)
+        ->get()->toArray();
+        $data = [];
+        foreach($query as $q){
+            $data[$q['formid']] = $q;
+        }
+        $kategori = Helpers::formSarpras();
+        $html = view('pages.anggaran-lembaga.report.sarpras-detail', compact('data', 'kategori'))->render();
+
+        return $html;
     }
 
     /* khusus Admin & Provinsi */

@@ -261,6 +261,7 @@ Route::prefix('anggaran')->group(function(){
 
             Route::get('sarpras','AnggaranLembaga\ReportController@sarprasIndex');
             Route::post('sarpras-grid','AnggaranLembaga\ReportController@sarprasGrid');
+            Route::post('sarpras/detail','AnggaranLembaga\ReportController@sarprasDetail');
 
             Route::get('trantibum','AnggaranLembaga\ReportController@trantibumIndex');
             Route::post('trantibum-grid','AnggaranLembaga\ReportController@trantibumGrid');
