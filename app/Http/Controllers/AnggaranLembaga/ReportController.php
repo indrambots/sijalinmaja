@@ -77,6 +77,42 @@ class ReportController extends Controller
 
     /* khusus Admin & Provinsi */
     public function satlinmasIndex(){
+        $data = Kota::select(
+            'master_kota.id', 'master_kota.nama as nama_kota', 'dat.total',
+            'dat.total_pria', 'dat.total_wanita'
+        )->leftJoin(DB::raw(`
+            (
+                SELECT
+                    anggota.kotaid, count(*) AS total, A.total_pria, B.total_wanita
+                FROM
+                    anggota_satlinmas AS anggota
+                LEFT JOIN (
+                    SELECT
+                        count(jenis_kelamin) AS total_pria, kotaid
+                    FROM
+                        anggota_satlinmas
+                    WHERE jenis_kelamin = 'L'
+                    GROUP BY kotaid
+                ) A ON A.kotaid = anggota.kotaid
+                LEFT JOIN (
+                    SELECT
+                        count(jenis_kelamin) AS total_wanita, kotaid
+                    FROM
+                        anggota_satlinmas
+                    WHERE jenis_kelamin = 'P'
+                    GROUP BY kotaid
+                ) B ON B.kotaid = anggota.kotaid
+                GROUP BY anggota.kotaid
+            ) as dat
+        `), function($query){
+            $query->on('dat.kotaid', '=', 'master_kota.id');
+        })
+        ->groupBy('master_kota.id')
+        ->orderBy('master_kota.nama', 'asc')
+        ->get()
+        ->toArray();
+
+        dd($data);
 
     }
 
