@@ -77,10 +77,39 @@ class ReportController extends Controller
 
     /* khusus Admin & Provinsi */
     public function satlinmasIndex(){
-        $data = Kota::select(
+
+        $data = $this->reportSatlinmasQuery()
+            ->orderBy('dat.total', 'desc')
+            ->get()
+            ->toArray();
+        $total_satlinmas = 0;
+        foreach($data as $dat){
+            $total_satlinmas += $dat['total'];
+        }
+        $satlinmas_terbanyak = $data[0];
+
+        return view('pages.anggaran-lembaga.report.anggota-satlinmas', compact('total_satlinmas', 'satlinmas_terbanyak'));
+    }
+
+    /* khusus Admin & Provinsi */
+    public function satlinmasGrid(){
+
+        $data = $this->reportSatlinmasQuery()
+            ->orderBy('master_kota.nama', 'asc')
+            ->get()
+            ->toArray();
+
+        return response()->json($data);
+    }
+
+    public function reportSatlinmasQuery(){
+
+        $data = Kota::query();
+        $data->select(
             'master_kota.id', 'master_kota.nama as nama_kota', 'dat.total',
             'dat.total_pria', 'dat.total_wanita'
-        )->leftJoin(DB::raw(`
+        );
+        $data->leftJoin(DB::raw("
             (
                 SELECT
                     anggota.kotaid, count(*) AS total, A.total_pria, B.total_wanita
@@ -104,21 +133,12 @@ class ReportController extends Controller
                 ) B ON B.kotaid = anggota.kotaid
                 GROUP BY anggota.kotaid
             ) as dat
-        `), function($query){
+        "), function($query){
             $query->on('dat.kotaid', '=', 'master_kota.id');
-        })
-        ->groupBy('master_kota.id')
-        ->orderBy('master_kota.nama', 'asc')
-        ->get()
-        ->toArray();
+        });
+        $data->groupBy('master_kota.id');
 
-        dd($data);
-
-    }
-
-    /* khusus Admin & Provinsi */
-    public function satlinmasGrid(){
-
+        return $data;
     }
 
     /* khusus Admin & Provinsi */
