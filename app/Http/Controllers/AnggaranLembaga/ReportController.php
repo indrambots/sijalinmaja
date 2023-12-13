@@ -12,6 +12,8 @@ use App\AnggaranBidang;
 use App\FormKegiatan;
 use App\MasterKegiatan;
 use App\FormSarpras;
+use App\PenegakanPerda;
+use App\JenisPelanggaran;
 use App\Kota as MasterKota;
 use Yajra\Datatables\Datatables;
 use App\Helpers\AliasName;
@@ -142,13 +144,76 @@ class ReportController extends Controller
     }
 
     /* khusus Admin & Provinsi */
-    public function penegekanIndex(){
+    public function penegakanIndex(){
 
+        $dataColumn = [
+            [
+                'caption' => "Jenis Pelanggaran",
+                'dataField' => "jenis",
+                'dataType' => "string",
+                'width' => 400
+            ]
+        ];
+        foreach(Helpers::listMonth() as $month){
+            $month = [
+                'caption' => $month['name'],
+                'dataField' => $month['number'],
+                'dataType' => "string",
+            ];
+            array_push($dataColumn, $month);
+        }
+        $dataColumn = json_encode($dataColumn);
+
+        $total = PenegakanPerda::queryReport()
+        ->groupBy('penegakan_perda.jenis_pelanggaran')
+        ->orderBy('total', 'desc')
+        ->first();
+
+        $kota = Kota::orderBy('nama','asc')->get();
+
+        return view('pages.anggaran-lembaga.report.penegakan-perda', compact('dataColumn', 'total', 'kota'));
     }
 
     /* khusus Admin & Provinsi */
-    public function penegekanGrid(){
+    public function penegakanGrid(Request $request){
 
+        $jenis = [];
+        foreach($this->getListJenisPelanggaran() as $jn){
+            $jn['jenis'] = ucwords($jn['jenis']);
+            foreach(Helpers::listMonth() as $month){
+                $jn[$month['number']] = '';
+            }
+            $jenis[$jn['jenis']] = $jn;
+        }
+
+        $query = PenegakanPerda::queryReport();
+        if($request->kotaid){
+            $query->where('u.kota', $request->kotaid);
+        }
+        $query->groupBy('penegakan_perda.jenis_pelanggaran', 'tanggal');
+        $query->orderBy('penegakan_perda.jenis_pelanggaran', 'asc');
+        $query = $query->get()->toArray();
+
+        $tempData = [];
+        foreach($query as $que){
+            $que['jenis'] = ucwords($que['jenis']);
+            $monthOnly = date_format(date_create($que['tanggal']), 'm');
+            $tempData[$que['jenis']][$monthOnly] = $que['total'];
+        }
+
+        $data = [];
+        foreach($jenis as $k_jenis => $j){
+            if(isset($tempData[$k_jenis])){
+                foreach($j as $k_j => $j_val){
+                    if(isset($tempData[$k_jenis][$k_j])){
+                        $j[$k_j] = $tempData[$k_jenis][$k_j];
+                    }
+                }
+            }
+            $data[] = $j;
+        }
+
+        return response()->json($data);
     }
 
     /* khusus Admin & Provinsi */
@@ -281,6 +346,17 @@ class ReportController extends Controller
         $data = MasterKegiatan::select('nama_kegiatan')
             ->groupBy('nama_kegiatan')
             ->orderBy('nama_kegiatan', 'asc')
+            ->get()
+            ->toArray();
+
+        return $data;
+    }
+
+    public function getListJenisPelanggaran(){
+
+        $data = JenisPelanggaran::select('jenis_pelanggaran as jenis')
+            ->groupBy('jenis_pelanggaran')
+            ->orderBy('jenis_pelanggaran', 'asc')
             ->get()
             ->toArray();
 

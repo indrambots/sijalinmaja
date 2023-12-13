@@ -256,8 +256,8 @@ Route::prefix('anggaran')->group(function(){
             Route::get('satlinmas','AnggaranLembaga\ReportController@satlinmasIndex');
             Route::post('satlinmas-grid','AnggaranLembaga\ReportController@satlinmasGrid');
 
-            Route::get('penegekan','AnggaranLembaga\ReportController@penegekanIndex');
-            Route::post('penegekan-grid','AnggaranLembaga\ReportController@penegekanGrid');
+            Route::get('penegakan','AnggaranLembaga\ReportController@penegakanIndex');
+            Route::post('penegakan-grid','AnggaranLembaga\ReportController@penegakanGrid');
 
             Route::get('sarpras','AnggaranLembaga\ReportController@sarprasIndex');
             Route::post('sarpras-grid','AnggaranLembaga\ReportController@sarprasGrid');
