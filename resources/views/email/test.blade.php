@@ -355,8 +355,8 @@
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi Galih Wibisana,</p>
-                        <p>Terima Kasih telah berpartisipasi dalam kegiatan Gerakan Bersama Sayangi Ananda. Selanjutnya, silahkan klik link dibawah ini untuk bergabung dalam Grup Whatsapp <strong> Penanggung Jawab </strong> untuk mendapatkan informasi lebih lanjut terkait kegiatan dimaksud.</p>
+                        <p>Hi {{$data['name']}},</p>
+                        <p>Terima Kasih telah melakukan registerasi dalam kegiatan PATROLI SIJALINMAJATARU. Selanjutnya, silahkan klik link dibawah ini untuk bergabung dalam Grup Whatsapp <strong> Penanggung Jawab </strong> untuk mendapatkan informasi lebih lanjut terkait kegiatan dimaksud.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
