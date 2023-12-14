@@ -1,8 +1,12 @@
-.dx-datagrid-content.dx-datagrid-scroll-container tbody tr td{
+.dx-datagrid-content.dx-datagrid-scroll-container tbody tr td, table.dataTable.table-sm thead tr th{
     text-align: center !important;
     color:rgb(99, 99, 99);
     font-weight: 700;
     background: linear-gradient(180deg, #F7F7F7 45%,#f2f2f2 0,#f2f2f2);
+}
+
+table.dataTable.table-sm thead tr th{
+    border:1px solid #e9e9e9;
 }
 
 .dx-pager .dx-page-sizes .dx-selection, .dx-pager .dx-pages .dx-selection{
@@ -10,14 +14,20 @@
     border: 1.5px solid #ddd;
 }
 
-.dx-datagrid-table.dx-datagrid-table-fixed tbody tr td{
+.dx-datagrid-table.dx-datagrid-table-fixed tbody tr td, table.dataTable.table-sm tbody tr td{
     border:1px solid #e9e9e9;
 }
 
-.dx-datagrid-table.dx-datagrid-table-fixed tbody tr:nth-child(even){
+.dx-datagrid-table.dx-datagrid-table-fixed tbody tr:nth-child(even), table.dataTable.table-sm tbody tr:nth-child(odd){
     background-color: #f2f2f2
 }
 
-.dx-datagrid-table.dx-datagrid-table-fixed tbody tr:hover{
+.dx-datagrid-table.dx-datagrid-table-fixed tbody tr:hover, table.dataTable.table-sm tbody tr:hover{
     background-color: rgb(227, 250, 236) !important
+}
+
+.dataTables_wrapper .dataTables_paginate .pagination .page-item.active > .page-link, .dataTables_wrapper .dataTables_paginate .pagination .page-item > .page-link:hover{
+    background: linear-gradient(180deg, #F7F7F7 45%,#f2f2f2 0,#f2f2f2);
+    border: 1.5px solid #ddd;
+    color:#7E8299 !important;
 }
