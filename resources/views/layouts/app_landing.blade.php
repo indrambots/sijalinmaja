@@ -11,7 +11,7 @@
     <meta name="description" content="Sistem Integrasi Jaga Lindungi Masyarakat Jawa Timur" />
     <meta name="keywords" content="Sistem Integrasi Jaga Lindungi Masyarakat Jawa Timur SIJALINMAJA" />
     <meta name="author" content="Satpol PP Provinsi Jawa Timur" />
-    
+
 
     <link href="{{ asset('assets/landing/css/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/landing/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -44,6 +44,10 @@
         }
         .main_menu_wrapper ul > li > a {
             font-weight:750;
+        }
+
+        body{
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -132,7 +136,7 @@
 
     <div data-scroll='4' class="full_width">
         <div class="footer_wrapper full_width" style="background: rgb(32,201,151);
-background: linear-gradient(90deg, rgba(32,201,151,1) 0%, rgba(32,201,151,1) 38%, rgba(163,251,225,1) 100%);  
+background: linear-gradient(90deg, rgba(32,201,151,1) 0%, rgba(32,201,151,1) 38%, rgba(163,251,225,1) 100%);
     color: white;
     font-weight: 750;
 ">
@@ -169,9 +173,9 @@ background: linear-gradient(90deg, rgba(32,201,151,1) 0%, rgba(32,201,151,1) 38%
     <script src="{{ asset('assets/landing/js/custom.js') }}"></script>
     <script src="{{ asset('assets/landing/plugin/apexcharts.js') }}"></script>
     @yield('script')
-    
+
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB6fouhBbFhJmgiFuFNFuYAtfF7Sy_VxDg&libraries=places&callback=initMap"></script>
-   
+
 </body>
 
 </html>

@@ -27,6 +27,7 @@
         <link href="{{ asset('css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/devextreme/21.1.5/css/dx.light.css" rel="stylesheet">
         <link href="{{ asset('plugins/map-icon/css/map-icons.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
 
         {{-- <link data-theme="generic.light" href="{{ asset('plugins/devex/css/dx.light.css')}}" data-active="true"/>
         <link href="{{ asset('plugins/devex/css/dx.common.css')}}"/> --}}
