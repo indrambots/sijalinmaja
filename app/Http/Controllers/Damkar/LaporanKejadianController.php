@@ -26,7 +26,10 @@ class LaporanKejadianController extends Controller
     ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time <= 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL ) AS spm,
     ( SELECT COUNT(*) FROM laporan_kejadian WHERE user_id = ".Auth::user()->id." AND deleted_at IS NULL ) AS semua,
     ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time > 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL ) AS tidak")[0];
-        $presentase = round($spm->spm/$spm->semua*100,2); 
+        $presentase = 0;
+        if($spm->semua > 0):
+            $presentase = round($spm->spm/$spm->semua*100,2); 
+        endif;
         return view('pages.damkar.laporan_kejadian.index',compact('spm','presentase'));
     }
 
