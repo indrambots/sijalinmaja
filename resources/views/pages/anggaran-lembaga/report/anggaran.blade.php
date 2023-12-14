@@ -84,6 +84,7 @@
                 rowRenderingMode: 'virtual'
             },
             columnAutoWidth: true,
+            width: '100%',
             export: {
                 enabled: false,
                 fileName: "Data Anggaran Kabupaten atau Kota",

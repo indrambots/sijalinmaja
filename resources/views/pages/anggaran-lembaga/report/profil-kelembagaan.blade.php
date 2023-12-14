@@ -76,6 +76,7 @@
                 rowRenderingMode: 'virtual'
             },
             columnAutoWidth: true,
+            width: '100%',
             export: {
                 enabled: false,
                 fileName: "Data Kelembagaan Kabupaten atau Kota",

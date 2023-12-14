@@ -99,10 +99,8 @@
             grouping: {
                 autoExpandAll: false
             },
-            scrolling: {
-                rowRenderingMode: 'virtual'
-            },
             columnAutoWidth: true,
+            width: '100%',
             export: {
                 enabled: false,
                 fileName: "Laporan Penegakan Perda",
