@@ -17,3 +17,7 @@
 .dx-datagrid-table.dx-datagrid-table-fixed tbody tr:nth-child(even){
     background-color: #f2f2f2
 }
+
+.dx-datagrid-table.dx-datagrid-table-fixed tbody tr:hover{
+    background-color: rgb(227, 250, 236) !important
+}
