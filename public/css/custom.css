@@ -31,3 +31,7 @@ table.dataTable.table-sm thead tr th{
     border: 1.5px solid #ddd;
     color:#7E8299 !important;
 }
+
+.dataTables_wrapper .dataTable th, .dataTables_wrapper .dataTable td{
+    padding:7px !important;
+}
