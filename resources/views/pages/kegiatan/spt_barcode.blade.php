@@ -121,11 +121,11 @@
                 </td>
                 <td colspan="3" style="width:450pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                        Peraturan Daerah Provinsi Jawa Timur Nomor 14 Tahun 2022 tentang Anggaran Pendapatan dan Belanja Daerah Provinsi Jawa Timur Tahun Anggaran 2023;
+                        Peraturan Gubernur Jawa Timur Nomor 72 Tahun 2023 tentang Kedudukan, Susunan Organisasi, Uraian Tugas dan Fungsi Serta Tata Kerja Dinas;
                     </p>
                 </td>
             </tr>
-            <tr style="height:43pt">
+            <tr style="">
                 <td style="width:61pt">
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -143,12 +143,12 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;line-height: 14pt;text-align: justify;">
-                        Peraturan Gubernur Jawa Timur Nomor 76 Tahun 2023 tentang Perubahan Ketiga atas Peraturan Gubernur Jawa Timur Nomor 66 Tahun 2022 tentang Pedoman Kerja dan Pelaksanaan Tugas Pemerintah Provinsi Jawa Timur Tahun 2023;
+                        Peraturan Gubernur Jawa Timur Nomor 88 Tahun 2023 tentang Pedoman Kerja dan Pelaksanaan Tugas;
 
                     </p>
                 </td>
             </tr>
-            <tr style="height:43pt">
+            {{-- <tr style="height:43pt">
                 <td style="width:61pt">
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -169,8 +169,8 @@
                         Peraturan Gubernur Jawa Timur Nomor 6 Tahun 2023 tentang Perubahan atas Peraturan Gubernur Jawa Timur Nomor 89 Tahun 2022 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Provinsi Jawa Timur Tahun Anggaran 2023;
                     </p>
                 </td>
-            </tr>
-            <tr style="height:43pt">
+            </tr> --}}
+            <tr style="">
                 <td style="width:61pt">
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -183,7 +183,7 @@
                 </td>
                 <td style="width:24pt">
                     <p class="s6" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        4.
+                        3.
                     </p>
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -193,10 +193,10 @@
                     <p class="s6" style="padding-top: 2pt;padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
                         
 
-            @if($keg->dasar_surat !== null)
-            Dokumen Pelaksanaan Perubahan Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/B.1/1.05.0.00.0.00.01.0000/001/2023;
+           @if($keg->dasar_surat !== null)
+            Dokumen Pelaksanaan Anggaran (DPA) Satpol PP Provinsi Jawa Timur Tahun Anggaran 2024;
             @else
-            Dokumen Pelaksanaan Perubahan Anggaran Satuan Polisi Pamong Praja Provinsi Jawa Timur Tahun Anggaran 2023 Nomor DPPA/B.1/1.05.0.00.0.00.01.0000/001/2023.
+            Dokumen Pelaksanaan Anggaran (DPA) Satpol PP Provinsi Jawa Timur Tahun Anggaran 2024.
             @endif
                     </p>
                 </td>
@@ -215,7 +215,7 @@
                 </td>
                 <td style="width:24pt">
                     <p class="s6" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        5.
+                        4.
                     </p>
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
