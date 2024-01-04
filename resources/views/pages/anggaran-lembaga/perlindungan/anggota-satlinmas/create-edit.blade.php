@@ -50,10 +50,11 @@
                     <div class="form-group">
                         <label>Jenis Kelamin<span class="text-danger">*</span> :</label>
                         <select class="form-control" required name="jenis_kelamin">
-                            @if($data->jenis_kelamin == "L")
+
+                            @if(@$data->jenis_kelamin == "L")
                             <option value="L" selected>Laki- laki</option>
                             <option value="P">Perempuan</option>
-                            @elseif($data->jenis_kelamin == "P")
+                            @elseif(@$data->jenis_kelamin == "P")
                             <option value="L">Laki- laki</option>
                             <option value="P" selected>Perempuan</option>
                             @else
