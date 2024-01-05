@@ -102,7 +102,7 @@
                 Nomor : {{$keg->spt}}
             </p>
     	<table cellspacing="0" style="border-collapse:collapse; margin-bottom:-15px;">
-            <tr style="height:43pt">
+            <tr style="height:32pt">
                 <td style="width:61pt">
                     <p class="s4" style="font-weight:bold; padding-left: 2pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
                         DASAR
@@ -120,7 +120,7 @@
                 </td>
                 <td colspan="3" style="width:450pt">
                     <p class="s6" style="padding-left: 8pt;padding-right: 2pt;text-indent: 0pt;text-align: justify;">
-                        Peraturan Gubernur Jawa Timur Nomor 72 Tahun 2023 tentang Kedudukan, Susunan Organisasi, Uraian Tugas dan Fungsi Serta Tata Kerja Dinas;
+                        Peraturan Daerah Provinsi Jawa Timur Nomor 9 Tahun 2023 tentang Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2024;
                     </p>
                 </td>
             </tr>
@@ -147,7 +147,7 @@
                     </p>
                 </td>
             </tr>
-            {{-- <tr style="height:43pt">
+             <tr style="height:43pt">
                 <td style="width:61pt">
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -165,10 +165,10 @@
                 </td>
                 <td colspan="3" style="width:421pt">
                     <p class="s6" style="padding-left: 8pt;text-indent: 0pt;text-align: justify;">
-                        Peraturan Gubernur Jawa Timur Nomor 6 Tahun 2023 tentang Perubahan atas Peraturan Gubernur Jawa Timur Nomor 89 Tahun 2022 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Provinsi Jawa Timur Tahun Anggaran 2023;
+                        Peraturan Gubernur Jawa Timur Nomor 101 Tahun 2023 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2024;
                     </p>
                 </td>
-            </tr> --}}
+            </tr>
             <tr style="">
                 <td style="width:61pt">
                     <p style="text-indent: 0pt;text-align: left;">
@@ -182,7 +182,7 @@
                 </td>
                 <td style="width:24pt">
                     <p class="s6" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        3.
+                        4.
                     </p>
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
@@ -214,7 +214,7 @@
                 </td>
                 <td style="width:24pt">
                     <p class="s6" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">
-                        4.
+                        5.
                     </p>
                     <p style="text-indent: 0pt;text-align: left;">
                         <br/>
