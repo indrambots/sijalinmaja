@@ -34,7 +34,8 @@
       </div>
     </div>
   </div>
-
+@if(Auth::user() != '198203172010011007')
+@else
   <div class="card">
     <div class="card-body">
       <div class="row justify-content-between">
@@ -66,7 +67,7 @@
       </div>
     </div>
   </div>
-
+@endif
         <div id="modal-create" class="modal fade" role="dialog">
             <div class="modal-dialog modal-xl">
 
