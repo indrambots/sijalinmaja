@@ -194,9 +194,9 @@
                         
 
            @if($keg->dasar_surat !== null)
-            Dokumen Pelaksanaan Anggaran (DPA) Satpol PP Provinsi Jawa Timur Tahun Anggaran 2024;
+            Dokumen Pelaksanaan Anggaran (DPA) Satpol PP Provinsi Jawa Timur Tahun Anggaran 2024 Nomor DPA/A.1/1.05.0.00.0.00.01.0000/001/2024;
             @else
-            Dokumen Pelaksanaan Anggaran (DPA) Satpol PP Provinsi Jawa Timur Tahun Anggaran 2024.
+            Dokumen Pelaksanaan Anggaran (DPA) Satpol PP Provinsi Jawa Timur Tahun Anggaran 2024 Nomor DPA/A.1/1.05.0.00.0.00.01.0000/001/2024.
             @endif
                     </p>
                 </td>
