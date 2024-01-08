@@ -34,7 +34,7 @@
       </div>
     </div>
   </div>
-@if(Auth::user() != '198203172010011007')
+@if(Auth::user() == '198203172010011007')
 @else
   <div class="card">
     <div class="card-body">
