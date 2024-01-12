@@ -8,6 +8,7 @@ use DB;
 use Auth;
 use App\Pegawai;
 use App\KegiatanPersonel;
+use App\Kegiatan;
 use Illuminate\Support\Collection;
 use Yajra\Datatables\Datatables;
 
@@ -114,5 +115,32 @@ class KegiatanController extends Controller
             })
         ->rawColumns(['spt','anggota'])
         ->make(true);
+    }
+
+    public function absensi_grid(Request $request){
+        $kegiatan = Kegiatan::select('spt','lokasi','judul_kegiatan','bentuk_kegiatan','bidang','id','tanggal_mulai','tanggal_selesai')->whereYear('tanggal_mulai','2024')->orderBy('no_urut_spt','desc')->get();
+        $data = new Collection();
+        foreach($kegiatan as $k):
+            $tanggal = "";
+            if($k->tanggal_mulai == $k->tanggal_selesai):
+                $tanggal = date("d F Y", strtotime($k->tanggal_mulai));
+            else:
+                $tanggal = date("d F Y", strtotime($k->tanggal_mulai))." s/d ".date("d F Y", strtotime($k->tanggal_selesai));
+            endif;
+            $personel = KegiatanPersonel::where('kegiatan_id',$k->id)->get();
+            $personel_string = "";
+            foreach($personel as $p):
+                $personel_string .= $p->nama.", ";
+            endforeach;
+            $data->push([
+                "personel" => $personel_string,
+                "spt"      => $k->spt,
+                "judul_kegiatan"      => $k->bentuk_kegiatan." ".$k->judul_kegiatan,
+                "bidang"      => $k->bidang,
+                "lokasi"      => $k->lokasi,
+                "tanggal"      => $tanggal,
+            ]);
+        endforeach;
+        return response()->json($data);
     }
 }

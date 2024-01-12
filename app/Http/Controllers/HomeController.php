@@ -103,6 +103,21 @@ class HomeController extends Controller
                 </div>
             </div>
         </div>';
+        $page['kegiatan_absensi'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
+            <div class="card card-custom wave wave-animate-fast wave-primary">
+                <div class="card-body text-center">
+                    <a href="'.url('kegiatan/absensi').'">
+                        <span class="svg-icon svg-icon-primary svg-icon-6x">
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-people-arrows" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <br>
+                    <a href="'.url('kegiatan/absensi').'"
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">KEGIATAN
+                    </a>
+                </div>
+            </div>
+        </div>';
         $page['rekap_kasus'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
             <div class="card card-custom wave wave-animate-fast wave-primary">
                 <div class="card-body text-center">
@@ -243,7 +258,7 @@ class HomeController extends Controller
                 array_push($data,$page['kasus'],$page['report_kegiatan'],$page['peta'],$page['rekap_kasus']);
         endif;
         if(auth()->user()->is_pti == 1):
-                array_push($data,$page['pti']);
+                array_push($data,$page['pti'],$page['kegiatan_absensi']);
         endif;
         return view('home',compact('data'));
     }

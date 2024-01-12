@@ -32,6 +32,11 @@ class KegiatanController extends Controller
         return view('pages.kegiatan.index',compact('bidang'));
     }
 
+    public function absensi()
+    {
+        return view('pages.kegiatan.absensi');
+    }
+
     public function print($id,$barcode){
         $keg = Kegiatan::find($id);
         $katim = KegiatanPersonel::where('ket','KAOPSGAP')->where('kegiatan_id',$id)->first();

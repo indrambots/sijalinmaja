@@ -29,6 +29,7 @@ Route::get('test','TestController@index');
 Route::prefix('kegiatan')->group(function () {
 
     Route::get('/', 'KegiatanController@index');
+    Route::get('absensi', 'KegiatanController@absensi');
     Route::get('create/{id}','KegiatanController@create');
     Route::get('print/{id}/{barcode}','KegiatanController@print');
     Route::post('update-link-spt','KegiatanController@update_link_spt');
@@ -137,6 +138,7 @@ Route::prefix('report')->group(function(){
         Route::get('seksi','Report\KegiatanController@seksi');
         Route::get('seksi-grid','Report\KegiatanController@seksi_grid');
         Route::get('datatable-puskogap','Report\KegiatanController@datatable_puskogap');
+        Route::post('absensi-grid','Report\KegiatanController@absensi_grid');
     });
 });
 
