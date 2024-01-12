@@ -108,6 +108,8 @@ FROM
                 "jumlah_personel"  => $k->jumlah_personel,
                 "sumber_berita"    => $k->sumber_berita,
                 "ada_dokumentasi"  => $k->ada_dokumentasi,
+                "kendala"          => $k->kendala,
+                "keterangan"       => $k->keterangan,
                 "id"               => $k->id
             ]);
         endforeach;
@@ -160,6 +162,8 @@ FROM
                 "jumlah_personel"  => $k->jumlah_personel,
                 "sumber_berita"    => $k->sumber_berita,
                 "ada_dokumentasi"  => $k->ada_dokumentasi,
+                "kendala"          => $k->kendala,
+                "keterangan"       => $k->keterangan,
                 "id"               => $k->id
             ]);
         endforeach;

@@ -186,6 +186,16 @@
                     dataField: "sumber_berita",
                     dataType: "string",
                 },
+                {
+                    caption: "Keterangan Tambahan",
+                    dataField: "keterangan",
+                    dataType: "string",
+                },
+                {
+                    caption: "Kendala",
+                    dataField: "kendala",
+                    dataType: "string",
+                },
                 
             ],
             customizeColumns: function(columns) {

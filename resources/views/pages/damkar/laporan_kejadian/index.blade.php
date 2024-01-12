@@ -6,7 +6,7 @@
             <div class="card-body">
               <div class="row justify-content-between">
                 <div class="col-4">
-                  <h5 class="card-title">PRESENTASE RESPON TIME ANDA</h5>
+                  <h5 class="card-title">PRESENTASE RESPON TIME TAHUN 2023 </h5>
                 </div>
                 </div>
                 <div class="row mt-2">
@@ -16,12 +16,21 @@
                             <th>Jumlah Kejadian Dengan Respon Time <= 15 menit</th>
                             <th>Jumlah Kejadian Dengan Respon Time Lebih Dari 15 menit</th>
                             <th>PRESENTASE</th>
+                            <th>TAHUN</th>
                         </tr>
                         <tr>
-                            <td>{{$spm->semua}}</td>
-                            <td style="background-color:">{{$spm->spm}}</td>
-                            <td>{{$spm->tidak}}</td>
-                            <td style="background-color:#fff93e">{{$presentase}} %</td>
+                            <td>{{$spm_2023->semua}}</td>
+                            <td style="background-color:">{{$spm_2023->spm}}</td>
+                            <td>{{$spm_2023->tidak}}</td>
+                            <td style="background-color:#fff93e">{{$presentase_2023}} %</td>
+                            <td><strong>2023</strong></td>
+                        </tr>
+                        <tr>
+                            <td>{{$spm_2024->semua}}</td>
+                            <td style="background-color:">{{$spm_2024->spm}}</td>
+                            <td>{{$spm_2024->tidak}}</td>
+                            <td style="background-color:#fff93e">{{$presentase_2024}} %</td>
+                            <td><strong>2024</strong></td>
                         </tr>
                     </table>
                 </div>

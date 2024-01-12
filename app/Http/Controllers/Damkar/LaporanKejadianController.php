@@ -22,15 +22,24 @@ class LaporanKejadianController extends Controller
 
     public function index()
     {
-        $spm = DB::SELECT("SELECT
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time <= 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL ) AS spm,
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE user_id = ".Auth::user()->id." AND deleted_at IS NULL ) AS semua,
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time > 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL ) AS tidak")[0];
-        $presentase = 0;
-        if($spm->semua > 0):
-            $presentase = round($spm->spm/$spm->semua*100,2); 
+        $spm_2023 = DB::SELECT("SELECT
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time <= 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2023 ) AS spm,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2023 ) AS semua,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time > 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2023 ) AS tidak")[0];
+        $presentase_2023 = 0;
+        if($spm_2023->semua > 0):
+            $presentase_2023 = round($spm_2023->spm/$spm_2023->semua*100,2); 
         endif;
-        return view('pages.damkar.laporan_kejadian.index',compact('spm','presentase'));
+
+        $spm_2024 = DB::SELECT("SELECT
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time <= 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2024 ) AS spm,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2024 ) AS semua,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time > 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2024 ) AS tidak")[0];
+        $presentase_2024 = 0;
+        if($spm_2024->semua > 0):
+            $presentase_2024 = round($spm_2024->spm/$spm_2024->semua*100,2); 
+        endif;
+        return view('pages.damkar.laporan_kejadian.index',compact('spm_2023','presentase_2023','spm_2024','presentase_2024'));
     }
 
     public function create($id)
