@@ -191,11 +191,6 @@
                     dataField: "keterangan",
                     dataType: "string",
                 },
-                {
-                    caption: "Kendala",
-                    dataField: "kendala",
-                    dataType: "string",
-                },
                 
             ],
             customizeColumns: function(columns) {
