@@ -25,7 +25,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('profil/save','HomeController@save_profil');
 Route::get('kegiatan-datatable','HomeController@kegiatan_datatable');
 Route::get('test','TestController@index');
-
 Route::prefix('kegiatan')->group(function () {
 
     Route::get('/', 'KegiatanController@index');
@@ -269,6 +268,12 @@ Route::prefix('anggaran')->group(function(){
             Route::post('trantibum-grid','AnggaranLembaga\ReportController@trantibumGrid');
         /*===================END=======================*/
     });
+});
+
+Route::prefix('dokumentasi')->group(function () {
+    Route::get('','DokumentasiController@index');
+    Route::get('datatable','DokumentasiController@datatable');
+    Route::get('view/{id}','DokumentasiController@view');
 });
 Route::get('tes-mail','HomeController@tes_mail');
 

@@ -932,10 +932,20 @@
         @endif
     @endif
 
-<script type="text/javascript">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script>
+    var exportContent = document.getElementsByClassName('page');
+            var htmlContent = Array.from(exportContent).map(function(element) {
+                return element.outerHTML;
+            }).join('');
 
-    window.print();
-
+    // Convert HTML to Word document
+    mammoth.extractRawText({ arrayBuffer: new TextEncoder('utf-8').encode(htmlContent) })
+                .then(function (result) {
+                    var blob = new Blob([result.value], { type: 'application/msword' });
+                    saveAs(blob, 'exported-document.doc');
+                });
 </script>
 </body>
 </html>
