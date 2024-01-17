@@ -6,15 +6,15 @@
             <div class="card-body">
               <div class="row justify-content-between">
                 <div class="col-4">
-                  <h5 class="card-title">PRESENTASE RESPON TIME TAHUN 2023 </h5>
+                  <h5 class="card-title">PRESENTASE RESPON TIME </h5>
                 </div>
                 </div>
                 <div class="row mt-2">
                     <table class="table table-bordered table-striped table-hover">
                         <tr>
-                            <th>Jumlah Seluruh Kejadian </th>
-                            <th>Jumlah Kejadian Dengan Respon Time <= 15 menit</th>
-                            <th>Jumlah Kejadian Dengan Respon Time Lebih Dari 15 menit</th>
+                            <th>Jumlah Seluruh Kejadian Kebakaran </th>
+                            <th>Jumlah Kejadian Kebakaran Dengan Respon Time <= 15 menit</th>
+                            <th>Jumlah Kejadian Kebakaran Dengan Respon Time Lebih Dari 15 menit</th>
                             <th>PRESENTASE</th>
                             <th>TAHUN</th>
                         </tr>

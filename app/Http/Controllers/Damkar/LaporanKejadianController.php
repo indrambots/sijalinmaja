@@ -23,18 +23,18 @@ class LaporanKejadianController extends Controller
     public function index()
     {
         $spm_2023 = DB::SELECT("SELECT
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time <= 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2023 ) AS spm,
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2023 ) AS semua,
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time > 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2023 ) AS tidak")[0];
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE jenis_kejadian = 'Kebakaran' AND respon_time <= 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2023 ) AS spm,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE jenis_kejadian = 'Kebakaran' AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2023 ) AS semua,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE jenis_kejadian = 'Kebakaran' AND respon_time > 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2023 ) AS tidak")[0];
         $presentase_2023 = 0;
         if($spm_2023->semua > 0):
             $presentase_2023 = round($spm_2023->spm/$spm_2023->semua*100,2); 
         endif;
 
         $spm_2024 = DB::SELECT("SELECT
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time <= 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2024 ) AS spm,
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2024 ) AS semua,
-    ( SELECT COUNT(*) FROM laporan_kejadian WHERE respon_time > 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2024 ) AS tidak")[0];
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE jenis_kejadian = 'Kebakaran' AND respon_time <= 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2024 ) AS spm,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE jenis_kejadian = 'Kebakaran' AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2024 ) AS semua,
+    ( SELECT COUNT(*) FROM laporan_kejadian WHERE jenis_kejadian = 'Kebakaran' AND respon_time > 15 AND user_id = ".Auth::user()->id." AND deleted_at IS NULL AND EXTRACT(YEAR FROM tanggal_kejadian) = 2024 ) AS tidak")[0];
         $presentase_2024 = 0;
         if($spm_2024->semua > 0):
             $presentase_2024 = round($spm_2024->spm/$spm_2024->semua*100,2); 
