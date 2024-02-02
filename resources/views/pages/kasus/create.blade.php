@@ -175,24 +175,78 @@
 		  	<input placeholder="isikan nomor telephone pelapor. . ." type="number" class="form-control" name="no_telp_pelapor" id="no_telp_pelapor" value="{{$kasus->no_telp_pelapor}}">
 		  </div>
 	  </div>
-	  <div class="row">
-		  <div class="form-group col-md-6 mb-5">
-		  	<label>Nama Pelanggar </label>
-		  	<input  placeholder="isikan nama lengkap pelanggar sesuai KTP. . ." type="text" class="form-control" name="nama_pelanggar" id="nama_pelanggar" value="{{$kasus->nama_pelanggar}}" required>
+	  <div class="card-body exs">
+	  	@if($id == 0)
+	  		<div class="pelanggars row" id="frmpelanggar1">
+					<div class="col-md-2 col-sm-2 col-xs-2">
+						<h6 class="panel-title txt-dark"><i class="icon-map"> </i> Data Pelanggar</h6> <br>
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-10">
+						<button class="btn btn-danger delete_pelanggars" id="delete_pelanggar1"><i class="fa fa-trash"></i></button>
+					</div>
+				  <div class="form-group col-md-6 mb-5">
+				  	<label>Nama Pelanggar </label>
+				  	<input  placeholder="isikan nama lengkap pelanggar sesuai KTP. . ." type="text" class="form-control" name="pelanggar[1][nama]" id="nama_pelanggar1" value="" required>
+				  </div>
+				  <div class="form-group col-md-6">
+				  	<label>NIK Pelanggar </label>
+				  	<input  placeholder="isikan nik pelanggar. . ." type="number" class="form-control" name="pelanggar[1][nik]" id="nik_pelanggar1" value="" >
+				  </div>
+				  <div class="form-group col-md-6 mb-5">
+				  	<label>Jenis Kelamin</label>
+			        <select name="pelanggar[1][jenis_kelamin]" id="jenis_kelamin1" required class="form-control">
+			            <option value="">--Pilih Jenis Kelamin</option>
+			            <option value="L" {{$kasus->jenis_kelamin == 'L' ? 'selected' : ''}}>Laki - Laki</option>
+			            <option value="P" {{$kasus->jenis_kelamin == 'P' ? 'selected' : ''}}>Perempuan</option>
+			        </select>
+				  </div>
+				  <div class="form-group col-md-6 mb-5">
+				  	<label>Alamat Lengkap Pelanggar </label>
+				  	<input placeholder="isikan alamat lengkap pelanggar. . ." type="text" class="form-control" name="pelanggar[1][alamat]" id="alamat_pelanggar1" value="" >
+				  </div>
+			  </div>
+			  @else
+			  @foreach($kasus->pelanggar as $k)
+	  		<div class="pelanggars row" id="frmpelanggar{{$loop->iteration}}">
+					<div class="col-md-2 col-sm-2 col-xs-2">
+						<h6 class="panel-title txt-dark"><i class="icon-map"> </i> Data Pelanggar</h6> <br>
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-10">
+						<button class="btn btn-danger delete_pelanggars" id="delete_pelanggar1"><i class="fa fa-trash"></i></button>
+					</div>
+				  <div class="form-group col-md-6 mb-5">
+				  	<label>Nama Pelanggar </label>
+				  	<input  placeholder="isikan nama lengkap pelanggar sesuai KTP. . ." type="text" class="form-control" name="pelanggar[{{$loop->iteration}}][nama]" id="nama_pelanggar{{$loop->iteration}}" value="{{$k->nama}}" required>
+				  </div>
+				  <div class="form-group col-md-6">
+				  	<label>NIK Pelanggar </label>
+				  	<input  placeholder="isikan nik pelanggar. . ." type="number" class="form-control" name="pelanggar[{{$loop->iteration}}][nik]" id="nik_pelanggar{{$loop->iteration}}" value="{{$k->nik}}" >
+				  </div>
+				  <div class="form-group col-md-6 mb-5">
+				  	<label>Jenis Kelamin</label>
+			        <select name="pelanggar[{{$loop->iteration}}][jenis_kelamin]" id="jenis_kelamin{{$loop->iteration}}" required class="form-control">
+			            <option value="">--Pilih Jenis Kelamin</option>
+			            <option value="L" {{$k->jenis_kelamin == 'Wanita' ? 'selected' : ''}}>Laki - Laki</option>
+			            <option value="P" {{$k->jenis_kelamin == 'Pria' ? 'selected' : ''}}>Perempuan</option>
+			        </select>
+				  </div>
+				  <div class="form-group col-md-6 mb-5">
+				  	<label>Alamat Lengkap Pelanggar </label>
+				  	<input placeholder="isikan alamat lengkap pelanggar. . ." type="text" class="form-control" name="pelanggar[{{$loop->iteration}}][alamat]" id="alamat_pelanggar{{$loop->iteration}}" value="{{$k->alamat}}" >
+				  </div>
+			  </div>
+			  @endforeach
+			  @endif
+		</div>
+			<div class="form-group mt-5">
+				<button id="tambah-pelanggar" type="button" class="col-md-offset-6 btn btn-md btn-primary">
+					<i class="ti-plus"> </i>Tambah Pelanggar
+				</button>
+			</div>
+		  <div class="form-group row mb-5">
+		  	<label>Potensi PAD (jika ada)</label>
+		  	<input placeholder="isian potensi pad. . ." type="text" class="form-control rupiah" name="potensi_pad" id="potensi_pad" value="{{$kasus->potensi_pad}}">
 		  </div>
-		  <div class="form-group col-md-6 mb-5">
-		  	<label>NIK Pelanggar </label>
-		  	<input  placeholder="isikan nik pelanggar. . ." type="number" class="form-control" name="nik_pelanggar" id="nik_pelanggar" value="{{$kasus->nik_pelanggar}}" >
-		  </div>
-	  </div>
-	  <div class="form-group row mb-5">
-	  	<label>Alamat Lengkap Pelanggar </label>
-	  	<input placeholder="isikan alamat lengkap pelanggar. . ." type="text" class="form-control" name="alamat_pelanggar" id="alamat_pelanggar" value="{{$kasus->alamat_pelanggar}}" >
-	  </div>
-	  <div class="form-group row mb-5">
-	  	<label>Potensi PAD (jika ada)</label>
-	  	<input placeholder="isian potensi pad. . ." type="text" class="form-control rupiah" name="potensi_pad" id="potensi_pad" value="{{$kasus->potensi_pad}}">
-	  </div>
 	  <div class="form-group col-md-12 mb-5">
 	  	<label>Deskripsi Kasus</label>
 	  	<textarea class="form-control" name="deskripsi_kasus" id="deskripsi_kasus">{{$kasus->deskripsi_kasus}}</textarea>
@@ -236,6 +290,14 @@
 	  });
       @else
       baselayer.loadGeoJson('{{ asset('js/jawa_timur.json') }}')
+      baselayer.setStyle({
+	    fillColor: 'yellow',
+	    opacity: 0.1,
+	    opacity: 0.1,
+	    strokeColor:'red',
+	    strokeWeight: 1,
+	    clickable: false
+	  });
       @endif
       baselayer.setMap(map);
         @if($id == 0)
@@ -399,5 +461,31 @@ $(document).ready(function(){
 });
 
 })
+
+	if ($('.pelanggars').length <= 1) {
+            $('.delete_pelanggars').hide();
+            $('#delete_pelanggar1').hide();
+      }
+  	$('#tambah-pelanggar').click(function(){
+        var numb = $('.pelanggars').length;
+
+        var newNumb = numb + 1;
+        var newElemb = $('#frmpelanggar' + numb).clone().attr('id', 'frmpelanggar' + newNumb);
+
+        newElemb.find('#nama_pelanggar' + numb).attr('id', 'nama_pelanggar' + newNumb).attr('name', 'pelanggar[' + newNumb + '][nama]').val('');
+        newElemb.find('#jenis_kelamin' + numb).attr('id', 'jenis_kelamin' + newNumb).attr('name', 'pelanggar[' + newNumb + '][jenis_kelamin]').val('');
+        newElemb.find('#nik_pelanggar' + numb).attr('id', 'nik_pelanggar' + newNumb).attr('name', 'pelanggar[' + newNumb + '][nik]').val('');
+        newElemb.find('#alamat_pelanggar' + numb).attr('id', 'alamat_pelanggar' + newNumb).attr('name', 'pelanggar[' + newNumb + '][alamat]').val('');
+
+        newElemb.find('#delete_pelanggar' + numb).attr('id', 'delete_pelanggar' + newNumb).attr('onclick', 'removeAttribut("#frmpelanggar' + newNumb + '")').show();
+
+        $('#frmpelanggar' + numb).after(newElemb);
+
+      });
+
+    function removeAttribut(val,id){
+        $(val).remove();
+        $('input[name="delete_pelanggar[' + id + ']"]').val(id);
+    }
 </script>
 @endsection

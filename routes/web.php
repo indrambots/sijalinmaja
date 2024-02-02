@@ -26,7 +26,6 @@ Route::post('profil/save','HomeController@save_profil');
 Route::get('kegiatan-datatable','HomeController@kegiatan_datatable');
 Route::get('test','TestController@index');
 Route::prefix('kegiatan')->group(function () {
-
     Route::get('/', 'KegiatanController@index');
     Route::get('absensi', 'KegiatanController@absensi');
     Route::get('create/{id}','KegiatanController@create');
@@ -41,6 +40,10 @@ Route::prefix('kegiatan')->group(function () {
     Route::post('filter-bidang','KegiatanController@filter_bidang');
     Route::post('filter-kegiatan','KegiatanController@filter_kegiatan');
     Route::post('batalkan','KegiatanController@batalkan');
+    Route::prefix('penugasan')->group(function () {
+        Route::get('','PenugasanController@index');
+        Route::get('filter','PenugasanController@filter');
+    });
 });
 
 Route::prefix('kasus')->group(function () {

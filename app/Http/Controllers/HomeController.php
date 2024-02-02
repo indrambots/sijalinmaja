@@ -223,6 +223,21 @@ class HomeController extends Controller
                 </div>
             </div>
         </div>';
+        $page['penugasan_kegiatan'] = '<div class="col-6 col-lg-6 col-xl-6 mb-5">
+            <div class="card card-custom wave wave-animate-fast wave-primary">
+                <div class="card-body text-center">
+                    <a href="'.url('kegiatan/penugasan').'">
+                        <span class="svg-icon svg-icon-primary svg-icon-6x">
+                            <i class="icon-6x text-info mb-10 mt-10 fa-solid fas fa-people-arrows" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <br>
+                    <a href="'.url('kegiatan/penugasan').'"
+                        class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">DAFTAR PERSONEL SIAP
+                    </a>
+                </div>
+            </div>
+        </div>';
         $data = array();
         // dd(auth()->user()->pegawai);
         if(auth()->user()->level == AliasName::level_admin || auth()->user()->level == AliasName::level_satpolpp):
@@ -235,7 +250,8 @@ class HomeController extends Controller
                 $page['user_setting'],
                 $page['pti'],
                 $page['rekap_kasus'],
-                $page['anggaran_lembaga']
+                $page['anggaran_lembaga'],
+                $page['penugasan_kegiatan']
             );
         elseif(auth()->user()->level == AliasName::level_damkar):
             array_push($data,$page['damkarmat']);
@@ -259,6 +275,9 @@ class HomeController extends Controller
         endif;
         if(auth()->user()->is_pti == 1):
                 array_push($data,$page['pti'],$page['kegiatan_absensi']);
+        endif;
+        if(auth()->user()->is_puskogap == 1):
+                array_push($data,$page['pti'],$page['penugasan_kegiatan']);
         endif;
         return view('home',compact('data'));
     }

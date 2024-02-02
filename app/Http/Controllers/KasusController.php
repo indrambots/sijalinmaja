@@ -16,6 +16,7 @@ use App\Kasus;
 use App\SumberInformasi;
 use App\HistoryVerif;
 use App\KasusHistory;
+use App\KasusPelanggar;
 use Yajra\Datatables\Datatables;
 
 class KasusController extends Controller
@@ -50,7 +51,6 @@ class KasusController extends Controller
     }
 
     public function save(Request $request){
-
         $kota = Kota::find($request->kota);
         $kec = Kecamatan::where('kode_kab',$request->kota)->where('kode_kec',$request->kecamatan)->first();
         $kel = Kelurahan::where('kode_kab',$request->kota)->where('kode_kec',$request->kecamatan)->where('kode_kel',$request->kelurahan)->first();
@@ -86,6 +86,17 @@ class KasusController extends Controller
         $kasus->deskripsi_kasus = $request->deskripsi_kasus;
         $kasus->user_id = Auth::user()->id;
         $kasus->save();
+        $idkasus = $kasus->id;
+        KasusPelanggar::where('kasus_id',$kasus->id)->delete();
+        foreach($request->pelanggar as $p):
+            KasusPelanggar::create([
+                "nama" => $p['nama'],
+                "nik" => $p['nik'],
+                "jenis_kelamin" => $p['jenis_kelamin'],
+                "alamat" => $p['alamat'],
+                "kasus_id" => $idkasus
+            ]);
+        endforeach;
         return redirect('kasus')->with('success', 'Data Kasus Berhasil Ditambahkan');
     }
 

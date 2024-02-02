@@ -17,4 +17,9 @@ class Kasus extends Model
     {
         return $this->hasMany('App\KasusHistory', 'kasus_id', 'id');
     }
+
+    public function pelanggar()
+    {
+        return $this->hasMany('App\KasusPelanggar', 'kasus_id', 'id');
+    }
 }
