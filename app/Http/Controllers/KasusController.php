@@ -18,6 +18,7 @@ use App\HistoryVerif;
 use App\KasusHistory;
 use App\KasusPelanggar;
 use Yajra\Datatables\Datatables;
+use App\KasusSp3;
 
 class KasusController extends Controller
 {
@@ -109,7 +110,7 @@ class KasusController extends Controller
         if(Auth::user()->level >= 11):
             $kasus = Kasus::where('id','>',0)->where('user_id',Auth::user()->id)->get();
         else:
-            $kasus = Kasus::select('id','tanggal_informasi','pelapor','no_telp_pelapor','nama_pelanggar','nik_pelanggar','alamat_pelanggar','lokasi_kejadian','kel_nama','kec_nama','status','judul','tanggal_informasi','deskripsi_kasus')->where('id','>',0)->get();
+            $kasus = Kasus::select('id','tanggal_informasi','pelapor','no_telp_pelapor','nama_pelanggar','nik_pelanggar','alamat_pelanggar','lokasi_kejadian','kel_nama','kec_nama','status','judul','tanggal_informasi','deskripsi_kasus','kewenangan','keterangan_kewenangan')->where('id','>',0)->get();
         endif;
         return Datatables::of($kasus)
         ->addColumn('aksi',function($i){
@@ -147,13 +148,30 @@ class KasusController extends Controller
                 return '<span class="label label-lg label-primary label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:250px;">DALAM PENANGANAN OPD</span>';
             }
             elseif($i->status == 4){
-                return '<span class="label label-lg label-primary label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:250px;">DALAM PENANGANAN SATPOLPP PEMPROV</span>';
+                return '<span class="label label-lg label-primary label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:250px; height:fit-content;">DALAM PENANGANAN SATPOLPP PEMPROV</span>';
             }
             elseif($i->status == 5){
                 return '<span class="label label-lg label-success label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:75px;">SELESAI</span>';
             }
+            elseif($i->status == 6){
+                return '<span class="label label-lg label-dark label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:75px;">UDK</span>';
+            }
         })
-        ->rawColumns(['aksi','tanggal_informasi','data_pelapor','data_pelanggar','lokasi_kasus','deskripsi_kasus','status','history'])
+        ->editColumn('kewenangan',function($i){
+            if($i->kewenangan == 0){
+                return '<span class="label label-lg label-warning label-pill label-inline font-weight-bolder mr-2"  style="text-align:center; width:100px;">BELUM VERIF</span>';
+            }
+            elseif($i->kewenangan == 1){
+                return '<span class="label label-lg label-danger label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:75px;">PROVINSI</span> <br>'.$i->keterangan_kewenangan;
+            }
+            elseif($i->kewenangan == 2){
+                return '<span class="label label-lg label-success label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:225px;">KAB/KOTA</span> <br>'.$i->keterangan_kewenangan;
+            }
+            elseif($i->kewenangan == 3){
+                return '<span class="label label-lg label-primary label-pill label-inline font-weight-bolder mr-2" style="text-align:center; width:250px;">PUSAT</span> <br>'.$i->keterangan_kewenangan;
+            }
+        })
+        ->rawColumns(['aksi','tanggal_informasi','data_pelapor','data_pelanggar','lokasi_kasus','deskripsi_kasus','status','history','kewenangan'])
         ->make(true);
     }
 
@@ -170,9 +188,15 @@ class KasusController extends Controller
         $kasus->kewenangan = $request->kewenangan;
         $kasus->keterangan_kewenangan = ($request->kewenangan == 1) ? $request->opd : $request->kota;
         $kasus->bidang  = $request->bidang;
+        $kasus->tanggal_pembahasan_ba  = $request->tanggal_pembahasan_ba;
+        $kasus->tanggal_ba  = $request->tanggal_ba;
+        $kasus->pimpinan_ba  = $request->pimpinan_ba;
         $base64 = null;
         $mime = null;
         $ext = null;
+        $base64_bukti = null;
+        $mime_bukti = null;
+        $ext_bukti = null;
         if($request->file('ba') !== null):
             $path = $request->file('ba')->getRealPath();
             $ext = $request->ba->extension();
@@ -180,6 +204,16 @@ class KasusController extends Controller
             $base64 = base64_encode($doc);
             $mime = $request->file('ba')->getClientMimeType();
             $kasus->ba = $base64;
+            $kasus->ext = $ext;
+            $kasus->mime = $mime;
+        endif;
+        if($request->file('bukti_selesai') !== null):
+            $path = $request->file('bukti_selesai')->getRealPath();
+            $ext_bukti = $request->bukti_selesai->extension();
+            $doc = file_get_contents($path);
+            $base64_bukti = base64_encode($doc);
+            $mime_bukti = $request->file('bukti_selesai')->getClientMimeType();
+            $kasus->bukti_selesai = $base64_bukti;
             $kasus->ext = $ext;
             $kasus->mime = $mime;
         endif;
@@ -280,5 +314,35 @@ class KasusController extends Controller
         $history->kasus_id = $request->kasus_id;
         $history->save();
         return redirect('kasus/history/'.$request->kasus_id)->with('success', 'History');
+    }
+
+    public function sp3_create($id)
+    {
+        $sp3 = KasusSp3::find($id);
+        return response()->json(array('sp3' => $sp3));
+    }
+
+    public function sp3_save(Request $request)
+    {
+        $sp3 = new KasusSp3();
+        if($request->id > 0):
+            $sp3 = KasusSp3::find($request->id);
+        endif;
+        $base64 = null;
+        $mime = null;
+        $ext = null;
+        if($request->file('file') !== null):
+            $path = $request->file('file')->getRealPath();
+            $ext = $request->file->extension();
+            $doc = file_get_contents($path);
+            $base64 = base64_encode($doc);
+            $mime = $request->file('file')->getClientMimeType();
+            $sp3->file = $base64;
+            $sp3->ext = $ext;
+            $sp3->mime = $mime;
+            $sp3->tanggal = $request->tanggal;
+            $sp3->kasus_id = $request->kasus_id;
+            $sp3->save();
+        endif;
     }
 }

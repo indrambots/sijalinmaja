@@ -55,6 +55,20 @@ class DownloadController extends Controller
                          // ("Content-Disposition: attachment; "filename=\"".$this->filename."\"")
                          ->header('Content-Transfer-Encoding', 'binary');
     }
+ 
+    public function kasus_selesai($id)
+    {
+        $kasus = Kasus::where('id',$id)->first();
+        $file_contents = base64_decode($kasus->bukti_selesai);
+        return response($file_contents)
+                         ->header('Cache-Control', 'no-cache private')
+                         ->header('Content-Description', 'File Transfer')
+                         ->header('Content-Type', $kasus->mime_selesai)
+                         ->header('Content-length', strlen($file_contents))
+                         ->header('Content-Disposition', 'attachment; filename=bukti_kasus_selesai'.$id.".".$kasus->ext_selesai)
+                         // ("Content-Disposition: attachment; "filename=\"".$this->filename."\"")
+                         ->header('Content-Transfer-Encoding', 'binary');
+    }
 
     public function kasus_history($id){
         $history = KasusHistory::where('id',$id)->first();

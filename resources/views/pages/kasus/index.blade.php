@@ -41,6 +41,7 @@
                                 <th>Lokasi</th>
                                 <th>Pelapor</th>
                                 <th>Pelanggar</th>
+                                <th>Kewenangan</th>
                                 <th>Status</th>
                                 <th>History</th>
                                 <th>Aksi</th>
@@ -73,8 +74,20 @@
                             <option value="2">DITERUSKAN KAB/KOTA</option>
                             <option value="3">DITERUSKAN DALAM PENANGANAN OPD</option>
                             <option value="4">DALAM PENANGANAN SATPOLPP PEMPROV</option>
+                            <option value="6">UDK (Untuk Diketahui)</option>
                             <option value="5">SELESAI</option>
                         </select>
+                    </div>
+
+                    <div class="form-group" id="div_bukti_status_kasus_selesai">
+                        <label>UPLOAD BUKTI BAHWA KASUS STATUS SELESAI</label>
+                        <input type="file" id="bukti_selesai" name="bukti_selesai" class="form-control"
+                            accept="application/pdf" required>
+                    </div>
+
+                    <div class="alert alert-info" role="alert" id="alert_kasus_selesai">
+                        Bukti upload kasus sudah ada silahkan
+                        <a href="" id="link_kasus_selesai" target="_blank"> KLIK DISINI </a> untuk mendownload BUKTI KASUS SELESAI
                     </div>
                     <div class="form-group">
                         <label>KEWENANGAN</label>
@@ -128,6 +141,18 @@
                     <div class="form-group">
                         <label>FORMAT BERITA ACARA</label>
                         <a href="#" target="_blank" class="btn btn-primary">Download Format Berita Acara</a>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Pembahasan</label>
+                        <input style="width: 95%;" type="text" id="tanggal_pembahasan_ba" name="tanggal_pembahasan_ba" class="datepicker form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Ba</label>
+                        <input style="width: 95%;" type="text" id="tanggal_ba" name="tanggal_ba" class="datepicker form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pimpinan Ba</label>
+                        <input type="text" id="pimpinan_ba" name="pimpinan_ba" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>BERITA ACARA</label>
@@ -187,6 +212,7 @@
         {data: 'lokasi_kasus', name:'lokasi_kasus'},
         {data: 'data_pelapor', name:'data_pelapor'},
         {data: 'data_pelanggar', name:'data_pelanggar'},
+        {data: 'kewenangan', name:'kewenangan'},
         {data: 'status', name:'status'},
         {data: 'history', name:'history'},
         {data: 'aksi', name:'aksi'},
@@ -217,8 +243,22 @@
         }
     });
 
+    $('#status_kasus').on('change',function(){
+        if($(this).val() == 5){
+            $('#bukti_selesai').prop('required',true);
+            $('#div_bukti_status_kasus_selesai').show();
+        }
+        else
+        {
+            $('#bukti_selesai').removeAttr('required');
+            $('#div_bukti_status_kasus_selesai').hide();
+        }
+    })
+
     function verifKasus(id){
         $('#alert_ba').hide();
+        $('#div_bukti_status_kasus_selesai').hide()
+        $('#alert_kasus_selesai').hide();
         $('#idkasus').val(id)
         $('#div_kota').hide();
         $('#div_opd').hide();
@@ -237,8 +277,21 @@
                     $('.bidang').prop('checked',false)
                     $('#kota').val($("#kota option:first").val())
                     $('#opd').val($("#opd option:first").val())
+                    $('#tanggal_pembahasan_ba').val("")
+                    $('#tanggal_ba').val("")
+                    $('#pimpinan_ba').val("")
                 }
                 else{
+                    if(data.kasus.status == 5){
+                        $('#div_bukti_status_kasus_selesai').hide()
+                        $('#alert_kasus_selesai').show();
+                        $('#link_kasus_selesai').attr("href", "{{ url('download/kasus-selesai') }}/"+id)
+                        if(data.kasus.bukti_selesai == null)
+                        {$('#bukti_selesai').removeAttr('required');
+                            $('#div_bukti_status_kasus_selesai').show()
+                            $('#alert_kasus_selesai').hide();
+                        }
+                    }
                     if(data.kasus.ba !== null){
 
                         $('#alert_ba').show();
@@ -249,6 +302,9 @@
                     }
                     $('#link_ba').attr("href", "{{ url('download/kasus-ba') }}/"+id)
                     $('#status_kasus').val(data.kasus.status)
+                    $('#tanggal_pembahasan_ba').val(data.kasus.tanggal_pembahasan_ba)
+                    $('#tanggal_ba').val(data.kasus.tanggal_ba)
+                    $('#pimpinan_ba').val(data.kasus.pimpinan_ba)
                     $("input[name=kewenangan][value='"+data.kasus.kewenangan+"']").prop("checked",true);
                     $("input[name=bidang][value='"+data.kasus.bidang+"']").prop("checked",true);
                     console.log(data.kasus.keterangan_kewenangan)

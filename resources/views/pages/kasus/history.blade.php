@@ -19,16 +19,29 @@
         <li class="breadcrumb-item px-3 text-muted">Rekam Jejak</li>
     </ol>
 @endif
-<div class="col-3 mb-2">
-  <div class="card">
-    <div class="card-body" style="padding-left: 0; padding-right: 0;">
-        <div class="col-12">
-          <div class="d-flex justify-content-start">
-          <button id="btn-rekam" data-toggle="modal" data-target="#modal-create" type="button" class="btn btn-outline-primary m-b-xs " onclick="createHistory(0)"><i class="fas fa-plus-circle" ></i> Tambah Rekam Jejak Kasus</button>
+<div class="row">
+    <div class="col-3 mb-2">
+      <div class="card">
+        <div class="card-body" style="padding-left: 0; padding-right: 0;">
+            <div class="col-12">
+              <div class="d-flex justify-content-start">
+              <button id="btn-rekam" data-toggle="modal" data-target="#modal-create" type="button" class="btn btn-outline-primary m-b-xs " onclick="createHistory(0)"><i class="fas fa-plus-circle" ></i> Tambah Rekam Jejak Kasus</button>
+            </div>
+            </div>
         </div>
-        </div>
+      </div>
     </div>
-  </div>
+    <div class="col-3 mb-2">
+      <div class="card">
+        <div class="card-body" style="padding-left: 0; padding-right: 0;">
+            <div class="col-12">
+              <div class="d-flex justify-content-start">
+              <button id="btn-rekam" data-toggle="modal" data-target="#modal-sp3" type="button" class="btn btn-outline-primary m-b-xs " onclick="createSp3(0)"><i class="fas fa-plus-circle" ></i> Upload Berkas SP3</button>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
 </div>
 <div class="col">
   <div class="card">
@@ -110,6 +123,45 @@
 
             </div>
           </div>
+
+<div id="modal-sp3" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-xl">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title text-left">UPLOAD BERKAS SP3</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form" method="POST" action="{{url('kasus/sp3/save')}}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="kasus_id" id="kasus_id" value="{{$kasus->id}}">
+                        @if(!isset($kasus->sp3))
+                            <input type="hidden" name="id" id="idsp3" value="">
+                        @else
+                            <input type="hidden" name="id" id="idsp3" value="{{$kasus->sp3->id}}">
+                        @endif
+                        <div class="form-group">
+                            <label>Tanggal SP3:</label>
+                        @if(!isset($kasus->sp3))
+                            <input type="text" name="tanggal"  id="tanggal_sp3" class="datepicker form-control" style="width:95%;">
+                            @else
+
+                            <input type="text" name="tanggal"  id="tanggal_sp3" class="datepicker form-control" style="width:95%;" value="{{$kasus->sp3->tanggal}}">
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label>File/Data Pendukung yang memuat informasi kaitannya dengan SP3</label>
+                            <input type="file" name="file" class="form-control" accept="application/pdf, application/vnd.ms-excel" required >
+                        </div>
+                        <button type='submit'  class="btn btn-primary mr-2">UPLOAD SP3</button>
+                    </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
 @endsection
 @section('script')
 <script type="text/javascript">
@@ -128,6 +180,8 @@
                 }
               })
   }
+
+
 
 </script>
 
