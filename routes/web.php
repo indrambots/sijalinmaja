@@ -173,6 +173,7 @@ Route::prefix('download')->group(function(){
     Route::get('kasus-ba/{id}','DownloadController@kasus_ba');
     Route::get('kasus-selesai/{id}','DownloadController@kasus_selesai');
     Route::get('kasus-history/{id}','DownloadController@kasus_history');
+    Route::get('kasus-sp3/{id}','DownloadController@kasus_sp3');
 });
 
 Route::prefix('anggaran')->group(function(){

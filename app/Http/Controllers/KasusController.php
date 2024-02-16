@@ -344,5 +344,7 @@ class KasusController extends Controller
             $sp3->kasus_id = $request->kasus_id;
             $sp3->save();
         endif;
+
+        return redirect('kasus/history/'.$sp3->kasus_id)->with('success', 'Berkas SP3 Berhasil Ditambahkan');
     }
 }

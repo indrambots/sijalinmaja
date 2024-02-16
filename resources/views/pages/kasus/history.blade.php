@@ -134,6 +134,12 @@
                   <h4 class="modal-title text-left">UPLOAD BERKAS SP3</h4>
                 </div>
                 <div class="modal-body">
+                    @if(!empty($kasus->sp3))
+                    <div class="alert alert-info" role="alert" id="alert_kasus_selesai">
+                        BERKAS SP3 TELAH TERUPLOAD
+                        <a href="{{ url('download/kasus-sp3/'.$kasus->sp3->id) }}" target="_blank"> KLIK DISINI </a> untuk mendownload BERKAS SP3. Jika anda melakukan upload ulang file sebelumnya akan tergantikan dengan file terbaru. Terima Kasih
+                    </div>
+                    @endif
                     <form class="form" method="POST" action="{{url('kasus/sp3/save')}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input type="hidden" name="kasus_id" id="kasus_id" value="{{$kasus->id}}">
