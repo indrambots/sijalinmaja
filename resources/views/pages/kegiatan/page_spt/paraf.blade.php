@@ -137,7 +137,7 @@
                         {{ucwords(strtolower($keg->sub->paraf))}}
                     </p>
                 </td>
-                <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <td style="width:6pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s7" style="text-indent: 0pt;text-align: center;">
                         {{ucwords(strtolower($keg->sub->paraf_kabid))}}
                     </p>
