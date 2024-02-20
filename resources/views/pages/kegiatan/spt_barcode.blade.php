@@ -878,8 +878,8 @@
                 <p style="text-indent: 0pt;text-align: left;">
                     <br> <br>
                 </p>
-                <p class="s8" style="font-weight:normal;padding-left: 0pt; text-decoration:underline; text-indent: 0pt;line-height: 13pt;text-align: center;">
-                    M. HADI WAWAN GUNTORO, S.STP., M.Si., CIHCM., CIPA
+                <p class="s8" style="font-weight:normal;padding-left: 30.pt; text-decoration:underline;  padding-left: 35pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                    M. HADI WAWAN GUNTORO, S.STP., M.Si., CIPA
                 </p>
                 <p class="s4" style="padding-left: 35pt;/* padding-right: 49pt; *//* text-indent: 14pt; */line-height: 13pt;text-align: CENTER;">
                     Pembina Utama Muda <br>NIP. 19770323 199511 1 001

@@ -2,12 +2,12 @@
 <table cellspacing="0" style="border-collapse:collapse;margin-left:60.075pt; margin-top: -12px;">
     <tbody>
         <tr style="height:10pt">
-            <td style="width:80pt;border-bottom-style:solid;border-bottom-width:1pt">
+            <td style="width:96pt;border-bottom-style:solid;border-bottom-width:1pt">
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>
             </td>
-            <td style="width:80pt;border-bottom-style:solid;border-bottom-width:1pt">
+            <td style="width:96pt;border-bottom-style:solid;border-bottom-width:1pt">
                 <p style="text-indent: 0pt;text-align: left;">
                     <br/>
                 </p>
@@ -68,7 +68,7 @@
                     <br/> <br/>
                 </p>
                 <p class="s8" style="font-weight:normal; padding-left: 5.5pt; text-decoration:underline; text-indent: 0pt;line-height: 13pt;text-align: center;">
-                    M. HADI WAWAN GUNTORO, S.STP., M.Si., CIHCM., CIPA
+                    M. HADI WAWAN GUNTORO, S.STP., M.Si., CIPA
                 </p>
                 <p class="s4" style="padding-left: 91pt;padding-right: 49pt;text-indent: 14pt;line-height: 13pt;text-align: left;">
                     Pembina Utama Muda <BR>NIP. 19770323 199511 1 001
@@ -114,7 +114,7 @@
                 </p>
             </td>
             <td colspan="2" style="width:285pt;border-left-style:solid;border-left-width:1pt">
-                <p class="s4" style="padding-left: 99pt;text-indent: -50pt;line-height: 13pt;text-align: left;">
+                <p class="s4" style="padding-left: 91pt;text-indent: -50pt;line-height: 13pt;text-align: left;">
                     KEPALA SATUAN POLISI PAMONG PRAJA PROVINSI JAWA TIMUR
                 </p>
             </td>
@@ -137,7 +137,7 @@
                         {{ucwords(strtolower($keg->sub->paraf))}}
                     </p>
                 </td>
-                <td style="width:6pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p class="s7" style="text-indent: 0pt;text-align: center;">
                         {{ucwords(strtolower($keg->sub->paraf_kabid))}}
                     </p>
@@ -175,7 +175,7 @@
                     <br/> <br/>
                 </p>
                 <p class="s8" style="font-weight:normal; padding-left: 5.5pt; text-decoration:underline; text-indent: 0pt;line-height: 13pt;text-align: center;">
-                    M. HADI WAWAN GUNTORO, S.STP., M.Si.,CIHCM., CIPA
+                    M. HADI WAWAN GUNTORO, S.STP., M.Si., CIPA
                 </p>
                 <p class="s4" style="padding-left: 84pt;text-indent: 14pt;line-height: 13pt;text-align: left;">
                     Pembina Utama Muda <BR>NIP. 19770323 199511 1 001
