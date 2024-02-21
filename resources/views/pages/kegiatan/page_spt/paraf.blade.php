@@ -30,7 +30,7 @@
                 </p>
             </td>
             <td colspan="2" style="width:265pt;border-left-style:solid;border-left-width:1pt">
-                <p class="s4" style="padding-left: 103pt; text-indent: -50pt;line-height: 13pt;text-align: left;">
+                <p class="s4" style="padding-left: 86pt; text-indent: -50pt;line-height: 13pt;text-align: left;">
                     KEPALA SATUAN POLISI PAMONG PRAJA PROVINSI JAWA TIMUR
                 </p>
             </td>
@@ -70,7 +70,7 @@
                 <p class="s8" style="font-weight:normal; padding-left: 5.5pt; text-decoration:underline; text-indent: 0pt;line-height: 13pt;text-align: center;">
                     M. HADI WAWAN GUNTORO, S.STP., M.Si., CIPA
                 </p>
-                <p class="s4" style="padding-left: 91pt;padding-right: 49pt;text-indent: 14pt;line-height: 13pt;text-align: left;">
+                <p class="s4" style="padding-left: 74pt;text-indent: 14pt;line-height: 13pt;text-align: left;">
                     Pembina Utama Muda <BR>NIP. 19770323 199511 1 001
                 </p>
             </td>
