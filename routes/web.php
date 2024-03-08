@@ -275,6 +275,15 @@ Route::prefix('anggaran')->group(function(){
             Route::post('trantibum-grid','AnggaranLembaga\ReportController@trantibumGrid');
         /*===================END=======================*/
     });
+    Route::prefix('rekap')->group(function () {
+        Route::get('trantibum','AnggaranLembaga\Rekap\TrantibumController@index');
+        Route::get('kebakaran','AnggaranLembaga\Rekap\KebakaranController@index');
+        Route::get('nonkebakaran','AnggaranLembaga\Rekap\NonKebakaranController@index');
+        Route::get('pegawai','AnggaranLembaga\Rekap\PegawaiController@index');
+        Route::get('kasus','AnggaranLembaga\Rekap\KasusController@index');
+        Route::get('anggota-satlinmas','AnggaranLembaga\Rekap\AnggotaSatlinmasController@index');
+        Route::get('posko-satlinmas','AnggaranLembaga\Rekap\PoskoSatlinmasController@index');
+    });
 });
 
 Route::prefix('dokumentasi')->group(function () {
