@@ -216,12 +216,12 @@ class KegiatanController extends Controller
 
     public function datatable(Request $request){
 
-        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('id','>',0)->get();
+        $kegiatan = Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('id','>',0);
         if($request->bidang !== '-'):
-          $kegiatan =  Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('bidang',$request->bidang)->where('id','>',0)->get();
+          $kegiatan =  Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('bidang',$request->bidang)->where('id','>',0);
           if($request->bidang == 'saya'):
 
-          $kegiatan =  Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('created_by',Auth::user()->id)->where('id','>',0)->get();
+          $kegiatan =  Kegiatan::select('id','judul_kegiatan','spt', 'jenis_kegiatan', 'tanggal_mulai','tanggal_selesai', 'lokasi','kota','penanggung_jawab','is_barcode','created_by','hasil_kegiatan','is_batal')->where('created_by',Auth::user()->id)->where('id','>',0);
             endif;
         endif;
         return Datatables::of($kegiatan)

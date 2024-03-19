@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AnggaranLembaga;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Helpers;
 use App\Kota;
@@ -13,7 +14,9 @@ use App\FormKegiatan;
 use App\MasterKegiatan;
 use App\FormSarpras;
 use App\PenegakanPerda;
+use App\JenisKegiatan;
 use App\JenisPelanggaran;
+use App\User;
 use App\Kota as MasterKota;
 use Yajra\Datatables\Datatables;
 use App\Helpers\AliasName;
@@ -24,6 +27,11 @@ class ReportController extends Controller
     public function kelembagaanIndex(){
 
         return view('pages.anggaran-lembaga.report.kelembagaan');
+    }
+
+    public function rekap_keterisian(){
+
+        return view('pages.anggaran-lembaga.rekap.index');
     }
 
     /* khusus dinas */
@@ -108,13 +116,13 @@ class ReportController extends Controller
 
         $data = Kota::query();
         $data->select(
-            'master_kota.id', 'master_kota.nama as nama_kota', 'dat.total',
-            'dat.total_pria', 'dat.total_wanita'
+            'master_kota.id', 'master_kota.nama as nama_kota', 'dat.total', 'dat.total_dikukuhkan', 
+            'dat.total_pria', 'dat.total_wanita', 'dat.belum_dikukuhkan'
         );
         $data->leftJoin(DB::raw("
             (
                 SELECT
-                    anggota.kotaid, count(*) AS total, A.total_pria, B.total_wanita
+                    anggota.kotaid, count(*) AS total, A.total_pria, B.total_wanita, C.total_dikukuhkan, D.belum_dikukuhkan
                 FROM
                     anggota_satlinmas AS anggota
                 LEFT JOIN (
@@ -133,13 +141,28 @@ class ReportController extends Controller
                     WHERE jenis_kelamin = 'P'
                     GROUP BY kotaid
                 ) B ON B.kotaid = anggota.kotaid
+                LEFT JOIN (
+                    SELECT
+                        count(no_sk_pengukuhan) AS total_dikukuhkan, kotaid
+                    FROM
+                        anggota_satlinmas
+                    WHERE no_sk_pengukuhan IS NOT NULL
+                    GROUP BY kotaid
+                ) C ON C.kotaid = anggota.kotaid
+                LEFT JOIN (
+                    SELECT
+                        count(no_sk_pengukuhan) AS belum_dikukuhkan, kotaid
+                    FROM
+                        anggota_satlinmas
+                    WHERE no_sk_pengukuhan IS NULL
+                    GROUP BY kotaid
+                ) D ON D.kotaid = anggota.kotaid
                 GROUP BY anggota.kotaid
             ) as dat
         "), function($query){
             $query->on('dat.kotaid', '=', 'master_kota.id');
         });
         $data->groupBy('master_kota.id');
-
         return $data;
     }
 
@@ -171,7 +194,9 @@ class ReportController extends Controller
 
         $kota = Kota::orderBy('nama','asc')->get();
 
-        return view('pages.anggaran-lembaga.report.penegakan-perda', compact('dataColumn', 'total', 'kota'));
+        $kabkot = DB::SELECT("SELECT u.id,m.nama FROM users u INNER JOIN master_kota m ON u.kota = m.id WHERE u.`name` LIKE '%SATPOL PP%'");
+        $jenis_pelanggaran = JenisPelanggaran::orderBy('jenis_pelanggaran','asc')->get();
+        return view('pages.anggaran-lembaga.report.penegakan-perda', compact('dataColumn', 'total', 'kota','kabkot','jenis_pelanggaran'));
     }
 
     /* khusus Admin & Provinsi */
@@ -295,50 +320,19 @@ class ReportController extends Controller
 
         $kota = Kota::orderBy('nama','asc')->get();
 
-        return view('pages.anggaran-lembaga.report.trantibum', compact('dataColumn', 'total', 'kota'));
+        $kabkot = DB::SELECT("SELECT u.id,m.nama FROM users u INNER JOIN master_kota m ON u.kota = m.id WHERE u.`name` LIKE '%SATPOL PP%'");
+        $jenis_kegiatan = JenisKegiatan::orderBy('nama','asc')->get();
+        return view('pages.anggaran-lembaga.report.trantibum', compact('dataColumn', 'total', 'kota','kabkot','jenis_kegiatan'));
     }
 
     /* khusus Admin & Provinsi */
-    public function trantibumGrid(Request $request){
 
-        $query = FormKegiatan::queryReport();
-        if($request->kotaid){
-            $query->where('u.kota', $request->kotaid);
-        }
-        $query->groupBy('form_kegiatan.jenis_kegiatan', 'tanggal');
-        $query->orderBy('form_kegiatan.jenis_kegiatan');
-        $query->orderBy('form_kegiatan.tanggal_kegiatan', 'DESC');
-        $query = $query->get()->toArray();
-
-        $jenisKegiatan = [];
-        foreach($this->getListJenisKegiatan() as $jenis){
-            $jenis['nama_kegiatan'] = ucwords($jenis['nama_kegiatan']);
-            foreach(Helpers::listMonth() as $month){
-                $jenis[$month['number']] = '';
-            }
-            $jenisKegiatan[$jenis['nama_kegiatan']] = $jenis;
-        }
-
-        $tempData = [];
-        foreach($query as $que){
-            $que['jenis_kegiatan'] = ucwords($que['jenis_kegiatan']);
-            $monthOnly = date_format(date_create($que['tanggal']), 'm');
-            $tempData[$que['jenis_kegiatan']][$monthOnly] = $que['total'];
-        }
-
-        $data = [];
-        foreach($jenisKegiatan as $k_jenis => $j){
-            if(isset($tempData[$k_jenis])){
-                foreach($j as $k_j => $j_val){
-                    if(isset($tempData[$k_jenis][$k_j])){
-                        $j[$k_j] = $tempData[$k_jenis][$k_j];
-                    }
-                }
-            }
-            $data[] = $j;
-        }
-
-        return response()->json($data);
+    public function pegawaiIndex()
+    {
+        $total_bool = DB::SELECT("
+SELECT COUNT(is_struktural) AS struktural, COUNT(is_dasar_pp) AS diksar ,COUNT(is_ppns) AS ppns, COUNT(is_fungsional) AS fungsional FROM pegawai_kab WHERE kab_kota_id = 6");
+        $kabkot = DB::SELECT("SELECT u.kota,m.nama FROM users u INNER JOIN master_kota m ON u.kota = m.id WHERE u.`name` LIKE '%SATPOL PP%'");
+        return view('pages.anggaran-lembaga.report.pegawai',compact('kabkot'));
     }
 
     public function getListJenisKegiatan(){

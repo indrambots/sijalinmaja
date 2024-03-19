@@ -110,7 +110,7 @@ class KasusController extends Controller
         if(Auth::user()->level >= 11):
             $kasus = Kasus::where('id','>',0)->where('user_id',Auth::user()->id)->get();
         else:
-            $kasus = Kasus::select('id','tanggal_informasi','pelapor','no_telp_pelapor','nama_pelanggar','nik_pelanggar','alamat_pelanggar','lokasi_kejadian','kel_nama','kec_nama','status','judul','tanggal_informasi','deskripsi_kasus','kewenangan','keterangan_kewenangan')->where('id','>',0)->get();
+            $kasus = Kasus::select('id','tanggal_informasi','pelapor','no_telp_pelapor','nama_pelanggar','nik_pelanggar','alamat_pelanggar','lokasi_kejadian','kel_nama','kec_nama','status','judul','tanggal_informasi','deskripsi_kasus','kewenangan','keterangan_kewenangan')->where('id','>',0)->where('user_id','<',800)->get();
         endif;
         return Datatables::of($kasus)
         ->addColumn('aksi',function($i){

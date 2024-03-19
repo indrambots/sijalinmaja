@@ -113,7 +113,7 @@
 <script type="text/javascript">
     var datatable = $('#datatable').DataTable({
         processing: true,
-        serverSide: false,
+        serverSide: true,
         paging:true,
         ajax:  {
             "url": '{{ url('kegiatan/datatable') }}',

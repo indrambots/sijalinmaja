@@ -140,6 +140,16 @@
                     width: 130,
                 },
                 {
+                    caption: "Sudah Dikukuhkan",
+                    dataField: "total_dikukuhkan",
+                    width: 130,
+                },
+                {
+                    caption: "Belum Dikukuhkan",
+                    dataField: "belum_dikukuhkan",
+                    width: 130,
+                },
+                {
                     caption: "Total",
                     dataField: "total",
                     dataType: "string",

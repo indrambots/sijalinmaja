@@ -1,142 +1,76 @@
 @extends('layouts.app')
 
 @section('content')
-<ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold">
-    <li class="breadcrumb-item pe-3">
-        <a href="{{url('home')}}" class="pe-3">Dashboard</a>
-    </li>
-    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
-        <li class="breadcrumb-item pe-3">
-            <a href="{{url('anggaran')}}" class="pe-3">Data Kab/Kota</a>
-        </li>
-    @endif
-    <li class="breadcrumb-item px-3 text-muted">Laporan Penyelenggaraan Trantibum</li>
-</ol>
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="card-label"><h4>Laporan Penyelenggaraan Trantibum</h4></div>
-                <hr>
-                <input type="hidden" id="dataColumn" value="{{$dataColumn}}">
-                <form class="form" id="form">
-                    {{ csrf_field() }}
-                    <table width="40%">
-                        <tbody>
-                            <tr>
-                                <td>TOTAL TERBANYAK</td>
-                                <td>: <strong>{{$total->nama_kota}} ( {{$total->jenis_kegiatan}} : {{$total->total}} Kegiatan )</strong></td>
-                            </tr>
-                            <tr>
-                                <td>FILTER KAB/KOTA</td>
-                                <td>:
-                                    <select name="kotaid" class="form-control select2" onchange="requestData()" style="width:70%">
-                                        <option value="">--Semua--</option>
-                                        @foreach ($kota as $k)
-                                            <option value="{{$k->id}}">{{$k->nama}}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-                <div class="row mt-2">
-                    <div id="initGrid"></div>
-                </div>
+                <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-bold">
+                    <li class="breadcrumb-item pe-3">
+                        <a href="{{url('home')}}" class="pe-3">Dashboard</a>
+                    </li>
+                    @if(auth()->user()->level == AliasName::level_satpolpp || auth()->user()->level == AliasName::level_admin)
+                        <li class="breadcrumb-item pe-3">
+                            <a href="{{url('anggaran')}}" class="pe-3">Data Kab/Kota</a>
+                        </li>
+                    @endif
+                    <li class="breadcrumb-item px-3 text-muted">Laporan Penyelenggaraan Trantibum</li>
+                </ol>
             </div>
         </div>
     </div>
 </div>
+         <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-label"><h4>Laporan Penyelenggaraan Trantibum Se-Jawa Timur</h4></div>
+                        <hr>
+                        <div class="row mt-2">
+                            <div class="table-responsive">
+                              <table id="datatable" data-page-length="40" data-buttons="['excel','pdf']" class="table table-striped table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>Kabupaten/Kota</th>
+                                    @foreach($jenis_kegiatan as $j)
+                                    <th>{{$j->nama}}</th>
+                                    @endforeach
+                                    <th>Total</th>
+                                    <th>Terakhir Input</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($kabkot as $k)
+                                    <tr>
+                                        <td>{{$k->nama}}</td>
+                                        @foreach($jenis_kegiatan as $j)
+                                        <td>
+                                            <?php $giat = DB::SELECT("SELECT COUNT(*) AS total FROM form_kegiatan WHERE created_by = ".$k->id." AND jenis_kegiatan = '".$j->nama."' ORDER BY created_at DESC")[0];
+                                            ?>
+                                            {{$giat->total}}
+                                        </td>
+                                        @endforeach
+                                        <?php  $total_giat = DB::SELECT("SELECT COUNT(*) AS total, created_at FROM form_kegiatan WHERE created_by = ".$k->id." ORDER BY created_at DESC")[0]; ?>
+                                        <td>{{ $total_giat->total }}</td>
+                                        <td>{{ date("d F Y", strtotime($total_giat->created_at)) }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection
 @section('script')
 <script type="text/javascript">
+    var datatable = $('#datatable').DataTable({ })
     $(document).ready(function () {
-        requestData();
     })
 
-    function requestData(){
-        $.ajax({
-            type: "POST",
-            url: "{{ url('anggaran/report/trantibum-grid') }}",
-            dataType: "json",
-            data: $("#form").serialize(),
-            success: function (response) {
-                show_grid(response)
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(errorThrown)
-            }
-        });
-    }
+    
 
-    function show_grid(data) {
-        let dataColumn = JSON.parse($("#dataColumn").val());
-        var dataGrid = $("#initGrid").dxDataGrid({
-            dataSource: data,
-            height: 600,
-            paging: {
-                pageSize: 1000,
-            },
-            pager: {
-                visible: true,
-                showNavigationButtons: true,
-                showInfo: true,
-                showPageSizeSelector: true,
-                allowedPageSizes: [100, 250, 500, 1000]
-            },
-            filterRow: {
-                visible: true,
-                applyFilter: "auto"
-            },
-            headerFilter: {
-                visible: true
-            },
-            hoverStateEnabled: true,
-            groupPanel: {
-                visible: true
-            },
-            grouping: {
-                autoExpandAll: false
-            },
-            scrolling: {
-                rowRenderingMode: 'virtual'
-            },
-            columnAutoWidth: true,
-            width: '100%',
-            export: {
-                enabled: false,
-                fileName: "Laporan Penyelenggaraan Trantibum",
-                allowExportSelectedData: true
-            },
-            summary: {
-                totalItems: [{
-                    column: 'kota',
-                    summaryType: 'count',
-                    displayFormat: 'Total Data : {0}',
-                    showInColumn: 'kota',
-                }],
-            },
-            onToolbarPreparing: function (e) {
-                e.toolbarOptions.items.push({
-                    widget: 'dxButton',
-                    showText: 'always',
-                    options: {
-                        icon: 'export',
-                        onClick: function () {
-                            e.component.exportToExcel(false);
-                        }
-                    },
-                    location: 'after'
-                });
-            },
-            allowColumnReordering: true,
-            allowColumnResizing: true,
-            showBorders: true,
-            wordWrapEnabled: true,
-            columns: dataColumn,
-        }).dxDataGrid("instance");
-        return dataGrid;
-    }
 </script>
 @endsection

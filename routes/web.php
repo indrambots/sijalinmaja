@@ -271,18 +271,12 @@ Route::prefix('anggaran')->group(function(){
             Route::post('sarpras-grid','AnggaranLembaga\ReportController@sarprasGrid');
             Route::post('sarpras/detail','AnggaranLembaga\ReportController@sarprasDetail');
 
+            Route::get('pegawai-kab','AnggaranLembaga\ReportController@pegawaiIndex');
+
             Route::get('trantibum','AnggaranLembaga\ReportController@trantibumIndex');
+            Route::get('trantibum-jatim-grid','AnggaranLembaga\ReportController@trantibumJatimGrid');
             Route::post('trantibum-grid','AnggaranLembaga\ReportController@trantibumGrid');
         /*===================END=======================*/
-    });
-    Route::prefix('rekap')->group(function () {
-        Route::get('trantibum','AnggaranLembaga\Rekap\TrantibumController@index');
-        Route::get('kebakaran','AnggaranLembaga\Rekap\KebakaranController@index');
-        Route::get('nonkebakaran','AnggaranLembaga\Rekap\NonKebakaranController@index');
-        Route::get('pegawai','AnggaranLembaga\Rekap\PegawaiController@index');
-        Route::get('kasus','AnggaranLembaga\Rekap\KasusController@index');
-        Route::get('anggota-satlinmas','AnggaranLembaga\Rekap\AnggotaSatlinmasController@index');
-        Route::get('posko-satlinmas','AnggaranLembaga\Rekap\PoskoSatlinmasController@index');
     });
 });
 
