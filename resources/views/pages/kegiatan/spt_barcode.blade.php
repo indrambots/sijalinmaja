@@ -788,8 +788,7 @@
             </td>
         </tr>
         </table>
-
-{{-- <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -17.5px;">
+<table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -17.5px;">
     <tbody>
         <tr style="height:10pt">
             <td colspan="4" style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt; border-color:white;">
@@ -840,8 +839,8 @@
             </td>
         </tr>
     </tbody>
-</table> --}}
-<table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -12px;">
+</table>
+{{-- <table cellspacing="0" style="border-collapse:collapse;margin-left:35.075pt; margin-top: -12px;">
     <tbody>
         <tr style="height:10pt">
             <td colspan="4" style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt; border-color:white;">
@@ -887,7 +886,8 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table> --}}
+
         {{-- <p style="padding-top: 4pt;padding-left: 322pt;text-indent: 0pt;text-align: left;">
             Ditetapkan di : Surabaya<br>
             <b style="border-bottom:2px solid black">
@@ -915,7 +915,7 @@
             </span>
         </p> --}}
 
-                <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:fixed; bottom: 25px;" />
+                {{-- <img alt="image" height="55" src="{{asset('media/bg/Image_003.jpg')}}" width="700" style="position:fixed; bottom: 25px;" /> --}}
     </div>
     @if(count($keg->personel) > 2)
 
